@@ -84,7 +84,41 @@ PD-005, on which its Check content depends.**
 | Plan step 8 (CPOC journey specification) and step 9 (responsibility graph) | Not written; may be bounded to the two proofs' scope for CV-1 |
 | Independent audit of the whole draft | Not performed; required before admission by the Principal's sequence |
 
-## 6. Admission recommendation
+## 6. Revision 2 note (2026-10-19)
+
+D-12 moved to [PD-008](../decisions/principal_decision_008_research_budget_reservation.md)
+after the Principal rejected reservation by derivation. Findings P7-8
+to P7-10 and residual P7-R2 are superseded by the PD-008 audit; `P-1`'s
+condition (b) now reads a committed `RESERVATION`; the two delegated
+rights are stated exactly with the rule that neither widens a budget or
+Authorization. Disposition unchanged: B+, bounded, dependent on PD-008
+and on PD-005 (now admitted, so that dependency is met).
+
+## 7. Readiness review against admitted PD-008 (2026-10-19)
+
+Subject: PD-007 revision 2, unchanged, read against Constitution
+revision 8 and the Principal's standing direction that execution
+infrastructure is reused where suitable (Part IX principle 10; the
+noted constraint on runtimes and workflow engines).
+
+| Check | Finding |
+| --- | --- |
+| `P-1` condition (b): "declared research budget covered by a `RESERVATION` the proposer committed before the Check, named in the proposal, open at Apply" | CONSISTENT. Under revision 8 a reservation is open only below any fence and before expiry; a fenced or expired reservation is closed, so `P-1` admits nothing under a fenced Authorization whether or not its revocation has applied. Part V's Hypothesis registration row now says the same ("covered by a named open `RESERVATION` below any fence") |
+| Check record item 4, "within the proposer's Authorization and budget" | CONSISTENT, with one wording gap: PD-007.1 still says the Checker reads "available and the cited reservation"; revision 8's term is "remaining spendable budget" and the Checker should also observe that no fence precedes the reservation. **Inconsistency I-1 (wording only):** align the Check record's budget line to "remaining spendable budget; the cited `RESERVATION` open, below any fence, with purpose pending registration of this Transition" |
+| PD-007.3 dependency table and the ten-agent example, days 1 and 2 | CONSISTENT with PD-008 rules 1, 2 and 8; the example's `CAP_EXCEEDED` refusal and reservations match revision 8 |
+| Escalation on `OVERSPENT` | CONSISTENT: revision 8 refuses every new reservation and attempt under an `OVERSPENT` Authorization; PD-007's rule that proposals under it `STOP` follows |
+| `P-1` and the fence | `P-1` is not named for `FENCE`; Part V restricts the kind to the Principal. CONSISTENT. **Inconsistency I-2 (omission):** PD-007.2's reservation list names "Authorization grant, amendment and revocation" but not the funding stop; add "committing a `FENCE`" to the list reserved to the Principal so that the policy text and Part V agree on their face |
+| D-10 and the fence at Check | PD-007.1's Check record form lists per-class observations by Part V's Check columns; revision 8 adds to the revocation row "a prior `FENCE` naming it exists". The form picks it up by reference. CONSISTENT; no text change needed |
+| Reuse of execution infrastructure | PD-007 names no runtime, scheduler, queue or framework and defines the Check record, `P-1` and their refusals as ledger facts and boundary rules only; a Checker Agent Design and a policy are expressible on any execution substrate that preserves the Evidence and Transition boundaries. CONSISTENT with principle 10 and the Principal's constraint; nothing in PD-007 would force custom infrastructure |
+| Dependency on PD-008 | MET |
+
+**Readiness finding.** PD-007 revision 2 is ready for the Principal's
+decision subject to two concrete, wording-level inconsistencies, I-1
+and I-2 above, neither of which changes its delta. They can be fixed in
+a revision 3 of one paragraph each, or accepted as clarifications on
+admission. No scope was expanded and no framework was selected.
+
+## 8. Admission recommendation
 
 PD-007 is coherent against revision 5, declares its one authority
 change explicitly and revocably, makes independence a matter of
@@ -94,7 +128,7 @@ function, and prevents concurrent overspend without a queue. Recommend
 the Principal decide it after PD-005, since its Check content cites
 `ES-1`'s requirements.
 
-## 7. What this audit does not establish
+## 9. What this audit does not establish
 
 That any Checker will catch what matters, that `P-1`'s conditions are
 the right ones for a second policy, or that ten agents will produce

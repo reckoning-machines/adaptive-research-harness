@@ -3,7 +3,21 @@
 Status: **DRAFT PRODUCT DOCTRINE — NOT ADMITTED. Document-first design.
 Authorizes no implementation.**
 
-Date: 2026-10-18. Revision 5 (2026-10-19): applies
+Date: 2026-10-18. Revision 8 (2026-10-19): applies
+[Principal Decision Record 008](../decisions/principal_decision_008_research_budget_reservation.md)
+(admitted 2026-10-19, document-phase, revision 4) for research budget
+reservation, attempts and settlement, the `FENCE` funding stop, and the
+Principal's narrow funding-stop right; closes D-12. Revision 7
+(2026-10-19) applied
+[Principal Decision Record 006](../decisions/principal_decision_006_replaceable_tools_and_first_prototype.md)
+(admitted 2026-10-19, document-phase, revision 2) for Part IX principle
+10, the content of Historical Reconstruction research records, and the
+rule that reconstruction and synthetic data never become prospective
+evidence. Revision 6 (2026-10-19) applied
+[Principal Decision Record 005](../decisions/principal_decision_005_es1_evaluation_standard.md)
+(admitted 2026-10-19 as a document-phase admission, revision 3 with the
+cost clarification) for Evaluation Standard `ES-1.0`, carried as Part X;
+closes U-6, FR-6, FR-8, FR-9, UD-11, UD-12. Revision 5 (2026-10-19) applied
 [Principal Decision Record 004](../decisions/principal_decision_004_exploratory_capital_standings.md)
 (admitted 2026-10-19, revision 3 with the internal-simulator
 clarification) for capital standings, exploratory expiry, the admission
@@ -263,7 +277,11 @@ A testable proposition about market behavior.
   the motivation closure, and no Observation with sequence below a
   Prediction's commitment, may be a member of that Prediction's
   resolution set.** Formation evidence never tests; standing is built only
-  from Outcomes. Registration carries a selection basis as for a Theme.
+  from Outcomes. Registration carries a selection basis as for a Theme
+  and the Hypothesis's initial **method commitment** (Part X §3): the
+  scoring rule, the effective-observation method and the
+  predictive-check method, each a versioned artifact with hash and
+  declared constants.
 - **Document-sourced resolution** (PD-003.3). A resolution-set member may
   be a field in a document only when, fixed at commitment: the `SourceId`
   is a declared document source or feed under an Observation
@@ -354,9 +372,19 @@ Three identities, deliberately separated:
   with its declared basis or `UNESTIMATED` with the reason; cost and
   time estimates or `UNESTIMATED`; horizon and stopping rule; and its
   origin. The Checker verifies the cited alternatives and trials are in
-  the family. A cited Hypothesis or `motivated_by` reference transfers no
-  standing; whether the mechanism field is immutable as declared when its
-  explanation is contradicted is open (audit FR-6).
+  the family. Registration carries the version's initial **method
+  commitment** (Part X §3): the effective-observation and multiplicity
+  methods, the **cost model and cost-sensitivity method**, the
+  predictive-check method with its thresholds, and the stress-set
+  version with its calibration method. A cited Hypothesis or
+  `motivated_by` reference transfers no standing. **Explanatory
+  standing** of a Strategy Version is `DERIVED` from the standing of
+  the Hypotheses it cites: `MECHANISM_UNTESTED`, `MECHANISM_SUPPORTED`
+  or `MECHANISM_CONTRADICTED`; the mechanism field itself stays
+  immutable as declared, a contradiction changes no evidentiary minimum
+  and sets `Investigate` under Part X (PD-005; closes audit FR-6). The
+  earlier question whether the mechanism field is immutable when its
+  explanation is contradicted is thereby closed.
 - **Competes for capital.** Capital is allocated to exact Strategy
   Versions by Allocation Transitions, within the limits in force in the
   Applied History.
@@ -425,7 +453,10 @@ agents.
   under an ordinary Research Authorization: it proposes and never funds
   or admits, its choices are `SELECTION` Research Records, and it is
   replaced by an Authorization act. Selection is optional; a lineage may
-  select by no declared method and cite its origin directly.
+  select by no declared method and cite its origin directly. An Agent
+  Design Version is evaluated by its method class under Part X §4
+  (PD-005; closes audit FR-9), and its registration carries the
+  contribution measure as its initial method commitment.
 - **Provenance.** Registration declares the provider model and its
   training cutoff (PD-002.6). This is a provenance fact recorded so that
   an Evaluation Standard can describe Historical Reconstruction honestly.
@@ -436,7 +467,8 @@ agents.
   no rights. Rights come only from an Authorization granted by the
   Principal. **An agent may write a successor agent but may not grant that
   successor any authority, and may not redefine the standard by which
-  either is evaluated.** A successor runs under no Authorization until the
+  either is evaluated.** A successor inherits no research reservation
+  (PD-008). A successor runs under no Authorization until the
   Principal grants one.
 - **Competes on research contribution.** Agent Design Versions are ranked
   under the Evaluation Standard by the admitted, forward-resolved research
@@ -478,8 +510,8 @@ clock, a prior read or a previously committed timestamp.
 | **Outcome** | Exactly one Prediction; exactly one **bound observation set**: for each member of the resolution set, the sequence of the `VALUE` Observation of that member's declared print; the pinned `SourceRevision` of each; the rule hash; the computed value; **outcome availability time** = the witnessed receipt of the last member bound | What happened, resolved by re-applying the rule to the bound set. Recomputable by any reader. Immutable; a later restatement is a new Market Observation and never alters it. `UNRESOLVABLE`, with the missing member named, when a member has no `VALUE` by the Standard's deadline |
 | **Market Observation** | A `SourceId` and `SourceRevision` (§III.7); an instrument or field; a period; a print; a result `VALUE`, `ABSENT`, `NOT_EXTRACTABLE` or `RETRIEVAL_FAILED`; the value where present; the **claimed source time** (`RECEIPT` content; informs, establishes nothing); the **witnessed receipt time** and sequence by the Evidence clock. **`DOCUMENT` form** (PD-003.2): locator, content hash of the exact bytes, stored bytes addressed by hash, claimed publication time, and for feed items the feed `SourceId`, slot and absence witness; for hop retrievals the requesting Authorization and the hop chain. **Feed retrieval record**: an Observation of the feed itself with result `COMPLETE`, `PARTIAL` or `RETRIEVAL_FAILED` | A `RECEIPT` of what the declared source returned and when the system held it. `ABSENT` is a retrieval result: the function could not retrieve the value then; it is not a statement about the market. `NOT_EXTRACTABLE`: the pinned extraction rule yielded no value from the bytes. `RETRIEVAL_FAILED` and `PARTIAL` establish nothing about absence |
 | **Strategy Decision** | Exactly one `StrategyVersionId`; a `DecisionEventId`; an **input closure**; **commit-time witness marks**; an output; a content hash; a **commitment time** and sequence by the Evidence clock | The committed output of executing one Strategy Version for one decision event against one closure (rules below). Committed only by the Strategy Runner |
-| **Research Record** | An `AgentDesignVersionId`, an Authorization, budget consumed, the question, the result including negative, inconclusive or abandoned; a **closure** (Observations and Research Records read, by sequence; the `StateVersion` read); **typed claims** (`REPORTED` citing a `DOCUMENT` Observation and a location; `INTERPRETATION` citing the `REPORTED` claims it rests on; `ASSUMPTION`, declared; `QUESTION`; `PREDICTION_REF`); an optional `SearchFamily` label; a kind among plain, `SCREEN` (a feed item's sequence and a disposition `CANDIDATE`, `DEFERRED` or `REJECTED` with reason), `EXPERIMENT DESIGN` (names a resolution set; precedes every Prediction over it) and `SELECTION` (method, closure, every candidate with estimates or `UNESTIMATED`, the chosen subset linked to proposing Transitions, every rejection with reason, a revisit rule) | What was learned, including what did not work, what was read, and what was rejected. A claim citing bytes outside the closure is unsupported on its face |
-| **Evaluation** | A set of Evidence records; an `EvaluationStandardVersion`; a **closure** (`E`, `N`, `F`, below) | A `DERIVED` assessment; recomputable; never authoritative for standing by itself. **Reproduction records** are Evaluation-kind records naming a Strategy Decision, the reproducing party and its Checker Authorization, the obtained hash, and match or divergence |
+| **Research Record** | An `AgentDesignVersionId`, an Authorization, budget consumed, the question, the result including negative, inconclusive or abandoned; a **closure** (Observations and Research Records read, by sequence; the `StateVersion` read); **typed claims** (`REPORTED` citing a `DOCUMENT` Observation and a location; `INTERPRETATION` citing the `REPORTED` claims it rests on; `ASSUMPTION`, declared; `QUESTION`; `PREDICTION_REF`); an optional `SearchFamily` label; a kind among plain, `SCREEN` (a feed item's sequence and a disposition `CANDIDATE`, `DEFERRED` or `REJECTED` with reason), `EXPERIMENT DESIGN` (names a resolution set and precedes every Prediction over it; or names a subject's **method commitment** for a forward window and precedes every scored event of that window, Part X §3) and `SELECTION` (method, closure, every candidate with estimates or `UNESTIMATED`, the chosen subset linked to proposing Transitions, every rejection with reason, a revisit rule) | What was learned, including what did not work, what was read, and what was rejected. A claim citing bytes outside the closure is unsupported on its face. A record of a Historical Reconstruction run (a backtest or replay) identifies the exact dataset or snapshot by identity and content hash, the source cutoff beyond which nothing was read, every parameter, the tool's version and content hash, and a reproducibility binding under which a second run yields the same result hash (PD-006); the tool owns none of these facts |
+| **Evaluation** | A set of Evidence records; an `EvaluationStandardVersion`; a **closure** (`E`, `N`, `F`, below); under `ES-1.0`, the ten requirements of Part X §2 with every inapplicable one marked `N/A` for the population, the method versions used with their hashes and commitment sequences, and one primary outcome | A `DERIVED` assessment; recomputable; never authoritative for standing by itself. **Reproduction records** are Evaluation-kind records naming a Strategy Decision, the reproducing party and its Checker Authorization, the obtained hash, and match or divergence |
 
 **Strategy Decisions** (PD-002.1, PD-002.4).
 
@@ -565,6 +597,65 @@ clock, a prior read or a previously committed timestamp.
   citing them), and estimate error or its absence (`SELECTION OUTCOME`,
   a `DERIVED` Evaluation under `ES-1`).
 
+**Research budget reservation, attempts, settlement and the funding
+stop** (PD-008). Research resources are authorized and reserved before
+consequential consumption begins. Two further Research Record kinds
+exist:
+
+- **`RESERVATION`**: committed by the grantee under its Research
+  Authorization; names the Authorization, the grantee, an amount in
+  units, a purpose (an active Theme, a `SearchFamily` in the
+  Authorization's empirical or discovery scope, or a named pending
+  registration) and an expiry instant on the Evidence clock. Admitted
+  only if no `FENCE` for the Authorization has a lower sequence, the
+  remaining spendable budget covers the amount, the per-grantee cap
+  holds, and the Authorization is active at the Applied History head
+  the boundary reads; otherwise refused `FENCED`, `BUDGET_EXCEEDED`,
+  `CAP_EXCEEDED` or `AUTHORIZATION_INACTIVE`, preserved. Serialized by
+  Evidence sequence, so two agents cannot reserve the same unit.
+- **`FENCE`**: committable only under the Principal's authority; names
+  an Authorization. At its sequence it stops funding: every reservation
+  under the Authorization is closed, never-attempted allowance is
+  released to a grant that can no longer be reserved, `PENDING`
+  attempts remain liabilities at their maxima until settled, attempts
+  admitted below the fence may dispatch and settle, and every later
+  reservation or attempt is refused `FENCED` by the same serialized
+  boundary. A fence is never removed; funding under a fenced
+  Authorization resumes only through a successor Authorization the
+  Principal grants by Transition. A fence without its revocation
+  Transition is an effective funding stop ("active, fenced").
+- **Attempt.** Before a consequential call or metered run, the grantee
+  commits a Research Record naming an open reservation, a deterministic
+  attempt identity (reservation, step, input hash, dispatch index) and
+  an estimated maximum in units, standing `PENDING`; admitted only below
+  any fence, within the reservation's remaining allowance, and with no
+  attempt of the same identity (`FENCED`, `NO_RESERVATION`,
+  `ALLOWANCE_EXCEEDED`, `RESERVATION_EXPIRED`, `DUPLICATE_ATTEMPT`).
+  Consumption recorded without an attempt is refused. A retry is a new
+  dispatch index with its own pre-record; exactly-once external
+  execution is never claimed unless the Authorization names an
+  enforceable provider mechanism.
+- **Settlement.** Always admitted for a `PENDING` attempt, including
+  after expiry, fence or revocation, by the grantee under its
+  Authorization or by the Principal, with provenance (the provider's
+  record, an invoice recorded as a `DOCUMENT` Observation, or
+  `UNKNOWN`, which settles at the maximum). An actual above the maximum
+  is an overrun, settled and counted in full. A reservation closes by a
+  `CLOSED` record, by its expiry read at any later commit, by a fence,
+  or at the Apply of a revocation; closing releases only never-attempted
+  allowance.
+- **Five states, `DERIVED`, none counted twice**: reserved allowance
+  (open reservations' unattempted amounts); attempted-unsettled
+  (`PENDING` maxima, in open or closed reservations); settled
+  consumption; released allowance; remaining spendable budget (grant
+  minus the first three). When settled consumption exceeds the grant
+  the Authorization is `OVERSPENT`, and every new reservation and attempt
+  under it is refused until the Principal acts.
+- **Guarantees.** Metered units and provider-enforced caps support
+  ceilings; uncapped provider charges support admission against
+  estimates and full overrun accounting, and no ceiling. The
+  Authorization declares the tier of each permitted provider or tool.
+
 **The availability interval and the three times** (PD-001.3, PD-002.2).
 Every prospective claim rests on three times.
 
@@ -584,7 +675,13 @@ Every prospective claim rests on three times.
   the proposer which class applies. A target window with any part
   available at commitment is Historical Reconstruction in full. Reports
   show the two classes separately and never sum them. Reproduction
-  standing is orthogonal to class and is not a third class.
+  standing is orthogonal to class and is not a third class. Historical
+  Reconstruction, including replay with data revealed sequentially, and
+  any run on synthetic data, can reject a research candidate and
+  motivate succession; it establishes no prospective contradiction and
+  no fitness, and a candidate set aside on it is *rejected* or
+  *abandoned*, never `CONTRADICTED` (PD-006). Synthetic data tests
+  system behavior and is never prospective market evidence.
 - **Evidence does not transfer.** Forward record is bound to the exact
   `HypothesisId` or `StrategyVersionId`. A successor begins at zero;
   lineage never automatically transfers evidence, fitness or capital
@@ -618,10 +715,14 @@ Admitted by PD-001.
   Authorizations; capital and allocation budget consumption; the current
   `ConstitutionVersion` and `EvaluationStandardVersion`. Research resource
   consumption is **not** an Applied History fact: it is owned by Research
-  Records on the Evidence ledger, and remaining research budget is
-  `DERIVED` from the Authorization grant minus those records. Capital and
+  Records on the Evidence ledger, reserved before consumption and
+  settled after it (§III.5, PD-008), and the five budget states are
+  `DERIVED` from the Authorization grant and those records. Capital and
   allocation budgets are consumed at admission; research resources are
-  consumed during execution (Principal direction on D-12; mechanism open).
+  reserved and attempted before execution and settled after it (D-12,
+  closed). **Funding stopped** (a `FENCE` on the Evidence ledger) and
+  **revoked** (a Transition applied here) are distinct facts with
+  distinct owners; the fence is what orders funding against revocation.
 - **Pinning.** Every applied Transition records the `ConstitutionVersion`
   and `EvaluationStandardVersion` in force at its Apply. Projection and
   replay interpret each Transition under its pinned versions. A later
@@ -685,7 +786,11 @@ Who may change what, within which budgets.
   the feed `SourceId`s the holder may screen; a **fixed grant** of
   research units consumable on Research Records attributed to no Theme;
   follow-up caps within the hop rule; and the expected screening cadence
-  per feed. A Runner Authorization
+  per feed. A Research Authorization's grant is stated in **units**,
+  with the estimation rule converting each permitted provider's or
+  tool's metered quantity into units, the guarantee tier of each,
+  whether uncapped calls are permitted, an optional per-grantee cap,
+  and a default reservation expiry (PD-008). A Runner Authorization
   names the Strategy Versions it runs by standing rule (every admitted
   version, or a named subset). An Execution Authorization names the
   **fill rule** of the internal simulator (plan step 7; Principal
@@ -723,14 +828,22 @@ Who may change what, within which budgets.
   ceiling. Capital and allocation consumption is owned by the Applied
   History, where each applied Transition records what it consumed at
   admission. Research resource consumption is owned by Research Records on
-  the Evidence ledger, recorded as the work is done. Remaining budget of
-  either kind is `DERIVED` and has no carrier of its own.
+  the Evidence ledger, reserved before the work and settled after it
+  (§III.5). Remaining budget of either kind is `DERIVED` and has no
+  carrier of its own. A Transition revoking a Research Authorization, or
+  superseding it with a different grant or scope, requires a prior
+  `FENCE` naming it, verified at Check and refused at Apply without one;
+  the Apply records standing, the fence stopped funding.
 - **Authority.** Only the Principal grants. **No Authorization may grant
   the right to grant.** An Agent Design Version therefore can never hold or
   convey authority over authority. No Research or Checker Authorization
   includes the right to commit a Market Observation or a Strategy
   Decision; no Observation, Runner or Execution Authorization includes
-  the right to propose or check a Transition.
+  the right to propose or check a Transition. **The Principal alone may
+  commit a `FENCE`**, stopping funding under a Research Authorization
+  with no Check and no Apply (PD-008 `ΔA`): an explicit exception that
+  can only stop funding, never grant, widen or resume it, and that
+  leaves every requirement of the Evidence boundary in force.
 - **Invariant.** A Transition proposed, or an Evidence or Paper Book
   record committed, outside the caller's Authorization is refused at the
   commit boundary, and a Transition that reaches Apply is refused there
@@ -803,7 +916,9 @@ system. This document is its first draft.
   the standard under which it or its outputs are measured. An Evaluation
   always records the `EvaluationStandardVersion` it used, so a changed
   standard produces a visibly different Evaluation rather than a silently
-  improved score.
+  improved score. The first Standard, `ES-1.0`, is Part X (PD-005). Its
+  requirements are constitutional; the statistical methods that satisfy
+  them are not, and are committed per subject under Part X §3.
 
 ### 10. Paper Book
 
@@ -1084,15 +1199,17 @@ grounds nothing.
 | Strategy Decision commit | Evidence ledger | The Strategy Runner only, under a Runner Authorization, for admitted Strategy Versions on their declared triggers | None (ordinary); one per `DecisionEventId` enforced | Commit boundary | `0/0/0` |
 | Reproduction record commit | Evidence ledger | A Checker under a Checker Authorization, never the Runner or the proposer (sufficiency: audit D-10) | None (ordinary) | Commit boundary | `0/0/0` |
 | Other Evidence commit (Prediction, Outcome, Research Record, other Evaluation) | Evidence ledger | Any authorized agent or human under its Authorization. Outcome committer as drafted pending PD-002 U-10 | None (ordinary) | Commit boundary | `0/0/0` |
+| `RESERVATION` and attempt commit | Evidence ledger | The grantee under its Research Authorization | None (ordinary); fence, budget, cap, allowance and identity rules enforced by sequence (§III.5) | Commit boundary | `0/0/0` |
+| `FENCE` commit | Evidence ledger | The Principal only | None (ordinary); the Principal's funding-stop exception (PD-008 `ΔA`) | Commit boundary | `0/0/0` |
 | Theme registration or retirement | Applied History: membership | Research Agent or Principal | Checker (motivation closure within the proposer's scopes; typed claims; selection basis complete; successor cites predecessor) | Principal | `0/0/0` |
-| Hypothesis registration | Applied History: membership | Research Agent | Checker (testability; resolution rule and set; sources active at base; motivation closure disjoint from resolution sets; document-sourced members under §III.2's conditions; selection basis; not a restatement of a contradicted Hypothesis; budget) | Principal or admitted policy | `0/0/0` |
-| Hypothesis standing change | Applied History: standing | Authorized agent or Principal, citing an Evaluation by `StateVersion` and `EvaluationStandardVersion` | Checker | Principal or admitted policy | `0/0/0` |
+| Hypothesis registration | Applied History: membership | Research Agent | Checker (testability; resolution rule and set; sources active at base; motivation closure disjoint from resolution sets; document-sourced members under §III.2's conditions; selection basis; not a restatement of a contradicted Hypothesis; budget covered by a named open `RESERVATION` below any fence) | Principal or admitted policy | `0/0/0` |
+| Hypothesis standing change | Applied History: standing | Authorized agent or Principal, citing an Evaluation by `StateVersion` and `EvaluationStandardVersion` | Checker (Part X conformance: grounding on forward Outcomes only; `N_eff` floor by the committed method with its commitment sequence below the window; family reconciliation; output against the registered falsifier and stopping rule; methods pinned and changes disclosed) | Principal or admitted policy | `0/0/0` |
 | Strategy Version registration | Applied History: membership | Research Agent | Checker (executability; declared inputs and trigger; `SourceId`s under an Observation Authorization active at base; reproducibility class by test execution; scoring rule exists in the Standard; proposition delta; continuity claim) | Principal or admitted policy | `0/0/0` |
-| Allocation | Applied History: allocation, capital standing and limit consumption. Content: purpose (`EXPLORATORY`, `QUALIFIED`); for `EXPLORATORY`, the measurement purpose, `expiry_time`, optional `quota_events`, instruction (`FLATTEN` default; `HOLD` with reason, `hold_expiry_time`, exit conditions; optional `FLATTEN_ON_QUOTA`); for `QUALIFIED`, the cited Evaluation | Research Agent within capital Authorization, or Principal | Checker (composition legality; for `EXPLORATORY`: pool capacity, cap, purpose, expiry and instruction stated, no performance Evaluation cited; for `QUALIFIED`: Evaluation under the Standard at base, grounding series the forward decision-implied record, no exploratory figure in it) | Principal or admitted policy | `0/0/0` |
+| Allocation | Applied History: allocation, capital standing and limit consumption. Content: purpose (`EXPLORATORY`, `QUALIFIED`); for `EXPLORATORY`, the measurement purpose, `expiry_time`, optional `quota_events`, instruction (`FLATTEN` default; `HOLD` with reason, `hold_expiry_time`, exit conditions; optional `FLATTEN_ON_QUOTA`); for `QUALIFIED`, the cited Evaluation | Research Agent within capital Authorization, or Principal | Checker (composition legality; for `EXPLORATORY`: pool capacity, cap, purpose, expiry and instruction stated, no performance Evaluation cited; for `QUALIFIED`: Evaluation under the Standard at base, grounding series the forward decision-implied record, no exploratory figure in it, and Part X conformance: `N_eff` floor by the committed method; family reconciliation; cost model and sensitivity method committed before the window and checked against market evidence with modelled impact and simulated fills distinguished; gross, model-net, break-even and scenario results present; stress floor met or `NOT ASSESSABLE` refused; allocation at or below `a*`; every grounding Decision `REPRODUCED`) | Principal or admitted policy | `0/0/0` |
 | Standing Transition after expiry | Applied History: allocation to zero, standing `INCUBATING` | Principal or admitted policy | Checker (the expiry set, refusals, cancels, confirmations and residual as derived) | Principal or admitted policy | `0/0/0` |
-| Retirement or supersession | Applied History: standing | Any authorized | Checker | Principal or admitted policy | `0/0/0` |
+| Retirement or supersession | Applied History: standing | Any authorized | Checker (where an Evaluation is cited: Part X conformance; the subject's declared stopping rule or falsifier) | Principal or admitted policy | `0/0/0` |
 | Agent Design Version registration | Applied History: membership | Research Agent or Principal | Checker, never in proposer's lineage | Principal | `0/0/0` |
-| Authorization grant, amend, revoke | Active Authorizations | Principal only | Checker | Principal | `0/0/0` unless the Authorization itself carries a non-zero constitutional budget, which only the Principal may set |
+| Authorization grant, amend, revoke | Active Authorizations | Principal only | Checker (for revocation or supersession of a Research Authorization: a prior `FENCE` naming it exists) | Principal | `0/0/0` unless the Authorization itself carries a non-zero constitutional budget, which only the Principal may set |
 | Constitutional Transition | Constitution, Evaluation Standards | Principal (agents may only propose; proposal is STOPPED until decided) | Checker | Principal | Declared `ΔO/ΔS/ΔA`, non-zero permitted |
 | Order, Replace, Cancel, Fill and Fill Confirmation commit | Paper Book | The Execution function only, under an Execution Authorization, on committed Decisions or on the expiry instants of applied allocations established by a clock read; each set keyed to an applied Allocation Transition, a `StateVersion` and a Decision or `EXPIRY`; fills proposed by the fill rule; confirmations committed by the boundary on the function's call with a read after the fill's commit | None (ordinary); the boundary's admission rules (§III.10), pre-witness on every record, post-witness on every confirmation; set, order and confirmation idempotency enforced | Commit boundary | `0/0/0` |
 
@@ -1193,6 +1310,8 @@ Everything that can carry a governed fact, classified relative to that fact.
 | Materialized Population State at N | `DERIVED` or `CACHE` | `StateVersion` N and the pinned versions it was built under | Cannot select currentness, cannot be fallback, discarded when not reproducible |
 | Evidence ledger | `AUTHORITATIVE` for Evidence | Itself | None |
 | Evaluation / ranking | `DERIVED` | Evidence set, `EvaluationStandardVersion`, `StateVersion` | Cannot change standing, cannot decide admission |
+| Evaluation outcome; `N_eff`; `a*`; explanatory standing; family counts; reservation-free remaining research budget | `DERIVED` under Part X | The Evaluation's closure and committed methods; the Hypotheses cited; the Applied History head | No vote; a score grants nothing |
+| Method commitment | Registration content (Transition ledger) or `EXPERIMENT DESIGN` Research Record (Evidence ledger): `AUTHORITATIVE` for which methods govern a window | The subject and the window's first scored event | A later method governs later windows only; recomputation is sensitivity |
 | Agent working memory, scratch, branches | `EPHEMERAL` | The Authorization and base state the agent read | Cannot establish any governed fact |
 | Candidate (proposed, unchecked) object | Lifecycle standing *candidate*; its content is `AUTHORITATIVE` only for "what was proposed" via the Transition record | `TransitionId` | No authority over the target admitted fact |
 | Market data store | `CACHE` (re-fetchable vendor data) | Source, instrument, as-of | Cannot resolve a Prediction; cannot answer what the system believed |
@@ -1205,6 +1324,8 @@ Everything that can carry a governed fact, classified relative to that fact.
 | Reproduction record (Evidence ledger) | Evaluation-kind, committed under a Checker Authorization | The Decision | Standing derived from the set; no single record decides |
 | Decision-implied and executed records; shortfall | `DERIVED` | Decisions, Observations, fills, `EvaluationStandardVersion`, closure | Cannot change standing or allocation |
 | Runner memory before commit; Execution function working state | `EPHEMERAL` | The Authorization and the ledgers read | Cannot establish any governed fact; reconstructed from ledgers on restart |
+| Reserved allowance, attempted-unsettled, settled consumption, released allowance, remaining spendable budget; `OVERSPENT`; "active, fenced" | `DERIVED` from the Authorization, `RESERVATION`, attempt, settlement and `FENCE` records | The Authorization | No vote; no liability released by anything but a settlement |
+| An agent's research plan; a provider's invoice before it is recorded | `EPHEMERAL`; external | Nothing | Cannot reserve, consume or settle anything |
 | Order and fill ledger (Paper Book) | `AUTHORITATIVE` for execution facts: sets, orders, replaces, cancels, refusals, proposed fills, confirmations | Itself; each set keyed to an Allocation Transition, a `StateVersion` and a Decision or `EXPIRY` | Cannot change allocation or a Decision |
 | Admission witness (pre-witness on an order or fill; post-witness on a confirmation) | A Paper Book fact about its own admission; the time value a `RECEIPT` of the Evidence clock's answer | The record; the timed Evidence records at and after `E_1` | Resolves nothing; assigns no Evidence time; the Paper Book keeps no clock |
 | Provisional simulated fill | A Paper Book operational record; not execution | `FillId`, pre-witness | Contributes to no position, cash, exposure or P&L; counts as filled only for checks that could permit exposure |
@@ -1424,6 +1545,158 @@ sequenceDiagram
 9. **No certification by assertion.** `CERTIFIED` is a claim backed by
    executed OSA and CPOC evidence for an exact subject. This document
    carries none.
+10. **Tools are replaceable** (New Speedway standard, Principal,
+    2026-10-19; PD-006). Commodity computational capabilities should be
+    adopted as replaceable tools wherever possible. No external tool
+    owns governed investment state, establishes its own evidence, or
+    grants itself authority. Build custom infrastructure only when an
+    OSA requirement cannot be satisfied through an existing component.
+    A tool's output becomes Evidence only when a party authorized for
+    that kind commits it at the Evidence boundary; until then it is
+    `EPHEMERAL` or `CACHE` (Part VII), and a tool that cannot be
+    replaced without loss of governed state has been allowed to own it.
+    Build what makes New Speedway different; reuse or simulate
+    everything else.
+
+## Part X. Evaluation Standard `ES-1.0`
+
+Admitted by PD-005 (2026-10-19, document-phase). Every number in §6 is
+**PROVISIONAL** and changes only by Constitutional Transition. No
+statistical method is constitutional.
+
+### 1. The question and the five principles
+
+Given uncertain evidence, changing markets and potentially catastrophic
+tails: investigate, incubate, allocate, reduce or retire? An Evaluation
+is `DERIVED`, recomputable and changes nothing by itself; a Transition
+answers. Three populations are evaluated separately: Hypotheses compete
+for belief, Strategy Versions for capital, Agent Design Versions on
+research contribution; no population's success validates another's
+(I-1). Five principles: historical success is not prospective evidence;
+returns are not Gaussian and every method states what it cannot
+estimate; the unit of evidence is the search family and renaming creates
+no independence; decay is expected and departure is a signal to
+investigate, not an automatic retirement; survival precedes optimization
+and no score grants capital.
+
+### 2. The ten requirements, by population
+
+| Ref | Requirement | Hypothesis | Strategy | Agent Design |
+| --- | --- | --- | --- | --- |
+| R-1 Claim | Exact subject; claim as registered; closure; `EvaluationStandardVersion`; every method version with hash and commitment sequence | Statement, resolution rule, falsifier, tolerance, stopping rule | Proposition boundaries, prediction target, cost model, stopping rule | Method class, purpose, Authorization scope and cadence |
+| R-2 Class | Evidence by class; **grounding series** Contemporaneous Forward Record only; Historical Reconstruction shown beside it, labelled, never summed, never grounding; an exploratory executed record (PD-004) informs operational measures only | Forward Outcomes ground | Forward decision-implied record grounds | Contribution counted only from research that resolved forward |
+| R-3 Observations | `N_raw`; `N_eff` by the committed method clustering shared shocks, overlapping horizons and common exposures, `N_eff ≤ N_raw`, with a statement of what it cannot resolve; floors apply to `N_eff` | Resolved Outcomes | Scored Decisions | `N/A`; coverage against cadence reported |
+| R-4 Search | The family: every version, trial, Prediction and Research Record under the `SearchFamily` and lineage, successor lineages re-using the target or mechanism, the Theme's lineage memory; `T_total`, `T_forward`; reconciliation of expected screens, events and consumption against recorded ones with any gap named; grounding evidence adjusted for `T_total` by the committed method | Predictions and competing Hypotheses | Versions, trials, lineages, Themes | The lineage's own proposals, trials, rejections and screens |
+| R-5 Payoff | Central estimate, interval, downside measures (empirical drawdown, worst-`k`, tail loss at declared levels), declared constants with bases, a not-estimable statement | **As calibration**: hit rate against tolerance, scoring rule, declined-when-warranted | In full, plus gross, model-net and break-even performance and the net record under the committed conservative cost scenarios | **As contribution per unit**: forward-resolved research, questions closed including negative, estimate error (`SELECTION`), verification yield (`CHECKER`) |
+| R-6 Stress | Results under the stress set in force for the subject and the portfolio: loss, liquidity to exit, limit breaches; conditions not covered listed | `N/A`: the falsifier is its stress | In full, with the stress floor | `N/A` |
+| R-7 Contribution | Conditional on proposed allocation `a`, the population at the head, normal and each stressed condition, declared liquidity and exit assumptions: marginal payoff, drawdown and stress loss; overlapped subjects per condition; **`a*`**, the largest allocation breaching no limit under the stress set; qualification at `a ≤ a*` | Redundancy with competing Hypotheses over one resolution set | In full | Duplicated questions with other lineages (FR-4) |
+| R-8 Change | First Evaluation: `FIRST`, committing the predictive distribution and thresholds for the next. Later: `WITHIN` (ordinary losses; no change on this ground), `DEPARTED` (outside the committed interval; two consecutive → `Investigate`), `OUTSIDE` (beyond the committed tail bound; `Investigate` at once, model marked failed). A **limit breach** at the head or under stress at the current allocation requires `Reduce` regardless of any statistic. The declared stopping rule applied; retirement never automatic after losses | Calibration against the committed expectation | In full | Contribution against the declared expectation |
+| R-9 Output | One primary outcome; accompanying questions create no standing | `SUPPORTED`, `CONTRADICTED`, `UNDETERMINED` | `Investigate`, `Incubate`, `Explore on paper`, `Qualify`, `Reduce or suspend`, `Retire` | `CONTINUE`, `REVISE`, `RETIRE` |
+| R-10 Verification | Recomputable by a Checker from the closure; methods pinned with commitment sequence below the window; a successor method disclosed with the qualifying result under the governing commitment and the recomputation as sensitivity; cross-version comparison reported as a standard change, never improvement | Applies | Applies, with cost verification (§3) | Applies |
+
+An Evaluation marks every inapplicable requirement `N/A` with the
+population reason; an omitted requirement or an invented value is
+non-conforming, and a consequential Transition citing it is refused at
+Check.
+
+### 3. Method commitment and cost verification
+
+A method that establishes qualifying evidence is **committed before the
+window it judges**: initially as registration content (§III.2 to
+§III.4); thereafter by an `EXPERIMENT DESIGN` Research Record naming the
+subject and the Evidence sequence from which it governs. The commitment
+in force for a window is the latest with sequence below the window's
+first scored event; the Checker verifies the sequence. A successor
+governs later windows only; the qualifying series is computed per window
+under its own commitment and reported with the boundary named;
+recomputing earlier windows under a newer method is sensitivity
+analysis, never qualifying evidence. No registry, no immutable
+methodology, no authority: a method is replaced by committing a
+successor.
+
+**Cost verification** (Strategies). Fills are generated by the internal
+simulator under assumed rules (PD-004.15) and are never independent
+observations of achievable costs. (a) The cost model and
+cost-sensitivity method are part of the commitment. (b) The Checker of a
+`QUALIFIED` Allocation verifies the commitment sequence, then checks the
+model against market evidence (observed spreads, volume, depth, fees,
+from Market Observations under a declared source or recorded in the
+Check with provenance), distinguishing it from modelled impact and from
+simulated fills and stating which component rests on which. (c) Gross,
+model-net and break-even performance and the net record under the
+committed conservative scenarios are reported. (d) Exploratory paper
+fills establish operational behavior and **simulator-relative
+shortfall** only; PD-004's "implementation shortfall" means that. (e)
+`Qualify` for bounded paper capital proceeds when the checked cost
+scenarios, the prospective evidence and the stress requirements support
+it together. (f) Where cost uncertainty within the checked range could
+eliminate the edge (break-even inside the range), the Evaluation says so
+and withholds `Qualify`; `Incubate` and `Explore on paper` remain
+lawful. (g) Real execution-cost validation is a later, separately
+authorized phase.
+
+### 4. Output sets and the Transitions they inform
+
+Hypotheses: `SUPPORTED`, `CONTRADICTED` or `UNDETERMINED` against the
+registered falsifier and stopping rule, from the Hypothesis's own
+committed forward Predictions and Outcomes and declined-when-warranted;
+informs Hypothesis standing change. A Strategy's profit never enters.
+
+Strategies: one of six outcomes, each informing a Transition class and
+never changing standing or capital itself.
+
+| Outcome | Meaning | Informs |
+| --- | --- | --- |
+| `Investigate` | A named uncertainty worth resolving, with budget and stopping rule | Research Authorization act; `EXPERIMENT DESIGN`; registrations |
+| `Incubate` | Accumulate forward Decisions at zero allocation | Nothing required |
+| `Explore on paper` | Bounded simulated execution for operational behavior and simulator-relative shortfall | `EXPLORATORY` Allocation; never grounding whatever it earned |
+| `Qualify` | Floors met; survivability within limits under the stress set; checked costs leave the edge intact; proposal of capital at `a ≤ a*` subject to independent Check and limits | `QUALIFIED` Allocation citing the Evaluation |
+| `Reduce or suspend` | R-6, R-7 or R-8 no longer justify current exposure, or a limit is breached | Allocation reducing or zeroing; standing Transition |
+| `Retire` | The declared stopping rule or falsifier is met | Retirement; Hypothesis standing change |
+
+Agent Designs, by method class (FR-9): `RESEARCH` on registrations that
+reached forward evidence, questions closed including negative results,
+restatement refusals and screening coverage; `SELECTION` on realized
+value and cost of chosen candidates against estimates, the fate of
+rejected candidates and estimate error (`SELECTION OUTCOME`, computed
+whenever the lineage's Evaluation is computed and whenever a Transition
+cites the selection); `CHECKER` on defects later found in what it passed
+and refusals later shown unwarranted; all per unit of research budget
+consumed. Output `CONTINUE`, `REVISE` or `RETIRE` as a recommendation on
+the lineage, informing Authorization acts and successor registration
+decided by the Principal. A lineage is never credited with the profit of
+a Strategy it proposed.
+
+### 5. Carried-item resolutions
+
+FR-6: mechanism immutable; explanatory standing `DERIVED`; no minimum
+changes; stress set extended with "mechanism absent" when contradicted.
+FR-8: forward events only; one `N_eff` floor on both discovery paths;
+the family counted across versions, lineages and Themes; exploratory
+records never counted. FR-9 and UD-11: §4. UD-12: `UNESTIMATED` is
+neither penalized nor privileged and is recorded as "no estimate given";
+`T_total` counts every trial in the family regardless of path.
+
+### 6. Provisional constants
+
+| Constant | Value | Basis |
+| --- | --- | --- |
+| Floor for `Qualify` | `N_eff ≥ 20` scored forward Decisions, both paths | An operational floor; no power claim, since power depends on effect size, dependence, selection history and tail behavior |
+| Floor for `SUPPORTED` or `CONTRADICTED` | The registered stopping rule, never fewer than `N_eff ≥ 12` resolved Outcomes | Same |
+| Standard notional for the decision-implied record | One unit, the portfolio's declared minimum allocation | Comparability of decision-implied and executed records |
+| Multiplicity | Grounding evidence must remain supportive after adjustment for `T_total` by the committed method | fin123-core §11; no single estimator is the rule |
+| Stress set `SS-1.0` | Classes: the market's largest historical drawdown; a volatility regime shift; a liquidity gap; a discontinuity of three times the largest observed move; a correlated drawdown of the population | Classes, not calibrated events; the multiplier is a declared, unfitted stress |
+| Stress floor | Each scenario calibrated no milder than the instrument class's history over a declared window; the subject's own record never sets the scale; with no usable class history survivability is `NOT ASSESSABLE` and `Qualify` is refused | Sparse data must not yield a mild stress set |
+| Decay flags | As R-8 | A pre-committed check, not a regime model |
+| Survivability bound | Stress loss at the proposed allocation may breach no portfolio limit in force | Limits are the Principal's; the Standard requires the test |
+| `UNESTIMATED` | Neutral | An honest absence is not a defect |
+
+### 7. What `ES-1.0` cannot establish
+
+That an edge exists; a tail the record has not seen; an unprecedented
+discontinuity; a regime change before it shows in outcomes; that every
+trial was disclosed. It makes each absence visible and refuses to reward
+it.
 
 ## Constitutional Delta of this draft
 
@@ -1449,6 +1722,23 @@ sequenceDiagram
     established by a clock read, and the Paper Book commit boundary
     reads the Evidence clock at admission. No time authority was
     created; no admission authority moved. FR-12 and UD-14 are closed.
+    PD-005 is admitted (2026-10-19, document-phase) for Evaluation
+    Standard ES-1.0 as Part X: ΔO none; ΔS the Standard's content, the
+    Evaluation record content, the widened EXPERIMENT DESIGN meaning,
+    registration method commitments, explanatory standing, evaluation
+    by method class and the Part V Check content; ΔA none. U-6, FR-6,
+    FR-8, FR-9, UD-11 and UD-12 are closed.
+    PD-006 is admitted (2026-10-19, document-phase) for Part IX
+    principle 10 as a New Speedway standard, the content of Historical
+    Reconstruction research records, and the rule that reconstruction
+    and synthetic data never become prospective evidence: ΔO none; ΔS as
+    listed; ΔA none. Its prototype target and the two demonstrations
+    are plan content, not Constitution text, and authorize no code.
+    PD-008 is admitted (2026-10-19, document-phase) for research budget
+    reservation, attempts, settlement and the FENCE funding stop: ΔO +2
+    Research Record kinds; ΔS as listed in §III.5, §III.6, §III.7,
+    Part V and Part VII; ΔA +1, the Principal's funding stop by FENCE
+    without Check or Apply, stopping funding only. D-12 is closed.
     The remainder has no authority until the Principal admits this
     Constitution as ConstitutionVersion 1.
 ```

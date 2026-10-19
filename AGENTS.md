@@ -25,10 +25,12 @@ order of work is
 Known defects and open decisions are in
 [the initial OSA audit](docs/audits/initial_osa_audit.md).
 
-The Constitution is a draft at revision 5 (PD-001, PD-002, PD-003
-dispositions 1 to 5, and PD-004 applied). It is not admitted as
-`ConstitutionVersion 1`. Nothing in this repository is certified, and no
-CPOC witness has been executed.
+The Constitution is a draft at revision 8 (PD-001, PD-002, PD-003
+dispositions 1 to 5, PD-004, PD-005, PD-006 and PD-008 applied; `ES-1.0`
+is Part X). It is not admitted as `ConstitutionVersion 1`. Nothing in this
+repository is certified, no CPOC witness has been executed, and no
+Constitutional Transition has executed: admissions so far are
+document-phase Principal admissions that stand in for genesis.
 
 ## Engineering discipline
 
@@ -49,11 +51,11 @@ this file.
 | Question or work | Read |
 | --- | --- |
 | What exists, what it means, who owns it, what may change | [Constitution](docs/doctrines/new_speedway_constitution.md) |
-| What is unresolved, and who decides it | [Initial OSA audit](docs/audits/initial_osa_audit.md), then [PD-001 re-audit](docs/audits/osa_reaudit_pd001_20261018.md), then [forward research audit](docs/audits/forward_research_osa_audit_20261018.md); the re-audits after admission, [PD-002](docs/audits/osa_reaudit_pd002_20261018.md), [PD-003](docs/audits/osa_reaudit_pd003_20261018.md) and [PD-004](docs/audits/osa_reaudit_pd004_20261019.md); each admitted record's pre-admission audit in `docs/audits/` (for PD-002, [readiness summary](docs/audits/pd002_admission_readiness_20261018.md); for PD-003, [audit](docs/audits/osa_audit_pd003_proposed_20261018.md); for PD-004, [audit](docs/audits/osa_audit_pd004_proposed_20261018.md)); for the proposed ES-1, [PD-005 audit](docs/audits/es1_osa_audit.md); for PD-006, [readiness review and D-10/D-11 sequence](docs/audits/pd006_readiness_review_20261019.md); for PD-007 (D-10, D-11, D-12), [audit](docs/audits/osa_audit_pd007_proposed_20261019.md) |
+| What is unresolved, and who decides it | [Initial OSA audit](docs/audits/initial_osa_audit.md), then [PD-001 re-audit](docs/audits/osa_reaudit_pd001_20261018.md), then [forward research audit](docs/audits/forward_research_osa_audit_20261018.md); the re-audits after admission, [PD-002](docs/audits/osa_reaudit_pd002_20261018.md), [PD-003](docs/audits/osa_reaudit_pd003_20261018.md), [PD-004](docs/audits/osa_reaudit_pd004_20261019.md), [PD-005](docs/audits/osa_reaudit_pd005_20261019.md), [PD-006](docs/audits/osa_reaudit_pd006_20261019.md) and [PD-008](docs/audits/osa_reaudit_pd008_20261019.md); each admitted record's pre-admission audit in `docs/audits/` (for PD-002, [readiness summary](docs/audits/pd002_admission_readiness_20261018.md); for PD-003, [audit](docs/audits/osa_audit_pd003_proposed_20261018.md); for PD-004, [audit](docs/audits/osa_audit_pd004_proposed_20261018.md)); for the proposed ES-1, [PD-005 audit](docs/audits/es1_osa_audit.md); for PD-006, [readiness review and D-10/D-11 sequence](docs/audits/pd006_readiness_review_20261019.md); for PD-007 (D-10, D-11), [audit](docs/audits/osa_audit_pd007_proposed_20261019.md); for PD-008 (D-12, admitted), its [pre-admission audit](docs/audits/osa_audit_pd008_proposed_20261019.md) and the [revocation-ordering comparison](docs/audits/pd008_revocation_ordering_comparison_20261019.md) |
 | What to do next, in what order | [Document-first design plan](docs/plans/document_first_design.md); for forward research, [forward research design plan](docs/plans/forward_research_design_plan.md) |
 | What the client was told; illustrative methods | `docs/reference/` (client drafts; the ES-1 methods note; not doctrine) |
 | Which engineering standards apply and where they came from | [Adoption record](docs/decisions/fin123_core_adoption_20261018.md) |
-| Decisions by the Principal | `docs/decisions/` (PD-001 to PD-004 admitted; PD-005 `ES-1` ([admission text prepared](docs/decisions/admission_text_pd005_20261019.md)), PD-006 (replaceable tools; two proofs) and PD-007 (independent checking; policy `P-1`; concurrent budgets) proposed; the approved [admission text](docs/decisions/admission_text_pd002_pd003_20261018.md) for PD-002 and PD-003) |
+| Decisions by the Principal | `docs/decisions/` (PD-001 to PD-006 and PD-008 admitted; PD-007 (independent checking; policy `P-1`) proposed; approved admission texts for [PD-002 and PD-003](docs/decisions/admission_text_pd002_pd003_20261018.md) and [PD-005](docs/decisions/admission_text_pd005_20261019.md)) |
 
 Directory jurisdiction:
 

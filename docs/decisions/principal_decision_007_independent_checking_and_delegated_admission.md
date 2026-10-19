@@ -1,16 +1,21 @@
 # Principal Decision Record 007 — Independent Checking, Bounded Autonomous Admission, Concurrent Budgets
 
-Status: **PROPOSED FOR ADMISSION. Not admitted.** Depends on PD-001 to
-PD-004 (admitted, Constitution revision 5) and on PD-005 (`ES-1`,
-proposed) for the Check content it names. Carries a declared `ΔA`:
-the first admitted policy. Changes no Constitution text until admitted.
+Status: **PROPOSED FOR ADMISSION, revision 2. Not admitted.** Depends
+on PD-001 to PD-006 (admitted, Constitution revision 7) and on
+[PD-008](principal_decision_008_research_budget_reservation.md)
+(proposed) for the reservation that policy `P-1`'s budget condition
+reads. Carries a declared `ΔA`: the first admitted policy. Changes no
+Constitution text until admitted. Revision 2 (2026-10-19): D-12 moved to
+PD-008 after the Principal rejected reservation by derivation; `P-1`'s
+budget condition rewritten; the two delegated rights stated explicitly
+with the rule that neither may widen a budget or Authorization.
 
-Date: 2026-10-19
+Date: 2026-10-19 (revision 1: same day)
 
 Subjects: D-10 (sufficiency of Checker independence; carries U-10
 Outcome committer, UD-4 Checker extraction, FR-4 Check contract); D-11
-(the Principal bottleneck; the empty "admitted policy" slot of Part V);
-D-12 (research budget reservation and concurrent consumption).
+(the Principal bottleneck; the empty "admitted policy" slot of Part V).
+D-12 is PD-008.
 
 Sources: Constitution revision 5 §III.4 (method class), §III.7, §III.8
 (Independence, TENTATIVE), §III.9, I-6, I-7, I-9, I-13, I-14, Part V;
@@ -153,9 +158,9 @@ Transition and to the Check it rests on. A policy decides nothing on a
 
 | Element | Rule |
 | --- | --- |
-| **Classes delegated** | (i) **Hypothesis registration**; (ii) **successor Agent Design Version registration** that requests no Authorization (membership only; the successor can do nothing until the Principal grants one) |
+| **The two delegated decision rights, exactly** | (i) **Hypothesis registration within an authorized scope**: the decision to admit a Hypothesis to the population when its funding Authorization, scope, reservation and Check all hold. (ii) **Successor Agent Design Version registration without authority expansion**: the decision to admit a successor to the population when it requests no Authorization. **Neither right may widen its own budget or Authorization**: a registration under `P-1` cannot increase a grant, a cap, a scope or an expiry, cannot create or amend an Authorization, and cannot reserve on its own behalf beyond the reservation the proposer already committed; any proposal that would do any of these is outside `P-1` and goes to the Principal |
 | **Both research paths** | A Hypothesis is admissible under `P-1` when its `motivated_by` set contains either an **active Theme** within the proposer's Research Authorization, or a **`SearchFamily` within the Authorization's declared empirical or discovery scope** with no Theme (PD-003.5's empirical path). Neither path is privileged |
-| **Conditions, all required at Apply** | (a) An independent Check record with result `PASS` under the criteria pinned at the Transition's base (PD-007.1); (b) the funding Authorization active, with remaining budget (grant minus consumed minus reserved, PD-007.3) not less than the declared budget; (c) the proposer's Authorization in scope for the Theme or family; (d) the base state current, or the Transition re-checked at the new base with `PASS`; (e) no `STOP`, no pending escalation on the subject, no suspension of `P-1`; (f) the Hypothesis is not a restatement (a `NOT MET` on FR-4 is a `FAIL`, so this follows from (a)) |
+| **Conditions, all required at Apply** | (a) An independent Check record with result `PASS` under the criteria pinned at the Transition's base (PD-007.1); (b) the funding Authorization active, and the proposal's declared research budget covered by a **`RESERVATION` the proposer committed before the Check** (PD-008), named in the proposal, open at Apply, with purpose "pending registration" of this Transition; on Apply the reservation's purpose binds to the registered Hypothesis; on rejection or stop the proposer closes it or it expires; (c) the proposer's Authorization in scope for the Theme or family; (d) the base state current, or the Transition re-checked at the new base with `PASS`; (e) no `STOP`, no pending escalation on the subject, no suspension of `P-1`; (f) the Hypothesis is not a restatement (a `NOT MET` on FR-4 is a `FAIL`, so this follows from (a)) |
 | **Reserved to the Principal** | Constitutional Transitions; Authorization grant, amendment and revocation; Evaluation Standards; Theme registration and any Theme funding outside an approved grant; every Allocation of any purpose; retirement or supersession of a Strategy Version; Hypothesis standing changes; Strategy Version registration (a candidate for a later policy `P-2`, not delegated now); every `STOP` |
 | **Attribution** | The Transition's decision event records `decider = P-1 (TR-<admitting Transition>)`, the Check record's sequence, and the Apply sequence; the lifecycle reads `DECIDED (ADMITTED by policy P-1)` |
 | **Revocation and suspension** | The Principal suspends or revokes `P-1`, for all classes or for a named Authorization, by a Transition; from its Apply the affected classes revert to the Principal; Transitions already applied under `P-1` stand (I-11). A revocation reaches Apply like any Transition; nothing is retroactive |
@@ -169,48 +174,39 @@ Transition and to the Check it rests on. A policy decides nothing on a
 ΔS: Part V "admitted policy" filled for two classes; decision event
     attribution; suspension and revocation; the empirical-path
     admissibility rule.
-ΔA: The decision right for Hypothesis registration and for
-    Authorization-free successor Agent Design registration moves from
-    the Principal to policy P-1 for every instance meeting P-1's
-    conditions, revocably. No other right moves. The Checker gains no
-    decision right: P-1 decides on a PASS; the Checker records one.
+ΔA: The decision right for Hypothesis registration within an
+    authorized scope, and for successor Agent Design registration
+    without authority expansion, moves from the Principal to policy P-1
+    for every instance meeting P-1's conditions, revocably. Neither
+    right can widen a budget, cap, scope, expiry or Authorization. No
+    other right moves. The Checker gains no decision right: P-1 decides
+    on a PASS; the Checker records one.
 ```
 
 ---
 
-## PD-007.3. D-12 — Concurrent research budgets: the smallest rule
+## PD-007.3. D-12 — moved to PD-008
 
-Ten agents under one Authorization can overspend it in two ways:
-committing Research Records that together exceed the grant, and
-proposing Transitions whose declared budgets together exceed what
-remains. Three rules, no queue:
+Revision 1 proposed reservation by derivation over undecided proposals.
+The Principal rejected it: a derived view of pending proposals is not an
+atomic reservation, and a record written after execution cannot prevent
+money already spent. The contract is now
+[PD-008](principal_decision_008_research_budget_reservation.md): a
+`RESERVATION` Research Record admitted exclusively by the Evidence
+commit boundary against the grant at its sequence, `PENDING` attempts
+before consumption, settlement, expiry by the clock, release, and
+revocation at Apply. What this record keeps: `P-1`'s condition (b)
+reads that reservation; the Check record's budget line cites it by
+sequence; the per-grantee cap is Authorization content as PD-008 says.
 
-1. **Refusal at the ceiling, by sequence.** The Evidence commit boundary
-   refuses a Research Record whose consumption would take the
-   Authorization's consumed total, at the head at commit, above the
-   grant; the refusal is preserved with the record. Consumption is
-   serialized by Evidence sequence, which the boundary already assigns
-   (I-8), so two agents cannot both succeed past the ceiling.
-2. **Reservation by derivation.** The declared research budget of a
-   proposed, undecided Transition is a **reservation**, `DERIVED` over
-   the Transition ledger: remaining budget = grant − consumed
-   (Research Records) − reserved (declared budgets of proposed
-   Transitions not yet decided or refused). The Check and `P-1`'s
-   condition (b) read remaining budget with reservations; Apply
-   re-reads it. A reservation ends at Decide (consumed on Apply as
-   capital and allocation budgets already are; released on reject,
-   stop or refusal). No reservation record exists; nothing new is
-   written.
-3. **Per-grantee cap.** A Research Authorization may declare a cap per
-   grantee lineage within the grant; the commit boundary applies rule 1
-   against the cap as well as the grant. Content of the Authorization,
-   set by the Principal.
+### Dependencies on PD-008
 
-Dependencies: D-11 (condition (b) reads rule 2); genesis (the first
-Authorizations carry the grants and caps); plan step 4's remaining
-items (D-17, which is unaffected). `ΔO` none; `ΔS` the Evidence commit
-boundary's refusal rule, the derived reservation, the optional cap;
-`ΔA` none, since refusal at a boundary is the existing invariant.
+| PD-007 item | Depends on PD-008 for |
+| --- | --- |
+| `P-1` condition (b) | The reservation's existence, openness and purpose binding |
+| Check record item 4, "within the proposer's Authorization and budget" | Reading available and the cited reservation instead of a derived remainder |
+| PD-007.4 example, days 1 and 2 | Reservations and refusals as PD-008 defines them |
+| Escalation on `OVERSPENT` | An Authorization `OVERSPENT` under PD-008 rule 7 makes every proposal under it `STOP` until the Principal acts |
 
 ---
 
@@ -224,8 +220,8 @@ from the proposers' by `AU-41`'s content). `P-1` admitted at `N=80`.
 
 | Event | What happens | Rule |
 | --- | --- | --- |
-| Day 1: eight agents commit backtest Research Records (Historical Reconstruction, dataset `DS-7@hash`, cutoff 2026-06-30, backtester `bt-2.3@hash`, reproducibility binding) consuming 40 units each | 320 consumed; `AD-23.1`'s third record would take its lineage to 120: refused at the ceiling, preserved | D-12 rule 1 and 3 |
-| Day 2: `AD-21.1` proposes `HY-301` under `TH-14` (budget 20) and `AD-27.1` proposes `HY-302` in `SF-9` with no Theme (budget 20), both at base 84 | Reserved 40; remaining 600 − 320 − 40 = 240 | D-12 rule 2 |
+| Day 1: eight agents each commit a `RESERVATION` of 40, then `PENDING` attempts and settlements for backtest Research Records (Historical Reconstruction, dataset `DS-7@hash`, cutoff 2026-06-30, backtester `bt-2.3@hash`, reproducibility binding) | 320 reserved and settled; `AD-23.1`'s third reservation would take its lineage to 120: refused `CAP_EXCEEDED`, preserved | PD-008 rules 1, 2 |
+| Day 2: `AD-21.1` commits `RESERVATION` 20 for "pending registration `HY-301`" under `TH-14`; `AD-27.1` commits `RESERVATION` 20 for "pending registration `HY-302`" in `SF-9`; both propose at base 84 naming their reservations | Available 600 − 320 − 40 = 240; each proposal's budget covered by a committed reservation | PD-008 rule 1; `P-1` (b) |
 | `CK-A3` checks `HY-301`: criteria pinned at 84; closure read; FR-4 `MET`; `authored knowing the period` recorded for the two cited backtests; `PASS`. Checks `HY-302`: the family's trials reconciled against consumption; `PASS` | Two Check records appended | D-10 |
 | Apply `HY-301` at 84 → 85 under `P-1`: conditions (a) to (f) hold; `decider = P-1 (TR-610)`. Apply `HY-302`: base 84 stale; re-checked at 85; `PASS`; 85 → 86 | Two registrations without a Principal act, each attributed | D-11 |
 | Day 3: `AD-24.1` proposes `HY-303` restating `HY-299` (rejected on reconstruction last week) without a declared difference | `CK-A3`: FR-4 `NOT MET`; `FAIL`; `P-1` decides nothing | D-10, D-11 |
@@ -243,7 +239,7 @@ from the proposers' by `AU-41`'s content). `P-1` admitted at `N=80`.
 | Admit the three-condition definition of independence, with provider as provenance and an Authorization option | Yes |
 | Admit the Check record form as the only carrier of a Check | Yes |
 | Outcome committer stays open to any authorized party, with the Checker's duty to commit expected-but-missing Outcomes before a citing Check | Yes; closes U-10 without a new function |
-| Admit `P-1` for Hypothesis registration (both paths) and Authorization-free successor Agent Design registration, with the reservation list as stated | Yes |
+| Admit `P-1` for Hypothesis registration (both paths) and Authorization-free successor Agent Design registration, with the reservation list as stated, and the rule that neither delegated right can widen a budget or Authorization | Yes |
 | Strategy Version registration: reserved now, candidate `P-2` later | Reserve |
-| D-12: refusal at the ceiling by sequence; reservation by derivation; optional per-grantee cap; no queue | Yes |
+| D-12 | Decided in PD-008; this record depends on it |
 | Checker extraction (UD-4) | Defer |

@@ -1,6 +1,6 @@
 # Proposed Admission Text — PD-005 (`ES-1.0`)
 
-Status: **PROPOSED TEXT — AWAITING PRINCIPAL APPROVAL. Not admitted.**
+Status: **APPROVED AND ADMITTED 2026-10-19 by the Principal (document-phase).** The block was copied into PD-005's status header.
 Prepared 2026-10-19 against
 [PD-005 revision 3](principal_decision_005_es1_evaluation_standard.md),
 whose cost rule (§3, method commitment, rule 5) was read and verified:

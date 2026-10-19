@@ -174,12 +174,20 @@ applied as Constitution revision 5, re-audited. `ES-1` is drafted as
 [decision record 005](../decisions/principal_decision_005_es1_evaluation_standard.md)
 (PROPOSED, 2026-10-19; audit `docs/audits/es1_osa_audit.md`), resolving
 U-6, FR-6, FR-8, FR-9, UD-11 and UD-12 if admitted by Constitutional
-Transition. D-10, D-11 and D-12 are drafted as
+Transition. PD-005 (`ES-1.0`, now Part X) and PD-006 were admitted 2026-10-19 as
+document-phase admissions and applied as revisions 6 and 7, each
+re-audited. PD-008 (D-12: `RESERVATION`, attempts, settlement, the `FENCE` funding
+stop) was admitted 2026-10-19 and applied as revision 8, re-audited.
+D-10 and D-11 are drafted as
 [decision record 007](../decisions/principal_decision_007_independent_checking_and_delegated_admission.md)
-(PROPOSED, 2026-10-19; audit `docs/audits/osa_audit_pd007_proposed_20261019.md`).
-Next decision: PD-005 (admission text prepared), then PD-006, then
-PD-007, then N-1 with D-17 (step 4), then the independent audit of the
-whole draft and `ConstitutionVersion 1`. The Principal's direction of 2026-10-19
+(PROPOSED, revision 2; readiness reviewed against PD-008 in its audit).
+Next decision: PD-007, then N-1 with D-17 (step 4), then the independent
+audit of the whole draft and `ConstitutionVersion 1`. Implementation
+planning, when it comes, evaluates existing agent runtimes and workflow
+engines against one concrete budget, interruption, revocation, retry and
+evidence-admission sequence (Principal direction, 2026-10-19); framework
+selection is deferred. Step 9's first prototype
+target is PD-006 §PD-006.3; it authorizes no code. The Principal's direction of 2026-10-19
 (replaceable tools; a first prototype of ten agents replacing
 Hypotheses through one simple backtester) is drafted as
 [decision record 006](../decisions/principal_decision_006_replaceable_tools_and_first_prototype.md)

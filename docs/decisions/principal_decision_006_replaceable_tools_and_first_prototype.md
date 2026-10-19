@@ -1,6 +1,31 @@
 # Principal Decision Record 006 — Replaceable Tools and the First Prototype
 
-Status: **PROPOSED FOR ADMISSION, revision 2. Not admitted.** Drafted
+Status: **ADMITTED 2026-10-19 by the Principal (document-phase admission), revision 2, the four decisions of §PD-006.4 as directed.** Applied to the Constitution as revision 7 and re-audited in [osa_reaudit_pd006_20261019.md](../audits/osa_reaudit_pd006_20261019.md). Admission text, as approved:
+
+```text
+ADMITTED 2026-10-19 by the Principal (document-phase admission): PD-006
+revision 2, decisions 1 to 4.
+(1) Principle 10, Tools are replaceable, as a New Speedway-specific
+    standard: build the governed evolutionary process; reuse commodity
+    computation.
+(2) The two demonstrations: evolutionary historical research, then
+    Forward Research and Themes. Historical replay and synthetic data
+    never become prospective investment evidence.
+(3) Delegated research admission requires D-10 and D-11 first.
+(4) ConstitutionVersion 1 preferred before implementation; a bounded
+    demonstration against the draft is a separately authorized
+    fallback. A zero Constitutional Delta is not implementation
+    authorization.
+This is a document-phase admission, not a claim that a Constitutional
+Transition executed before genesis.
+Constitutional Delta: ΔO none. ΔS: Part IX principle 10; §III.5 content
+of Historical Reconstruction research records; §III.5 rule that
+reconstruction and synthetic data reject candidates but establish no
+contradiction or fitness. ΔA none. Plan content: step 9 target and the
+two proofs. Adoption record: a dated New Speedway standards section.
+```
+
+Prior content follows. Drafted
 from the Principal's direction of 2026-10-19. Changes no Constitution
 text until admitted; proposes one New Speedway operating principle
 (Part IX) and one plan change. Depends on nothing beyond Constitution

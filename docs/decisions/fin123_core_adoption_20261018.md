@@ -69,6 +69,14 @@ from the founding brief's summary.
    certification ontology is created for New Speedway. Amend the governing
    documents directly.
 
+## New Speedway standards added after adoption
+
+Not from fin123-core. Each names its source.
+
+| Date | Standard | Source |
+| --- | --- | --- |
+| 2026-10-19 | **Tools are replaceable.** Commodity computational capabilities are adopted as replaceable tools; no external tool owns governed investment state, establishes its own evidence, or grants itself authority; custom infrastructure only when an OSA requirement cannot be satisfied through an existing component. Build what makes New Speedway different; reuse or simulate everything else | The Principal; [PD-006](principal_decision_006_replaceable_tools_and_first_prototype.md), admitted 2026-10-19; Constitution Part IX principle 10 |
+
 ## Not adopted
 
 - IRIS product ontology: Model, Version, Branch, Working, W1, Method, R3/R4,

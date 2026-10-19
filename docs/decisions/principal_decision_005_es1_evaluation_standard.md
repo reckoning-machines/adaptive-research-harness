@@ -1,7 +1,63 @@
 # Principal Decision Record 005 — ES-1, the Initial Evaluation Standard
 
-Status: **PROPOSED FOR ADMISSION, revision 2. Not admitted.** Would be
-admitted by a Constitutional Transition (§III.9, I-7). Depends on PD-001
+Status: **ADMITTED 2026-10-19 by the Principal (document-phase admission): revision 3 with the cost clarification, the eight decisions of §10 as proposed.** Applied to the Constitution as revision 6 (Part X) and re-audited in [osa_reaudit_pd005_20261019.md](../audits/osa_reaudit_pd005_20261019.md). Admission text, as approved:
+
+```text
+ADMITTED 2026-10-19 by the Principal (document-phase admission), by Constitutional Transition:
+PD-005 revision 3, Evaluation Standard ES-1.0, sections 2 to 7 as
+written, with every constant in section 6 labelled PROVISIONAL.
+
+Clarifications on admission:
+(a) Internal simulator fills are modelled execution. They are never
+    independent validation of achievable trading costs and never
+    evidence of alpha. Cost verification rests on the committed cost
+    model and sensitivity method, independently checked market
+    evidence (observed spreads, volume, depth, fees) and the committed
+    conservative scenarios. Validation of real execution costs belongs
+    to a later, separately authorized execution phase.
+(b) The floors N_eff >= 20 (Strategies) and N_eff >= 12 (Hypotheses)
+    are operational floors and claim no statistical power.
+(c) No statistical method is constitutional. Methods are committed
+    before the window they judge, on registration content or an
+    EXPERIMENT DESIGN Research Record, and replaced by a successor
+    commitment governing later windows; recomputation of earlier
+    windows is sensitivity analysis. No method register exists.
+(d) One primary outcome per Evaluation; accompanying research questions
+    create no standing. Qualification is at an allocation no greater
+    than a*, the largest allocation at which no portfolio limit is
+    breached under the stress set, with the stress floor from the
+    instrument class and NOT ASSESSABLE where none exists.
+(e) Nothing in this admission certifies any Evaluation, method or
+    implementation.
+
+Constitutional Delta admitted:
+ΔO: NONE.
+ΔS: §III.9: ES-1.0 content (ten requirements with applicability by
+    population; method commitment; three output sets; six outcomes and
+    the Transition classes each informs; provisional constants with
+    bases; stress floor; NOT ASSESSABLE). §III.5 Evaluation: required
+    content R-1 to R-10 with N/A marks; pinned methods; FIRST and the
+    limit-breach rule. §III.5 Research Record kind EXPERIMENT DESIGN:
+    meaning widened to carry a method commitment for a forward window.
+    §III.2, §III.3, §III.4: initial method commitment as registration
+    content; cost model and sensitivity method for Strategies. §III.3:
+    explanatory standing DERIVED (FR-6). §III.4: evaluation by method
+    class (FR-9). Part V: Hypothesis standing change, Allocation and
+    Retirement Checks verify ES-1 conformance, including cost
+    verification against market evidence with simulated fills excluded.
+    Part VII: explanatory standing, outcome, a*, N_eff as DERIVED rows.
+ΔA: NONE. No method, score, evaluator or commitment record gains a
+    decision right; Check content is extended; the Principal and
+    admitted policy remain the only deciders.
+
+Closed by this admission: U-6, FR-6, FR-8, FR-9, UD-11, UD-12.
+Open items preserved with owners: E1-R1 to E1-R6 (ES-1 audit); U-1;
+UD-3; D-10, D-11, D-12, D-17, N-1; U-8 and the paper fill methodology
+(plan step 7); every item of the PD-002, PD-003 and PD-004 re-audits.
+```
+
+Prior content follows. Revision 3 was proposed for
+admission by a Constitutional Transition (§III.9, I-7); the document-phase admission above stands in for that Transition until genesis. Depends on PD-001
 to PD-004, all admitted and applied in Constitution revision 5. No
 Constitution text is changed by this record. Revision 2 (2026-10-19)
 makes the five repairs the Principal directed: applicability by
