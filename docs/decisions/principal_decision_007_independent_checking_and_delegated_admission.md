@@ -1,6 +1,51 @@
 # Principal Decision Record 007 — Independent Checking, Bounded Autonomous Admission, Concurrent Budgets
 
-Status: **PROPOSED FOR ADMISSION, revision 2. Not admitted.** Depends
+Status: **ADMITTED 2026-10-19 by the Principal (document-phase admission): revision 3, as written, with its declared delta.** Applied to the Constitution as revision 9 and re-audited in [osa_reaudit_pd007_20261019.md](../audits/osa_reaudit_pd007_20261019.md). Admission text, as approved:
+
+```text
+ADMITTED 2026-10-19 by the Principal (document-phase admission): PD-007
+revision 3, D-10 (independent checking) and D-11 (bounded autonomous
+admission, policy P-1), with the declared Constitutional Delta.
+
+Clarifications on admission:
+(a) Successor Agent Design registration, by the Principal or by P-1,
+    grants no Authorization. A successor cannot inherit permission
+    merely through lineage; it holds nothing until the Principal grants
+    an Authorization by Transition.
+(b) Neither delegated right can widen a budget, cap, scope, expiry,
+    Authorization or reservation.
+(c) This is a document-phase admission, not a claim that a
+    Constitutional Transition executed before genesis.
+
+Constitutional Delta admitted:
+ΔO: NONE.
+ΔS: §III.8 Independence: separate authority, protected standards,
+    evidence the proposer cannot rewrite; provider as provenance and an
+    Authorization option. §III.8 and Part V: the Check record form as
+    the only carrier of a Check; FAIL versus STOP; the budget line
+    (reservation covers the declared budget; remaining spendable
+    recorded, never a second requirement). §III.5 and Part V: the
+    Checker commits expected-but-missing Outcomes before a citing Check
+    (U-10 closed); every grounding Decision REPRODUCED before PASS.
+    Part V admitted policy P-1: two classes, six conditions,
+    attribution, suspension, revocation, the empirical-path rule, the
+    reservation list including FENCE.
+ΔA: +1 admitted policy P-1: the decision right for Hypothesis
+    registration within an authorized scope and for successor Agent
+    Design registration without authority expansion moves from the
+    Principal to P-1 for instances meeting its conditions, revocably.
+    No other right moves; the Checker gains none.
+
+Closed by this admission: D-10, D-11, U-10, U-3, FR-4 (Check contract).
+Open: UD-4 (deferred); P7-R1, P7-R3; D-17, N-1 (genesis, PD-009
+proposed); every earlier re-audit item.
+```
+
+Prior content follows. Revision
+3 (2026-10-19) makes the two wording corrections found in the readiness
+review against admitted PD-008 (the Check's budget line; `FENCE` in the
+reservation list) and states that a registration never funds the same
+obligation twice; the proposed delta is unchanged. Depends
 on PD-001 to PD-006 (admitted, Constitution revision 7) and on
 [PD-008](principal_decision_008_research_budget_reservation.md)
 (proposed) for the reservation that policy `P-1`'s budget condition
@@ -10,7 +55,7 @@ PD-008 after the Principal rejected reservation by derivation; `P-1`'s
 budget condition rewritten; the two delegated rights stated explicitly
 with the rule that neither may widen a budget or Authorization.
 
-Date: 2026-10-19 (revision 1: same day)
+Date: 2026-10-19 (revisions 1 and 2: same day)
 
 Subjects: D-10 (sufficiency of Checker independence; carries U-10
 Outcome committer, UD-4 Checker extraction, FR-4 Check contract); D-11
@@ -67,7 +112,16 @@ form (the fin123-core boundary authority ledger, adopted in shape):
 4. Observations, one line per criterion of the class's Check column in
    Part V, each `MET`, `NOT MET` or `NOT DETERMINABLE`, citing the
    records by sequence. For every class: within the proposer's
-   Authorization and budget; base state current at the time of Check.
+   Authorization; base state current at the time of Check; and the
+   **budget line**, which distinguishes two quantities and requires only
+   the first: (i) the proposal's declared research budget is covered by
+   the cited `RESERVATION`, read by sequence, which is open, below any
+   `FENCE` for the Authorization, of amount at least the declared
+   budget, and of purpose "pending registration" of this Transition;
+   (ii) the Authorization's remaining spendable budget (PD-008's five
+   states), read and recorded for attribution and never imposed as a
+   second requirement, because the reservation already holds the
+   obligation and a registration never funds the same obligation twice.
    For registrations: not a restatement of a closed question without a
    declared difference (FR-4); every cited Research Record's closure
    within the proposer's scopes; for a Historical Reconstruction
@@ -160,8 +214,8 @@ Transition and to the Check it rests on. A policy decides nothing on a
 | --- | --- |
 | **The two delegated decision rights, exactly** | (i) **Hypothesis registration within an authorized scope**: the decision to admit a Hypothesis to the population when its funding Authorization, scope, reservation and Check all hold. (ii) **Successor Agent Design Version registration without authority expansion**: the decision to admit a successor to the population when it requests no Authorization. **Neither right may widen its own budget or Authorization**: a registration under `P-1` cannot increase a grant, a cap, a scope or an expiry, cannot create or amend an Authorization, and cannot reserve on its own behalf beyond the reservation the proposer already committed; any proposal that would do any of these is outside `P-1` and goes to the Principal |
 | **Both research paths** | A Hypothesis is admissible under `P-1` when its `motivated_by` set contains either an **active Theme** within the proposer's Research Authorization, or a **`SearchFamily` within the Authorization's declared empirical or discovery scope** with no Theme (PD-003.5's empirical path). Neither path is privileged |
-| **Conditions, all required at Apply** | (a) An independent Check record with result `PASS` under the criteria pinned at the Transition's base (PD-007.1); (b) the funding Authorization active, and the proposal's declared research budget covered by a **`RESERVATION` the proposer committed before the Check** (PD-008), named in the proposal, open at Apply, with purpose "pending registration" of this Transition; on Apply the reservation's purpose binds to the registered Hypothesis; on rejection or stop the proposer closes it or it expires; (c) the proposer's Authorization in scope for the Theme or family; (d) the base state current, or the Transition re-checked at the new base with `PASS`; (e) no `STOP`, no pending escalation on the subject, no suspension of `P-1`; (f) the Hypothesis is not a restatement (a `NOT MET` on FR-4 is a `FAIL`, so this follows from (a)) |
-| **Reserved to the Principal** | Constitutional Transitions; Authorization grant, amendment and revocation; Evaluation Standards; Theme registration and any Theme funding outside an approved grant; every Allocation of any purpose; retirement or supersession of a Strategy Version; Hypothesis standing changes; Strategy Version registration (a candidate for a later policy `P-2`, not delegated now); every `STOP` |
+| **Conditions, all required at Apply** | (a) An independent Check record with result `PASS` under the criteria pinned at the Transition's base (PD-007.1); (b) the funding Authorization active, and the proposal's declared research budget covered by a **`RESERVATION` the proposer committed before the Check** (PD-008), named in the proposal, open at Apply, below any `FENCE`, of amount at least the declared budget, with purpose "pending registration" of this Transition; the already-reserved allowance is the funding, and remaining spendable budget is read for attribution only, never as a second requirement; on Apply the reservation's purpose binds to the registered Hypothesis; on rejection or stop the proposer closes it or it expires; (c) the proposer's Authorization in scope for the Theme or family; (d) the base state current, or the Transition re-checked at the new base with `PASS`; (e) no `STOP`, no pending escalation on the subject, no suspension of `P-1`; (f) the Hypothesis is not a restatement (a `NOT MET` on FR-4 is a `FAIL`, so this follows from (a)) |
+| **Reserved to the Principal** | Constitutional Transitions; Authorization grant, amendment and revocation; committing a `FENCE` (the funding stop, PD-008); Evaluation Standards; Theme registration and any Theme funding outside an approved grant; every Allocation of any purpose; retirement or supersession of a Strategy Version; Hypothesis standing changes; Strategy Version registration (a candidate for a later policy `P-2`, not delegated now); every `STOP` |
 | **Attribution** | The Transition's decision event records `decider = P-1 (TR-<admitting Transition>)`, the Check record's sequence, and the Apply sequence; the lifecycle reads `DECIDED (ADMITTED by policy P-1)` |
 | **Revocation and suspension** | The Principal suspends or revokes `P-1`, for all classes or for a named Authorization, by a Transition; from its Apply the affected classes revert to the Principal; Transitions already applied under `P-1` stand (I-11). A revocation reaches Apply like any Transition; nothing is retroactive |
 | **Ambiguity** | Any condition that cannot be determined from the ledgers, any Check `STOP`, any identity, meaning or authority question the policy text does not settle: the Transition is `STOPPED` and goes to the Principal. `P-1` interprets nothing |
@@ -232,7 +286,122 @@ from the proposers' by `AU-41`'s content). `P-1` admitted at `N=80`.
 
 ---
 
-## PD-007.5. Decisions for the Principal
+## PD-007.5. Admission brief
+
+**What an agent may do without asking the Principal each time.** Under
+its Research Authorization and within its grant: reserve research
+budget, pre-record attempts, run and settle research, commit Research
+Records of every kind including `SELECTION`, `EXPERIMENT DESIGN` and
+screens, commit Predictions and Evaluations; and, under policy `P-1`,
+have two kinds of proposal admitted on an independent `PASS` with no
+per-instance Principal act: a Hypothesis registration within its scope
+(under an active Theme or in an authorized empirical family), and a
+successor Agent Design registration that requests no Authorization. It
+may also propose anything else; those proposals wait for the Principal.
+
+**What independent Check remains required.** Every consequential
+Transition, delegated or not: a Check record in the PD-007.1 form by a
+Checker under a Checker Authorization outside the proposer's lineage,
+under the criteria pinned at the Transition's base, reading only
+committed records, with the budget line above, the restatement finding,
+the "authored knowing the period" finding and, where an Evaluation is
+cited, the `ES-1.0` conformance items. `P-1` decides nothing without a
+`PASS`, nothing on a `STOP`, and nothing it is not named for.
+
+**What remains exclusively the Principal's decision.** Constitutional
+Transitions and Evaluation Standards; every Authorization grant,
+amendment and revocation; committing a `FENCE`; Theme registration and
+any Theme funding outside an approved grant; every Allocation of any
+purpose; retirement or supersession of a Strategy Version; Hypothesis
+standing changes; Strategy Version registration (candidate `P-2`,
+later); every `STOP`; every `DISPUTED` reproduction; suspension or
+revocation of `P-1` itself.
+
+**Exact proposed delta.**
+
+```text
+ΔO: NONE. A policy is Constitution text and a decision attribution; the
+    Check record is a Transition lifecycle event already provided for.
+ΔS: §III.8 Independence: the three conditions (separate authority,
+    protected standards, evidence the proposer cannot rewrite) replace
+    the TENTATIVE definition; provider as provenance and an
+    Authorization option. §III.8 and Part V: the Check record form as
+    the only carrier of a Check; FAIL versus STOP; the budget line.
+    §III.5 and Part V: the Checker's duty to commit expected-but-missing
+    Outcomes before a citing Check; reproduction of every grounding
+    Decision before PASS. Part V "admitted policy": P-1 for the two
+    classes, its six conditions, attribution, suspension, revocation,
+    the empirical-path admissibility rule, the reservation list.
+ΔA: +1 admitted policy. The decision right for Hypothesis registration
+    within an authorized scope, and for successor Agent Design
+    registration without authority expansion, moves from the Principal
+    to policy P-1 for every instance meeting its conditions, revocably.
+    Neither right can widen a budget, cap, scope, expiry, Authorization
+    or reservation. No other right moves; the Checker gains none; the
+    Outcome committer is unchanged.
+```
+
+**One permitted example.** `AD-27.1`, under `AU-40` with empirical
+scope `SF-9`, commits `RESERVATION` 20 (purpose "pending registration
+`HY-302`"), then proposes `HY-302` at base 84, `motivated_by` {`SF-9`
+trials}, no Theme. `CK-A3` (lineage `AD-40`, `CHECKER` class, `AU-41`)
+checks at base 84: testability met; resolution sources active at base;
+motivation closure disjoint from the resolution set; family reconciled
+against consumption; not a restatement; budget line: the reservation is
+open, below any fence, amount 20 ≥ declared 20, purpose matches;
+remaining spendable 240 recorded. `PASS`. At Apply the base has moved
+to 85; re-checked at 85, `PASS`; applied 85 → 86 with
+`decider = P-1 (TR-610)`. The Principal did not act.
+
+**One refused example.** `AD-24.1`, under the same `AU-40`, proposes
+`HY-303` restating `HY-299` (rejected on reconstruction a week earlier)
+without a declared difference, citing a reservation of amount 10 against
+a declared budget of 15. `CK-A3`: restatement `NOT MET` (FR-4); budget
+line `NOT MET` (reservation amount below the declared budget). `FAIL`,
+preserved. `P-1` decides nothing. Had the budget line instead been
+`NOT DETERMINABLE` because `AU-40` were `OVERSPENT` or fenced, the
+result would be `STOP` and the question the Principal's.
+
+## PD-007.6. Genesis choices that follow admission (plan step 4, with D-17)
+
+No machinery is drafted here; these are the choices the genesis record
+must make, in order, once PD-007 is admitted.
+
+1. **Sequence 0.** The Constitutional Transition admitting
+   `ConstitutionVersion 1`, proposed and decided by the Principal, with
+   the Checker requirement waived by an exception in the version itself
+   applicable only to sequence 0 (PD-002.3). Choice: whether the
+   exception is a sentence in Part V or a clause of the admission text.
+2. **The first Checker Authorization**, before any other, so that every
+   later Transition can be checked: its grantee (a human, or a `CHECKER`
+   lineage registered at sequence 0's text), its provenance rule, and
+   whether it may reproduce and commit Outcomes.
+3. **The first Observation Authorization**: Source Declarations, feed
+   sources with enumeration contracts, the hop rule, the plan of slots,
+   and the synthetic source for Proof 2.
+4. **The first Research Authorizations**: grant in units, estimation
+   rule and tier per provider, per-grantee cap, default reservation
+   expiry, Themes and the empirical and discovery scopes, method class
+   of each grantee; and the Agent Design registrations of the ten
+   agents they bind to.
+5. **`P-1`'s admitting Transition**, after the Checker and Research
+   Authorizations exist, naming the Authorizations it applies to.
+6. **Limits**: the exploratory pool, caps and portfolio limits, even if
+   the first demonstrations allocate nothing.
+7. **D-17, death between Decide and Apply.** Choice: a decided,
+   unapplied Transition found on restart is applied if its base is still
+   the head and re-checked otherwise (continuation), or is re-decided in
+   every case. PD-007 narrows the window for delegated classes, where
+   the decision is an Apply-time act, but the Principal-decided classes
+   need the rule.
+8. **The paper fill rule and `ES-1.0`'s method commitments** for the
+   first registrations, so that no registration is checked without
+   them.
+
+Each is a Principal act with a record; none requires a new object, kind
+or right beyond those already admitted or proposed.
+
+## PD-007.7. Decisions for the Principal
 
 | Question | Proposal |
 | --- | --- |

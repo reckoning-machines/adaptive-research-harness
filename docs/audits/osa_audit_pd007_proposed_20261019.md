@@ -118,7 +118,19 @@ and I-2 above, neither of which changes its delta. They can be fixed in
 a revision 3 of one paragraph each, or accepted as clarifications on
 admission. No scope was expanded and no framework was selected.
 
-## 8. Admission recommendation
+## 8. Revision 3 note (2026-10-19)
+
+I-1 and I-2 corrected as directed; the delta is unchanged. The budget
+line now requires only that the cited `RESERVATION` covers the declared
+budget (open, below any fence, amount sufficient, purpose matching) and
+records remaining spendable budget for attribution without imposing it
+as a second requirement, so a registration never funds the same
+obligation twice. An admission brief (§PD-007.5) and the genesis choices
+that follow admission (§PD-007.6) were added; neither changes a rule.
+**Readiness: ready for the Principal's decision, with no outstanding
+inconsistency.**
+
+## 9. Admission recommendation
 
 PD-007 is coherent against revision 5, declares its one authority
 change explicitly and revocably, makes independence a matter of
@@ -128,7 +140,7 @@ function, and prevents concurrent overspend without a queue. Recommend
 the Principal decide it after PD-005, since its Check content cites
 `ES-1`'s requirements.
 
-## 9. What this audit does not establish
+## 10. What this audit does not establish
 
 That any Checker will catch what matters, that `P-1`'s conditions are
 the right ones for a second policy, or that ten agents will produce

@@ -3,7 +3,12 @@
 Status: **DRAFT PRODUCT DOCTRINE — NOT ADMITTED. Document-first design.
 Authorizes no implementation.**
 
-Date: 2026-10-18. Revision 8 (2026-10-19): applies
+Date: 2026-10-18. Revision 9 (2026-10-19): applies
+[Principal Decision Record 007](../decisions/principal_decision_007_independent_checking_and_delegated_admission.md)
+(admitted 2026-10-19, document-phase, revision 3) for independent
+checking, the Check record, the Outcome committer and the first admitted
+policy `P-1`; closes D-10, D-11, U-10, U-3 and FR-4. Revision 8
+(2026-10-19) applied
 [Principal Decision Record 008](../decisions/principal_decision_008_research_budget_reservation.md)
 (admitted 2026-10-19, document-phase, revision 4) for research budget
 reservation, attempts and settlement, the `FENCE` funding stop, and the
@@ -166,7 +171,7 @@ thing, a new identity rule or a new permitted relationship is introduced.
 | Role | Nature | Holds |
 | --- | --- | --- |
 | **Principal** | Human. The accountable owner. | The Constitution, every Authorization, capital and risk limits, final admission of consequential Transitions, and every constitutional Transition |
-| **Checker** | Human or an Agent Design Version operating under a Checker Authorization | Independent verification of a proposed Transition. May refuse. Cannot admit. |
+| **Checker** | Human or an Agent Design Version of method class `CHECKER` operating under a Checker Authorization (PD-007) | Independent verification of a proposed Transition, recorded in the Check record of §III.8; commits reproduction records and expected-but-missing Outcomes. May refuse or stop. Cannot admit, cannot change or waive a criterion, cannot cite uncommitted evidence. |
 | **Research Agent** | An Agent Design Version operating under a Research Authorization | Proposal of Themes, Hypotheses, Strategy Versions, successor Agent Design Versions, and the Evidence kinds Part V permits it (Predictions, Research Records, Evaluations other than reproduction records) |
 | **Observation function** | A function under an Observation Authorization (PD-002). Not an Agent Design Version | Retrieval of declared sources on the declared plan; the only committer of Market Observations. Proposes nothing; checks nothing |
 | **Strategy Runner** | A function under a Runner Authorization (PD-002). Not an Agent Design Version | Runs admitted Strategy Versions on their declared triggers against closed inputs; the only committer of Strategy Decisions. May not propose or admit Transitions, change a Strategy Version, modify a Standard, or touch capital or the Paper Book. Runs by Applied History standing and survives the proposing agent's retirement. Never certifies reproduction |
@@ -469,7 +474,9 @@ agents.
   successor any authority, and may not redefine the standard by which
   either is evaluated.** A successor inherits no research reservation
   (PD-008). A successor runs under no Authorization until the
-  Principal grants one.
+  Principal grants one, and **cannot inherit permission merely through
+  lineage**: its registration, whether decided by the Principal or by
+  policy `P-1` (Part V), grants nothing (PD-007).
 - **Competes on research contribution.** Agent Design Versions are ranked
   under the Evaluation Standard by the admitted, forward-resolved research
   they produced per unit of research budget consumed, counting negative
@@ -555,7 +562,15 @@ clock, a prior read or a previously committed timestamp.
   Reproduction standing is `DERIVED` from the set of reproduction
   records: `UNVERIFIED`, `REPRODUCED`, `UNREPRODUCED`, `DISPUTED`
   (decided by the Principal). Nothing is stored on the Decision. Which
-  Checker Authorizations qualify is audit D-10.
+  Checker Authorizations qualify is settled by §III.8 Independence
+  (PD-007; D-10 closed). Before a Check `PASS` on a Transition whose
+  cited Evaluation grounds on Decisions, every Decision in the grounding
+  series carries `REPRODUCED` standing; the Checker commits the missing
+  reproduction records as part of the Check or returns `FAIL`. Expected
+  Outcomes are derivable from each Prediction's resolution set and the
+  Observations witnessed; the Checker commits every expected-but-missing
+  Outcome of the subject before completing a Check that cites its record
+  (U-10 closed).
 
 **Documents, feeds and absence witnesses** (PD-003.1, PD-003.2).
 
@@ -878,6 +893,29 @@ PROPOSED -> CHECKED (PASS | FAIL) -> DECIDED (ADMITTED | REJECTED | STOPPED) -> 
   7. Decision, decider and the Authorization under which the decision was
      made.
   8. Apply sequence number, or the refusal.
+- **Check record** (PD-007). Every Check appends one record to the
+  Transition's lifecycle, the only carrier of a Check: (1) `TransitionId`,
+  class, `BaseStateVersion`, proposer and Authorization; (2) Checker
+  identity, Checker Authorization, provenance of both parties; (3) the
+  `ConstitutionVersion` and `EvaluationStandardVersion` in force at the
+  base and the closure read `(E, N, F)` with its instant; (4) one
+  observation per criterion of the class's Check column in Part V, each
+  `MET`, `NOT MET` or `NOT DETERMINABLE`, citing records by sequence;
+  for every class, within the proposer's Authorization and base state
+  current, and the **budget line**: the declared research budget is
+  covered by the cited `RESERVATION` (open, below any `FENCE`, amount
+  sufficient, purpose matching), with remaining spendable budget
+  recorded for attribution and never imposed as a second requirement;
+  for registrations, not a restatement without a declared difference
+  (FR-4) and, for Historical Reconstruction research cited, "authored
+  knowing the period" as a finding; for Transitions citing an
+  Evaluation, the Part X conformance items and the Checker's own
+  recomputation; (5) reproduction records committed; (6) result `PASS`,
+  `FAIL` (all determinable, one not met) or `STOP` (one not determinable
+  because the Constitution supplies no identity, meaning, owner or
+  authority; I-14); (7) escalation flag. A Check not in this form is
+  not a Check; a Check under criteria other than those pinned at base is
+  void, preserved, and grounds for revoking the Checker Authorization.
 - **Consequential or ordinary.** A Transition is **consequential** when it
   changes membership, standing, allocation, limits, Authorization,
   Evaluation Standard or Constitution. Consequential Transitions require an
@@ -889,10 +927,26 @@ PROPOSED -> CHECKED (PASS | FAIL) -> DECIDED (ADMITTED | REJECTED | STOPPED) -> 
   need no Checker because they change no standing by themselves, and they
   do not appear on the Transition ledger. Each kind of ordinary commit
   may be made only by the caller Part V names for it.
-- **Independence.** The Checker is not the proposer, did not run under the
-  proposer's Authorization, and is not an Agent Design Version in the
-  proposer's lineage. **TENTATIVE**; the sufficiency of this definition is
-  audit D-10.
+- **Independence** (PD-007; closes audit D-10). A Check is independent
+  when three conditions hold at once. *Separate authority*: performed
+  under a Checker Authorization granted by the Principal to a grantee
+  that is not the proposer, did not act under the proposer's
+  Authorization, and is not an Agent Design Version in the proposer's
+  lineage; a `CHECKER` lineage holds no Research Authorization and
+  proposes nothing but its own successor. *Protected standards*:
+  performed under the `ConstitutionVersion` and
+  `EvaluationStandardVersion` in force at the Transition's base, both
+  named; the Checker may not change, waive, add or reinterpret a
+  criterion (I-7), and proposes a criterion change only as a
+  Constitutional Transition, `STOPPED` until the Principal decides.
+  *Evidence the proposer cannot rewrite*: the Check reads only committed
+  records by ledger and sequence within a declared closure; working
+  memory, conversation, cache and uncommitted artifacts are not
+  evidence; the Check record is immutable. A different model provider
+  neither establishes independence nor does the same provider defeat
+  it; provider and version are provenance in the Check record, and the
+  Principal may require a different provider or a human for named
+  classes as Checker Authorization content.
 
 ### 9. Constitution
 
@@ -1197,26 +1251,52 @@ grounds nothing.
 | --- | --- | --- | --- | --- | --- |
 | Market Observation commit (numerical, document, feed item, feed retrieval record, on-request hop) | Evidence ledger | The Observation function only, under an Observation Authorization, on the declared plan or on a lawful request under the hop rule | None (ordinary); hop requests verified and refusals preserved | Commit boundary | `0/0/0` |
 | Strategy Decision commit | Evidence ledger | The Strategy Runner only, under a Runner Authorization, for admitted Strategy Versions on their declared triggers | None (ordinary); one per `DecisionEventId` enforced | Commit boundary | `0/0/0` |
-| Reproduction record commit | Evidence ledger | A Checker under a Checker Authorization, never the Runner or the proposer (sufficiency: audit D-10) | None (ordinary) | Commit boundary | `0/0/0` |
-| Other Evidence commit (Prediction, Outcome, Research Record, other Evaluation) | Evidence ledger | Any authorized agent or human under its Authorization. Outcome committer as drafted pending PD-002 U-10 | None (ordinary) | Commit boundary | `0/0/0` |
+| Reproduction record commit | Evidence ledger | A Checker under a Checker Authorization, never the Runner or the proposer (§III.8 Independence) | None (ordinary) | Commit boundary | `0/0/0` |
+| Other Evidence commit (Prediction, Outcome, Research Record, other Evaluation) | Evidence ledger | Any authorized agent or human under its Authorization; the Checker commits expected-but-missing Outcomes before a citing Check (PD-007; U-10 closed) | None (ordinary) | Commit boundary | `0/0/0` |
 | `RESERVATION` and attempt commit | Evidence ledger | The grantee under its Research Authorization | None (ordinary); fence, budget, cap, allowance and identity rules enforced by sequence (§III.5) | Commit boundary | `0/0/0` |
 | `FENCE` commit | Evidence ledger | The Principal only | None (ordinary); the Principal's funding-stop exception (PD-008 `ΔA`) | Commit boundary | `0/0/0` |
 | Theme registration or retirement | Applied History: membership | Research Agent or Principal | Checker (motivation closure within the proposer's scopes; typed claims; selection basis complete; successor cites predecessor) | Principal | `0/0/0` |
-| Hypothesis registration | Applied History: membership | Research Agent | Checker (testability; resolution rule and set; sources active at base; motivation closure disjoint from resolution sets; document-sourced members under §III.2's conditions; selection basis; not a restatement of a contradicted Hypothesis; budget covered by a named open `RESERVATION` below any fence) | Principal or admitted policy | `0/0/0` |
+| Hypothesis registration | Applied History: membership | Research Agent | Checker (testability; resolution rule and set; sources active at base; motivation closure disjoint from resolution sets; document-sourced members under §III.2's conditions; selection basis; not a restatement of a contradicted Hypothesis; budget covered by a named open `RESERVATION` below any fence) | Principal, or policy `P-1` | `0/0/0` |
 | Hypothesis standing change | Applied History: standing | Authorized agent or Principal, citing an Evaluation by `StateVersion` and `EvaluationStandardVersion` | Checker (Part X conformance: grounding on forward Outcomes only; `N_eff` floor by the committed method with its commitment sequence below the window; family reconciliation; output against the registered falsifier and stopping rule; methods pinned and changes disclosed) | Principal or admitted policy | `0/0/0` |
 | Strategy Version registration | Applied History: membership | Research Agent | Checker (executability; declared inputs and trigger; `SourceId`s under an Observation Authorization active at base; reproducibility class by test execution; scoring rule exists in the Standard; proposition delta; continuity claim) | Principal or admitted policy | `0/0/0` |
 | Allocation | Applied History: allocation, capital standing and limit consumption. Content: purpose (`EXPLORATORY`, `QUALIFIED`); for `EXPLORATORY`, the measurement purpose, `expiry_time`, optional `quota_events`, instruction (`FLATTEN` default; `HOLD` with reason, `hold_expiry_time`, exit conditions; optional `FLATTEN_ON_QUOTA`); for `QUALIFIED`, the cited Evaluation | Research Agent within capital Authorization, or Principal | Checker (composition legality; for `EXPLORATORY`: pool capacity, cap, purpose, expiry and instruction stated, no performance Evaluation cited; for `QUALIFIED`: Evaluation under the Standard at base, grounding series the forward decision-implied record, no exploratory figure in it, and Part X conformance: `N_eff` floor by the committed method; family reconciliation; cost model and sensitivity method committed before the window and checked against market evidence with modelled impact and simulated fills distinguished; gross, model-net, break-even and scenario results present; stress floor met or `NOT ASSESSABLE` refused; allocation at or below `a*`; every grounding Decision `REPRODUCED`) | Principal or admitted policy | `0/0/0` |
 | Standing Transition after expiry | Applied History: allocation to zero, standing `INCUBATING` | Principal or admitted policy | Checker (the expiry set, refusals, cancels, confirmations and residual as derived) | Principal or admitted policy | `0/0/0` |
 | Retirement or supersession | Applied History: standing | Any authorized | Checker (where an Evaluation is cited: Part X conformance; the subject's declared stopping rule or falsifier) | Principal or admitted policy | `0/0/0` |
-| Agent Design Version registration | Applied History: membership | Research Agent or Principal | Checker, never in proposer's lineage | Principal | `0/0/0` |
+| Agent Design Version registration | Applied History: membership; grants no Authorization and conveys no permission through lineage | Research Agent or Principal | Checker, never in proposer's lineage | Principal; or policy `P-1` for a successor that requests no Authorization | `0/0/0` |
 | Authorization grant, amend, revoke | Active Authorizations | Principal only | Checker (for revocation or supersession of a Research Authorization: a prior `FENCE` naming it exists) | Principal | `0/0/0` unless the Authorization itself carries a non-zero constitutional budget, which only the Principal may set |
 | Constitutional Transition | Constitution, Evaluation Standards | Principal (agents may only propose; proposal is STOPPED until decided) | Checker | Principal | Declared `ΔO/ΔS/ΔA`, non-zero permitted |
 | Order, Replace, Cancel, Fill and Fill Confirmation commit | Paper Book | The Execution function only, under an Execution Authorization, on committed Decisions or on the expiry instants of applied allocations established by a clock read; each set keyed to an applied Allocation Transition, a `StateVersion` and a Decision or `EXPIRY`; fills proposed by the fill rule; confirmations committed by the boundary on the function's call with a read after the fill's commit | None (ordinary); the boundary's admission rules (§III.10), pre-witness on every record, post-witness on every confirmation; set, order and confirmation idempotency enforced | Commit boundary | `0/0/0` |
 
 "Admitted policy" means a rule the Principal has placed in the Constitution
 that lets a class of Transition be decided without a per-instance human
-decision. No such policy exists in this draft. Every consequential
-Transition is currently decided by the Principal.
+decision. One exists: **policy `P-1`, routine research admission**
+(PD-007). Under `P-1` the Apply boundary admits, without a per-instance
+Principal decision, (i) a Hypothesis registration within an authorized
+scope and (ii) a successor Agent Design Version registration that
+requests no Authorization, when and only when, at Apply against the
+head: (a) a Check record with result `PASS` under the criteria pinned at
+the base exists; (b) the funding Authorization is active and the
+declared research budget is covered by a `RESERVATION` the proposer
+committed before the Check, named in the proposal, open at Apply, below
+any `FENCE`, of sufficient amount and purpose "pending registration" of
+this Transition, which binds to the registered subject on Apply;
+(c) the proposer's Authorization is in scope for the Theme or the
+`SearchFamily` (either path, neither privileged); (d) the base is
+current or the Transition was re-checked at the new base with `PASS`;
+(e) no `STOP`, no pending escalation on the subject, no suspension of
+`P-1`; (f) the subject is not a restatement. The decision event records
+`decider = P-1 (TR-<admitting Transition>)` and the Check's sequence.
+Neither delegated right can widen a budget, cap, scope, expiry,
+Authorization or reservation; a proposal that would is outside `P-1`
+and goes to the Principal. Reserved to the Principal: Constitutional
+Transitions; Authorization grant, amendment and revocation; committing
+a `FENCE`; Evaluation Standards; Theme registration and funding outside
+a grant; every Allocation; retirement or supersession of a Strategy
+Version; Hypothesis standing changes; Strategy Version registration;
+every `STOP`. The Principal suspends or revokes `P-1`, wholly or for a
+named Authorization, by a Transition, effective from its Apply forward
+(I-11). Any condition not determinable from the ledgers is `STOP`;
+`P-1` interprets nothing.
 
 ---
 
@@ -1739,6 +1819,12 @@ it.
     Research Record kinds; ΔS as listed in §III.5, §III.6, §III.7,
     Part V and Part VII; ΔA +1, the Principal's funding stop by FENCE
     without Check or Apply, stopping funding only. D-12 is closed.
+    PD-007 is admitted (2026-10-19, document-phase) for independent
+    checking, the Check record, the Outcome committer and policy P-1:
+    ΔO none; ΔS as listed in Part II, §III.4, §III.5, §III.8 and Part
+    V; ΔA +1 admitted policy, moving two registration decision rights
+    from the Principal to P-1 revocably. D-10, D-11, U-10, U-3 and
+    FR-4 are closed.
     The remainder has no authority until the Principal admits this
     Constitution as ConstitutionVersion 1.
 ```

@@ -178,11 +178,14 @@ Transition. PD-005 (`ES-1.0`, now Part X) and PD-006 were admitted 2026-10-19 as
 document-phase admissions and applied as revisions 6 and 7, each
 re-audited. PD-008 (D-12: `RESERVATION`, attempts, settlement, the `FENCE` funding
 stop) was admitted 2026-10-19 and applied as revision 8, re-audited.
-D-10 and D-11 are drafted as
-[decision record 007](../decisions/principal_decision_007_independent_checking_and_delegated_admission.md)
-(PROPOSED, revision 2; readiness reviewed against PD-008 in its audit).
-Next decision: PD-007, then N-1 with D-17 (step 4), then the independent
-audit of the whole draft and `ConstitutionVersion 1`. Implementation
+PD-007 (D-10, D-11: independent checking; policy `P-1`) was admitted
+2026-10-19 and applied as revision 9, re-audited. Genesis (N-1) and
+D-17 are drafted as
+[decision record 009](../decisions/principal_decision_009_genesis.md)
+(PROPOSED). Next: the Principal's review of PD-009; the independent
+whole-design audit against
+[the checklist](../audits/cv1_whole_design_audit_checklist_20261019.md);
+D-06; then `ConstitutionVersion 1`. Implementation
 planning, when it comes, evaluates existing agent runtimes and workflow
 engines against one concrete budget, interruption, revocation, retry and
 evidence-admission sequence (Principal direction, 2026-10-19); framework
