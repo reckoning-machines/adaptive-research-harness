@@ -3,7 +3,13 @@
 Status: **DRAFT PRODUCT DOCTRINE — NOT ADMITTED. Document-first design.
 Authorizes no implementation.**
 
-Date: 2026-10-18. Revision 9 (2026-10-19): applies
+Date: 2026-10-18. Revision 10 (2026-10-19): applies
+[Principal Decision Record 009](../decisions/principal_decision_009_genesis.md)
+(admitted 2026-10-19, document-phase, revision 2) for the genesis
+clause and its one-time waiver, the D-17 continuation rule, resume
+versus admit for attempts, and the removal of the D-06 continuity
+claim; closes N-1 as content, D-17 and D-06. No TENTATIVE marker
+remains. Revision 9 (2026-10-19) applied
 [Principal Decision Record 007](../decisions/principal_decision_007_independent_checking_and_delegated_admission.md)
 (admitted 2026-10-19, document-phase, revision 3) for independent
 checking, the Check record, the Outcome committer and the first admitted
@@ -48,9 +54,10 @@ Engineering discipline: adopted from fin123-core at
 marked *(adopted)* keep their fin123-core meaning and are not redefined here.
 
 Open questions and known defects are routed to
-[the initial OSA audit](../audits/initial_osa_audit.md). Where this doctrine
-says **TENTATIVE**, the audit carries the alternative and the deciding
-authority. Nothing marked TENTATIVE is settled by appearing here.
+[the initial OSA audit](../audits/initial_osa_audit.md) and the re-audits
+after each admission. Earlier revisions marked unsettled choices
+**TENTATIVE**; as of revision 10 none remains, each having been decided
+by a Principal record. Nothing is settled by appearing here without one.
 
 ## Jurisdiction
 
@@ -649,7 +656,12 @@ exist:
   Consumption recorded without an attempt is refused. A retry is a new
   dispatch index with its own pre-record; exactly-once external
   execution is never claimed unless the Authorization names an
-  enforceable provider mechanism.
+  enforceable provider mechanism. **Resuming** an already-admitted
+  attempt (a `PENDING` record exists) means settling it, or dispatching
+  it if never dispatched, under the permission its commit consumed;
+  **admitting** a new attempt, including any retry, is a fresh commit
+  ordered against any fence; a fresh process never treats an intention
+  found in memory as an admitted attempt (PD-009).
 - **Settlement.** Always admitted for a `PENDING` attempt, including
   after expiry, fence or revocation, by the grantee under its
   Authorization or by the Principal, with provenance (the provider's
@@ -699,12 +711,12 @@ Every prospective claim rests on three times.
   system behavior and is never prospective market evidence.
 - **Evidence does not transfer.** Forward record is bound to the exact
   `HypothesisId` or `StrategyVersionId`. A successor begins at zero;
-  lineage never automatically transfers evidence, fitness or capital
-  authority. A
-  Transition may *claim* evidentiary continuity for a Strategy Version
-  with `Proposition delta: NONE`; the claim is checked independently and
-  recorded as a claim, and reporting always shows the per-version record.
-  **TENTATIVE**; see audit D-06.
+  lineage never transfers evidence, fitness or capital authority, and no
+  Transition may claim evidentiary continuity for a successor (PD-009;
+  closes audit D-06). The predecessor's record is preserved in full and
+  remains visible through lineage memory (I-5) and the search family
+  (Part X R-4): what is removed is inherited performance credit, never
+  historical visibility.
 - **Negative evidence is preserved.** Failed Hypotheses, rejected
   Transitions, abandoned research, `FAILED` and `DECLINED` Decisions,
   `UNREPRODUCED` Decisions, `UNRESOLVABLE` Outcomes and retired Strategies
@@ -916,6 +928,18 @@ PROPOSED -> CHECKED (PASS | FAIL) -> DECIDED (ADMITTED | REJECTED | STOPPED) -> 
   authority; I-14); (7) escalation flag. A Check not in this form is
   not a Check; a Check under criteria other than those pinned at base is
   void, preserved, and grounds for revoking the Checker Authorization.
+- **Continuation after interruption** (D-17, PD-009). A decided,
+  unapplied Transition found by a fresh process may be applied only if
+  every current admission condition still holds at Apply: the base is
+  still the head; for a delegated class, every `P-1` condition; for
+  every class, the Authorization active, the cited `RESERVATION` open
+  and below any `FENCE`, no `OVERSPENT`, no suspension of the deciding
+  policy, no expiry passed. An unchanged head is necessary, never
+  sufficient. A changed base is re-checked under the rules at the new
+  base and re-decided by the applicable decider. Restart bypasses no
+  fence, expiry, exhausted allowance or suspended delegation. A checked,
+  undecided Transition is decided under the same rule; an applied one
+  is never re-done.
 - **Consequential or ordinary.** A Transition is **consequential** when it
   changes membership, standing, allocation, limits, Authorization,
   Evaluation Standard or Constitution. Consequential Transitions require an
@@ -1258,7 +1282,7 @@ grounds nothing.
 | Theme registration or retirement | Applied History: membership | Research Agent or Principal | Checker (motivation closure within the proposer's scopes; typed claims; selection basis complete; successor cites predecessor) | Principal | `0/0/0` |
 | Hypothesis registration | Applied History: membership | Research Agent | Checker (testability; resolution rule and set; sources active at base; motivation closure disjoint from resolution sets; document-sourced members under §III.2's conditions; selection basis; not a restatement of a contradicted Hypothesis; budget covered by a named open `RESERVATION` below any fence) | Principal, or policy `P-1` | `0/0/0` |
 | Hypothesis standing change | Applied History: standing | Authorized agent or Principal, citing an Evaluation by `StateVersion` and `EvaluationStandardVersion` | Checker (Part X conformance: grounding on forward Outcomes only; `N_eff` floor by the committed method with its commitment sequence below the window; family reconciliation; output against the registered falsifier and stopping rule; methods pinned and changes disclosed) | Principal or admitted policy | `0/0/0` |
-| Strategy Version registration | Applied History: membership | Research Agent | Checker (executability; declared inputs and trigger; `SourceId`s under an Observation Authorization active at base; reproducibility class by test execution; scoring rule exists in the Standard; proposition delta; continuity claim) | Principal or admitted policy | `0/0/0` |
+| Strategy Version registration | Applied History: membership | Research Agent | Checker (executability; declared inputs and trigger; `SourceId`s under an Observation Authorization active at base; reproducibility class by test execution; scoring rule exists in the Standard; proposition delta; method commitment present) | Principal or admitted policy | `0/0/0` |
 | Allocation | Applied History: allocation, capital standing and limit consumption. Content: purpose (`EXPLORATORY`, `QUALIFIED`); for `EXPLORATORY`, the measurement purpose, `expiry_time`, optional `quota_events`, instruction (`FLATTEN` default; `HOLD` with reason, `hold_expiry_time`, exit conditions; optional `FLATTEN_ON_QUOTA`); for `QUALIFIED`, the cited Evaluation | Research Agent within capital Authorization, or Principal | Checker (composition legality; for `EXPLORATORY`: pool capacity, cap, purpose, expiry and instruction stated, no performance Evaluation cited; for `QUALIFIED`: Evaluation under the Standard at base, grounding series the forward decision-implied record, no exploratory figure in it, and Part X conformance: `N_eff` floor by the committed method; family reconciliation; cost model and sensitivity method committed before the window and checked against market evidence with modelled impact and simulated fills distinguished; gross, model-net, break-even and scenario results present; stress floor met or `NOT ASSESSABLE` refused; allocation at or below `a*`; every grounding Decision `REPRODUCED`) | Principal or admitted policy | `0/0/0` |
 | Standing Transition after expiry | Applied History: allocation to zero, standing `INCUBATING` | Principal or admitted policy | Checker (the expiry set, refusals, cancels, confirmations and residual as derived) | Principal or admitted policy | `0/0/0` |
 | Retirement or supersession | Applied History: standing | Any authorized | Checker (where an Evaluation is cited: Part X conformance; the subject's declared stopping rule or falsifier) | Principal or admitted policy | `0/0/0` |
@@ -1298,6 +1322,18 @@ named Authorization, by a Transition, effective from its Apply forward
 (I-11). Any condition not determinable from the ledgers is `STOP`;
 `P-1` interprets nothing.
 
+**Genesis** (PD-009). Apply sequence 0 is a Constitutional Transition
+proposed, decided and applied by the Principal whose content is
+exactly: the text of `ConstitutionVersion 1`; the registration of one
+Agent Design Version of method class `CHECKER`; and one Checker
+Authorization to it. For sequence 0 alone, and for that enumerated
+content alone, the Check requirement is waived. The waiver applies to
+no other sequence, class, content, version, replay, re-genesis or
+migration; a Transition at any other sequence that invokes it is
+`STOPPED`. The registration and the grant carried by sequence 0 are
+ordinary membership and Authorization facts thereafter, amended or
+revoked only by checked Transitions.
+
 ---
 
 ## Part VI. Worked transitions
@@ -1321,10 +1357,10 @@ illustrative.
 | Field | Content |
 | --- | --- |
 | Before | State 42. Portfolio gross limit 100, used 70. Strategy lineage `SL-5` (traditional case) has version `SV-5.3` admitted with allocation 15 under proposition `EP-19`: mechanism cross-sectional momentum; target relative 1 to 3 month return; market US large-cap equities; horizon 1 to 3 months; payoff long-short spread. |
-| Mutation | Register `SV-5.4`: lookback changed from 12-1 to 6-1 months, rebalancing changed from daily to weekly, universe unchanged. Declared `Proposition delta: NONE` binding `EP-19`. Continuity claim: yes (TENTATIVE mechanism, D-06). Allocation Transition: move 15 from `SV-5.3` to `SV-5.4` and retire `SV-5.3`. Base state 42. |
-| Check | Checker `CK-A2` (Agent Design `AD-9.0`, Checker Authorization `AU-20`, not in lineage `AD-3`). Executable: yes. Equivalence established from the rule diff: mechanism, target, market, horizon and payoff all unchanged; lookback and rebalance frequency are implementation facts. `NONE` lawful. Contrast: had the universe moved to small caps, `NEW` would be required. Continuity claim: recorded only; `SV-5.4` has no forward record, fitness or allocation until this Transition grants the allocation. Composition: resulting gross 70, within limit. PASS. |
+| Mutation | Register `SV-5.4`: lookback changed from 12-1 to 6-1 months, rebalancing changed from daily to weekly, universe unchanged. Declared `Proposition delta: NONE` binding `EP-19`. No continuity claim; `SV-5.3`'s record stays visible as family history. Allocation Transition: move 15 from `SV-5.3` to `SV-5.4` and retire `SV-5.3`. Base state 42. |
+| Check | Checker `CK-A2` (Agent Design `AD-9.0`, Checker Authorization `AU-20`, not in lineage `AD-3`). Executable: yes. Equivalence established from the rule diff: mechanism, target, market, horizon and payoff all unchanged; lookback and rebalance frequency are implementation facts. `NONE` lawful. Contrast: had the universe moved to small caps, `NEW` would be required. `SV-5.4` has no forward record, fitness or allocation until this Transition grants the allocation; `SV-5.3`'s record is family history under Part X R-4, never credit. Composition: resulting gross 70, within limit. PASS. |
 | Decision | Principal admits. |
-| After | Transition `TR-310` applied, Apply sequence 43, pinned Constitution v1, ES-1. Projection at 43: `SV-5.4` admitted with allocation 15, `SV-5.3` retired with its record intact. Continuity claim recorded as a checked claim with no decision right. |
+| After | Transition `TR-310` applied, Apply sequence 43, pinned Constitution v1, ES-1. Projection at 43: `SV-5.4` admitted with allocation 15, `SV-5.3` retired with its record intact. `SV-5.3`'s record preserved and visible; nothing inherited. |
 | Then | The Strategy Runner commits `SV-5.4`'s first Decision on its trigger (seq 2 470, closure `E` ≤ 2 469, `N`=43, `F` ≤ 900, witness marks recorded); a Checker commits a reproduction record. The Execution function derives order set `TR-310:43:2470`, orders `.1` onward, each checked against limits at 43; fills are proposed by the fill rule, admitted provisional and confirmed. Decision-implied and executed records accrue as `DERIVED` series. |
 
 ### T-C. An agent proposes its successor
@@ -1825,6 +1861,12 @@ it.
     V; ΔA +1 admitted policy, moving two registration decision rights
     from the Principal to P-1 revocably. D-10, D-11, U-10, U-3 and
     FR-4 are closed.
+    PD-009 is admitted (2026-10-19, document-phase) for the genesis
+    clause, the D-17 continuation rule, resume versus admit, and the
+    removal of the D-06 continuity claim: ΔO none; ΔS as listed; ΔA +1
+    one-time, the Check waiver for sequence 0's enumerated content.
+    N-1 (as content), D-17 and D-06 are closed. Genesis is not
+    executed.
     The remainder has no authority until the Principal admits this
     Constitution as ConstitutionVersion 1.
 ```
