@@ -17,7 +17,7 @@ GitHub slug rule (lower case; punctuation other than hyphens and spaces
 removed; spaces to hyphens; backticks and emphasis stripped).
 
 ```text
-links checked: 216
+links checked: 220
 unresolved targets: 0
 unresolved anchors: 0
 links leaving the package: 0
