@@ -412,3 +412,12 @@ or right beyond those already admitted or proposed.
 | Strategy Version registration: reserved now, candidate `P-2` later | Reserve |
 | D-12 | Decided in PD-008; this record depends on it |
 | Checker extraction (UD-4) | Defer |
+
+## Amended by PD-010 (admitted 2026-10-19; Constitution revision 11)
+
+This record is historical and is not rewritten. The following of its content is superseded or supplemented by [PD-010](principal_decision_010_codex_audit_repairs.md) as admitted; the Constitution's text governs.
+
+- `P-1` condition (b): "open at Apply, below any `FENCE`" is replaced by the Apply binding: eligibility is established at `BIND` and the Apply cites a binding that is not invalidated (audit B-4).
+- The Check record's item 3 gains `F = N/A — no Paper Book` and `LEDGER_UNREACHABLE`; item 4 distinguishes a Principal control act (authority cited directly; budget line `N/A — no metered consumption`) from a proposal declaring metered consumption (audit B-2).
+- In the §PD-007.4 example, the Day 4 case (`SRC-Q` under no Observation Authorization at base) is a known failed gate: `NOT MET` and `FAIL`, not `NOT DETERMINABLE` and `STOP`; `STOP` is reserved for constitutional indeterminacy, and a Principal-only decision requirement is not a missing ontology (C-4). Likewise an `OVERSPENT` or fenced Authorization is `NOT MET`.
+- A `CHECKER` lineage proposes nothing but its own successor and, as any agent may, a Constitutional Transition `STOPPED` until the Principal decides (C-4). A Checker Authorization may name subjects its holder may not check, as Authorization content (C-7).

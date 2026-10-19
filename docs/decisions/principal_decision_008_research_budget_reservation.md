@@ -416,3 +416,12 @@ irreversible, attributable and reserved to the Principal, and because
 no mechanism among the existing boundaries gives exact ordering
 otherwise. If the Principal declines, Alternative B of the comparison
 is the fallback, with its stated exposure.
+
+## Amended by PD-010 (admitted 2026-10-19; Constitution revision 11)
+
+This record is historical and is not rewritten. The following of its content is superseded or supplemented by [PD-010](principal_decision_010_codex_audit_repairs.md) as admitted; the Constitution's text governs.
+
+- The five-state formula is replaced by the accounting of Constitution §III.5: committed amount `C = S + P` per reservation, committed total, reserved total, headroom, remaining spendable budget and released allowance, with `OVERSPENT` when the committed total exceeds the grant; every attempt must fit the reservation's allowance, the Authorization's headroom and the lineage cap (audit B-3).
+- "Settlement always admitted" is restated with validation: a valid, attributable settlement of an attempt still `PENDING` at the commit admits after close, expiry, fence, revocation or exhaustion; duplicates are refused `ALREADY_SETTLED`; malformed submissions `INVALID_SETTLEMENT` (Codex R2-3).
+- Rule 4's promise that expiry releases unused allowance at the next read is superseded while a reservation is frozen by an Apply binding (PD-010 choice 4a): unused allowance can remain frozen past expiry until consumption, or invalidation followed by `RELEASE`, with no release promised during an outage.
+- `RESERVATION`, attempt and settlement records may be committed under a Checker Authorization for verification purposes (audit B-1); the Principal's funding-stop exception extends to Checker Authorizations (`ΔA`).

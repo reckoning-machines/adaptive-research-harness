@@ -836,3 +836,12 @@ Constitutional Delta of this clarification: `ΔO` none beyond the Fill
 Confirmation already declared; `ΔS` the refinements above; `ΔA` none.
 The simulator is a method of the Execution function under its existing
 Authorization, not a new committer.
+
+## Amended by PD-010 (admitted 2026-10-19; Constitution revision 11)
+
+This record is historical and is not rewritten. The following of its content is superseded or supplemented by [PD-010](principal_decision_010_codex_audit_repairs.md) as admitted; the Constitution's text governs.
+
+- `FLATTEN_ON_QUOTA`, the optional instruction this record proposed, is removed (audit B-9): quota exhaustion refuses opening and does not expire; the expiry obligation names only `expiry_time`. The Execution Authorization's trigger set no longer includes quota exhaustion.
+- A fill of a `REDUCING` order reduces only within the reducing bound at the head (audit B-8); the beyond-zero leg of a reversal is derived only when the to-zero leg is `EFFECTIVE` and the position is zero.
+- A `REDUCE` Allocation purpose (audit B-10), Principal-only and never promoting standing, withdraws exposure without qualification evidence; withdrawing allocation and flattening positions are distinct facts.
+- The limits contract of §III.6 and §PD-004.11 is transcribed as a Part V Limits row.

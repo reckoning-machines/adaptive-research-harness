@@ -438,3 +438,10 @@ it. It cannot estimate a tail the record has not seen, forecast an
 unprecedented discontinuity, detect a regime change before it shows in
 outcomes, or prove that an agent disclosed every trial; it can only make
 each absence visible and refuse to reward it.
+
+## Amended by PD-010 (admitted 2026-10-19; Constitution revision 11)
+
+This record is historical and is not rewritten. The following of its content is superseded or supplemented by [PD-010](principal_decision_010_codex_audit_repairs.md) as admitted; the Constitution's text governs.
+
+- Cost verification (b): the route "recorded in the Check with their provenance" is removed (audit B-7). The Checker checks the cost model only against market evidence committed as Market Observations under declared sources, by sequence and before the Check; where no declared source exists the cost model is unverified and `Qualify` is withheld.
+- Part X §3's commitment-in-force rule is restated by ledger and identity (audit B-6); Part X §6 gains the observation cutoff rule and the consecutive-`DEPARTED` count (audit B-5, C-3); R-3 counts finalized Outcomes only (C-5).

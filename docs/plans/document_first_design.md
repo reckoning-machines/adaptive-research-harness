@@ -180,12 +180,20 @@ re-audited. PD-008 (D-12: `RESERVATION`, attempts, settlement, the `FENCE` fundi
 stop) was admitted 2026-10-19 and applied as revision 8, re-audited.
 PD-007 (D-10, D-11: independent checking; policy `P-1`) was admitted
 2026-10-19 and applied as revision 9, re-audited. PD-009 (genesis content, D-17, D-06 removal) was admitted 2026-10-19
-and applied as revision 10. The independent whole-design audit against
-[the checklist](../audits/cv1_whole_design_audit_checklist_20261019.md)
-is conducted separately by the Principal's auditor from the
-[audit handoff](../audits/cv1_audit_handoff_20261019.md); its findings
-and the Principal's decisions on them precede any admission of
-`ConstitutionVersion 1`. Genesis is not executed; no code
+and applied as revision 10. The independent whole-design audit
+([Codex, 2026-10-19](../audits/independent_preimplementation_design_audit_20261019.md))
+returned OSA FAIL at revision 10 with ten blocking findings and seven
+clarifications. The repairs,
+[PD-010](../decisions/principal_decision_010_codex_audit_repairs.md)
+revision 4 (after Codex's reviews of
+[revision 2](../audits/pd010_revision2_binding_review_20261019.md),
+[revision 3](../audits/pd010_revision3_binding_review_20261019.md) and
+the [bounded check of revision 4](../audits/pd010_revision4_bounded_check_20261019.md)),
+were admitted 2026-10-19 and applied as revision 11, with an
+[author's propagation check](../audits/pd010_propagation_check_20261019.md).
+Codex's final whole-design review of the propagated design, per the
+[final handoff](../audits/cv1_final_handoff_20261019.md), precedes any
+admission of `ConstitutionVersion 1`. Genesis is not executed; no code
 is authorized. Implementation
 planning, when it comes, evaluates existing agent runtimes and workflow
 engines against one concrete budget, interruption, revocation, retry and

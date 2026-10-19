@@ -18,7 +18,7 @@ PD-009 proposed.
 | 8 | Refusals | Every refusal named in any record appears in the Constitution with its boundary and is preserved rather than silently dropped |
 | 9 | Closures | The two-case test (momentum, forward research) runs end to end under revisions 1 to 9 without a rule that serves one case only |
 | 10 | TENTATIVE markers | Only D-06 remains; decide or remove it before admission |
-| 11 | Numbers | No numerical constant in the Constitution outside Part X §6, and every one there labelled provisional |
+| 11 | Numbers | No tunable policy constant in the Constitution outside Part X §6, and every one there labelled provisional; identifiers, cardinalities, sequence zero, example amounts and Authorization defaults admitted as provisional content (the hop depth, PD-003) are not policy constants (reworded per PD-010 C-3) |
 | 12 | Genesis | PD-009's sequence 0 creates the initial `CHECKER` agent and its narrowly scoped Authorization under a waiver bound to sequence 0, one class and three enumerated items; every later Transition is checked; a second Checker lineage exists before anything concerning the first must be checked |
 | 13 | Reuse | No section names a runtime, database, queue, scheduler, provider or trading engine; Part IX principle 10 is honored |
 | 14 | Consistency of the record set | Every admitted PD's status header carries its approved text; every re-audit's "changes applied" matches the Constitution's text; `AGENTS.md` states the current revision |
