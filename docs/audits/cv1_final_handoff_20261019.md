@@ -84,3 +84,40 @@ The review is evidence; it admits nothing. The author will not alter
 the review. Any repair the review requires goes through a new proposed
 decision record with its own declared delta, the Principal's admission,
 and re-propagation, never through a silent edit of governing text.
+
+## 7. Added for review (2026-10-19, after `fced833`): the prospect-facing architecture and the review package
+
+The Principal directed a prospect-facing [`architecture.md`](../../architecture.md)
+at the repository root, a root [`README.md`](../../README.md) and a
+proposed [package manifest](../package/cv1_review_package_manifest.md).
+These are explanatory; they introduce no policy and hold no authority.
+Please add to the review:
+
+1. **Fidelity.** Whether every statement in `architecture.md` about the
+   design is supported by the clause it links to, and whether any
+   simplification changes a meaning (in particular §5 Controls, §6 the
+   runtime-checkpoint statement, and §8's practical implications of
+   D-14, U-1, U-8, the provider-cap assumption and the fill-rule grant).
+2. **Reuse claims.** Whether §6's table presents any candidate as a
+   commitment, names a product without verified capability, or implies
+   that a tool could hold a governed fact; and whether each "decisive
+   acceptance criterion" is checkable against the Constitution rather
+   than against the author's preference.
+3. **Readiness claims.** Whether the document anywhere claims
+   implementation, selection, certification, an executed witness or
+   admission of `ConstitutionVersion 1`; it is intended to claim none.
+4. **Package contents.** Whether the manifest's inclusions suffice to
+   understand every admission (decision records with their amendment
+   notes, pre-admission audits and re-audits, your four audits
+   unchanged), whether its exclusions drop anything a reader needs, and
+   whether every relative link inside the included files resolves
+   within the package. The Principal's design proposal (`.docx`, with
+   figures) is included at the Principal's direction as reference
+   material that governs nothing.
+5. **The author's consistency check** of links, terminology and
+   readiness claims is
+   [architecture_consistency_check_20261019.md](architecture_consistency_check_20261019.md);
+   treat it as a claim to verify.
+
+The final submission package is not built until this review and the
+Principal's admission of `ConstitutionVersion 1` are complete.
