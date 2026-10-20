@@ -3,7 +3,21 @@
 Status: **DRAFT PRODUCT DOCTRINE — NOT ADMITTED. Document-first design.
 Authorizes no implementation.**
 
-Date: 2026-10-18. Revision 11 (2026-10-19): applies
+Date: 2026-10-18. Revision 12 (2026-10-19): propagation corrections
+under PD-010 for findings F-1 and F-2 of the
+[final independent review](../audits/cv1_final_independent_review_20261019.md),
+recorded with their basis in the
+[author's correction record](../audits/cv1_correction_record_f1_f2_20261019.md):
+the Principal's own authority carried through Check, Decide, Apply and
+continuation for every control act; the residual-breach treatment of a
+`REDUCE` reconciled with I-10 and the Paper Book limit gates; the T-H
+illustration aligned with the reducing-bound rule; after the
+[bounded follow-up](../audits/cv1_revision12_bounded_followup_20261019.md),
+the Paper Book's residual-breach exception gated on a set keyed to an
+applied `REDUCE` with an outstanding obligation. PD-011's A-1 direction is applied: the
+Prediction witness read keeps PD-010's exact `HypothesisId` scope.
+[PD-011](../decisions/principal_decision_011_proposed_confirmations.md)
+records the Principal's directions and is not admitted. Revision 11 (2026-10-19): applies
 [Principal Decision Record 010](../decisions/principal_decision_010_codex_audit_repairs.md)
 (admitted 2026-10-19, document-phase, revision 4, choices 1 to 3, 4a to
 4d and 5 to 14) repairing the ten blocking findings and seven
@@ -537,7 +551,7 @@ clock, a prior read or a previously committed timestamp.
 
 | Evidence kind | Bound to | Meaning |
 | --- | --- | --- |
-| **Prediction** | Exactly one `HypothesisId` or `StrategyVersionId`; a target; a resolution rule over a declared resolution set of (`SourceId`, period, print) members, with its content hash; a tolerance; the **cutoff** of each member (Part X §6, pinned at commitment); a **commitment time** and sequence by the Evidence clock | A claim committed at a recorded time, fixed at commitment. The Evidence commit boundary refuses a Prediction whose `HypothesisId` or `StrategyVersionId` is not admitted at the Applied History head it witnesses at commit (the witness read below, extended from Decisions to Predictions; PD-010) |
+| **Prediction** | Exactly one `HypothesisId` or `StrategyVersionId`; a target; a resolution rule over a declared resolution set of (`SourceId`, period, print) members, with its content hash; a tolerance; the **cutoff** of each member (Part X §6, pinned at commitment); a **commitment time** and sequence by the Evidence clock | A claim committed at a recorded time, fixed at commitment. The Evidence commit boundary refuses a Prediction whose `HypothesisId` is not admitted at the Applied History head it witnesses at commit (the witness read below, extended from Decisions to Predictions; PD-010 §3 B-6, exact scope; PD-011 A-1) |
 | **Outcome** | Exactly one Prediction; exactly one **bound observation set**: for each member of the resolution set, the sequence of the `VALUE` Observation of that member's declared print; the pinned `SourceRevision` of each; the rule hash; the computed value; **outcome availability time** = the witnessed receipt of the last member bound | What happened, resolved by re-applying the rule to the bound set. Recomputable by any reader. Immutable; a later restatement is a new Market Observation and never alters it. The Outcome is a deterministic function of the resolution set, the pinned cutoffs and the Evidence ledger: resolved when every member is **observed** (Part X §6), `UNRESOLVABLE` naming each member not observed. **When it is computed changes nothing**: a Prediction whose members were all observed before their cutoffs resolves identically whether the Outcome is committed before or after the cutoff; a `VALUE` witnessed after a member's cutoff is a Market Observation that never qualifies, whether or not any Outcome has yet been committed. An Outcome may be committed before the Prediction's cutoff only when every member is already observed. **At most one Outcome per `PredictionId`**: the Evidence boundary refuses a second (`DUPLICATE_OUTCOME`), preserved; the first committed is canonical, and its identity is "the Outcome of Prediction `P`". The Checker's duty to commit expected-but-missing Outcomes falls due at the Prediction's cutoff (PD-010) |
 | **Market Observation** | A `SourceId` and `SourceRevision` (§III.7); an instrument or field; a period; a print; a result `VALUE`, `ABSENT`, `NOT_EXTRACTABLE` or `RETRIEVAL_FAILED`; the value where present; the **claimed source time** (`RECEIPT` content; informs, establishes nothing); the **witnessed receipt time** and sequence by the Evidence clock. **`DOCUMENT` form** (PD-003.2): locator, content hash of the exact bytes, stored bytes addressed by hash, claimed publication time, and for feed items the feed `SourceId`, slot and absence witness; for hop retrievals the requesting Authorization and the hop chain. **Feed retrieval record**: an Observation of the feed itself with result `COMPLETE`, `PARTIAL` or `RETRIEVAL_FAILED` | A `RECEIPT` of what the declared source returned and when the system held it. `ABSENT` is a retrieval result: the function could not retrieve the value then; it is not a statement about the market. `NOT_EXTRACTABLE`: the pinned extraction rule yielded no value from the bytes. `RETRIEVAL_FAILED` and `PARTIAL` establish nothing about absence |
 | **Strategy Decision** | Exactly one `StrategyVersionId`; a `DecisionEventId`; an **input closure**; **commit-time witness marks**; an output; a content hash; a **commitment time** and sequence by the Evidence clock | The committed output of executing one Strategy Version for one decision event against one closure (rules below). Committed only by the Strategy Runner |
@@ -1067,7 +1081,8 @@ PROPOSED -> CHECKED (PASS | FAIL) -> DECIDED (ADMITTED | REJECTED | STOPPED) -> 
   the base it checked; the decision and the Apply cite it; the proposal
   is never rewritten (PD-010 C-2).
 - **Record form.** Every Transition carries:
-  1. Proposer identity and Authorization.
+  1. Proposer identity and Authorization, or, for a Principal control
+     act (Part V), the Principal's own authority cited directly.
   2. `BaseStateVersion`.
   3. Transition class and the exact mutation.
   4. Declared budget consumption: research, capital, constitutional
@@ -1081,7 +1096,8 @@ PROPOSED -> CHECKED (PASS | FAIL) -> DECIDED (ADMITTED | REJECTED | STOPPED) -> 
   8. Apply sequence number, or the refusal.
 - **Check record** (PD-007). Every Check appends one record to the
   Transition's lifecycle, the only carrier of a Check: (1) `TransitionId`,
-  class, `BaseStateVersion`, proposer and Authorization; (2) Checker
+  class, `BaseStateVersion`, proposer and its Authorization or, for a
+  Principal control act, the Principal's own authority; (2) Checker
   identity, Checker Authorization, provenance of both parties; (3) the
   `ConstitutionVersion` and `EvaluationStandardVersion` in force at the
   base and the closure read `(E, N, F)` with its instant, where `F` is
@@ -1092,10 +1108,12 @@ PROPOSED -> CHECKED (PASS | FAIL) -> DECIDED (ADMITTED | REJECTED | STOPPED) -> 
   observation per criterion of the class's Check column in Part V, each
   `MET`, `NOT MET` or `NOT DETERMINABLE`, citing records by sequence;
   for every class, the proposer's authority: a cited Authorization in
-  scope, or, for a **Principal control act** (Authorization grant,
-  amendment or revocation; limits; a Constitutional Transition; a Theme
-  registration or Allocation proposed by the Principal), the
-  Principal's own authority cited directly; base state current; and the
+  scope, or, for a **Principal control act** (Part V: any Transition
+  the Principal proposes that declares no metered research consumption,
+  whatever its class), the Principal's own authority cited directly,
+  which no Authorization, reservation or binding test applies to; the
+  independent Check and every other criterion of the class apply to a
+  control act unchanged; base state current; and the
   **budget line**, which applies to proposals declaring metered
   research consumption: the declared budget is covered by the cited
   `RESERVATION` (open, below any `FENCE` at the Check's closure, amount
@@ -1176,8 +1194,12 @@ PROPOSED -> CHECKED (PASS | FAIL) -> DECIDED (ADMITTED | REJECTED | STOPPED) -> 
   PD-010). A decided, unapplied Transition found by a fresh process may
   be applied only if every current admission condition still holds at
   Apply: the base is still the head; for a delegated class, every `P-1`
-  condition; for every class, the Authorization active, no suspension
-  of the deciding policy, no expiry of the Authorization passed; and,
+  condition and no suspension of the deciding policy; for a proposal
+  made under an Authorization, that Authorization active and unexpired
+  at the head; for a Principal control act, the Principal's own
+  authority, which is neither granted, expired nor revoked, so that no
+  Authorization or funding predicate applies and the remaining
+  conditions decide; and,
   for a proposal declaring metered consumption, an Apply citing a
   `BIND` of this Transition that is not invalidated, or a fresh `BIND`
   after every prior one has a terminal disposition and, if invalidated,
@@ -1372,8 +1394,9 @@ and cancelled, and nothing else.
   `FAILED`, with closure `N` at or above the allocation's Apply) is
   within it; no limit in force at `N_1` is breached; and it does not
   cross zero. A `REDUCING` order in a Decision set is admitted when the
-  allocation is in force at `N_1` and limits hold, with or without a
-  clock read (a read, where obtained and at or after `expiry_time`,
+  allocation is in force at `N_1` and limits hold under the Limits
+  bullet below, whose `REDUCE` execution exception is available only to
+  a set keyed to an applied `REDUCE`, with or without a clock read (a read, where obtained and at or after `expiry_time`,
   refuses it, since after expiry only the expiry set reduces). A
   `CANCEL` is admitted when its order is open and it belongs to a newer
   Decision's set, the first set under a newer allocation, or the expiry
@@ -1423,13 +1446,35 @@ and cancelled, and nothing else.
   same key, a second expiry set for the same `TransitionId`, a second
   order with the same `OrderId`, and a second confirmation for the same
   `FillId`.
-- **Limits.** An order that would breach a limit in force at the head
-  is refused by the commit boundary and the refusal is a Paper Book
+- **Limits.** The ordinary rule (PD-004): the commit boundary refuses
+  an order `LIMIT` when its full fill, on the same-side working
+  position at the pre-witness, would breach a limit in force at the
+  head, and a breach that persists after the full fill is a breach for
+  this purpose. One bounded exception exists, the **`REDUCE` execution
+  exception**, available to an order only when all of the following
+  hold at the pre-witness: (a) the order's set is keyed to an applied
+  Allocation Transition of purpose `REDUCE` (the set key names the
+  Transition, "Sets and orders" above) that is in force at `N_1`;
+  (b) that `REDUCE`'s execution obligation is outstanding and the
+  order executes toward its lower target and not past it: the
+  confirmed position is further from the target than the order's full
+  fill would leave it; (c) the order is `REDUCING`; and (d) the full
+  fill lowers or leaves unchanged every limit usage and raises none
+  above its limit, so no breach is created or worsened. Such an order
+  is admitted although a breach persists, and the **residual breach**
+  is a reported Paper Book fact. An order in a set keyed to any other
+  Allocation Transition, a Decision set under an unchanged allocation
+  or an expiry set among them, cannot claim the exception and is
+  admitted or refused under the ordinary rule; no `OPENING` order is
+  admitted into a breach or within one under either rule (PD-010
+  choice 9, criteria (iii) and (iv); correction record for the final
+  independent review, F-2, second pass). The refusal is a Paper Book
   fact. `PROVISIONAL` fills consume limit capacity as if filled, by
   Paper Book sequence, so two provisional fills cannot together exceed
   a limit either alone respects. Whether a portfolio net limit may
-  refuse a version-level `REDUCING` order is limit content set by the
-  Principal. Limits changing between witnesses: U-8, open (plan step 7).
+  refuse a version-level `REDUCING` order whose full fill would raise
+  net usage within that limit is limit content set by the Principal.
+  Limits changing between witnesses: U-8, open (plan step 7).
 - **Invariant.** A difference between target allocation, decided weights
   and executed position is a fact to be observed and reported, never
   reconciled by any ledger overwriting another. An incomplete flatten
@@ -1497,7 +1542,16 @@ the state the Transition will actually be applied to.
 admitted only if the projection that results from applying it to the head
 of the Applied History satisfies every limit and invariant. Two individually lawful
 Transitions may therefore be jointly inadmissible. This is an OSA admission
-question, decided at Check and Apply. It is not a CPOC question.
+question, decided at Check and Apply. It is not a CPOC question. One
+bounded qualification exists: a `REDUCE` Allocation (Part V) whose
+projection lowers or leaves unchanged every limit usage relative to the
+head, creates no breach, worsens none and adds no instrument exposure
+satisfies this invariant although a breach that existed at the head
+persists at a smaller or equal size; that **residual breach** is
+recorded by the Check and reported. No other class, and no Transition
+that increases any exposure, is admitted into a breaching projection
+(PD-010 choice 9; correction record for the final independent review,
+F-2).
 
 **I-11. Nothing is deleted; history is pinned.** Retirement, rejection,
 revocation and supersession are appended facts. Recovery replays the
@@ -1559,7 +1613,7 @@ grounds nothing.
 | Hypothesis registration | Applied History: membership | Research Agent | Checker (testability; resolution rule and set; sources active at base, each with a resolution grace; motivation closure disjoint from resolution sets; document-sourced members under §III.2's conditions; selection basis; not a restatement of a contradicted Hypothesis; budget covered by a named `RESERVATION` open and below any fence at the Check's closure); at Apply, a `BIND` (§III.8) | Principal, or policy `P-1` | `0/0/0` |
 | Hypothesis standing change | Applied History: standing | Authorized agent or Principal, citing an Evaluation by `StateVersion` and `EvaluationStandardVersion` | Checker (Part X conformance: grounding on forward Outcomes only; `N_eff` floor by the committed method with its commitment sequence below the window; family reconciliation; output against the registered falsifier and stopping rule; methods pinned and changes disclosed) | Principal or admitted policy | `0/0/0` |
 | Strategy Version registration | Applied History: membership | Research Agent | Checker (executability; declared inputs and trigger; `SourceId`s under an Observation Authorization active at base; reproducibility class by test execution; scoring rule exists in the Standard; proposition delta; method commitment present) | Principal or admitted policy | `0/0/0` |
-| Allocation | Applied History: allocation, capital standing and limit consumption. Content: purpose (`EXPLORATORY`, `QUALIFIED`, `REDUCE`); for `EXPLORATORY`, the measurement purpose, `expiry_time`, optional `quota_events`, instruction (`FLATTEN` default; `HOLD` with reason, `hold_expiry_time`, exit conditions); for `QUALIFIED`, the cited Evaluation; for **`REDUCE`** (PD-010), a new amount lower than the amount in force, including zero, for an allocation of any purpose, citing the Evaluation or limit finding that motivates it, which need not meet any qualification floor | Research Agent within capital Authorization, or Principal; for `REDUCE`, the Principal only, never a policy | Checker (composition legality; for `EXPLORATORY`: pool capacity, cap, purpose, expiry and instruction stated, no performance Evaluation cited; for `QUALIFIED`: Evaluation under the Standard at base, grounding series the forward decision-implied record, no exploratory figure in it, and Part X conformance: `N_eff` floor by the committed method; family reconciliation; cost model and sensitivity method committed before the window and checked against Market Observations with modelled impact and simulated fills distinguished; gross, model-net, break-even and scenario results present; stress floor met or `NOT ASSESSABLE` refused; allocation at or below `a*`; every grounding Decision `REPRODUCED`; for `REDUCE`: (i) composition at the lower amount; (ii) the standing recorded is never higher than before: `QUALIFIED` stays `QUALIFIED` at the lower amount, `EXPLORATORY` stays `EXPLORATORY` with its `expiry_time`, quota and instruction unchanged, and zero is `INCUBATING`; a `REDUCE` never promotes and never qualifies; (iii) risk effect: every limit usage non-increasing and no new instrument exposure; where an existing breach cannot be eliminated in one step the Check records the **residual breach** (the same limit, smaller or equal after) as distinct from a **new or worsened risk** (any limit usage that increases, or a breach that appears) and admits only the former; (iv) the residual execution obligation: the Execution function re-executes to the lower target under the new key, an incomplete reduction remaining a visible obligation; the Apply changes the target and liquidates nothing; no forward-event floor, cost verification or stress qualification is required to withdraw exposure) | Principal or admitted policy; `REDUCE`: Principal | `0/0/0` |
+| Allocation | Applied History: allocation, capital standing and limit consumption. Content: purpose (`EXPLORATORY`, `QUALIFIED`, `REDUCE`); for `EXPLORATORY`, the measurement purpose, `expiry_time`, optional `quota_events`, instruction (`FLATTEN` default; `HOLD` with reason, `hold_expiry_time`, exit conditions); for `QUALIFIED`, the cited Evaluation; for **`REDUCE`** (PD-010), a new amount lower than the amount in force, including zero, for an allocation of any purpose, citing the Evaluation or limit finding that motivates it, which need not meet any qualification floor | Research Agent within capital Authorization, or Principal; for `REDUCE`, the Principal only, never a policy | Checker (composition legality; for `EXPLORATORY`: pool capacity, cap, purpose, expiry and instruction stated, no performance Evaluation cited; for `QUALIFIED`: Evaluation under the Standard at base, grounding series the forward decision-implied record, no exploratory figure in it, and Part X conformance: `N_eff` floor by the committed method; family reconciliation; cost model and sensitivity method committed before the window and checked against Market Observations with modelled impact and simulated fills distinguished; gross, model-net, break-even and scenario results present; stress floor met or `NOT ASSESSABLE` refused; allocation at or below `a*`; every grounding Decision `REPRODUCED`; for `REDUCE`: (i) composition legality under I-10 as qualified for `REDUCE`: at the lower amount every limit usage is lower than or equal to its usage at the head, no breach appears and none worsens; (ii) the standing recorded is never higher than before: `QUALIFIED` stays `QUALIFIED` at the lower amount, `EXPLORATORY` stays `EXPLORATORY` with its `expiry_time`, quota and instruction unchanged, and zero is `INCUBATING`; a `REDUCE` never promotes and never qualifies; (iii) risk effect: every limit usage non-increasing and no new instrument exposure; where an existing breach cannot be eliminated in one step the Check records the **residual breach** (the same limit, smaller or equal after) as distinct from a **new or worsened risk** (any limit usage that increases, or a breach that appears) and admits only the former; (iv) the residual execution obligation: the Execution function re-executes to the lower target under the new key, an incomplete reduction remaining a visible obligation; the Apply changes the target and liquidates nothing; no forward-event floor, cost verification or stress qualification is required to withdraw exposure) | Principal or admitted policy; `REDUCE`: Principal | `0/0/0` |
 | Limits | Applied History: limits (the exploratory pool, caps, portfolio and strategy limits) | Principal | Checker (composition at the head under the new limits; no breach created silently) | Principal | `0/0/0` (PD-004 §III.6 and §PD-004.11, transcribed by PD-010) |
 | Standing Transition after expiry or `REDUCE` to zero | Applied History: allocation to zero, standing `INCUBATING` | Principal or admitted policy | Checker (the expiry set or the reduction's sets, refusals, cancels, confirmations and residual as derived) | Principal or admitted policy | `0/0/0` |
 | Retirement or supersession | Applied History: standing | Any authorized | Checker (where an Evaluation is cited: Part X conformance; the subject's declared stopping rule or falsifier) | Principal or admitted policy | `0/0/0` |
@@ -1567,6 +1621,24 @@ grounds nothing.
 | Authorization grant, amend, revoke | Active Authorizations | Principal only | Checker (for revocation or supersession of a Research or Checker Authorization: a prior `FENCE` naming it exists; the Principal's authority cited directly; budget line `N/A`) | Principal | `0/0/0` unless the Authorization itself carries a non-zero constitutional budget, which only the Principal may set |
 | Constitutional Transition | Constitution, Evaluation Standards | Principal (agents may only propose; proposal is STOPPED until decided) | Checker | Principal | Declared `ΔO/ΔS/ΔA`, non-zero permitted |
 | Order, Replace, Cancel, Fill and Fill Confirmation commit | Paper Book | The Execution function only, under an Execution Authorization, on committed Decisions or on the expiry instants of applied allocations established by a clock read; each set keyed to an applied Allocation Transition, a `StateVersion` and a Decision or `EXPIRY`; fills proposed by the fill rule; confirmations committed by the boundary on the function's call with a read after the fill's commit | None (ordinary); the boundary's admission rules (§III.10), pre-witness on every record, post-witness on every confirmation; set, order and confirmation idempotency enforced | Commit boundary | `0/0/0` |
+
+**Principal control acts.** A Transition the Principal proposes that
+declares no metered research consumption, of any class Part V permits
+the Principal to propose (Authorization grant, amendment and
+revocation; limits; Constitutional Transitions; Theme and Agent Design
+Version registrations; Allocations; standing,
+retirement and supersession acts), cites the Principal's own authority
+at Check, Decide, Apply and continuation. No Authorization,
+reservation, budget line or Apply binding applies to it, and its Check
+records those lines `N/A`. The independent Check requirement and every
+other criterion of its class apply to it unchanged, it is decided by
+the Principal, and an interrupted control act continues under §III.8
+on an unchanged head and the remaining conditions alone. The
+Principal's authority is the Constitution's own; it is never granted by
+an Authorization and never expires (PD-009; PD-010 B-2; correction
+record for the final independent review, F-1). A Checker's own
+verification cost for a control act is funded from the Checker's grant
+as for any Check.
 
 "Admitted policy" means a rule the Principal has placed in the Constitution
 that lets a class of Transition be decided without a per-instance human
@@ -1699,7 +1771,7 @@ every budgeted Apply cites a `BIND`.
 | Check | `CK-A2`: pool capacity and cap; composition within gross limits; purpose, expiry, quota and instruction stated; no performance Evaluation cited. PASS. |
 | Decision | Principal admits. |
 | After | `TR-355` applied, Apply sequence 68, pinned Constitution v1, ES-1. Projection at 68: `SV-8.1` `EXPLORATORY`, allocation 1, `expiry_time T`, quota 5. |
-| Then | Fridays 02-05 to 03-05: Decisions index 1 to 5; sets `TR-355:68:<seq>`; each order carries a pre-witness `(t_1 < T, E_1, 68)`; each `OPENING` fill is `PROVISIONAL` with a pre-witness and `EFFECTIVE` on its confirmation's post-witness. 03-12 17:02: Decision index 6 > 5; `OPENING` orders refused `QUOTA_EXHAUSTED`; a reversal in name Q derived as sell 40 (`REDUCING`, admitted) and sell 30 (`OPENING`, refused). 03-15: the Runner dies; the 03-19 event is derivable as missing. 03-19 17:29:10: a fill of an open order in name R, bracketed at 17:29:10 and 17:29:12, `EFFECTIVE`; a fill with pre-witness 17:29:59 whose confirmation reads 17:30:02 is `UNESTABLISHED`, preserved, counted for nothing. 17:30: `T`. The Execution function's read at 17:30:40 shows `t ≥ T` and the terminal state not established: it confirms the pending fill, then appends to the expiry set `TR-355:68:EXPIRY` a `CANCEL` for each open order and a `REDUCING` order to zero in each of eleven names, admitted on pre-witnesses at or after `T`. 17:33: the process dies with three flatten orders partially filled (reducing fills `EFFECTIVE` at commit). A fresh process at 17:40 reads the Applied History (`TR-355` in force), the Paper Book (expiry set present; residual positions nonzero) and the clock; the obligation is still outstanding, so it appends `REPLACE` orders for the remainders; a second expiry set presented by a late message from the dead process is refused `DUPLICATE`; a fill presented for a cancelled order is refused `ORDER_CLOSED`. 03-22: `TR-356`, standing Transition, proposer the Principal; `CK-H1` verifies the expiry set, the refusals, the cancels, the confirmations and residual zero; applies at 72: allocation 0, `INCUBATING`. Had a residual remained, the next read would derive `REDUCING` orders under `TR-356:72:<seq>` to a target of zero. |
+| Then | Fridays 02-05 to 03-05: Decisions index 1 to 5; sets `TR-355:68:<seq>`; each order carries a pre-witness `(t_1 < T, E_1, 68)`; each `OPENING` fill is `PROVISIONAL` with a pre-witness and `EFFECTIVE` on its confirmation's post-witness. 03-12 17:02: Decision index 6 > 5; `OPENING` orders refused `QUOTA_EXHAUSTED`; a reversal in name Q derived as sell 40 (`REDUCING`, admitted) only; its beyond-zero leg, sell 30, is not derived until the to-zero fills are `EFFECTIVE` and the position is zero, and when derived is an `OPENING` order refused `QUOTA_EXHAUSTED`. 03-15: the Runner dies; the 03-19 event is derivable as missing. 03-19 17:29:10: a fill of an open order in name R, bracketed at 17:29:10 and 17:29:12, `EFFECTIVE`; a fill with pre-witness 17:29:59 whose confirmation reads 17:30:02 is `UNESTABLISHED`, preserved, counted for nothing. 17:30: `T`. The Execution function's read at 17:30:40 shows `t ≥ T` and the terminal state not established: it confirms the pending fill, then appends to the expiry set `TR-355:68:EXPIRY` a `CANCEL` for each open order and a `REDUCING` order to zero in each of eleven names, admitted on pre-witnesses at or after `T`. 17:33: the process dies with three flatten orders partially filled (reducing fills `EFFECTIVE` at commit). A fresh process at 17:40 reads the Applied History (`TR-355` in force), the Paper Book (expiry set present; residual positions nonzero) and the clock; the obligation is still outstanding, so it appends `REPLACE` orders for the remainders; a second expiry set presented by a late message from the dead process is refused `DUPLICATE`; a fill presented for a cancelled order is refused `ORDER_CLOSED`. 03-22: `TR-356`, standing Transition, proposer the Principal; `CK-H1` verifies the expiry set, the refusals, the cancels, the confirmations and residual zero; applies at 72: allocation 0, `INCUBATING`. Had a residual remained, the next read would derive `REDUCING` orders under `TR-356:72:<seq>` to a target of zero. |
 | Evidence | The Applied History (`TR-355`, `TR-356`), the Evidence ledger (Decisions; the timed records bounding each witness), the Paper Book (sets, pre-witnesses, fills, confirmations, refusals, the expiry set), the process identities. No in-memory flag, timer or clock other than the Evidence clock was consulted. |
 | Invariant exercised | I-8, I-12, I-13, I-15 and CPOC continuation. Expiry was established by a positive read, not by absence; exposure was effective only inside a bracket; the obligation persisted through cancellation, partial flattening and process death until the terminal state; nothing was resurrected. The forward case (`SV-40.1`, `TR-415`: expiry with no Decisions scheduled, Observation function dead, a residual from an incomplete flatten) is PD-004 §PD-004.9, adopted by reference. |
 

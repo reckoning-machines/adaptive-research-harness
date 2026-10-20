@@ -191,9 +191,13 @@ revision 4 (after Codex's reviews of
 the [bounded check of revision 4](../audits/pd010_revision4_bounded_check_20261019.md)),
 were admitted 2026-10-19 and applied as revision 11, with an
 [author's propagation check](../audits/pd010_propagation_check_20261019.md).
-Codex's final whole-design review of the propagated design, per the
-[final handoff](../audits/cv1_final_handoff_20261019.md), precedes any
-admission of `ConstitutionVersion 1`. Genesis is not executed; no code
+Codex's final whole-design review found F-1 and F-2, corrected as
+revision 12 and closed by the
+[closure review](../audits/cv1_revision12_closure_20261019.md); the
+Principal admitted revision 12 as `ConstitutionVersion 1` on 2026-10-19
+([admission record](../decisions/cv1_admission_20261019.md)). Step 9's
+exit is met as content; an implementation plan with its own declared
+delta is now proposable and authorizes nothing by itself. Genesis is not executed; no code
 is authorized. Implementation
 planning, when it comes, evaluates existing agent runtimes and workflow
 engines against one concrete budget, interruption, revocation, retry and
