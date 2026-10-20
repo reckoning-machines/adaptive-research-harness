@@ -8,13 +8,13 @@ authorizes or certifies anything.
 
 ## new_speedway_deck_20261019
 
-Six-slide prospect deck with two appendix diagrams, written on
+Seven-slide prospect deck with two appendix diagrams, written on
 2026-10-19 after `ConstitutionVersion 1` was admitted and revised on
 2026-10-20 after reviewer feedback (product statement on the cover,
 build-versus-reuse slide, reasoned next experiment, tangible first
-demonstration), with final copy edits the same day.
+demonstration), with final copy edits and an agent-harness slide the same day.
 `new_speedway_deck_20261019.pdf` beside this folder is the rendered
-deck, eight pages at 1920 by 1080, printed from these sources with
+deck, nine pages at 1920 by 1080, printed from these sources with
 headless Chrome (icons substituted with equivalent inline line icons,
 speaker notes omitted).
 
@@ -31,5 +31,5 @@ sources and exports PowerPoint or PDF. The `x-icon` elements on the
 demonstration slide are drawn by that renderer and will not appear if
 the HTML files are opened directly in a browser.
 
-Slides in order: cover, journey, separate, reuse, control, demo,
+Slides in order: cover, journey, separate, reuse, harness, control, demo,
 appendix-loop, appendix-authority.
