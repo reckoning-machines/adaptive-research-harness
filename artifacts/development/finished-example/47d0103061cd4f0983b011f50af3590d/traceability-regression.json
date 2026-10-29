@@ -1,0 +1,9 @@
+{
+  "checks": {
+    "legacy_before_fix": false,
+    "current_after_fix": true
+  },
+  "legacy_inventory_sha256": "c5543493fce234a1596abcabc9a69bc3900496badc54572e7f2d05918fa682e7",
+  "current_inventory_sha256": "cbb9715806dd670c4603cd7ed413c86cfda18e814b6af38ab7989076142d3509",
+  "legacy_limit": "Historical record has no complete source snapshot; not retroactively claimed."
+}

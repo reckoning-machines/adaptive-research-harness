@@ -1,0 +1,220 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Adaptive Research Harness — Design and first research cycle</title><meta name="description" content="A constitutional harness for evolving investment hypotheses, strategies and research agents."><style>
+*{box-sizing:border-box}body{margin:0;background:#dfe4e9}p,h1,h2,h3,ul{margin:0}h3{font-size:32px;margin-bottom:16px}section{position:relative;width:1920px;height:1080px;overflow:hidden;margin:24px auto}aside{display:none}x-connector{display:flex;align-items:center;justify-content:center;flex-shrink:0}x-connector:after{content:'→';font:36px Arial}x-icon{display:none}nav{padding:20px;font:20px Arial;color:#1B2A41}nav a{color:inherit}@page{size:1920px 1080px;margin:0}@media print{body{background:white}nav{display:none}section{margin:0;break-after:page}section:last-child{break-after:auto}}
+</style></head><body><nav>Adaptive Research Harness · private design presentation · <a href="../README.md">Presentation notes</a> · Print for a local PDF</nav><section id="cover" data-transition="fade" style="background:#1B2A41;color:#FBFAF6;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:48px">
+<div style="display:flex;flex-direction:column;gap:28px">
+<p style="font-size:28px;letter-spacing:4px;text-transform:uppercase;color:#C98A2B;font-weight:600">Adaptive Research Harness</p>
+<h1 style="font-family:'Libre Baskerville', Georgia, serif;font-size:76px;font-weight:400;line-height:1.1;max-width:1500px">Every investment edge decays. Can the research process improve?</h1>
+<p style="font-size:34px;line-height:1.4;color:#FBFAF6;max-width:1500px">A constitutional harness for evolving investment hypotheses, strategies and research agents.</p>
+<p style="font-size:30px;line-height:1.4;color:#BFD8D5;max-width:1300px">Strategies come and go. The research process accumulates knowledge.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;gap:24px;align-items:end">
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#243652;padding:28px;border-radius:14px;opacity:0.45"><p style="font-size:26px;font-weight:600">Strategy 1</p><p style="font-size:24px;color:#BFD8D5">retired</p></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#243652;padding:28px;border-radius:14px;opacity:0.6"><p style="font-size:26px;font-weight:600">Strategy 2</p><p style="font-size:24px;color:#BFD8D5">retired</p></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#243652;padding:28px;border-radius:14px;opacity:0.8"><p style="font-size:26px;font-weight:600">Strategy 3</p><p style="font-size:24px;color:#BFD8D5">reduced</p></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#243652;padding:28px;border-radius:14px"><p style="font-size:26px;font-weight:600">Strategy 4</p><p style="font-size:24px;color:#BFD8D5">live on paper</p></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px;background:#243652;padding:28px;border-radius:14px;border:2px dashed #6E86A8"><p style="font-size:26px;font-weight:600;color:#BFD8D5">Strategy 5</p><p style="font-size:24px;color:#BFD8D5">not yet found</p></div>
+</div>
+<div style="display:flex;align-items:center;gap:20px;background:#C98A2B;padding:24px 32px;border-radius:14px">
+<x-icon name="Activity" style="width:40px;height:40px;color:#1B2A41"></x-icon>
+<p style="font-size:30px;font-weight:600;color:#1B2A41">One research process keeps running underneath: what was tried, what happened, what to ask next</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#8FA3BF;width:1400px">Pre-implementation design, October 2026. No investment performance is claimed.</p>
+<aside>Introduce the constitutional research harness and its proposed scope. Then the premise. Every edge is temporary, and so are the research methods that find them. The question worth money is whether the process that finds edges can get better over time. The cards show strategies coming and going; the band underneath is the thing we keep. Nothing in this deck claims an edge was found.</aside>
+</section>
+
+<section id="journey" data-transition="fade" style="background:#FBFAF6;color:#1B2A41;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:40px">
+<div style="display:flex;flex-direction:column;gap:18px">
+<h2 style="font-family:'Libre Baskerville', Georgia, serif;font-size:64px;font-weight:400;line-height:1.1">Today’s failed backtest should improve tomorrow’s question.</h2>
+<p style="font-size:30px;color:#4A5568;line-height:1.4">Adaptive Research Harness keeps what was tried, what happened and what to investigate next. One research journey:</p>
+</div>
+<div style="display:flex;align-items:stretch;gap:0">
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#F1EFE8;padding:32px;border-radius:16px">
+<p style="font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#2F7F74;font-weight:600">Question</p>
+<p style="font-size:28px;line-height:1.35">Do volatility-targeting funds create predictable selling pressure?</p>
+</div>
+<x-connector style="width:48px;color:#8FA3BF"></x-connector>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#F1EFE8;padding:32px;border-radius:16px">
+<p style="font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#2F7F74;font-weight:600">Evidence</p>
+<p style="font-size:28px;line-height:1.35">The pattern appears in synthetic data. No forward standing is earned.</p>
+</div>
+<x-connector style="width:48px;color:#8FA3BF"></x-connector>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#F1EFE8;padding:32px;border-radius:16px">
+<p style="font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#2F7F74;font-weight:600">Trade</p>
+<p style="font-size:28px;line-height:1.35">Modelled transaction costs absorb the synthetic return. The candidate is abandoned.</p>
+</div>
+<x-connector style="width:48px;color:#8FA3BF"></x-connector>
+<div style="flex:1;display:flex;flex-direction:column;gap:14px;background:#1B2A41;color:#FBFAF6;padding:32px;border-radius:16px">
+<p style="font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#C98A2B;font-weight:600">Next</p>
+<p style="font-size:28px;line-height:1.35">Can we identify when the pressure is large enough to trade economically? Define the test before evaluating it on fresh observations.</p>
+</div>
+</div>
+<p style="font-size:30px;line-height:1.4;color:#1B2A41;font-weight:600">The trade failed. The research got better. The failed trade becomes evidence for the next decision.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#6A7179;width:1400px">Synthetic illustration, not a governed execution. The hypothesis, the evidence and the rejection all stay on the record.</p>
+<aside>This is the slide that carries the deck. Walk the four steps slowly. The point is the last card: a failed trade did not end the line of research, it sharpened it, and the next test has a stated reason: the synthetic pattern is uneconomic at the tested size. Time and budget were spent; what they bought is evidence. In the design, the hypothesis is committed before the window, the outcome is computed from declared sources, the losing strategy is reduced or retired by a decision that is independently checked, and the next experiment is chosen from the recorded evidence. The narrower follow-up hypothesis reuses the earlier research but must earn its own record.</aside>
+</section>
+
+<section id="separate" data-transition="fade" style="background:#F1EFE8;color:#1B2A41;font-family:'Public Sans', Arial, sans-serif;padding:112px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:28px">
+<div style="display:flex;flex-direction:column;gap:18px">
+<h2 style="font-family:'Libre Baskerville', Georgia, serif;font-size:64px;font-weight:400;line-height:1.1">A profitable strategy can have the wrong explanation.</h2>
+<p style="font-size:30px;color:#4A5568;line-height:1.4">So the explanation, the trade and the research method are judged separately, each on its own record.</p>
+</div>
+<div style="display:flex;gap:32px">
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FBFAF6;padding:30px 32px;border-radius:16px;border-top:8px solid #C98A2B">
+<p style="font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#6A7179;font-weight:600">The hypothesis</p>
+<p style="font-family:'Libre Baskerville', Georgia, serif;font-size:40px;line-height:1.25">Was the explanation supported?</p>
+<p style="font-size:24px;color:#4A5568;line-height:1.4">Judged by its own predictions, committed before the outcome was knowable.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FBFAF6;padding:30px 32px;border-radius:16px;border-top:8px solid #2F7F74">
+<p style="font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#6A7179;font-weight:600">The strategy</p>
+<p style="font-family:'Libre Baskerville', Georgia, serif;font-size:40px;line-height:1.25">Did the trade make money after costs?</p>
+<p style="font-size:24px;color:#4A5568;line-height:1.4">Judged on its own forward record, net of modelled costs, within risk limits.</p>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FBFAF6;padding:30px 32px;border-radius:16px;border-top:8px solid #6E86A8">
+<p style="font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#6A7179;font-weight:600">The research method</p>
+<p style="font-family:'Libre Baskerville', Georgia, serif;font-size:40px;line-height:1.25">Did the researcher produce useful work?</p>
+<p style="font-size:24px;color:#4A5568;line-height:1.4">Judged on research quality for the budget, never on a count of appealing backtests.</p>
+<p style="font-size:24px;color:#1B2A41;line-height:1.4;font-weight:600">An agent proposes a better research method. We compare it with its predecessor on new tasks, including the cost.</p>
+</div>
+</div>
+<p style="font-size:30px;line-height:1.4;font-weight:600">A right explanation can lose money. A winning trade can rest on a wrong one. Adaptive Research Harness records which, and acts on each.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#6A7179;width:1400px">No score in one competition feeds another unless a recorded decision says so.</p>
+<aside>Three populations, three questions. In the design, hypotheses compete for belief, strategies compete for paper capital, and research agents compete on contribution per unit of budget. The separation is a rule, not a habit: a strategy citing a hypothesis transfers no standing to it, and a hypothesis gains standing only from its own committed predictions.</aside>
+</section>
+
+<section id="reuse" data-transition="fade" style="background:#FBFAF6;color:#1B2A41;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:40px">
+<div style="display:flex;flex-direction:column;gap:18px">
+<h2 style="font-family:'Libre Baskerville', Georgia, serif;font-size:64px;font-weight:400;line-height:1.1">Use existing tools. Build the research process.</h2>
+<p style="font-size:30px;color:#4A5568;line-height:1.4">The core tools already exist. The missing part is the system that directs them and learns from the results.</p>
+</div>
+<div style="display:flex;gap:40px">
+<div style="flex:1;display:flex;flex-direction:column;gap:22px;background:#F1EFE8;padding:40px;border-radius:16px">
+<p style="font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#6A7179;font-weight:600">We will use existing resources for</p>
+<ul style="font-size:28px;line-height:1.6;color:#1B2A41"><li>Open-source backtesting</li><li>Existing AI models</li><li>Market data and document sources</li><li>Established workflow and storage software</li><li>Internal paper-fill computation (later)</li></ul>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:22px;background:#1B2A41;color:#FBFAF6;padding:40px;border-radius:16px">
+<p style="font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#C98A2B;font-weight:600">We will build Adaptive Research Harness to</p>
+<ul style="font-size:28px;line-height:1.6;color:#FBFAF6"><li>Turn investment questions into defined experiments</li><li>Propose and challenge ideas</li><li>Preserve evidence, including failed tests</li><li>Coordinate research within budgets</li><li>Evaluate strategies and propose what happens next</li></ul>
+</div>
+</div>
+<p style="font-size:30px;line-height:1.4;font-weight:600">We are not building another backtesting engine or training a foundation model. We are building the system that directs the research and learns from its results.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#6A7179;width:1400px">Specific products remain under evaluation. The reuse strategy does not depend on which ones are chosen.</p>
+<aside>Each row pairs a thing we rent or adopt with a thing we build. The rule behind the pairing: a tool may compute, store, fetch or run, but it never owns a governed fact. Models, data feeds, backtesters, workflow engines and internal fill computation are replaceable without changing what Adaptive Research Harness knows. No runtime, model provider or data vendor has been selected, and the design does not require any particular one.</aside>
+</section>
+
+<section id="harness" data-transition="fade" style="background:#FBFAF6;color:#1B2A41;font-family:'Public Sans', Arial, sans-serif;padding:104px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:24px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<h2 style="font-family:'Libre Baskerville', Georgia, serif;font-size:60px;font-weight:400;line-height:1.1">Agent runtimes execute work. Adaptive Research Harness governs change.</h2>
+<p style="font-size:30px;color:#4A5568;line-height:1.4">We will use an existing agent runtime where it fits. The runtime executes the work. Adaptive Research Harness determines what the results mean and what changes are permitted.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;gap:24px">
+<p style="flex:1;font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#6A7179;font-weight:600">Agent runtime</p>
+<div style="width:40px"></div>
+<p style="flex:1.25;font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#C98A2B;font-weight:600">Adaptive Research Harness</p>
+</div>
+<div style="display:flex;gap:24px;align-items:stretch">
+<div style="flex:1;display:flex;align-items:center;background:#F1EFE8;padding:12px 28px;border-radius:12px;font-size:27px;line-height:1.3;color:#1B2A41">Calls models and tools</div>
+<x-connector style="width:40px;color:#8FA3BF"></x-connector>
+<div style="flex:1.25;display:flex;align-items:center;background:#1B2A41;color:#FBFAF6;padding:12px 28px;border-radius:12px;font-size:27px;line-height:1.3">Chooses which research questions deserve resources</div>
+</div>
+<div style="display:flex;gap:24px;align-items:stretch">
+<div style="flex:1;display:flex;align-items:center;background:#F1EFE8;padding:12px 28px;border-radius:12px;font-size:27px;line-height:1.3;color:#1B2A41">Coordinates tasks and agents</div>
+<x-connector style="width:40px;color:#8FA3BF"></x-connector>
+<div style="flex:1.25;display:flex;align-items:center;background:#1B2A41;color:#FBFAF6;padding:12px 28px;border-radius:12px;font-size:27px;line-height:1.3">Evaluates hypotheses, strategies and research methods separately</div>
+</div>
+<div style="display:flex;gap:24px;align-items:stretch">
+<div style="flex:1;display:flex;align-items:center;background:#F1EFE8;padding:12px 28px;border-radius:12px;font-size:27px;line-height:1.3;color:#1B2A41">Saves execution progress</div>
+<x-connector style="width:40px;color:#8FA3BF"></x-connector>
+<div style="flex:1.25;display:flex;align-items:center;background:#1B2A41;color:#FBFAF6;padding:12px 28px;border-radius:12px;font-size:27px;line-height:1.3">Preserves evidence and lineage across generations</div>
+</div>
+<div style="display:flex;gap:24px;align-items:stretch">
+<div style="flex:1;display:flex;align-items:center;background:#F1EFE8;padding:12px 28px;border-radius:12px;font-size:27px;line-height:1.3;color:#1B2A41">Handles retries and failures</div>
+<x-connector style="width:40px;color:#8FA3BF"></x-connector>
+<div style="flex:1.25;display:flex;align-items:center;background:#1B2A41;color:#FBFAF6;padding:12px 28px;border-radius:12px;font-size:27px;line-height:1.3">Determines what may continue, change or receive funding</div>
+</div>
+<div style="display:flex;gap:24px;align-items:stretch">
+<div style="flex:1;display:flex;align-items:center;background:#F1EFE8;padding:12px 28px;border-radius:12px;font-size:27px;line-height:1.3;color:#1B2A41">Executes a workflow</div>
+<x-connector style="width:40px;color:#8FA3BF"></x-connector>
+<div style="flex:1.25;display:flex;align-items:center;background:#1B2A41;color:#FBFAF6;padding:12px 28px;border-radius:12px;font-size:27px;line-height:1.3">Uses the results to propose the next workflow</div>
+</div>
+</div>
+<p style="font-size:32px;line-height:1.4;font-weight:600">The research process itself is an object of research.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#6A7179;width:1400px">No runtime has been selected. Candidates will be judged on one concrete sequence: budget, interruption, revocation, retry and admission.</p>
+<aside>The point of this slide: the research process itself is an object of research. Say it in one breath: we will use an existing agent runtime where it fits. What I am designing sits above it: a population of research methods that proposes investment ideas, tests them, retains the evidence and proposes improvements to the research process itself. The runtime executes the work. Adaptive Research Harness determines what the results mean and what changes are permitted. The runtime never owns a governed fact: its saved progress is a cache, and Adaptive Research Harness reconstructs the lawful next step from its own record if the runtime is replaced.</aside>
+</section>
+
+<section id="control" data-transition="fade" style="background:#FBFAF6;color:#1B2A41;font-family:'Public Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;justify-content:space-between;gap:40px">
+<div style="display:flex;flex-direction:column;gap:18px">
+<h2 style="font-family:'Libre Baskerville', Georgia, serif;font-size:64px;font-weight:400;line-height:1.1">More autonomous research. Explicit human control.</h2>
+<p style="font-size:30px;color:#4A5568;line-height:1.4">Agents can investigate and propose. Budget and capital decisions remain governed.</p>
+</div>
+<div style="display:flex;gap:40px">
+<div style="flex:1;display:flex;flex-direction:column;gap:22px;background:#F1EFE8;padding:40px;border-radius:16px">
+<p style="font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#2F7F74;font-weight:600">Agents may, within a mandate</p>
+<ul style="font-size:28px;line-height:1.5;color:#1B2A41">
+<li>Investigate changes in the world and patterns in data</li>
+<li>Propose hypotheses and strategies</li>
+<li>Run backtests and paper tests inside a budget</li>
+<li>Propose improved research methods and test them against earlier versions</li>
+<li>Register routine hypotheses after an independent check</li>
+</ul>
+</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:22px;background:#1B2A41;color:#FBFAF6;padding:40px;border-radius:16px">
+<p style="font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#C98A2B;font-weight:600">Only you decide</p>
+<ul style="font-size:28px;line-height:1.5;color:#FBFAF6">
+<li>Every grant of budget and scope</li>
+<li>Every allocation of paper capital, up or down</li>
+<li>The standard everything is judged by</li>
+<li>Stopping new spending, at any moment</li>
+<li>Any change to the rules themselves</li>
+</ul>
+</div>
+</div>
+<p style="font-size:30px;line-height:1.4;font-weight:600">Every change is independently checked and recorded. You can see why something changed, stop new spending, and recover without losing the record.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:24px;color:#6A7179;width:1400px">An agent holds no right it was not granted. A new agent version inherits research, never permissions.</p>
+<aside>Translate the machinery into outcomes here, not mechanisms. Behind this slide: every consequential change is a Transition that is proposed, independently checked, decided and applied in order. Research budgets are reserved before work and settled after. A funding stop takes effect immediately for new spending, while admitted work still settles. If a process dies mid-flight, a fresh one reconstructs the lawful next step from the record, never from memory.</aside>
+</section>
+
+<section id="demo" data-transition="fade" style="background:#FBFAF6;color:#1B2A41;font-family:Arial,sans-serif;padding:96px 128px 140px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:22px;color:#A66C14;letter-spacing:2px">ADAPTIVE RESEARCH HARNESS</p>
+<h2 style="font-family:Georgia,serif;font-size:56px;font-weight:400;line-height:1.15">The first working research cycle</h2>
+<p style="font-size:31px;line-height:1.45">One authorized researcher investigates a synthetic question. Every step must run through the real core, including refusal and recovery.</p>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;font-size:27px;line-height:1.45">
+<div style="background:#F1EFE8;padding:28px;border-radius:14px"><h3>Fund</h3><p>Reserve units. Commit the attempt before work.</p></div>
+<div style="background:#F1EFE8;padding:28px;border-radius:14px"><h3>Preserve</h3><p>Record result or failure. Settle simulated cost.</p></div>
+<div style="background:#F1EFE8;padding:28px;border-radius:14px"><h3>Check and apply</h3><p>Independent verification, authorized decision, Apply or refusal.</p></div>
+<div style="background:#F1EFE8;padding:28px;border-radius:14px"><h3>Recover and replace</h3><p>Kill the process. Recover from records. Swap tool A for B.</p></div></div>
+<div style="background:#1B2A41;color:#FBFAF6;padding:30px;border-radius:16px;font-size:29px;line-height:1.45">Completion requires executed rejection paths, budget and binding races, and fresh-process recovery. The presentation is not that evidence.</div>
+<p style="font-size:27px;line-height:1.45">Simulated accounting only. No real-provider billing guarantee, forward market standing, Paper Book or framework adapters.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:23px;color:#6A7179;width:1664px">Design only. CV1 governs; no core, genesis or conformance witness has run.</p>
+<aside>Proposed 2026-10-29 milestone. It preserves the admitted checked setup and separate Checker funding. No implementation is authorized by this slide or by the plan.</aside>
+</section>
+
+<section id="appendix-loop" data-transition="fade" style="background:#FBFAF6;color:#1B2A41;font-family:Arial,sans-serif;padding:96px 128px 140px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:22px;color:#A66C14;letter-spacing:2px">ADAPTIVE RESEARCH HARNESS</p>
+<h2 style="font-family:Georgia,serif;font-size:56px;font-weight:400;line-height:1.15">Research can evolve without inheriting authority</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;font-size:29px;line-height:1.45">
+<div style="background:#FFF6E5;padding:30px;border:2px solid #C98A2B;border-radius:16px"><h3>Hypotheses</h3><p>Testable claims with declared resolution rules.</p><p>Each successor earns its own forward record.</p></div>
+<div style="background:#E8F3EE;padding:30px;border:2px solid #2F7F74;border-radius:16px"><h3>Strategies</h3><p>Exact executable versions with reproducible inputs.</p><p>Capital is a separately checked decision.</p></div>
+<div style="background:#EFEAF7;padding:30px;border:2px solid #8C75B4;border-radius:16px"><h3>Research agents</h3><p>Versioned methods that can propose successors.</p><p>Registration grants no permission to run.</p></div></div>
+<div style="background:#1B2A41;color:#FBFAF6;padding:32px;border-radius:16px;font-size:31px;line-height:1.5">Question → funded experiment → preserved evidence → independent Check → authorized change</div>
+<p style="font-size:29px;line-height:1.45">Lineage retains failed work, cost and selection history. Tools can be replaced while the governed record remains.</p>
+<p style="font-size:27px;line-height:1.45">First milestone: one active researcher and deterministic synthetic tools. No synthetic result earns forward standing. Strategy execution and paper simulation follow later.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:23px;color:#6A7179;width:1664px">Design only. CV1 governs; no core, genesis or conformance witness has run.</p>
+<aside>The three populations remain distinct under CV1. This slide describes the full design and labels the smaller first milestone. An evaluation is derived; it does not itself admit a change.</aside>
+</section>
+
+<section id="appendix-authority" data-transition="fade" style="background:#FBFAF6;color:#1B2A41;font-family:Arial,sans-serif;padding:96px 128px 140px;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:22px;color:#A66C14;letter-spacing:2px">ADAPTIVE RESEARCH HARNESS</p>
+<h2 style="font-family:Georgia,serif;font-size:56px;font-weight:400;line-height:1.15">Two boundaries for the first research cycle</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;font-size:29px;line-height:1.5">
+<div style="background:#EAF0F5;border:2px solid #9BAEC4;border-radius:16px;padding:34px"><h3>Transition ledger</h3><p>Propose → independent Check → decide → Apply</p><p>Applied History owns membership, standing, grants and current versions.</p><p>Only Apply changes the population. A stale base refuses.</p></div>
+<div style="background:#EAF0F5;border:2px solid #9BAEC4;border-radius:16px;padding:34px"><h3>Evidence ledger</h3><p>Reserve → attempt → result or failure → settle</p><p>Owns research records, funding stops and binding records. Supplies the clock.</p><p>Pending liabilities and negative results survive interruption.</p></div></div>
+<div style="background:#1B2A41;color:#FBFAF6;padding:30px;border-radius:16px;font-size:29px;line-height:1.5">Principal grants and decides. Researcher proposes. Checker verifies independently.<br>Tools compute; they cannot write either ledger or admit their own results.</div>
+<p style="font-size:27px;line-height:1.45">The full CV1 design also defines a separate Paper Book. It is excluded from the first milestone; future simulation needs its own authorized expansion.</p>
+<p style="position:absolute;left:128px;bottom:64px;font-size:23px;color:#6A7179;width:1664px">Design only. CV1 governs; no core, genesis or conformance witness has run.</p>
+<aside>Explanatory rendering of CV1 Parts II, III and V. Two logical boundaries can share a physical transactional store. Binding and terminal disposition remain distinct commits. The Paper Book is deferred, not removed from CV1.</aside>
+</section>
+</body></html>

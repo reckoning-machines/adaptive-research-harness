@@ -1,0 +1,7 @@
+# Disposable development database state; reports and snapshots are kept
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+__pycache__/
+*.pyc
+.DS_Store

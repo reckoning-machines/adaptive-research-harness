@@ -1,9 +1,13 @@
-# New Speedway — Architecture
+# Adaptive Research Harness — Architecture
 
-New Speedway is a design for an agent-driven quantitative investment
-process. Agents develop research, test strategies and improve their
-methods within defined mandates and budgets. The system preserves the
-evidence behind each decision as strategies and research methods change.
+A constitutional harness for evolving investment hypotheses, strategies and research agents.
+
+Current name: Adaptive Research Harness. The [rename record](docs/decisions/project_rename_20261029.md)
+explains why CV1 and historical evidence retain their original names. The
+[first research-cycle plan](docs/plans/first_research_cycle_implementation_20261029.md)
+proposes a smaller initial milestone than the two broader demonstrations below:
+one active researcher, controlled synthetic tools, checked admission and fresh-process
+recovery. Storage and process recommendations in that plan are not selections.
 
 This is an explanation of Constitution revision 12, admitted by the
 Principal as `ConstitutionVersion 1`, the document-phase design
@@ -17,7 +21,7 @@ been selected, genesis has not executed and no CPOC witness has run.
 ## 1. The investment case
 
 Strategies decay. Research methods can become less productive too.
-New Speedway is intended to retain what the investment process learns:
+Adaptive Research Harness is intended to retain what the investment process learns:
 what was predicted, what happened, what failed and why a decision was made.
 A successor strategy starts with its own record. It cannot inherit a
 predecessor's performance or obtain capital simply by being related to it.
@@ -145,7 +149,7 @@ ledger cannot be reached, the binding remains frozen.
 
 The standing rule is to reuse commodity capabilities as replaceable tools.
 Custom infrastructure requires an identified OSA requirement that existing
-components cannot satisfy. Speedway owns the investment rules and the
+components cannot satisfy. Adaptive Research Harness owns the investment rules and the
 boundaries that enforce them. This does not require writing every
 computational component from scratch.
 
@@ -160,10 +164,10 @@ attempt, interruption, fence, retry, settlement and admission.
 | Storage | An existing transactional store | Ordered durable append, stale-base and duplicate refusal, and readable authoritative heads |
 | Data retrieval | Vendor APIs, document feeds and caches | The Observation function commits declared sources with witnessed receipt times and the required extraction or absence evidence |
 | Backtesting | One existing, simple backtester | Exact data, parameters and tool versions are recorded. Repeated execution under the same reproducibility binding yields the same result hash |
-| Paper fill computation | Reusable computation within an internal simulator, assessed later | Proposed fills pass Speedway's Paper Book rules, including expiry and reversal cases. The governed boundary remains Speedway's responsibility |
+| Paper fill computation | Reusable computation within an internal simulator, assessed later | Proposed fills pass Adaptive Research Harness's Paper Book rules, including expiry and reversal cases. The governed boundary remains Adaptive Research Harness's responsibility |
 | Model inference | A bounded synthetic provider for the demonstrations, with real providers assessed separately | A maximum charge is computable before dispatch. Real-provider cap and billing assumptions require recorded Principal acceptance |
 
-An internal simulator means simulated execution within Speedway rather
+An internal simulator means simulated execution within Adaptive Research Harness rather
 than an external paper-trading account. It does not establish a need for
 custom fill computation. The fill rule is granted with the first Execution
 Authorization, after the two research demonstrations. Any later build

@@ -1,0 +1,1 @@
+{"fault":{"case":"D-principal_control_continuation","kind":"PAUSE_AT_BOUNDARY","point":"after_decide_commit","target":"@op:decide"},"generation":{"pid":67655,"run":"8b6477a9ede04ec8be10d77a15af85fc"},"point":"after_decide_commit"}

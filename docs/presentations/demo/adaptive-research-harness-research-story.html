@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adaptive Research Harness research story</title>
+<style>
+  :root {
+    --navy: #1B2A41; --navy2: #243652; --paper: #FBFAF6; --paper2: #F1EFE8;
+    --amber: #C98A2B; --teal: #2F7F74; --grey: #6A7179; --line: #D9D5CA; --red: #B5543A;
+    --serif: Georgia, "Times New Roman", serif;
+    --sans: "Public Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: var(--paper); color: var(--navy); font-family: var(--sans); }
+  body { display: flex; flex-direction: column; overflow: hidden; }
+  #header { flex: none; display: flex; align-items: center; justify-content: space-between; padding: 14px 32px 0; }
+  #header .name { font: 400 20px var(--serif); color: var(--grey); }
+  #header .badge { font-size: 13px; font-weight: 600; color: var(--grey); border: 1px solid var(--line); border-radius: 999px; padding: 5px 14px; }
+  #stage { flex: 1; min-height: 0; position: relative; }
+  #stage svg { width: 100%; height: 100%; display: block; }
+  #controls { flex: none; background: var(--paper); border-top: 1px solid var(--line); color: var(--grey); padding: 10px 32px 12px; display: flex; align-items: center; gap: 10px; }
+  button { font: 600 14px var(--sans); color: var(--navy); background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; cursor: pointer; white-space: nowrap; }
+  button:hover { background: var(--paper2); }
+  button.on { border-color: var(--amber); color: var(--amber); }
+  #scenes { flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px; }
+  #scenes span { width: 10px; height: 10px; border-radius: 50%; background: #D9D5CA; cursor: pointer; }
+  #scenes span.on { background: var(--amber); }
+  #scenes span.done { background: #9AA0A6; }
+  #where { color: var(--grey); font-size: 13px; min-width: 150px; text-align: right; font-variant-numeric: tabular-nums; }
+  #hint { color: #9AA0A6; font-size: 12px; white-space: nowrap; }
+  #overlay { position: absolute; inset: 0; background: var(--paper); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; text-align: center; z-index: 5; padding: 0 32px; }
+  #overlay h2 { font: 400 52px var(--serif); color: var(--navy); max-width: 1000px; line-height: 1.15; }
+  #overlay p { font-size: 22px; color: var(--grey); max-width: 820px; line-height: 1.4; }
+  #overlay button { font-size: 26px; padding: 20px 56px; border-radius: 14px; background: var(--amber); color: var(--navy); border-color: var(--amber); margin-top: 14px; }
+  #overlay button:hover { background: #D9A04A; }
+  #overlay.hidden { display: none; }
+  #overlay #overlayLead { color: var(--navy); margin-top: 6px; }
+  #overlay #overlayNote { font-size: 16px; }
+  body.intro #header .name { visibility: hidden; }
+  #controls.hidden { visibility: hidden; }
+  #details { position: absolute; top: 12px; right: 12px; bottom: 12px; width: 560px; background: var(--paper); border: 2px solid var(--navy); border-radius: 14px; padding: 18px 22px; box-shadow: 0 10px 30px rgba(27,42,65,0.25); display: none; z-index: 4; overflow: auto; }
+  #details.open { display: block; }
+  #details .close { position: absolute; top: 10px; right: 10px; padding: 4px 9px; font-size: 13px; }
+  #details h2 { font: 400 24px var(--serif); margin-bottom: 10px; }
+  #details .tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+  #details .tabs button { font-size: 13px; padding: 6px 12px; background: var(--paper2); color: var(--navy); border-color: var(--line); }
+  #details .tabs button.on { background: var(--navy); color: var(--paper); border-color: var(--navy); }
+  #details h3 { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--amber); font-weight: 600; margin: 14px 0 6px; }
+  #details p, #details li { font-size: 14.5px; line-height: 1.45; }
+  #details ul { padding-left: 18px; }
+  #details .note { font-size: 13px; color: var(--grey); margin-top: 10px; }
+  .meter { height: 18px; background: #E6E2D6; border-radius: 6px; overflow: hidden; display: flex; margin: 6px 0 8px; }
+  .meter .spent { background: var(--navy); } .meter .res { background: var(--amber); }
+  .ev { display: flex; gap: 8px; font-size: 14px; line-height: 1.4; padding: 4px 0; border-bottom: 1px solid #EEEBE2; }
+  .ev .t { color: var(--grey); font-variant-numeric: tabular-nums; min-width: 34px; }
+  .ev .i { min-width: 64px; font-weight: 700; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; padding-top: 3px; }
+  .obj { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; }
+  .obj.retired { opacity: 0.7; border-style: dashed; }
+  .obj .id { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--grey); font-weight: 700; }
+  .obj .label { font-size: 16px; font-weight: 700; margin: 2px 0; }
+  .obj .status { display: inline-block; padding: 2px 9px; border-radius: 999px; background: var(--paper2); font-weight: 600; font-size: 13px; margin: 2px 0 4px; }
+  .obj .lin { font-size: 13px; color: var(--grey); }
+  .obj ul { margin-top: 4px; } .obj li { font-size: 13px; }
+</style>
+</head>
+<body class="intro">
+<div id="header">
+  <div class="name">Adaptive Research Harness</div>
+  <div class="badge">Scripted demo | Synthetic data</div>
+</div>
+<div id="stage">
+  <svg id="svg" viewBox="0 0 1600 680" preserveAspectRatio="xMidYMid meet" aria-label="Research story"></svg>
+  <div id="overlay">
+    <h2>Adaptive Research Harness</h2>
+    <p>A constitutional harness for evolving investment hypotheses, strategies and research agents.</p>
+    <button id="bigplay">Play</button>
+    <p id="overlayLead">Follow one research cycle, from a market signal to a better research method.</p>
+    <p id="overlayNote">About three minutes. Nine scenes. Synthetic data.</p>
+  </div>
+  <div id="details"><button class="close" id="detailsClose">Close</button><h2>Details</h2>
+    <div class="tabs"><button data-tab="evidence" class="on">Evidence record</button><button data-tab="budget">Budget and approvals</button><button data-tab="map">Research map</button></div>
+    <div id="detailsBody"></div>
+  </div>
+</div>
+<div id="controls" class="hidden">
+  <button id="play">Pause</button>
+  <button id="prev">Previous</button>
+  <button id="next">Next</button>
+  <div id="scenes"></div>
+  <span id="where"></span>
+  <span id="hint">Space pauses. Arrow keys change scene.</span>
+  <button id="detailsBtn">Details</button>
+</div>
+
+<script>
+'use strict';
+const T_END = 174;
+
+// ------------------------------------------------------------------
+// Underlying state. The state at time t is rebuilt by replaying every scene
+// step with time <= t, so navigation and autoplay always agree.
+// ------------------------------------------------------------------
+function initial() {
+  return { objects: {}, order: [], links: [], evidence: [], human: [], budget: { auth: 0, reserved: 0, spent: 0 }, scene: 0, sceneT: 0 };
+}
+function addObj(s, t, o) { o.born = t; o.ev = []; o.hist = [{ t, status: o.status }]; o.retired = false; o.checked = false; s.objects[o.id] = o; s.order.push(o.id); }
+function setStatus(s, t, id, status) { const o = s.objects[id]; o.status = status; o.hist.push({ t, status }); }
+function ev(s, t, kind, text) { s.evidence.push({ t, kind, text }); }
+function note(s, t, id, text) { s.objects[id].ev.push({ t, text }); }
+function link(s, from, to, label) { s.links.push({ from, to, label }); }
+function human(s, t, text) { s.human.push({ t, text }); }
+
+// ------------------------------------------------------------------
+// Nine scenes. Each has a headline, a supporting sentence, a visual, steps
+// that change the underlying state (at offsets from the scene start), and
+// 'settle', the offset at which the visual has finished moving.
+// ------------------------------------------------------------------
+const SCENES = [
+  { t: 0, settle: 4.5, name: 'Pattern', head: 'An agent spots a pattern',
+    sub: 'Working within an approved equity mandate, the agent identifies selling after volatility spikes.',
+    steps: [
+      { dt: 0, apply(s, t) { s.budget.auth = 100;
+        addObj(s, t, { id: 'A', kind: 'method', label: 'Build, then check costs', status: 'Approved under the mandate',
+          purpose: 'Research method version A: scan market data, form a hypothesis, build the strategy, backtest it, then check trading costs last. Approved by the PM (human) under the equity mandate with a 100 unit research budget.' });
+        human(s, t, 'Sets the mandate: systematic equity research. Research budget 100 units. Method version A approved to operate.');
+        ev(s, t, 'approval', 'PM (human) sets the mandate: systematic equity research, 100 unit research budget, method version A approved');
+        ev(s, t, 'record', 'Agent scans market data under the mandate'); } },
+      { dt: 3.5, apply(s, t) { note(s, t, 'A', 'Found a candidate signal: selling after volatility spikes (synthetic data)');
+        ev(s, t, 'record', 'Agent records a candidate signal: selling follows volatility spikes (synthetic data)');
+        ev(s, t, 'record', 'Agent records a possible explanation: volatility-targeting funds cut exposure after spikes. Not yet tested'); } },
+    ] },
+  { t: 18, settle: 7, name: 'Two tests', head: 'Two questions to test',
+    sub: 'Existing tools run the tests. Adaptive Research Harness records the inputs and the results.',
+    steps: [
+      { dt: 0, apply(s, t) {
+        addObj(s, t, { id: 'H1', kind: 'hyp', label: 'Forced-selling hypothesis', status: 'Under test on held-out data',
+          purpose: 'Volatility-targeting funds cut exposure after a volatility spike, so selling follows in a predictable window.', by: 'A' });
+        addObj(s, t, { id: 'S1', kind: 'strat', label: 'Trade ahead of selling', status: 'Backtest with full trading costs',
+          purpose: 'Sell ahead of the forced selling and buy back after it. A candidate under research, not a registered strategy, holding no capital.', by: 'A', basis: 'H1' });
+        link(s, 'H1', 'S1', 'built on'); s.budget.reserved = 30;
+        ev(s, t, 'record', 'Agent records research candidates H1 and S1 within the mandate; neither is registered');
+        ev(s, t, 'budget', 'Agent reserves 30 research units for the two tests'); } },
+      { dt: 6, apply(s, t) { ev(s, t, 'evidence', 'Test inputs recorded: held-out windows, cost model, backtester version. Work sent to Market data and the open-source backtester'); } },
+      { dt: 11, apply(s, t) { s.budget.reserved = 0; s.budget.spent = 24; ev(s, t, 'budget', 'Tests settle: 24 units spent, 6 released'); } },
+    ] },
+  { t: 38, settle: 2.5, name: 'Results', head: 'Synthetic pattern. Uneconomic trade.',
+    sub: 'Trading costs consume the edge.',
+    steps: [
+      { dt: 0, apply(s, t) { setStatus(s, t, 'H1', 'Synthetic pattern: selling after 7 of 9 spikes');
+        note(s, t, 'H1', 'Selling follows 7 of 9 spikes in held-out windows (synthetic)'); ev(s, t, 'evidence', 'H1 result: selling follows 7 of 9 spikes in held-out windows (synthetic)'); } },
+      { dt: 1.2, apply(s, t) { setStatus(s, t, 'S1', 'Net return -0.4% after costs');
+        note(s, t, 'S1', 'Gross return +0.8%, net return -0.4% after trading costs (synthetic)'); ev(s, t, 'evidence', 'S1 result: gross +0.8%, net -0.4% after trading costs (synthetic)'); } },
+    ] },
+  { t: 54, settle: 3, name: 'Next test', head: 'The failure directs the next test',
+    sub: 'The agent keeps the evidence and tests the narrower trade on fresh data.',
+    steps: [
+      { dt: 0, apply(s, t) { s.objects.S1.retired = true; setStatus(s, t, 'S1', 'Dropped, evidence kept');
+        note(s, t, 'S1', 'Dropped by the agent. Never registered as a strategy, no capital. Evidence kept'); ev(s, t, 'record', 'Agent drops S1. Negative result kept on the record'); } },
+      { dt: 1.5, apply(s, t) {
+        addObj(s, t, { id: 'H2', kind: 'hyp', label: 'Large-selling-only hypothesis', status: 'Test target recorded before synthetic window',
+          purpose: 'The price effect is worth trading only when forced selling is large relative to normal volume. Narrows H1 using the S1 result.', by: 'A', pred: 'H1' });
+        addObj(s, t, { id: 'S2', kind: 'strat', label: 'Trade only the largest selling episodes', status: 'Backtest on fresh data, full costs',
+          purpose: 'Trade only when estimated forced selling exceeds a size threshold. Successor to S1. A candidate under research.', by: 'A', pred: 'S1', basis: 'H2' });
+        link(s, 'H1', 'H2', 'narrows'); link(s, 'S1', 'S2', 'successor'); s.budget.reserved = 20;
+        ev(s, t, 'record', 'Adaptive Research Harness links H2 to H1 and S2 to S1. The follow-up points at the earlier results');
+        ev(s, t, 'record', 'Agent records research candidates H2 and S2 within the mandate; neither is registered');
+        ev(s, t, 'budget', 'Agent reserves 20 research units for the S2 test'); ev(s, t, 'evidence', 'H2 test target recorded before the next synthetic window; no governed Prediction or forward standing'); } },
+    ] },
+  { t: 72, settle: 2.5, name: 'New method', head: 'Change the research process',
+    sub: 'The agent proposes checking costs before spending time building the trade.',
+    steps: [
+      { dt: 0, apply(s, t) {
+        addObj(s, t, { id: 'B', kind: 'method', label: 'Check costs first', status: 'Proposed method version',
+          purpose: 'Research method version B, proposed by the agent running version A: estimate trading costs right after the hypothesis, stop weak ideas, then build and backtest.', by: 'A', pred: 'A' });
+        link(s, 'A', 'B', 'proposed by'); ev(s, t, 'record', 'Agent proposes method version B: check trading costs before building the strategy'); } },
+    ] },
+  { t: 90, settle: 5, name: 'Comparison', head: 'Compare both methods',
+    sub: 'The same useful finding, with less research spend.',
+    steps: [
+      { dt: 0, apply(s, t) { setStatus(s, t, 'B', 'Under comparison'); s.budget.reserved = 50;
+        ev(s, t, 'budget', 'Agent reserves 30 research units for the method comparison');
+        ev(s, t, 'record', 'Adaptive Research Harness runs method versions A and B on the same three new tasks'); } },
+      { dt: 4, apply(s, t) { s.budget.reserved = 20; s.budget.spent = 53;
+        note(s, t, 'A', 'Comparison on 3 tasks: 1 useful finding, 0 of 2 dead ends stopped early, 18 units (synthetic)');
+        note(s, t, 'B', 'Comparison on 3 tasks: 1 useful finding, 2 of 2 dead ends stopped early, 11 units (synthetic)');
+        ev(s, t, 'evidence', 'Comparison: A and B each retain 1 of 3 findings, the same one (synthetic)');
+        ev(s, t, 'evidence', 'Comparison: B stops 2 of 2 dead ends before building, A stops 0 (synthetic)');
+        ev(s, t, 'evidence', 'Comparison: research cost A 18 units, B 11 units (synthetic)');
+        ev(s, t, 'budget', 'Comparison settles: 29 units spent, 1 released'); } },
+    ] },
+  { t: 114, settle: 10, name: 'Approval', head: 'Check the change, then fund it',
+    sub: 'An independent evaluator checks the change. The PM (human) approves its budget.',
+    steps: [
+      { dt: 3, apply(s, t) { setStatus(s, t, 'B', 'Registered, not funded'); s.objects.B.checked = true;
+        note(s, t, 'B', 'Independent evaluator checked the comparison. Registered. No budget attached');
+        ev(s, t, 'check', 'Independent evaluator, outside the proposing lineage, checks the comparison. Method version B registered. No budget attached'); } },
+      { dt: 6, apply(s, t) { human(s, t, 'Approves an operating budget for method version B: 25 units'); setStatus(s, t, 'B', 'Approved by the PM (human), 25 unit budget');
+        note(s, t, 'B', 'PM (human) approves an operating budget of 25 units'); note(s, t, 'A', 'Standing unchanged by the approval of B');
+        ev(s, t, 'approval', 'PM (human) approves an operating budget for method version B: 25 units. A keeps its own standing'); } },
+      { dt: 9, apply(s, t) { setStatus(s, t, 'B', 'Operating under its own budget'); ev(s, t, 'record', 'Method version B starts work under its approved budget'); } },
+    ] },
+  { t: 134, settle: 2.5, name: 'Continues', head: 'Research continues',
+    sub: 'Agents choose the next experiments. The PM (human) controls budgets and capital.',
+    steps: [
+      { dt: 0, apply(s, t) { s.budget.reserved = 0; s.budget.spent = 71;
+        setStatus(s, t, 'H2', 'Synthetic result only; no forward standing'); setStatus(s, t, 'S2', 'Net return +0.6% after costs, paper allocation pending');
+        note(s, t, 'H2', 'Synthetic effect appears in large-selling windows; no forward standing'); note(s, t, 'S2', 'Net return +0.6% after costs on fresh data (synthetic). Proposed for paper trading, awaiting PM (human) approval');
+        ev(s, t, 'budget', 'S2 test settles: 18 units spent, 2 released'); ev(s, t, 'evidence', 'S2 result on fresh data: +0.6% net after costs in large-selling windows (synthetic)');
+        human(s, t, 'Pending: approval of a paper allocation for S2'); ev(s, t, 'approval', 'Proposal to the PM (human): register S2 and approve a paper allocation. Awaiting decision'); } },
+    ] },
+  { t: 152, settle: 4, name: 'Conclusion', head: 'Govern how the research process evolves', sub: '', center: true, steps: [] },
+];
+function stateAt(t) {
+  const s = initial();
+  SCENES.forEach((sc, i) => { if (sc.t > t) return; s.scene = i; s.sceneT = sc.t; for (const st of sc.steps) { const at = sc.t + st.dt; if (at <= t) st.apply(s, at); } });
+  return s;
+}
+const settled = i => SCENES[i].t + SCENES[i].settle;
+
+// ------------------------------------------------------------------
+// Drawing helpers
+// ------------------------------------------------------------------
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const ease = k => k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+function esc(str) { return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+function wrap(text, maxChars) {
+  const words = String(text).split(' '); const lines = []; let cur = '';
+  for (const w of words) { if ((cur + ' ' + w).trim().length > maxChars && cur) { lines.push(cur); cur = w; } else { cur = (cur + ' ' + w).trim(); } }
+  if (cur) lines.push(cur); return lines;
+}
+function tspans(lines, x, y, lh, anchor) { return lines.map((l, i) => `<tspan x="${x}" y="${y + i * lh}"${anchor ? ` text-anchor="${anchor}"` : ''}>${esc(l)}</tspan>`).join(''); }
+function fmt(t) { const m = Math.floor(t / 60), s = Math.floor(t % 60); return `${m}:${s < 10 ? '0' : ''}${s}`; }
+function arrow(x1, y1, x2, y2, color, width) {
+  const a = Math.atan2(y2 - y1, x2 - x1), h = 10;
+  return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="${width || 2.5}"/>` +
+         `<polygon points="${x2},${y2} ${x2 - h * Math.cos(a - 0.5)},${y2 - h * Math.sin(a - 0.5)} ${x2 - h * Math.cos(a + 0.5)},${y2 - h * Math.sin(a + 0.5)}" fill="${color}"/>`;
+}
+function checkMark(cx, cy, r, color) {
+  return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="3"/><polyline points="${cx - r * 0.45},${cy} ${cx - r * 0.12},${cy + r * 0.35} ${cx + r * 0.5},${cy - r * 0.38}" fill="none" stroke="${color}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+}
+function box(x, y, w, h, fill, stroke, dash) { return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="14" fill="${fill}" stroke="${stroke || 'none'}" stroke-width="3" ${dash ? 'stroke-dasharray="8 6"' : ''}/>`; }
+function bigPill(x, y, text, fill, color, stroke, fs) {
+  const w = text.length * (fs * 0.6) + 40;
+  return { w, svg: `<rect x="${x}" y="${y - 24}" width="${w}" height="48" rx="24" fill="${fill}" stroke="${stroke || 'none'}" stroke-width="2.5"/><text x="${x + w / 2}" y="${y + 7}" text-anchor="middle" font-size="${fs}" font-weight="600" fill="${color}">${esc(text)}</text>` };
+}
+
+// Synthetic series for the chart: a volatility index with three spikes, and net fund selling that follows each spike.
+const OBS_N = 120, OBS_SPIKES = [24, 60, 94], OBS_VOL = [], OBS_SELL = [];
+for (let i = 0; i < OBS_N; i++) {
+  let v = 15 + 2.5 * Math.sin(i / 6.5) + 1.8 * Math.sin(i / 2.9 + 1) + 1.2 * Math.sin(i * 1.9);
+  let sl = 0.9 * Math.sin(i * 2.3) + 0.7 * Math.sin(i / 2.1 + 0.4);
+  for (const sp of OBS_SPIKES) { if (i >= sp) v += 20 * Math.exp(-(i - sp) / 3.2); const lag = i - sp; if (lag >= 2 && lag <= 8) sl -= 7.5 * Math.exp(-Math.pow(lag - 4.5, 2) / 4); }
+  OBS_VOL.push(v); OBS_SELL.push(sl);
+}
+
+// ------------------------------------------------------------------
+// One visual per scene. Each receives the scene age (seconds since the scene
+// started) and 'instant' (true when paused, so everything is drawn settled).
+// ------------------------------------------------------------------
+const VISUALS = [
+  // 1. Chart with the lag highlighted
+  function (s, age, instant) {
+    const X0 = 220, X1 = 1380, px = i => X0 + (X1 - X0) * i / (OBS_N - 1);
+    const vy = v => 270 - (v / 40) * 130, sy = v => 360 - v * 13;
+    const n = instant ? OBS_N : Math.max(2, Math.floor(OBS_N * clamp(age / 2.5, 0, 1)));
+    const hk = instant ? 1 : clamp((age - 3.5) / 0.8, 0, 1);
+    let d = '';
+    d += `<text x="${X0}" y="128" font-size="17" font-weight="700" fill="#6A7179">Volatility index</text>`;
+    d += `<text x="${X0}" y="336" font-size="17" font-weight="700" fill="#6A7179">Net selling by funds, same days</text>`;
+    d += `<rect x="${X0 - 14}" y="138" width="${X1 - X0 + 28}" height="136" rx="8" fill="#F7F5EE"/>`;
+    d += `<rect x="${X0 - 14}" y="344" width="${X1 - X0 + 28}" height="176" rx="8" fill="#F7F5EE"/>`;
+    d += `<line x1="${X0 - 14}" y1="360" x2="${X1 + 14}" y2="360" stroke="#C9C4B6"/>`;
+    d += `<text x="${X0}" y="542" font-size="14" fill="#8A8F96">day 1</text><text x="${X1}" y="542" text-anchor="end" font-size="14" fill="#8A8F96">day 120</text>`;
+    OBS_SPIKES.forEach((sp, i) => {
+      d += `<rect x="${px(sp) - 6}" y="138" width="${px(sp + 9) - px(sp) + 12}" height="382" fill="#C98A2B" opacity="${0.16 * hk}"/>`;
+      if (i === 0) {
+        const bx1 = px(sp), bx2 = px(sp + 5);
+        d += `<g opacity="${hk}"><line x1="${bx1}" y1="294" x2="${bx1}" y2="316" stroke="#C98A2B" stroke-width="3"/><line x1="${bx2}" y1="294" x2="${bx2}" y2="316" stroke="#C98A2B" stroke-width="3"/>${arrow(bx1 + 2, 305, bx2 - 2, 305, '#C98A2B', 3)}`;
+        d += `<text x="${bx2 + 16}" y="311" font-size="18" font-weight="700" fill="#C98A2B">selling follows the spike by 2 to 7 days</text></g>`;
+      }
+    });
+    const vpts = []; for (let i = 0; i < n; i++) vpts.push(`${px(i).toFixed(1)},${vy(OBS_VOL[i]).toFixed(1)}`);
+    d += `<polyline points="${vpts.join(' ')}" fill="none" stroke="#1B2A41" stroke-width="3"/>`;
+    const bw = (X1 - X0) / (OBS_N - 1);
+    for (let i = 0; i < n; i++) { const v = OBS_SELL[i]; const y1 = Math.min(360, sy(v)), y2 = Math.max(360, sy(v));
+      d += `<rect x="${(px(i) - bw * 0.4).toFixed(1)}" y="${y1.toFixed(1)}" width="${(bw * 0.8).toFixed(1)}" height="${Math.max(1, y2 - y1).toFixed(1)}" fill="${v < -1.5 ? '#B5543A' : '#9AA0A6'}"/>`; }
+    return d;
+  },
+  // 2. Two question cards, data split, handoff to tools
+  function (s, age, instant) {
+    const k1 = instant ? 1 : clamp(age / 0.6, 0, 1), k2 = instant ? 1 : clamp((age - 0.8) / 0.6, 0, 1), k3 = instant ? 1 : clamp((age - 2.2) / 0.8, 0, 1), k4 = instant ? 1 : clamp((age - 5.5) / 1.0, 0, 1);
+    let d = '';
+    const cards = [
+      { q: 'Can we predict the selling?', sub: 'Hypothesis test on held-out data', stroke: '#C98A2B', k: k1 },
+      { q: 'Can we trade it profitably?', sub: 'Backtest with full trading costs', stroke: '#2F7F74', k: k2 },
+    ];
+    cards.forEach((c, i) => { const x = 200 + i * 640, y = 120;
+      d += `<g opacity="${c.k}">${box(x, y, 560, 150, '#FBFAF6', c.stroke)}<text x="${x + 280}" y="${y + 68}" text-anchor="middle" font-family="Georgia, serif" font-size="32" fill="#1B2A41">${esc(c.q)}</text><text x="${x + 280}" y="${y + 108}" text-anchor="middle" font-size="18" fill="#6A7179">${esc(c.sub)}</text></g>`; });
+    const bx = 200, bw = 1200, by = 326;
+    d += `<g opacity="${k3}"><rect x="${bx}" y="${by}" width="${bw * 0.6}" height="44" fill="#E6E2D6"/><rect x="${bx + bw * 0.6}" y="${by}" width="${bw * 0.4}" height="44" fill="#2F7F74"/>`;
+    d += `<text x="${bx + 20}" y="${by + 29}" font-size="18" font-weight="700" fill="#1B2A41">Discovery data: where the pattern was found</text>`;
+    d += `<text x="${bx + bw * 0.6 + 20}" y="${by + 29}" font-size="18" font-weight="700" fill="#FBFAF6">Test data: scores both tests</text></g>`;
+    // Handoff to tools
+    const tools = [['Market data', 500], ['Open-source backtester', 1100]];
+    d += `<g opacity="${k4}">`;
+    tools.forEach(([name, cx]) => {
+      d += arrow(cx, 390, cx, 440, '#2F7F74', 3);
+      d += `${box(cx - 200, 446, 400, 70, '#1B2A41')}<text x="${cx}" y="${490}" text-anchor="middle" font-size="22" font-weight="600" fill="#FBFAF6">${esc(name)}</text>`;
+    });
+    d += `<text x="800" y="556" text-anchor="middle" font-size="18" fill="#6A7179">Reused as they are. They do the work and own no result.</text></g>`;
+    return d;
+  },
+  // 3. Two results side by side
+  function (s, age, instant) {
+    const k1 = instant ? 1 : clamp(age / 0.6, 0, 1), k2 = instant ? 1 : clamp((age - 1.2) / 0.6, 0, 1);
+    let d = '';
+    d += `<g opacity="${k1}">${box(200, 120, 560, 400, '#FBFAF6', '#C98A2B')}`;
+    d += `<text x="480" y="180" text-anchor="middle" font-size="16" font-weight="700" letter-spacing="3" fill="#C98A2B">THE SIGNAL</text>`;
+    d += `<text x="480" y="300" text-anchor="middle" font-family="Georgia, serif" font-size="110" fill="#1B2A41">7 of 9</text>`;
+    d += `<text x="480" y="352" text-anchor="middle" font-size="22" fill="#1B2A41">spikes were followed by selling</text>`;
+    d += `<text x="480" y="470" text-anchor="middle" font-size="26" font-weight="700" fill="#2F7F74">Synthetic pattern only</text></g>`;
+    d += `<g opacity="${k2}">${box(840, 120, 560, 400, '#FBFAF6', '#2F7F74')}`;
+    d += `<text x="1120" y="180" text-anchor="middle" font-size="16" font-weight="700" letter-spacing="3" fill="#2F7F74">THE TRADE</text>`;
+    d += `<text x="1120" y="268" text-anchor="middle" font-family="Georgia, serif" font-size="54" fill="#1B2A41">Gross return +0.8%</text>`;
+    d += `<text x="1120" y="356" text-anchor="middle" font-family="Georgia, serif" font-size="54" fill="#B5543A">Net return -0.4%</text>`;
+    d += `<text x="1120" y="402" text-anchor="middle" font-size="20" fill="#6A7179">after trading costs</text>`;
+    d += `<text x="1120" y="470" text-anchor="middle" font-size="26" font-weight="700" fill="#B5543A">The trade loses</text></g>`;
+    return d;
+  },
+  // 4. Broad trade fades, narrower candidate appears
+  function (s, age, instant) {
+    const fade = instant ? 1 : clamp(age / 1.2, 0, 1), k2 = instant ? 1 : clamp((age - 1.5) / 0.8, 0, 1);
+    let d = '';
+    d += `<g opacity="${1 - 0.6 * fade}">${box(160, 170, 540, 300, '#EDEAE2', '#9AA0A6', true)}`;
+    d += `<text x="430" y="226" text-anchor="middle" font-size="16" font-weight="700" letter-spacing="3" fill="#8A8F96">THE BROAD TRADE</text>`;
+    d += `<text x="430" y="290" text-anchor="middle" font-family="Georgia, serif" font-size="34" fill="#4A5568">Trade ahead of all selling</text>`;
+    d += `<text x="430" y="340" text-anchor="middle" font-size="24" fill="#B5543A">Net return -0.4%</text>`;
+    d += `<text x="430" y="420" text-anchor="middle" font-size="20" font-weight="700" fill="#6A7179">Dropped. Evidence kept.</text></g>`;
+    d += `<g opacity="${k2}">${arrow(730, 320, 860, 320, '#C98A2B', 4)}`;
+    d += `${box(900, 170, 540, 300, '#FBFAF6', '#2F7F74')}`;
+    d += `<text x="1170" y="226" text-anchor="middle" font-size="16" font-weight="700" letter-spacing="3" fill="#2F7F74">THE NARROWER TRADE</text>`;
+    d += `<text x="1170" y="290" text-anchor="middle" font-family="Georgia, serif" font-size="34" fill="#1B2A41">${tspans(['Trade only the largest', 'selling episodes'], 1170, 290, 42, 'middle')}</text>`;
+    d += `<text x="1170" y="420" text-anchor="middle" font-size="20" font-weight="700" fill="#2F7F74">Candidate. Tested on synthetic data.</text></g>`;
+    return d;
+  },
+  // 5. Two procedures, changed step highlighted
+  function (s, age, instant) {
+    const k1 = instant ? 1 : clamp(age / 0.6, 0, 1), k2 = instant ? 1 : clamp((age - 1.0) / 0.8, 0, 1);
+    let d = '';
+    const rows = [
+      { label: 'Current', y: 220, steps: ['Build strategy', 'Backtest', 'Check costs'], hot: -1, k: k1, fill: '#F1EFE8', text: '#1B2A41', stroke: '#C9C4B6' },
+      { label: 'Proposed', y: 400, steps: ['Estimate costs', 'Stop weak ideas', 'Build and backtest'], hot: 0, k: k2, fill: '#1B2A41', text: '#FBFAF6', stroke: '#1B2A41' },
+    ];
+    rows.forEach(r => {
+      d += `<g opacity="${r.k}"><text x="200" y="${r.y + 8}" font-size="20" font-weight="700" letter-spacing="2" fill="#6A7179">${r.label.toUpperCase()}</text>`;
+      let x = 400;
+      r.steps.forEach((st, j) => {
+        const hot = j === r.hot; const p = bigPill(x, r.y, st, hot ? '#C98A2B' : r.fill, hot ? '#1B2A41' : r.text, hot ? '#C98A2B' : r.stroke, 24);
+        d += p.svg; x += p.w + 16;
+        if (j < r.steps.length - 1) { d += arrow(x, r.y, x + 36, r.y, '#8A8F96', 3); x += 52; }
+      });
+      if (r.hot >= 0) d += `<text x="400" y="${r.y + 60}" font-size="18" fill="#C98A2B" font-weight="700">The changed step: costs are estimated first, so weak ideas stop before any strategy is built.</text>`;
+      d += `</g>`;
+    });
+    return d;
+  },
+  // 6. One clean comparison table
+  function (s, age, instant) {
+    const k = i => instant ? 1 : clamp((age - (1 + i * 1.5)) / 0.6, 0, 1);
+    let d = '';
+    const x0 = 200, w = 1200, cols = [x0 + 30, x0 + 640, x0 + 940];
+    d += `<text x="${x0}" y="128" font-size="22" fill="#6A7179">Both methods were given the same three new research tasks.</text>`;
+    d += `<rect x="${x0}" y="150" width="${w}" height="52" rx="10" fill="#F1EFE8"/>`;
+    ['', 'Current method', 'Proposed method'].forEach((h, i) => { d += `<text x="${cols[i]}" y="${184}" font-size="20" font-weight="700" fill="${i === 2 ? '#C98A2B' : '#1B2A41'}">${esc(h)}</text>`; });
+    const rows = [['Useful findings', '1', '1'], ['Dead ends stopped early', '0', '2'], ['Research units spent', '18', '11']];
+    rows.forEach((r, i) => { const y = 270 + i * 96;
+      d += `<g opacity="${k(i)}"><line x1="${x0}" y1="${y + 36}" x2="${x0 + w}" y2="${y + 36}" stroke="#E6E2D6"/>`;
+      d += `<text x="${cols[0]}" y="${y + 10}" font-size="28" fill="#1B2A41">${esc(r[0])}</text>`;
+      d += `<text x="${cols[1]}" y="${y + 14}" font-family="Georgia, serif" font-size="44" fill="#1B2A41">${esc(r[1])}</text>`;
+      d += `<text x="${cols[2]}" y="${y + 14}" font-family="Georgia, serif" font-size="44" font-weight="700" fill="${i === 0 ? '#1B2A41' : '#C98A2B'}">${esc(r[2])}</text></g>`; });
+    d += `<text x="${x0}" y="556" font-size="16" fill="#8A8F96" opacity="${k(2)}">Illustrative sample of three tasks.</text>`;
+    return d;
+  },
+  // 7. Proposed method, independent review, PM (human) approval, operating method, revealed in order
+  function (s, age, instant) {
+    const k = i => instant ? 1 : clamp((age - i * 3) / 0.7, 0, 1);
+    let d = '';
+    const stages = [
+      { title: 'Proposed method', sub: 'Check costs first', fill: '#FBFAF6', stroke: '#1B2A41', text: '#1B2A41', icon: '' },
+      { title: 'Independent review', sub: 'Evaluator outside the lineage', fill: '#FBFAF6', stroke: '#1B2A41', text: '#1B2A41', icon: 'check' },
+      { title: 'PM (human) budget approval', sub: '25 research units', fill: '#C98A2B', stroke: '#C98A2B', text: '#1B2A41', icon: '' },
+      { title: 'Operating method', sub: 'Starts work under its budget', fill: '#2F7F74', stroke: '#2F7F74', text: '#FBFAF6', icon: '' },
+    ];
+    const bw = 330, gap = 36, x0 = 800 - (4 * bw + 3 * gap) / 2, y = 220, bh = 200;
+    stages.forEach((st, i) => { const x = x0 + i * (bw + gap);
+      d += `<g opacity="${k(i)}">${box(x, y, bw, bh, st.fill, st.stroke)}`;
+      if (st.icon === 'check') d += checkMark(x + bw / 2, y + 62, 24, '#1B2A41');
+      else d += `<text x="${x + bw / 2}" y="${y + 74}" text-anchor="middle" font-family="Georgia, serif" font-size="40" fill="${st.text}">${i + 1}</text>`;
+      d += `<text x="${x + bw / 2}" y="${y + 130}" text-anchor="middle" font-size="21" font-weight="700" fill="${st.text}">${esc(st.title)}</text>`;
+      d += `<text x="${x + bw / 2}" y="${y + 162}" text-anchor="middle" font-size="16" fill="${st.text}" opacity="0.85">${esc(st.sub)}</text></g>`;
+      if (i < 3) d += `<g opacity="${k(i + 1)}">${arrow(x + bw + 8, y + bh / 2, x + bw + gap - 8, y + bh / 2, '#8A8F96', 3)}</g>`; });
+    d += `<text x="800" y="500" text-anchor="middle" font-size="18" fill="#6A7179" opacity="${k(2)}">Registration attaches no budget. Funding is a separate PM (human) decision.</text>`;
+    return d;
+  },
+  // 8. Two outcomes
+  function (s, age, instant) {
+    const k1 = instant ? 1 : clamp(age / 0.6, 0, 1), k2 = instant ? 1 : clamp((age - 1.0) / 0.8, 0, 1);
+    let d = '';
+    d += `<g opacity="${k1}">${box(200, 150, 560, 340, '#1B2A41')}`;
+    d += `<text x="480" y="208" text-anchor="middle" font-size="16" font-weight="700" letter-spacing="3" fill="#BFD8D5">THE RESEARCH PROCESS</text>`;
+    d += `<text x="480" y="290" text-anchor="middle" font-family="Georgia, serif" font-size="36" fill="#FBFAF6">${tspans(['New method approved', 'to operate.'], 480, 290, 46, 'middle')}</text>`;
+    d += `<text x="480" y="440" text-anchor="middle" font-size="20" fill="#BFD8D5">Checks costs first, within its own budget</text></g>`;
+    d += `<g opacity="${k2}">${box(840, 150, 560, 340, '#FBFAF6', '#2F7F74')}`;
+    d += `<text x="1120" y="208" text-anchor="middle" font-size="16" font-weight="700" letter-spacing="3" fill="#2F7F74">THE TRADE</text>`;
+    d += `<text x="1120" y="290" text-anchor="middle" font-family="Georgia, serif" font-size="36" fill="#1B2A41">${tspans(['Positive synthetic result', 'after modelled costs.'], 1120, 290, 46, 'middle')}</text>`;
+    d += `<text x="1120" y="392" text-anchor="middle" font-size="24" fill="#2F7F74" font-weight="700">Synthetic net return +0.6%</text>`;
+    d += `<rect x="960" y="416" width="320" height="40" rx="20" fill="#C98A2B"/><text x="1120" y="442" text-anchor="middle" font-size="18" font-weight="700" fill="#1B2A41">Paper allocation pending</text></g>`;
+    return d;
+  },
+  // 9. Conclusion: text only, spacious and static once settled
+  function (s, age, instant) {
+    const k = at => instant ? 1 : clamp((age - at) / 0.9, 0, 1);
+    let d = '';
+    d += `<text font-size="24" fill="#4A5568" opacity="${k(0.6)}">${tspans(['Agents propose changes. Independent checks test them.', 'Explicit grants permit work. Every result stays on the record.'], 800, 150, 36, 'middle')}</text>`;
+    d += `<text font-family="Georgia, serif" font-size="66" fill="#1B2A41" opacity="${k(1.8)}">${tspans(['Strategies are temporary.', 'The research process keeps evolving.'], 800, 318, 84, 'middle')}</text>`;
+    d += `<text x="800" y="520" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="26" fill="#2F7F74" opacity="${k(3)}">An edge can disappear without losing what the system learned finding it.</text>`;
+    return d;
+  },
+];
+
+function render(t, instant) {
+  const s = stateAt(t); const sc = SCENES[s.scene]; const age = t - sc.t;
+  const fade = instant ? 1 : clamp(age / 0.5, 0, 1);
+  let d = sc.center ? `<text x="800" y="96" text-anchor="middle" font-family="Georgia, serif" font-size="40" fill="#1B2A41" opacity="${fade}">${esc(sc.head)}</text>`
+                    : `<text x="40" y="52" font-family="Georgia, serif" font-size="40" fill="#1B2A41" opacity="${fade}">${esc(sc.head)}</text>`;
+  d += `<text x="1560" y="52" text-anchor="end" font-size="15" fill="#8A8F96">${s.scene + 1} of ${SCENES.length}</text>`;
+  d += `<g transform="translate(0,40)" opacity="${fade}">${VISUALS[s.scene](s, age, instant)}</g>`;
+  if (sc.sub) d += `<text x="800" y="648" text-anchor="middle" font-size="24" fill="#1B2A41" opacity="${fade}">${esc(sc.sub)}</text>`;
+  dyn.innerHTML = d; return s;
+}
+
+// ------------------------------------------------------------------
+// Controls
+// ------------------------------------------------------------------
+const svg = document.getElementById('svg'); svg.innerHTML = '<g id="dyn"></g>'; const dyn = document.getElementById('dyn');
+const playBtn = document.getElementById('play'), whereEl = document.getElementById('where'), hintEl = document.getElementById('hint'), scenesEl = document.getElementById('scenes');
+const details = document.getElementById('details'), detailsBtn = document.getElementById('detailsBtn'), overlay = document.getElementById('overlay'), controls = document.getElementById('controls');
+function start() { overlay.classList.add('hidden'); controls.classList.remove('hidden'); document.body.classList.remove('intro'); }
+let t = 0, playing = false, last = null, lastRenderedT = -1, tab = 'evidence';
+SCENES.forEach((c, i) => { const sp = document.createElement('span'); sp.title = c.name; sp.addEventListener('click', () => { setPlaying(false); seek(settled(i)); }); scenesEl.appendChild(sp); });
+function sceneIndex(v) { return SCENES.reduce((a, c, i) => c.t <= v ? i : a, 0); }
+function seek(v) { t = clamp(v, 0, T_END); start(); draw(true); }
+function draw(force) {
+  if (!force && t === lastRenderedT) return;
+  lastRenderedT = t; const s = render(t, !playing); const idx = sceneIndex(t);
+  Array.from(scenesEl.children).forEach((el, i) => { el.classList.toggle('on', i === idx); el.classList.toggle('done', i < idx); });
+  whereEl.textContent = `${SCENES[idx].name}  ${fmt(t)} / ${fmt(T_END)}`;
+  if (details.classList.contains('open')) fillDetails(s);
+}
+function setPlaying(p) {
+  playing = p; playBtn.textContent = p ? 'Pause' : (t >= T_END ? 'Replay' : 'Play'); hintEl.style.opacity = p ? '0' : '1';
+  if (p) { start(); last = null; requestAnimationFrame(tick); } else { draw(true); }
+}
+function tick(now) {
+  if (!playing) return;
+  if (last != null) { t = Math.min(T_END, t + (now - last) / 1000); }
+  last = now; draw();
+  if (t >= T_END) { setPlaying(false); return; }
+  requestAnimationFrame(tick);
+}
+function nextScene() { setPlaying(false); const i = sceneIndex(t); const j = t < settled(i) - 0.01 ? i : i + 1; seek(j < SCENES.length ? settled(j) : settled(SCENES.length - 1)); }
+function prevScene() { setPlaying(false); const j = sceneIndex(t) - 1; seek(j >= 0 ? settled(j) : settled(0)); }
+playBtn.addEventListener('click', () => { if (t >= T_END) t = 0; setPlaying(!playing); });
+document.getElementById('bigplay').addEventListener('click', () => { t = 0; setPlaying(true); });
+document.getElementById('next').addEventListener('click', nextScene);
+document.getElementById('prev').addEventListener('click', prevScene);
+document.addEventListener('keydown', e => {
+  if (e.code === 'Space') { e.preventDefault(); if (t >= T_END) t = 0; setPlaying(!playing); }
+  if (e.code === 'ArrowRight') { e.preventDefault(); nextScene(); }
+  if (e.code === 'ArrowLeft') { e.preventDefault(); prevScene(); }
+  if (e.code === 'Escape') { details.classList.remove('open'); detailsBtn.classList.remove('on'); }
+});
+
+// Details: evidence record, budget and approvals, research map
+detailsBtn.addEventListener('click', () => { const open = details.classList.toggle('open'); detailsBtn.classList.toggle('on', open); if (open) fillDetails(stateAt(t)); });
+document.getElementById('detailsClose').addEventListener('click', () => { details.classList.remove('open'); detailsBtn.classList.remove('on'); });
+document.querySelectorAll('#details .tabs button').forEach(b => b.addEventListener('click', () => { tab = b.getAttribute('data-tab'); document.querySelectorAll('#details .tabs button').forEach(x => x.classList.toggle('on', x === b)); fillDetails(stateAt(t)); }));
+const EV_COLOR = { approval: '#C98A2B', record: '#1B2A41', budget: '#2F7F74', evidence: '#2F7F74', check: '#1B2A41' };
+const KIND_LABEL = { method: 'Research method', hyp: 'Hypothesis', strat: 'Strategy' };
+function fillDetails(s) {
+  const body = document.getElementById('detailsBody'); let h = '';
+  if (tab === 'evidence') {
+    h += s.evidence.length ? s.evidence.map(e => `<div class="ev"><span class="t">${fmt(e.t)}</span><span class="i" style="color:${EV_COLOR[e.kind]}">${e.kind}</span><span>${esc(e.text)}</span></div>`).join('') : '<p>Nothing recorded yet.</p>';
+    h += `<p class="note">Scripted story entries, shown as of ${fmt(t)} in the story. Approval: a PM (human) decision. Record: a registration or proposal. Budget: a reservation or settlement. Evidence: a test input or result. Check: an independent evaluation. All numbers are synthetic. No forward standing or runtime enforcement is demonstrated.</p>`;
+  } else if (tab === 'budget') {
+    const b = s.budget;
+    h += `<h3>Research budget under the mandate</h3><div class="meter"><div class="spent" style="width:${100 * b.spent / b.auth}%"></div><div class="res" style="width:${100 * b.reserved / b.auth}%"></div></div>`;
+    h += `<p>Approved ${b.auth}, spent ${b.spent}, reserved ${b.reserved}, available ${b.auth - b.spent - b.reserved}</p>`;
+    h += `<p class="note">Budget is reserved before work runs and settled when the tools return. Reserved is not spent.</p>`;
+    h += `<h3>PM (human) approvals</h3><ul>${s.human.map(x => `<li>${fmt(x.t)}: ${esc(x.text)}</li>`).join('')}</ul>`;
+    h += `<p class="note">The PM (human) sets the mandate and its research budget, approves an operating budget for a new method version, and approves paper allocations and capital. Everything else in this story is done by the agent within the mandate, including the independent evaluator, which is automated. Registering a method version attaches no budget. Funding is a separate approval.</p>`;
+  } else {
+    [['method', 'Research methods: the procedures agents follow'], ['hyp', 'Hypotheses: signals being tested'], ['strat', 'Strategies: trades being tested']].forEach(([kind, title]) => {
+      const ids = s.order.filter(id => s.objects[id].kind === kind); if (!ids.length) return;
+      h += `<h3>${title}</h3>`;
+      ids.forEach(id => { const o = s.objects[id];
+        const lin = [o.by ? 'proposed by the agent running ' + o.by : '', o.basis ? 'built on ' + o.basis : '', o.pred ? 'successor to ' + o.pred + ', linked by Adaptive Research Harness, nothing inherited except the lesson' : ''].filter(Boolean).join('. ');
+        h += `<div class="obj${o.retired ? ' retired' : ''}"><div class="id">${o.id}. ${KIND_LABEL[o.kind]}${o.checked ? '. Independently checked' : ''}</div><div class="label">${esc(o.label)}</div><span class="status">${esc(o.status)}</span><p>${esc(o.purpose)}</p>${lin ? `<div class="lin">${esc(lin)}</div>` : ''}`;
+        if (o.ev.length) h += `<ul>${o.ev.map(x => `<li>${fmt(x.t)}: ${esc(x.text)}</li>`).join('')}</ul>`;
+        h += `</div>`; });
+    });
+    h += `<p class="note">The complete map as of ${fmt(t)}. Dropped candidates stay on the record.</p>`;
+  }
+  body.innerHTML = h;
+}
+
+// Optional deep link for presenting or checking: #t=30 opens paused at 30 seconds.
+const m = /t=([\d.]+)/.exec(location.hash || ''); if (m) { t = clamp(parseFloat(m[1]), 0, T_END); start(); }
+setPlaying(/play/.test(location.hash || ''));
+</script>
+</body>
+</html>

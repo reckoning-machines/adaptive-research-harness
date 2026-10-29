@@ -1,0 +1,51 @@
+test_f16_unreadable_worker_is_not_proven_dead (tests.component.test_audit_regressions.AuditRegressions.test_f16_unreadable_worker_is_not_proven_dead) ... ok
+test_f6_rejected_genesis_preserved_without_poisoning_empty_ledgers (tests.component.test_audit_regressions.AuditRegressions.test_f6_rejected_genesis_preserved_without_poisoning_empty_ledgers) ... ok
+test_f7_reader_rejects_apply_without_its_pass_check (tests.component.test_audit_regressions.AuditRegressions.test_f7_reader_rejects_apply_without_its_pass_check) ... ok
+test_clock_file_rollback_fails_against_durable_receipts (tests.component.test_boundaries.BoundaryComponents.test_clock_file_rollback_fails_against_durable_receipts) ... ok
+test_inventory_detects_modified_artifact (tests.component.test_boundaries.BoundaryComponents.test_inventory_detects_modified_artifact) ... ok
+test_narrower_grant_denies_removed_right (tests.component.test_boundaries.BoundaryComponents.test_narrower_grant_denies_removed_right) ... ok
+test_real_process_death_only_operational_receipts_empty_governed_ledgers (tests.component.test_boundaries.BoundaryComponents.test_real_process_death_only_operational_receipts_empty_governed_ledgers) ... ok
+test_receipt_reconstruction_from_fabricated_commit_envelopes (tests.component.test_boundaries.BoundaryComponents.test_receipt_reconstruction_from_fabricated_commit_envelopes) ... ok
+test_runtime_catalog_has_executable_schedules (tests.component.test_boundaries.BoundaryComponents.test_runtime_catalog_has_executable_schedules) ... ok
+test_supported_source_extraction_and_listing (tests.component.test_boundaries.BoundaryComponents.test_supported_source_extraction_and_listing) ... ok
+test_templates_have_process_isolation_controls (tests.component.test_boundaries.BoundaryComponents.test_templates_have_process_isolation_controls) ... ok
+test_conditional_append_collision (tests.component.test_build.Accounting.test_conditional_append_collision) ... ok
+test_cross_grant_lineage (tests.component.test_build.Accounting.test_cross_grant_lineage) ... ok
+test_duplicate_settlement (tests.component.test_build.Accounting.test_duplicate_settlement) ... ok
+test_exact_prospective_reference (tests.component.test_build.Accounting.test_exact_prospective_reference) ... ok
+test_fence_releases_allowance_but_not_liability (tests.component.test_build.Accounting.test_fence_releases_allowance_but_not_liability) ... ok
+test_frozen_expiry_and_invalidation (tests.component.test_build.Accounting.test_frozen_expiry_and_invalidation) ... ok
+test_invalid_settlement (tests.component.test_build.Accounting.test_invalid_settlement) ... ok
+test_overrun (tests.component.test_build.Accounting.test_overrun) ... ok
+test_pending_close_retains_maximum (tests.component.test_build.Accounting.test_pending_close_retains_maximum) ... ok
+test_pool_competition_pure_order (tests.component.test_build.Accounting.test_pool_competition_pure_order) ... ok
+test_reservation_expiry (tests.component.test_build.Accounting.test_reservation_expiry) ... ok
+test_settle_without_clock_after_fence_and_revocation (tests.component.test_build.Accounting.test_settle_without_clock_after_fence_and_revocation) ... ok
+test_strict_elapsed_equality (tests.component.test_build.Accounting.test_strict_elapsed_equality) ... ok
+test_unauthorized_fence (tests.component.test_build.Accounting.test_unauthorized_fence) ... ok
+test_bad_designs (tests.component.test_build.CheckerCoverage.test_bad_designs) ... ok
+test_bad_hypothesis (tests.component.test_build.CheckerCoverage.test_bad_hypothesis) ... ok
+test_import_independence (tests.component.test_build.CheckerCoverage.test_import_independence) ... ok
+test_missing_setup_fields (tests.component.test_build.CheckerCoverage.test_missing_setup_fields) ... ok
+test_ordinary_both_algorithms (tests.component.test_build.CheckerCoverage.test_ordinary_both_algorithms) ... ok
+test_own_subject_and_second_checker (tests.component.test_build.CheckerCoverage.test_own_subject_and_second_checker) ... ok
+test_startup_16_computed_cases (tests.component.test_build.CheckerCoverage.test_startup_16_computed_cases) ... ok
+test_unsupported_science (tests.component.test_build.CheckerCoverage.test_unsupported_science) ... ok
+test_clock_persistence_and_rollback (tests.component.test_build.EmptyStorageAndClock.test_clock_persistence_and_rollback) ... ok
+test_disposable_development_has_no_manual_permit_gate (tests.component.test_build.EmptyStorageAndClock.test_disposable_development_has_no_manual_permit_gate) ... ok
+test_engine_gate_without_constructing_store (tests.component.test_build.EmptyStorageAndClock.test_engine_gate_without_constructing_store) ... ok
+test_storage_request_transaction_and_concurrency_without_genesis (tests.component.test_build.EmptyStorageAndClock.test_storage_request_transaction_and_concurrency_without_genesis) ... ok
+test_bad_units (tests.component.test_build.Encoding.test_bad_units) ... ok
+test_canonical (tests.component.test_build.Encoding.test_canonical) ... ok
+test_clock_time (tests.component.test_build.Encoding.test_clock_time) ... ok
+test_duplicate_key (tests.component.test_build.Encoding.test_duplicate_key) ... ok
+test_exact_units (tests.component.test_build.Encoding.test_exact_units) ... ok
+test_float (tests.component.test_build.Encoding.test_float) ... ok
+test_formation (tests.component.test_build.Tools.test_formation) ... ok
+test_independent_algorithms_random_inputs (tests.component.test_build.Tools.test_independent_algorithms_random_inputs) ... ok
+test_invalid_rows (tests.component.test_build.Tools.test_invalid_rows) ... ok
+
+----------------------------------------------------------------------
+Ran 46 tests in 0.542s
+
+OK

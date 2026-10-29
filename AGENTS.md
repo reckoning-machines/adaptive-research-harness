@@ -1,4 +1,4 @@
-# New Speedway Repository Jurisdiction and Routing
+# Adaptive Research Harness Repository Jurisdiction and Routing
 
 Status: **ROOT ROUTER — DERIVATIVE, NOT DOCTRINE**
 
@@ -7,23 +7,24 @@ It routes to the governing documents, states the stop conditions, and says
 what phase the work is in. It does not summarize the doctrine and does not
 hold authority of its own.
 
-## What New Speedway is
+## What Adaptive Research Harness is
 
-An operating system for an evolving quantitative investment process, in
-which agents may generate research, write strategies and evolve their own
-research methods, while every consequential change to the investment
-process is authorized, budgeted, independently checked and recorded as
-governed state. The doctrine is in
-[the New Speedway Constitution](docs/doctrines/new_speedway_constitution.md).
+A constitutional harness for evolving investment hypotheses, strategies and research agents.
+
+The [rename record](docs/decisions/project_rename_20261029.md) records the
+Principal's naming direction. The governing [CV1 Constitution](docs/doctrines/new_speedway_constitution.md)
+retains its historical title, path and admitted bytes.
 
 ## Phase
 
-**Document-first design, baseline admitted. No application code is authorized.** The system is
-being built in documents until it is constitutionally coherent there. The
-order of work is
-[the document-first design plan](docs/plans/document_first_design.md).
-Known defects and open decisions are in
-[the initial OSA audit](docs/audits/initial_osa_audit.md).
+**Private synthetic prototype; disposable development is authorized.**
+The Principal's latest direction, recorded in the
+[build decision addendum](docs/decisions/first_research_cycle_build_approval_addendum_20261029.md),
+authorizes building, fixing and testing the agreed cycle, including disposable
+genesis and recovery tests. Separate exact-build/host-digest approval gates are
+superseded. Runtime constitutional controls remain. No real provider/spending,
+trading, production changes, publication or license selection is authorized.
+See [BUILD.md](BUILD.md) for the working example and honest coverage limits.
 
 The Constitution at revision 12 is **admitted as `ConstitutionVersion
 1`**, the document-phase design baseline, by the
@@ -37,17 +38,13 @@ PD-010 repairs (revision 11), the
 (F-1, F-2), the revision 12 corrections with their
 [correction record](docs/audits/cv1_correction_record_f1_f2_20261019.md),
 the [bounded follow-up](docs/audits/cv1_revision12_bounded_followup_20261019.md)
-and PD-011. **Current work:** none authorized beyond the documentation
-package; an implementation plan with its own declared delta is the
-next proposable step. Genesis is not executed, no runtime is selected,
-no CPOC witness has run, nothing is certified, and the pre-genesis
-parameters listed in the admission record are still to be supplied:
-admissions so far are document-phase Principal admissions that stand in
-for genesis.
+and PD-011. **Current work:** implement and test the bounded private synthetic
+cycle. Admitted documents remain byte-exact. Development histories are labelled
+disposable; they are not production genesis or evidence of OS isolation.
 
 ## Engineering discipline
 
-New Speedway adopts the fin123-core engineering discipline: Constitutional
+Adaptive Research Harness adopts the fin123-core engineering discipline: Constitutional
 Coherence, Authority Normal Form, the six representation classes, the
 `Audit -> Plan -> Implement -> Verify` motion, the Constitutional Delta
 `ΔO/ΔS/ΔA` with a normal budget of `0/0/0`, the constitutional stop
@@ -118,8 +115,9 @@ from a TENTATIVE one; if still ambiguous, stop.
 
 ## Rules for this phase
 
-- No application code, tests, infrastructure, frameworks, dependencies or
-  service selection.
+- Build/fix/test only the agreed private synthetic prototype. Use disposable
+  stores; retain useful evidence. Ask only for substantive constitutional
+  changes or scope expansion.
 - Preserve failed hypotheses, rejected transitions and negative evidence,
   in documents now and in ledgers later.
 - Do not claim certification, coherence or admission because a document was

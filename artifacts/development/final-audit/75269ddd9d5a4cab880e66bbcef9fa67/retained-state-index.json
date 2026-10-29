@@ -1,0 +1,1431 @@
+{
+  "inventory_sha256": "e34ce45e3460fc0da6d2f7989eb3ae32c3eb4897b4f120470d8836075e7bcd0d",
+  "histories": {
+    "R01": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/R01",
+      "original_report_sha256": "829180cfed21f416128eb265664db30c40ac50552b853de524cfe23d3c00ffc7",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "4163cb1dea05ce11960c8275b5c018f55219c25076fe112aeafa169a7674b96b",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "d520fe1959d94a3d3ea01d9f21bf26f5ccbfa51df45e6484018cd1dc901b9cb2",
+        "harness.sqlite-shm": "a1c41e0588255fc7236bc54ab8a2161f99a286da6f90541d2d05f924362257d0",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "588cf7e17380308428f2cdd32200b15733b1aebfba8e13da18f3b9c4e71296b9"
+      }
+    },
+    "R02": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/R02",
+      "original_report_sha256": "4fcb9c6583c3a9417170c329c6c0ba4db85d5671c1829c5a7fb5d5ec472bca3d",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "3e894d8d2d7fcd31eca95cc9454e61c49c10fc2b1435a256af49609e2339cecf",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "37b346d5abfbdde550779e16402b5a3d214130008e28a5f88aaea4b5e46d7791",
+        "harness.sqlite-shm": "bf69bd087cc0f5693c62674e6b2e50ccaa47df877818f22af1db0e1d8490a94c",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "aa52f826841792f5b5bb2617e0df604330456653584f336e2dcb889e5e3c74af"
+      }
+    },
+    "R03": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/R03",
+      "original_report_sha256": "15ae08d870c700f820f6904e63d4030e24f71dfe2ac7a8573161515fb6465d8f",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "164677dfac4f68782912e9f686d47eaf0abc5d64f20a489fce2a721e152539ff",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "dbc5ddd07c6e715ebc5a4e387b04e2c3c9daeef30dfce7843d71b28da4f97df7",
+        "harness.sqlite-shm": "93e2dacfff3e3e7b749c743260e896fd2488871aaec6f7d0c22a326ef2e49cee",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "aaa9a7e966b49282e0dcd7f3c5da36ae7ca119c0a8a13ad98b4572adbce72200"
+      }
+    },
+    "R04": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/R04",
+      "original_report_sha256": "f0a65334a7fd396fa501190ecdd93b1caa7a9f18f7511e931d5e47c974cfcf5d",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "bc7f1331e4482e3fc9dce5667e48e6679ca5084cf1bbd86dd1b652bc3e199b3b",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "2bdf3fee72a8bda1d80b2e41e99c745b2847aa8e033fe0a4cb492d1ba7fab167",
+        "harness.sqlite-shm": "548ce0a6ec324e26af3c6c93b5c7308a0d98ce553f7e3980e097a8095051f696",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "5b999c31dfedbcf8c25a0d6edf194cb802103f0fa4026f8617f1cd444a1161f8"
+      }
+    },
+    "R05": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/R05",
+      "original_report_sha256": "4633aeaed99586b62aafdcc9c1638e8a007a85d827b4b8549b65d25faf4b0c8b",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "b54244990bc4e85d58748673652f1b62bc78b55e5bd6c8749e2f6d8f934b9613",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "64662d6fbe47167824780640f93294d7dbede9c15770bd3dce1d53a6bf71b14f",
+        "harness.sqlite-shm": "cd5142400be1f616bca3da82b3a7ac06b7197ea1cc2c9df56b6ada6bb9794c0b",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "cbfa175f3c5e4d5d0d80511b399df4b8919ed79b842c81a93446c1ca20654aa7"
+      }
+    },
+    "R06": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/R06",
+      "original_report_sha256": "b097fd65e0741742a57e6fc0ec215e82bab9fdffe3b56518383f7c74959413d4",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "a8248b4716ed6c5e44a426587513449fcbac659289a76e02bcca9bf0b620bfe2",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "5d33d41178e241b77cd2b9f457fc5459d9859f40621aaf707de11d1154ed3944",
+        "harness.sqlite-shm": "2ab55c973ee36d0c7029b5f608ff744314de63f9ec489db6e4a578fba698083a",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "2bd5b98494ccce2abc9dd59912aef373ae80ba40a6fb488a3fef3b6dbd05069f",
+        "tool-a/759410faecd6a86a0b4c3a6c74c1f211e8f89b11805d770c8f56dcc3b1c88235.receipt": "7c752a8f01bf9ff212dbe4f93c8c05eaf382cdbe780fcf2598c9e2e5b25336ee",
+        "tool-a/759410faecd6a86a0b4c3a6c74c1f211e8f89b11805d770c8f56dcc3b1c88235.claim": "ff0501f41cd3e8ec2e823280893f72fda8c78245381f118d8252e56a76f4ee14"
+      }
+    },
+    "R07": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/R07",
+      "original_report_sha256": "b106d9ced45f7945afaa00d9bff1526d480f314a54e5dd3ef74d71941d85ceb2",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "d2c0ec341c8369f71ae4960a20e70c5f444ceb3f0a2fceb3d45c4f9db2eab8ac",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "bf8321331f41faba142c73229bddbee11265342bbcdade6d8e7c651200bd2f43",
+        "harness.sqlite-shm": "c3862e1ab70076d4025ba1bad4a7e29c53bd9651afa2721c077cfc0bba543876",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "398981104616acd7e53ec8e73b0a8409daa2042a2cca9aa4f542878621852438",
+        "tool-a/368949c815f56aea859c5b6f3b8690c3dd4dcabb2a3939d320b660fe49681398.claim": "7a5db298938af9b39943c33d15142f73383993466158fbcbfcee488a567d5b17",
+        "tool-a/368949c815f56aea859c5b6f3b8690c3dd4dcabb2a3939d320b660fe49681398.receipt": "cb0cf80ad6208a3c0919efc343add7ed7634125823f34e5faf69927226443320",
+        "supervisor/6ed82fe9c97daff26bec1ef93568e48b1ea15ad14728f70c22c46c7371f9f4af.json": "680a96b1fd83b1d320e7488cfd966d7bf31aac44188cd36437a4294bdbfbf125"
+      }
+    },
+    "R08": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/R08",
+      "original_report_sha256": "13d405d73a468316f0aaa91798d25e0c096adb73d4dfe738055d9e71c845fb0e",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "f3b2af8c9cfc857dd88a1045c7a2d19ab34040b6b098e915d5a33078b6e03e13",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "535adc04ba4a30dbe2678998903252eec60ae7361eae3dd49d41ead150df897f",
+        "harness.sqlite-shm": "101b5a8aae80d79b7459bd8127731bab7e2816d67aa8c53eb9a8b43579c5a05e",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "4086fbdbeafe18d326ac2f93bbf72ed5d69689a934a6b5cc7c295ed3b08f0019",
+        "tool-a/edeec1548e417689bf789b1a711aa802d19cd7320a5754dc14efcf3c02fd3fd8.claim": "b7005a3285b8635818320c9b09d9b769d0fe3d0ec3a2d566c7405f960322c396",
+        "tool-a/edeec1548e417689bf789b1a711aa802d19cd7320a5754dc14efcf3c02fd3fd8.receipt": "0abaea4364f3e664443764a6d2467f9053d34469e8fd2e573ef0a763b0dd4d39"
+      }
+    },
+    "R09": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/R09",
+      "original_report_sha256": "70da3eff1b6c076bdf85bc9eae614d402641ccfbac05fef3879b7920b881a6ec",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "7d529b5cc43cf6c1228c0479a84e9f2daf153333ee92199b1208d16f7dcd6ae9",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "1a44428f7b7e9d9a75a5368a0b324377a5434e823bd9764c083ae7366b47b4ac",
+        "harness.sqlite-shm": "250e7c6f4b3098b318260359b5a54438780e173e66aea60fc34f32df53582d06",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "25a5d4b8667e9b50bd4369e7ae295f5a896b2cabe0b381ccbf3b5be4747924b7",
+        "tool-a/3846b93d0a6409af388dc97b8ea56a408bcfd3dbdba813f56099a7a5f4cedf04.claim": "ccd6e51948226404d14a8ba949b5c8b5083b6cd8706ff7e318e13c48c2207071",
+        "tool-a/3846b93d0a6409af388dc97b8ea56a408bcfd3dbdba813f56099a7a5f4cedf04.receipt": "502f3d9ca086a28bbb00f49f284106a21943817fe623e3c6595696eba355054a"
+      }
+    },
+    "R10": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/R10",
+      "original_report_sha256": "ccfedbe1a7fa15bc03457e8ee90dc8b42b4a96deb5a9b5d9d1b60621b5df6a5c",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "1634772e8c3603d029c04ba7d5354f9f6e3b242c961ac70068712f1ec40eb033",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "d301326169cbb897c03aaa55313792ca7909f65c23836d33c15b7233b8398d9b",
+        "harness.sqlite-shm": "4facf532ea1aa173956f8a39c4c9d958857aca8d7cc45f5095dd6e66e96328ba",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "982d0bd2f5f4947b136cd04479d9518c8d163d17f189cb301034c9eff5e4d614"
+      }
+    },
+    "R11": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/R11",
+      "original_report_sha256": "0a78a0428d90c59482c3372ef34d9d2995a216ef13e2be7286e743c4a056c6b4",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "c1450919ba6bb11ef9d5b2ab7054f0e34862319130f127f7c419be1588096088",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "285c8b731973e184a976d103c1a7f0337e7721f08201101646bd79a0621fd9ae",
+        "harness.sqlite-shm": "affb9fe99721ac31ebfe8a2d7c30e8b19db2698f9dc840dd9674e6f57bd6581a",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "1309b530c4854518cb1df609ba255ce1819674c93c7730f701f497a07bd53e41",
+        "tool-a/bf7a1bae6be4569c89726391d4de5725604e7b634fb9a90849d6ac09c3228f53.claim": "0937fd968245e1a2e1607d966c6e688d628cdf1976165cc7d329498551d2f562",
+        "tool-a/bf7a1bae6be4569c89726391d4de5725604e7b634fb9a90849d6ac09c3228f53.receipt": "68500c89ceefba44b2937c53615d27dbafba7ba9414dd05d360291ffed56a851"
+      }
+    },
+    "R12": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/R12",
+      "original_report_sha256": "4d3b0bb211c6c6a28180273b953337b6d3c601dfd160cf009c8392cabebd48c2",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "e561c1120b9e4c13a7533fe7d66f7488c9fb36530879915565724df382fa0b25",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "5d4f3a6db80a248aac920dc2b3ff1ecc69d37006bd17b8517a61e4e589356db7",
+        "harness.sqlite-shm": "48a3c0e3b0f325e7c5f5ee4210ee1034ebf3e8c275f1fc69fce432d0d1a04929",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "7d3b8e9c21030ffecc01653cf517ea768233d2ce231fe464c4f8767bdf1a1938",
+        "tool-a/054c21409490341d749ee697b7645c5706ce852410257fcdf9ff0fca9ec70727.receipt": "7e10b4d7856903d38e315bb9503eb77ed7096a7954710f4997b53a17fe650443",
+        "tool-a/054c21409490341d749ee697b7645c5706ce852410257fcdf9ff0fca9ec70727.claim": "048108abf547fe45e591f77b1b70bdb9e9061070e127b31fc8af531b84303ee6"
+      }
+    },
+    "R13": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/R13",
+      "original_report_sha256": "6d07639548e8da5dd483261d78dbaa4eae763807127ea74d796902249f42384e",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "a312fc7b6c4e89a823fad4f243f77f3d6b4116f62c67996a9b77014342fabc4a",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "3b49ffdc59c62a56133b94448c51aa6bf059d014fadad4a14e03a4341056e13c",
+        "harness.sqlite-shm": "a54c001c8527a0f89b6c84af3ea9b7e38754f056bfc0c79bef28b68c47bee206",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "1e4be360c517d0a9c6fe6b657982fecc4a328f06341dcc150b9f8f3b97b1d88d"
+      }
+    },
+    "R14": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/R14",
+      "original_report_sha256": "b5d55a90fbb4688fac5043fbac870af8355b96797b5ac1ac114f98c994308502",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "2386ff5adcdd17a236920239bc4d14ffd095aeeeff10c39ecee0963e620f3b57",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "163e4ca30dcc416ed151f22ca176fdfcf30504678d9d5ed12d91eba07580a88a",
+        "harness.sqlite-shm": "98779c340febebf51e1b265351918b9cb7c69a119a1ca1f304f150ac9558ddda",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "7329e9be6581ceb426e0759cb3ea933d22cefdb524724b9a5673c3ccd0455b2f",
+        "tool-a/ac75bc46d8dad621748618594b4f27a0c4f829724ad1f7c63be8b366304d3d3c.claim": "2103e49ec3d12a4530dcd26c30c3f0fa6a856c4d6909a5e09f786351a2140bdf",
+        "tool-a/ac75bc46d8dad621748618594b4f27a0c4f829724ad1f7c63be8b366304d3d3c.receipt": "fd2c3baa066c5d0ec5501fe34b516a80eef01f25e01aaf6a1f71ead6bcc490fa"
+      }
+    },
+    "R15": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/R15",
+      "original_report_sha256": "2a66dbae221f1a0becda37a494e81e259b6d6e01a860ddde9b4af0b7f5d9fe92",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "7fa18f3b178910a1c3fc371c9736370afed271e145b9e3745b23ec752e398b42",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "86cb5cdf5f0c8f689d1c04c81d8850ee7f3ae4261f5cb9171997c8b9f984196d",
+        "harness.sqlite-shm": "b3d0daa1ec10c5258474b52de994f4bc42bc72961f72bd5b85a13893b596f14e",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "0f7a4022a16a1ac05d512e8d71c55852be2b6cf8659a1e0f37f4e2d542e84393",
+        "tool-a/73325f29b8d539b118053b2278d2c351d22222e685881a4ba4568c758686d6fa.claim": "1d9c6b47cf4eb4d8c554a852f017a93186f5b0665db25445d8b74f6596352dac",
+        "tool-a/73325f29b8d539b118053b2278d2c351d22222e685881a4ba4568c758686d6fa.receipt": "3e7b576bc800332791d1f4befce1b2a3159e0d6ff7f5d820a9fde70743abffac",
+        "supervisor/011fde77a80f4f8ee31da43e4b25a801fef800fac061b7569340ac587b26c3d2.json": "9f054327d664bb297f0bb88ddb774d0e96c436ec2518d089c88f03ade71fd1df"
+      }
+    },
+    "R16": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/R16",
+      "original_report_sha256": "9a0b1e01927417e805d3ddbbeb79d2295008d19b90b0a68abfb66896b7f138bb",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "3a7cbbcb6f80b348a11d52f686f31a60d67e8d983678658df817e874e6790a4d",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "38e822472009d31ce45a0d5845c774863a36fea93ac8fe906cb4b0dbb35c677a",
+        "harness.sqlite-shm": "d9acc1a6a4d8dc56c0aaf63c40a709ca3c4c2bd6d3d1acd6500be9152bfc1487",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "d2596c297ce9a3f8064074c9afbb717c6c5a227b49a513d2230c4b7599fc7684"
+      }
+    },
+    "B01": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/B01",
+      "original_report_sha256": "96b4b352212464e684d19ceba871e7d061053b077f70a9fa6fbafc80e5a58439",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "3567add1aac3cb963b9f2155223565c33a4484b8343b3c71d5c6ac5446cf1783",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "7081e97b32537a9a85e90770ea4bc57bfef93ecb7616e2ba1df1edde5dcad7c5",
+        "harness.sqlite-shm": "f15795d70c90c16f74a3c5c46b4f3efc1c08d74b9ab120cdbe8aac019cbad576",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "7115264c6711e254636ae19e08d78ea30262f3f99f5b94f7c28faddb9fb8f011",
+        "faults/638c3c66a7b792faaea73a756edfb44ceacc54aa68b4abfcf25a5854c712dbe5.paused": "5fc862ca6e21db86d226608d576e6ac731c2effc62d0865fc425d73e695ae3d5",
+        "tool-a/cd43450467a5d896bf8835aa01f6a7a9898a6cfb38ef43fc38f831282a5dfa14.receipt": "0ab180ee7e3949b6661a47aec71df8c5f9161a6e766ae2d09075239dfd3e24e0",
+        "tool-a/cd43450467a5d896bf8835aa01f6a7a9898a6cfb38ef43fc38f831282a5dfa14.claim": "ed8b5597fde3735b6f39e6e55f8741c19bb4f201fbf25c0682d3a4a9342ef357",
+        "supervisor/c74a372cb272fffb158925cafe92a9ebe35a300f99055ad8ce9bb865f7bbd13d.json": "d79b0742c299bc41047ebb88c2612148e21b04f05a6c514fdb38a50dd67bbc14"
+      }
+    },
+    "B02": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/B02",
+      "original_report_sha256": "9de5088e69629d03db992eb2f1b8c8a87ba27a341a2e81d1409bb88c573f57fa",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "6b14883acbb8aeeaf0b1df0319cdace471d0ccf529080ba2370f905d7980c9a4",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "41ce074159378d2a0e68338aad481448b170a2bbc0e9b5b6ebf41cda3d091d9d",
+        "harness.sqlite-shm": "14dfb1a5badf34f44754ba00d322485745ae8596d1054feb3a327cb2715f981f",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "5250d8c3506f8f42db848971b9280393e1f5fe4577d13a54587ecc3260160a2e",
+        "faults/0c80a0fda0497b25e49263ef17907ba3d04877be29fdc02f242d19fab9bcd82d.paused": "0458379d5f12e0bc7bab485f8e23f542f888419818b6266679249d8425d6a778",
+        "tool-a/5c3ff5518078075ee8907c51e5ad96b0c63a111f5d0e9fae9dc515ac49aba668.receipt": "772ce2f95cc0c01fce2cf6db5a9b402d732a62f29a766fb79ffd281ab9b17d48",
+        "tool-a/5c3ff5518078075ee8907c51e5ad96b0c63a111f5d0e9fae9dc515ac49aba668.claim": "a2d225d0b9d000322c9d5cb9f3dde0e504f46b0cb49a599849f771976ae7d1eb",
+        "supervisor/2b597b6bbb4e0aabdca318a0404d67c999f0857ed5a0becd34ed2f15c40bc08a.json": "6717a9349dcc351505cff2bdcf5e27e24240afa8bb1cfa0edd2b8d3e80378455"
+      }
+    },
+    "B03": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/B03",
+      "original_report_sha256": "06ab7d4a2073466fc24cdde2602c074ce51a158b0c5def09374e233edc8b9013",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "f25a51fceee96c94c1a049cb1bd60382f6beed3b41b312db9eae0c8a32e8402b",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "a2a9846b9fef148d652bdb2e4786f19f306fa9141ed149da951e0a6bf13cb972",
+        "harness.sqlite-shm": "c74f020f7bcc1ac29304cbb0c344ee45adc1d52d8c6d0722bfc6d4a126342bb8",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "40d4b6ae76f96dc1511bcb9a2a8353a5f1c1a8676a2a93b4e5a98d7af6026aab",
+        "faults/8830f5d29fb500c5f290b736000cc125f769b1831bb2cb882d3c0fc380f82f26.paused": "d93745cf4006dcbc566f132a7136f19291b37f982881f00fc704bf8648be0c94",
+        "tool-a/7c68d987870bb44e8476ddc478a891d420c1651edb9152bb798cd3181ac5b618.receipt": "14b4431cde591fda6d84fb74dabb02f65867915bab18bb9c9f9f7b97871adb2e",
+        "tool-a/7c68d987870bb44e8476ddc478a891d420c1651edb9152bb798cd3181ac5b618.claim": "888ab3df1677e3f8d14edcf2465ebc549fe6be332074a0bf3f5bd93b5db98918",
+        "supervisor/291215f90b524602ded20cb84cd10d5aaf60748c8f1f2aab851e1f9fd26e8fe6.json": "d5a2397f004541bd1d93e6656e991b1ae227aeca27b07d6fe6b5d7a9e40a1f97"
+      }
+    },
+    "B04": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/B04",
+      "original_report_sha256": "2f5c1ce1d538e9bc4fdba4358e2c33f7b62c89447a0ad24c27d00ad49ae46f5f",
+      "files": {
+        "clock.receipts": "3dec38afe00c0db61ba121096fda32fa6d033be4fac86e50a0d67e47a0f34b15",
+        "clock.json": "06cebc3e7f993cafcc01f65f387d79462cfd7a3b030bae51ebfb6bea8a4fe780",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "5fb12143bdf8ca4ef99e22b2cef71a77f558477203b7144b4bcefa2547d8dca6",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "42719ee20854c159a9bc1b87d3ad311450c3686b2a6c14275988303fb5eab6f8",
+        "harness.sqlite-shm": "ab9711bdb42a42b4664526706a920f274c21f3fa5f9acb20d908a956d0adf365",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "511c9bc5bdd02698105829f30df25ec9b9ea2c11f8b10c7f638cbe8ce4215227",
+        "faults/4efdcfcbef588a54520b758c79e63bb51daadef9f0d5ae9453b9db1ee5792b8e.paused": "ad0cf7f31859f89552ac68e314fb3365451df64fc51a4651388c41cb2af0b49a",
+        "tool-a/336c998a25899e23a13c31dabbf3e2531d94830cec2001eea4bc7c495a3c810d.claim": "76315d7441c04822a104277cf228b78ec6315086021a8efd0666f77c0c9a3168",
+        "tool-a/336c998a25899e23a13c31dabbf3e2531d94830cec2001eea4bc7c495a3c810d.receipt": "e99d01e94e8eba4fb11d7a0c388944c4f25605d932773916a0c2027f93ee6a96",
+        "supervisor/a8a2b6544ba3fde76f927ba0db4023533c490f76f912e91627629cf6414ecaab.json": "afa434a0fee13c14de01b20f2ca14a6c9d2ee9244216e8998aaec1aaf94f8b04"
+      }
+    },
+    "B05": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/B05",
+      "original_report_sha256": "1f6fcdb97d0554249ffeba53015a9df9079063d09e65c3711a4f224007577c65",
+      "files": {
+        "clock.receipts": "687739bf7d10ae14326aab654a6943c0353bf04440eec2f2b524bb64e735f290",
+        "clock.json": "06cebc3e7f993cafcc01f65f387d79462cfd7a3b030bae51ebfb6bea8a4fe780",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "6d8c3a9661fec08a211953dba2a1e46e270b713fd2854a8efafbc8a3ccff779f",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "acf9fc16fdd68a74c55d99681d15e367ba818d4e1465e6af5c512c8c2e812247",
+        "harness.sqlite-shm": "4da4947ef77873fd2b2bcde3830e99f037806bdb2887ca607a2799e4870695ff",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "c5734d9fd7f342b318bcac0b28fbdd447de6f319c5ecc9e9566ea90ab2838e63",
+        "faults/620067f320548527a54e65151d4fa03b8bef1562213df370c8deed209f094dcf.paused": "3dbb9a865976eb34bdb2de60f3c848f4868a06abef99aa21c80e381af6a5e538",
+        "tool-a/0f70cf7256c4d9aad24378adabe8ac308422223c78ce8492dd8640c08d5fe89b.receipt": "3d8126c278c336722bbbbe3127537c03646ba21f16c0cb909e577e70e404bb5a",
+        "tool-a/0f70cf7256c4d9aad24378adabe8ac308422223c78ce8492dd8640c08d5fe89b.claim": "d017eb5528b1a5d1fad1154b5e112ffffe51833e3d713a4bf13cb0a57dad6e8b",
+        "supervisor/ed96d01e6a2effbdd557db75a5c5f3b1cc0113fb6459fea27e885549f87b2a9d.json": "5124fd490614ec2e6988f5bafe1742616b648a9d1c160892d7b4c3f8134c0af4"
+      }
+    },
+    "B06": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/B06",
+      "original_report_sha256": "56b42947206397446777c036508e40e52acf8e7d20b617f57d0d6deb85490d6a",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "3a53990491399c815ce6c0b7c54cf2a0924d037392a0f6c3ae6fdfa11d0fcd98",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "6d50d46b7707a14ae46551bf30e95a2cf50a6833541c77a2ab643de18284eb5d",
+        "harness.sqlite-shm": "50306d57a6cd26cecb25cacddb7ec646ceddbde5f9e0535f32813073296be3f1",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "bfc398182ca52ca4980bb2ed5135b690fbede2c0e8d473e3cecde5a9cf1b4a4a",
+        "faults/c17aa4716800240dbf53942f38e795f9d44dea5bdcb5f7603f6b776884167b42.paused": "613e98480f02347c7ed4f3ee89fdc6664ebabe7661fecfd674b90150d520d942",
+        "faults/006020f6d65ac029508c563c2a808f83c5157f595d45952fced3e1455fb6358b.paused": "73988be4b579d1cb0c21dc531f1b750271c68979bc32884701d20fd47bf29e2c",
+        "tool-a/860ef2c6a28a989031da5ae069e1d32c5b98d13a10be6415fe4df6f3209eaf54.receipt": "84c132919740195b39e1c6709eaf2b9671724f49f969eec73a1c3338033bc2c3",
+        "tool-a/860ef2c6a28a989031da5ae069e1d32c5b98d13a10be6415fe4df6f3209eaf54.claim": "5409b9c743c2eca5653de2bb7d32c257705bf6186980e89a3dcef130744f6d6a",
+        "supervisor/527c7d89164884f16230ce3b67ec469967f89b38467bab34c7de4bf1142ee240.json": "a3a84e53051badb8b6a18fdd9e0d5e43bd1f801d84a49f2bfa8d8bc383fb72a6",
+        "supervisor/e801f2787ce9c60a65579685ef65a63cae12d9a23313238ea63bcbe45bfd6a4c.json": "a3a84e53051badb8b6a18fdd9e0d5e43bd1f801d84a49f2bfa8d8bc383fb72a6"
+      }
+    },
+    "B07": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/B07",
+      "original_report_sha256": "99cc80cb7bb3d2b3f0bd8892c6d85d3ab35af96dadc9a8455cf21317a986d05d",
+      "files": {
+        "clock.receipts": "687739bf7d10ae14326aab654a6943c0353bf04440eec2f2b524bb64e735f290",
+        "clock.json": "06cebc3e7f993cafcc01f65f387d79462cfd7a3b030bae51ebfb6bea8a4fe780",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "605d2f726e61246ceff91bd729220c960fa5d1271947b07850935a1017659636",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "ed33c060c5ede1d49a37bfc5e903993de28cb3b1390163149021f8952a8961d4",
+        "harness.sqlite-shm": "b3198bacc7d4b9ed3d0d182ebd9814933f66fa37219724275906fa837679d50c",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "997d1060000dcc759db4238da93289b2fe455e7962afc32f8677bf4a1bb21517",
+        "faults/75aaee85373956036a436d6f667ab29afd84150967c9c1925bd1a304f3b75ea5.paused": "db785724e78c0cef2e47446fd0b46f16494064ed7e07aa3fa43fa20870213855",
+        "tool-a/c6eedb0c0d34fdb181e89b658b15bd5ae3a246ede713200933c41a2037ccf76c.claim": "54848b0f82bb6e7471475e33064efe8f2eea0f7b42c6401550662dd6e8dccd01",
+        "tool-a/c6eedb0c0d34fdb181e89b658b15bd5ae3a246ede713200933c41a2037ccf76c.receipt": "483e7d93d555736dd76dbd1ea12d57123347225d42ed969e6661a9d402946b7d",
+        "supervisor/6b56118b24848d6414fc4908151a05918687a6f489c9ccc51db444529a8e8810.json": "5ea686c989385acdc6710b989a472ded15391602ab8f4e71d14a5bf7c203c818",
+        "supervisor/2feb7270707fd8f3a60175db06a0b3c41f8c53ccff73c4f9f94bc838e5273a38.json": "5ea686c989385acdc6710b989a472ded15391602ab8f4e71d14a5bf7c203c818"
+      }
+    },
+    "B08": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/B08",
+      "original_report_sha256": "31c7772c5682e0b4715b44a616e935b05d0a91bb13c18ce80b5788555375efb3",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "bfd19ecaade110c18f9e7af48693e58a2c48fb113a7809359f33388663a9950d",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "933e5285a874ba41544acf8b9512bb6a1e5d3dce179204e0d064d9b31b509308",
+        "harness.sqlite-shm": "128c417ce30d818d0bff1bbd023b97f47836520ab35e86c312ca75b5402bed98",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "c5043ebf09e860c1d30519f50335de6a61594364219b309a33aca14719ea7409",
+        "faults/7bab29804caa5389821a08de9644b30c7293f83282d56adad1dcb626c0842e28.paused": "f1c7997ccdd40f7605f0f660e77ae99afd07945830247ff948653bf7093865fa",
+        "tool-a/5567041313391328ff4bc57154c30f0bab63807c52830a6045f5a5ddb5bc147c.receipt": "66a352a1e99547d366ad79739a369850a7c4c7655cb1eda859d4fee1fd32a4ce",
+        "tool-a/5567041313391328ff4bc57154c30f0bab63807c52830a6045f5a5ddb5bc147c.claim": "47209d3640c746713ddbbef5f358ad570870117d6727448a4f6e84bc0f356087",
+        "supervisor/83ced730efe3110b593f374d0ef2e8988b65637b181104c1ba63e48d898d177d.json": "8e31913aebdee62a2c3daf7b323bfb8514139d1648067910a4ff6d849080e39c"
+      }
+    },
+    "B09": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/B09",
+      "original_report_sha256": "3234a78c97d6277e560518a7a205884ed6ef0f453843da413c9cb0c84ee9a07b",
+      "files": {
+        "clock.receipts": "687739bf7d10ae14326aab654a6943c0353bf04440eec2f2b524bb64e735f290",
+        "clock.json": "06cebc3e7f993cafcc01f65f387d79462cfd7a3b030bae51ebfb6bea8a4fe780",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "8b463137619053cec645d439111c4849c55509e864e386f9c970cc7beff6cc6e",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "4973742b99b5892c1737f1c336482b906716be88b16d279c7aa47b2c7920f7be",
+        "harness.sqlite-shm": "b8bb6d5b785d461d2074afccdd3e89e115f36f82630caa8b9926e9b8dde4d94a",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "8c841aadf8855996a87da035d490e4e3645c7a39bb260901b7e103a486e040c9",
+        "faults/45a08803e16d231873fd971c6061a64f84bbd28fa0d0b4a9f42442c576962566.paused": "531ee529cfac79c2981cb3c31252a681e2dc593ceafdbbde527a47a7a62c34f0",
+        "tool-a/afa0cb193cd26681aae509de27e1fd3dc9c097dae98c891b94d975918f0b7d2a.claim": "b0b4ab1387e38a227655c815799dad130b7c9afe3c04c26d319d5eb8fa6ecd34",
+        "tool-a/afa0cb193cd26681aae509de27e1fd3dc9c097dae98c891b94d975918f0b7d2a.receipt": "ac71b9197f3eae88b508d140dc56d0cb6ad28b040c6abbcbaa2de1dd99f0bd25",
+        "supervisor/091e235a6af1834412a28ebec341b377293cc3bd3521993ecfbf82184af007b0.json": "8c7a39de98b3f3ffd741b13902aa376f37763fc2642372b87093e106d22dd5eb"
+      }
+    },
+    "B10": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/B10",
+      "original_report_sha256": "e06eba2f92deaad811cc0fd9911915cac1f40a79c6d612c6498d232e30a31471",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "a0ba58758300f2f68aa87bc4d9a7ed989a0a696dc3cb54a165acc9aa77d50f63",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "f79caec0753032adc471b69cb8e3886703d102d1e07f2d4c90dd2a55de275bfa",
+        "harness.sqlite-shm": "bef2aaf157568216a6857e07d6f08e0a316510997dfb2a0dd3f0f0742aacb6a6",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "37096b18cea9c49368c3d9a86f6f5bbd395ebba73a1013b67aa08b12d9608074",
+        "faults/8b32f14aac8beea96035846c434ff903ed6caff9ab40b39314c8712ffbd98d01.paused": "a45e8da730395409c7f19a167e407005df47e11f7c072f01e49f6442f901a7d4",
+        "tool-a/0110bed43b58d59f2a87cca7807f3c5396981e4c8b2284a0fe55b422836a52ba.receipt": "8b12a57479c580c24fdde6a7b6cfa89c7572e8b48c684003332436dc759537c6",
+        "tool-a/0110bed43b58d59f2a87cca7807f3c5396981e4c8b2284a0fe55b422836a52ba.claim": "d1dc165508a41378bc674a771fe38ca19ba4acffa4bb99bcc36274b865c5e661",
+        "supervisor/0ca0e9193289741aa6dd1557cfc19ad17a333d1d7c4b680a0223eca340b60535.json": "692eb0ed10215e4bfb743c63776e34d08bbf4bf548f57d758651aec5282dafe0"
+      }
+    },
+    "B11": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/B11",
+      "original_report_sha256": "3bb94f460a9ac08b36ac2052f220d45bbb6cc1c7114fd31a3eb7e3d7cd43a674",
+      "files": {
+        "clock.receipts": "164b7e6682b8da4265e61a6af1786fd1dae40aeb1c5a1309715b9dd1ae3c5b18",
+        "clock.json": "abeb750a76170dd179a600da916b1279efcddc2565558d203d5c4e4cbf567c6c",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "ead682ff5a159a878c6faef23dfb5cc16abe58c3a7eb40edf6d18c93bed43053",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "b08a23226e6c1f283dcdfe7b31f35c8b981fff00c79b7cbe9c8fc61b2e077feb",
+        "harness.sqlite-shm": "568cd6c976eddb3279cb22a42a774ddde39f1173ebc0f2b56ebda339c7bb29bd",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "f28f264450923720540d2d6c66c5c6286a1d8f03b4ff47f8ca3f14a9630733a5",
+        "faults/98ed50f1891fec4e1ed0b9dc7208f6545985755ffbca9a6395510d2730cf3f2c.paused": "2af592242c812e254f8f6a6efdde122c199c137721ac47b1a40ab9ef0d3fded1",
+        "tool-a/6ea152a8c7f292f2eefce40eb8afdb838bd4e2da157856ee5f7a54fbf00bacda.receipt": "4e69c7a3c46d1254e81283f082b5f6437cbe472d4fc4dabcf79d7721ba97f695",
+        "tool-a/6ea152a8c7f292f2eefce40eb8afdb838bd4e2da157856ee5f7a54fbf00bacda.claim": "12e4df9c910b5b7d47f9bed7d00929a68ed2ae664e064191b51189e3110db823",
+        "supervisor/849e7e30ed3954f3d7f6431e83853460a12861dce79fdc8c42d97a72def56e4b.json": "339c3ff632685f674abea9d143cee9fbecc6ce61b0b7a883f0ca2f748b6c7318"
+      }
+    },
+    "B12": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/B12",
+      "original_report_sha256": "d040280b76dfc5665188d4234e174be7567e98a878716eb1ab0e7da640233e12",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "33cfc516009b15013ae10655876e8a8d4034fde4d757d8e386224d304c33dad2",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "48d4b9a3dcec82576e5cb6cc6f2524c6c60ee199d26e14eb0ea3f765f4b6f4af",
+        "harness.sqlite-shm": "d273b911e9031becc1cb42bc0d97ffee72ad2ec07a93f2e93fbd44f602838d2e",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "6af888b3c4db4edeeccfa13fb48c4b39b5ee6175fac83a74708800350978afcb",
+        "faults/1b7b0d3f3f20cd4d137ca29850b14eeab95f02b8076757c3ca50b5ccc2240da0.paused": "db3bff51c00f92ccf4894dc97dd8df289f39b25f179a72b89b19c85682a6887d",
+        "tool-a/af44aada4bdbb5cff481a3391803d8e2bc84af9af5099a633ec5667ed028c82b.claim": "1e39c205468003174a64316a75e39788effd3bcbbb993db89b539d92427d9628",
+        "tool-a/af44aada4bdbb5cff481a3391803d8e2bc84af9af5099a633ec5667ed028c82b.receipt": "58e664644c5287cb47f7dc85fe6379769dc3b6101904ed422aba3a3189b24a86",
+        "supervisor/5482dd0293837107bc39555730ec07bf6d6f61b83ffb0033a8153725705a5b67.json": "9b24d959b3a1e5b365f724a44851120103a06959a7a57057fbbbdb40e3c6f60b"
+      }
+    },
+    "C01": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/C01",
+      "original_report_sha256": "2c582a569e873c6845a4fd66e83feba193f49e4a68136602a0d40ad501808e95",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "39f3289f353cdce29736b807437acc18c87f4d8765c12967f24231a20074105d",
+        "harness.sqlite": "df782f834e6597fadac4fe54ff1f053501ad055679c6412ba1a56cd58009fe20",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "88fae9a25147f07c1b09ab2348b6f2352af0fd00a359234e963ec706d92f5c0e",
+        "harness.sqlite-shm": "45fab66cbe8413760f6fe3df16cb3e2cb0a9c2410db7c8b795977dd35500927d",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "156d5377b830854dbac60a89de24179146919b92c538fe8c1274034e58e05c9a",
+        "faults/1d7c97c153053eefe3e070ee4c2a5aeb088ae1383c09d25488a774121eeb6419.release": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "faults/1d7c97c153053eefe3e070ee4c2a5aeb088ae1383c09d25488a774121eeb6419.paused": "f45e0f4d2117faa43fbe95b8c8cd6731ef79682909de3a31694ffb1c8c3e27d9",
+        "supervisor/4e5b8a6a56073ebf0dd1368a5f0de780fe1b580cc6a47137b45087cf3a64d7a8.json": "841b619a2d951b5a94e06f498060373b32735e38edc992a5a31510e0312fdc74",
+        "supervisor/4a39284877c90ba74edb60eb2b5b0bd782d41037574c0f5dcbd537df7ca1c677.json": "841b619a2d951b5a94e06f498060373b32735e38edc992a5a31510e0312fdc74"
+      }
+    },
+    "C02": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/C02",
+      "original_report_sha256": "7bbc3a233a066d9a88d6af8fb62f25ce167a652a2a9290b781d465cecd435c8c",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "04aba2b1fdb89bcc1b30c77cfea7ec28c26683344dbed8b1c75b317ecd907009",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "013ed0a48ae091b98ebafe66c859194cded0297c19bff4838659b5656212b12d",
+        "harness.sqlite-shm": "0135161472a7c0a48ef2f4992bea2076d988f861b17b14392bde8860e6889827",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "1634b61a28ccfbb6441588b1af597d25ae9499563e4318e4b21a10894ade5bc5",
+        "supervisor/7583cb71df6df87f5766fdb14da82ff5ba30d8683d6c763ad73337d69602e7e8.json": "ede40b0114c1f60c91a51cd3d288ed5367003df2de7bf9137b4750edc473a3c1"
+      }
+    },
+    "C03": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/C03",
+      "original_report_sha256": "6364f643b5a2dde56616144e0472582e14b961659b6b99b689d58feb40643610",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "8fd050b7df8501fef764a1f00193bb80b1ccff282c2b6d2beb66924d4c5bbf99",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "fda48800853e788c213907254155a4eeadfc7585d5fa7d06e3be43b48aaeef52",
+        "harness.sqlite-shm": "6aee078de61555431ee2ac0427c6dba71bb2aa68e73d52997f8742478af755a8",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "1530e02e1c17d484490e4bac6f0e766d2326d3824ccaf773a6af3c9057b295b9",
+        "tool-a/7e234c5ef6a4d4b8e1958f93aeab5be1b7e6a8008ab882273b7ab5f1c2553ba0.receipt": "316606f06ef56d0859d2dd9d646d2f3d00f55c287d5731a08fe4fadcad1e90d5",
+        "tool-a/7e234c5ef6a4d4b8e1958f93aeab5be1b7e6a8008ab882273b7ab5f1c2553ba0.claim": "599f1b5cd54340c8feba8f5b0b440124f4558bd31dad998512d65620c5c191cd"
+      }
+    },
+    "C04": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/C04",
+      "original_report_sha256": "a7097b2bc244b9e6321e9a4bb4819cbc97c15a087f07f474721ee6cf2ca60073",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "530d1647311503c99412dc92a2d1be6c58cdc12ebb9fb82686bd33133594222f",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "f005d593373a66be4dd8c867dd1be58bd77f695ea0c7d0f92ce2424e2025a538",
+        "harness.sqlite-shm": "e72e5356a70a926feb207309a7f107bf6f04580d2460770c0ee14f9d60d7052c",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "cb97030c71111dd03c303699200a758f85317917c6a2b9333d662533e3fb8631",
+        "tool-a/2a015df9fc7d2b03817914edf9b7d8feef1544fab26b7d38415daa19e4ac6d78.claim": "1ce346c2d15caf39c9f98066cdf56d6014ebf941e7071cf5267a98ddff70312b",
+        "tool-a/767ad3f64d660b87399091f5b3d582a051b9109b8bf58e3868a3c9b11ed7a722.claim": "7bd6a244aa13b937abb6bb536ad3ddab713c70a20d9c3b990b58ab043a3e56ad",
+        "tool-a/2a015df9fc7d2b03817914edf9b7d8feef1544fab26b7d38415daa19e4ac6d78.paused": "4dae0c0b68ade3aa938b17d80b5bb2614e9ce939d7fdb3490c289d56e4ce27ae",
+        "tool-a/767ad3f64d660b87399091f5b3d582a051b9109b8bf58e3868a3c9b11ed7a722.receipt": "e32b86225888bda63c1bfa0b91ce6908c0bcfc3dca0f709ce609572e6881e617",
+        "supervisor/1ad9117ee6147b9384e69d1fada71e9815df45ca0ee64779b6d2456a1cb0e6f2.json": "adbccd50b1ac054b9e0b47f07dd4a2903bfea4bf690e03776d13a8c2e31d1a84",
+        "supervisor/d4eba73890ff538a28183bda5d0a820ab6c638d7332aec8d6d464b02273892e9.json": "adbccd50b1ac054b9e0b47f07dd4a2903bfea4bf690e03776d13a8c2e31d1a84"
+      }
+    },
+    "C05": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/C05",
+      "original_report_sha256": "ed378e34760d476726d51388198a0be6808ed6ab73d60dd0fc1105aa6b47d717",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "48c59a1b52b041b27b0c8c3c984617107e5c0c8e5f52af272450ed731cf3e705",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "67fa057fa33c777d86d36484b403e1d2ac4bca77b49b4cdc2173d95dd92ebed1",
+        "harness.sqlite-shm": "190119ace49b80d44897874d925328d1c2e8351a83c8eac14a526ce3605c7495",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "0b6b8f7df10523f31d5b1cac0bd8bc9c9211c6ffebc2677ecaa2b939ce2323b9",
+        "tool-a/4d841f8f3b2bda422c9f535705ceba602f078453ba53b3e87cb410dd4d764476.receipt": "76bd0bac80e44c1d44d5aaae9bb9665517b9e0be303ea3d894850d990718f19e",
+        "tool-a/4d841f8f3b2bda422c9f535705ceba602f078453ba53b3e87cb410dd4d764476.claim": "eaf1628fb2e7421401a6f7fb647a789ef6a70a5c2f57a56c91b3dad7d580b56d"
+      }
+    },
+    "C06": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/C06",
+      "original_report_sha256": "51281a615814fdd284615638e54d112b5f3fa48e87a2af37145400881b2dc492",
+      "files": {
+        "clock.receipts": "523bb542d361ae2b2281788ac62d5adb6da46fbe3e39de376793df86fbac2a6a",
+        "clock.json": "190435a84920c3c87efd3c30438c6bc41f6d9e3e0eaf93c6ed9177547e99bb6a",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "20d0483da5ed418db67379de805a35e950a37ac4e636b3f7383dcd82c942a1a5",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "2211ba93f3b42e6c89a1234c5d9e8d86c383159671544fc8a213f5b80cfa7a2b",
+        "harness.sqlite-shm": "d9bacd6b32c8bb519f340f6b0a0d2bae89cd4d89c7641c022c28525a1e11894c",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "fea0c902dd79ac5e519e92cda8b18dcc03c62ac1249e9b9ed41fa02042e51a06"
+      }
+    },
+    "C07": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/C07",
+      "original_report_sha256": "2bba86b5a91b833911c7cde4645e4ec1f08e5d71c7b3b0f577f8f1ad05b468af",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "a71df279a4c01a9f104a511c276aa7207b8c9e753d2ed10b25527eb922751249",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "320b0bcd0e536f7dfe641b3a5c958bb90d0a844bcd9614707265643b755c5ffa",
+        "harness.sqlite-shm": "cc276cc3808f9b5ea4b27484de114a013ed37ca04e823125b9bc649fd41393a7",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "e9031f8556a00f2bd7559da7eb5bc669f5674270dae06b16876057f790e7ca57",
+        "tool-a/970fb9a140b99039f2055c6b7e0f96d224197ded427fcfc3921d7054539c53ae.receipt": "bc717ca3e85996465c27e00c30f1c25ef45db575532e424462aee1c3c4bfc3e9",
+        "tool-a/970fb9a140b99039f2055c6b7e0f96d224197ded427fcfc3921d7054539c53ae.claim": "83f37533a7a618bf857ef09f42dc597ed86d3e54100e69e00c1b45ba4884742a"
+      }
+    },
+    "S01": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/S01",
+      "original_report_sha256": "9b54ed70f3df3e19a961b8f89fe34dccce6373c6a37ff144bc4903a7c30ba9a5",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "5b68b29487238a1cb92ef98ab38f8509d2c0e3c80e86eb1123536163888274fc",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "19a9f6b32ed9069406d9412110b2bbf42bf8899dfed1348e0e56009f8ac338b8",
+        "harness.sqlite-shm": "dc60b63e002439043c1ac91738f53e9e89eb6e951fe8640271f328357266884c",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "4f4c0c0663ed1a083b5c634ce71c4d4e107c7e0fb18416cf4b29ce304f851efe"
+      }
+    },
+    "S02": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/S02",
+      "original_report_sha256": "f367f3660fd18462f2819ae216a234e3436ddf359d946f3ff3389280ab3355d3",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "8b1c91cced2c27da40fb7c175e3cb1d5848f4fb8e59bedff0a5a0971b7f6a5c9",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "56a411a67e5f36426d06813697d033b8d932bab63b6af848aba5ca469dd85259",
+        "harness.sqlite-shm": "01aa4220eb910a3a38ba3f17672ecac8f9113de4ac4649451022c5cca00b4f7a",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "21c9aa4bdf185fb0e248dbb4702385c4c0ee3068f99390c93218580024c6ae05"
+      }
+    },
+    "S03": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/S03",
+      "original_report_sha256": "d9da5c9fdab385a5b37d8fcb9a858efb60eb0bc17cd79a1c200a0e97a8d342e0",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "83a89a5882b542b07bd8f01caf31d50329e6255d7d8a55964204563f6f57881d",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "46d507ad76a0da4dea8487c0b0e9c0738c14dc7ece598aebef81a98de006d00f",
+        "harness.sqlite-shm": "606e03311660c46e7525b1d159071f6129b0e61573980edd886728dada2c65d4",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "943e4c78c140cc90b760ab5573ddbcf70c1c1e406b0ffe8693d5c47130dc77ae"
+      }
+    },
+    "S04": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/S04",
+      "original_report_sha256": "890ad41866cdb1bbfaabd8af488180d9ccd0f1d462446a19f4594de4b95dde6d",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "499122a24c26d5c9ca04e37b0734a9ea895aadc36702a8269e3a9eef1208ede0",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "720e54ee245d6977a32c42fa61cb7eaed806a1fb45714624119d8eef09f0cc44",
+        "harness.sqlite-shm": "8733ba751f775c2cc9e99ece81887806df2deea5e72c0207f69c8e964b996d49",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "2afb83e8eae25dc65787d3fa9ad89056200fd03342af776bb9c6066dd570c668"
+      }
+    },
+    "S05": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/S05",
+      "original_report_sha256": "b5628a5b755a4366c9b3e9e5066ef722eaeb1bedb68f801be60b2bc5501ca24b",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "1650c1faf09179d75b54d2acb0603e08b66c68e620065d70e3b53f63e9eb9737",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "578b98f956b69860bf135a3fd3fb83936e506f546bc2d73a96d2eeeae5f79255",
+        "harness.sqlite-shm": "19bc2a0b9ac13686968c876b521e3569de0cc3255e52bcfee7954f10e8bf8738",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "6abecddbef7e97370fdb751a1e12a486cdd074fed493ebd1c150300de3f64636",
+        "tool-a/0c4cf564188b31a6bc6bd2663f5f6d210d19666e00f76b4a1e1b8416ff6f1bdb.claim": "ccc45ca67910d15da818a744fbc1233a5c2657edd3b3ece60b16f3ae68910ce3",
+        "tool-a/0c4cf564188b31a6bc6bd2663f5f6d210d19666e00f76b4a1e1b8416ff6f1bdb.receipt": "6b4ef8e878c961da5cc48aea90d8301bcefcc3e55d3226c255ca4248870a1ba2"
+      }
+    },
+    "S06": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/S06",
+      "original_report_sha256": "2e0e923b9df22cc2a60f7a101ef7f41d38a347f48ed408930115fea9f1ac01ec",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "90e524e900d34318557500fcc4de2d9907755ab27a70b5d5e34d49c158f87c80",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "c4f707e313429fe9192229d5c35ab97ad22ea057b1a6eb0d4367ca91aa9f1264",
+        "harness.sqlite-shm": "47c1595af67c224dba250817e0a41f37da45464adc677449b7f1db8a24d05a28",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "901a5e6b9a11d9634ea7e0274256af48560370cfea1185a70a14ef4162d30a5b"
+      }
+    },
+    "S07": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/S07",
+      "original_report_sha256": "ad67c9e9215d466ab0b029aedb92a0b5a99c0699e1866f1fff0626d1faecd3ac",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "b921cd33a2ec93a74c27a700482c1b37fc298b4339cad4932fe26e70400d8282",
+        "2dfe48632a7476769d7106132883b4af076d0de6d3ef629011cd8c5ad618201c.paused": "e38f696289c5dce5a7c5abaa31020cfee7f1a421cf056b3f7e7439742c6d86af",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "e639e56c0f2155e43488d06572400fb725e615a66fcc7c1f32a2e7b0e88bad86",
+        "harness.sqlite-shm": "3bd2dad27cffb66df619500f4d056e0e700d11f6579ef51d1a19584819e886f9",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "060de49ad2c2acf6caa6c6d6fa98a97c357477bd05de9cfd595fa17ea13b5847",
+        "tool-a/d6d812b0caa88dcffe857c0a8d9b9496b3c36120fc1c3fc2cd405c2d4c60ccdb.claim": "3ffe46b9c573b46c86313a4c88b906c7a4dbbfcd33139241f8eb35c12d85c996",
+        "tool-a/d6d812b0caa88dcffe857c0a8d9b9496b3c36120fc1c3fc2cd405c2d4c60ccdb.receipt": "0a2d99fbe841445d5fb6cf7fd1bb3a7010a3bcd679b016e25b4da9c2436e7908",
+        "supervisor/ed2a7a2dc7d52fe3aa82a942975467ab40a7ec6b739e2739b000fe2751ab3e30.json": "3d23f3517b7d0bec6d8a37391055ff8ce454172337054429ac1c5f9d596dafbe"
+      }
+    },
+    "S08": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/S08",
+      "original_report_sha256": "14c4e2c423330c1b9aee59c7afca6edc2bb0a7a6003dc5db203d150b90ab8303",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "34fbfbcf340a925a35950fb87b5030fce59d6ad48e9225e193f15a5046ed3b2e",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "8e205a9af35560fc4401a97f96d4c68199ef8a6a01f28bc31c47968bda853052",
+        "harness.sqlite-shm": "ad02963c87393951c1cd62b7e4bc49af169409e042d43d43e8707c70201682a9",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "bc5dd0297490462e2f992f4ac4d528f1837401b925ea42a504681c9bffaa15fd",
+        "tool-a/0658a3c3af40a45ec2f0ce3caeecc6a629b00d1bcc60747503dccdf4d28f7811.receipt": "259884811162aa9f3ebe6dc7af638e1734822798a937c5bdb02c02f6c0b1192a",
+        "tool-a/0658a3c3af40a45ec2f0ce3caeecc6a629b00d1bcc60747503dccdf4d28f7811.claim": "8b2985eeb6cc3f63464c56a14cacbc6de84a0e5453a9ae510746fd2fb9acee98"
+      }
+    },
+    "T01": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/T01",
+      "original_report_sha256": "3149e42c24d95bd91287efb13ec38e90af5ba214064ca4c872736d1d6828e334",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "7ad552828b6feff5657bdd484acdb6ee32d62d0ac4c8f39597b11d9ce60e1a09",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "06899c6df921e294d3c0979c29da23a626d3f234b5b87b1f3d25a29c9d70a702",
+        "harness.sqlite-shm": "09bebfbb64f6e209780725ce505f73944fa8f56f1574552b30118d9964af8786",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "b3e149930a38a276ae3fe00beef97b426b06953d822f9e20dee21f3338e5e09f",
+        "tool-b/7b96b4ee490b48583dc51d504997dd72a87c6f3480c06f170afa28b334384608.claim": "6a070ff9f72d24b2c658613cb3a17c59c42da9f50b9ecd6fa66d1a4dc91ec696",
+        "tool-b/7b96b4ee490b48583dc51d504997dd72a87c6f3480c06f170afa28b334384608.receipt": "0bf278607c126b012ae5b2c3c4aafb2304a27e2ec391ae63c4a511cf7369fcf9",
+        "tool-a/f2a38588b629dfb1debb43745ccc2760e503fb6439a779636e2a34563eee97b6.claim": "4f820787584b194b7244d7ad896e394a3169ffb7b377906e927dda8f63291a45",
+        "tool-a/f2a38588b629dfb1debb43745ccc2760e503fb6439a779636e2a34563eee97b6.receipt": "2fda1421e24e77b9825a76491f02c767e9c6a6b66964745f90afd8943b3432d8"
+      }
+    },
+    "T02": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/T02",
+      "original_report_sha256": "5749d473c13e47f9039bc6c3f13a18baa1162defa7c253fe3ad0a9aa8e49a25c",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "ece8a409bacefbd2608b6f743a22146916400a36376c7f44a6c72c617c5c904e",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "f3cbcd5a4770105ee8cdb3d9e661035669f653e0252dd2786838b696a81b3361",
+        "harness.sqlite-shm": "00b50f2113a44e6431c4d48b36115f181f47c8ee7fb79f0816e6cabedd609636",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "22d75aedea6e015410d53d5c32d7b4a57a6b4df096c13b6f6269cd1ae89299c9"
+      }
+    },
+    "T03": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/T03",
+      "original_report_sha256": "7bc5bf23f672412634c868f4423970dbbc8d0486f796ad474f8863ae4cd8e04f",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "c456a99ddd92b88f830238a3c3f71eef2bb6ea8348858437833a628d18265b0e",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "4de16bbc40300697d973bc223104567b23d65fd0b1f21979163e515b4bc68e22",
+        "harness.sqlite-shm": "fb321e15869a6519cc441fcd6c9ab5b3ffbb68e89fbfba8495da0bf07187db04",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "68893f47d00863c64f6dcb4daa751534b73fda79a116d7d37da57792295d30fb",
+        "tool-b/b183c2b1100c529aee0cc8ecf624cd5ad03ae554d28784db57d0e01e89b61fb3.receipt": "3cf963bae0fc69b317cd43d58416d5a64e741d62e0dda6bec303058052e86692",
+        "tool-b/b183c2b1100c529aee0cc8ecf624cd5ad03ae554d28784db57d0e01e89b61fb3.claim": "feb93b65f9c0c3f24712f034d99eaf36cef2acd4dc6d74f5372804f985b5b681"
+      }
+    },
+    "T04": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/T04",
+      "original_report_sha256": "6f3a1a52ce3b59af1a279e768228e3e12c7bef8d403c962fad196d34140def08",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "84931afa530bff1ad225b4db0f896098be7e4d8f497bac3ba754f6cb87118a0a",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "87d905762cc00f728f0e32937b10d7760cf8d82bc17e8b7d0dd572ed1749f8af",
+        "harness.sqlite-shm": "4c73e5316f9ca39c72e3f4d6387968c766625d4ae98f4bee115bbd8d02df81f8",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "af4845edb54387b915099b0edd7ed67e35f7cc26cb4960541d63995fa0ea9a34",
+        "faults/98a426d3bf65cd95b2bd72116cd88e17e9a8cf54c3b9e71468772402ee66e2e0.paused": "869c18a682e0907c0f7c113a4186f9f72511d87ccdbc9b1d3670799a739c74b0",
+        "tool-a/dd885a8dd3bd934700c3fcb9e3c7c1e0e205481dda5731e59de9c1e9ba8f398e.receipt": "27e1ece9d681a02279c02d90355a7b3b12fa6f76e32dc34dfb515756ba1a6b91",
+        "tool-a/dd885a8dd3bd934700c3fcb9e3c7c1e0e205481dda5731e59de9c1e9ba8f398e.claim": "6eb5dcfc12db2d2fcba662df3a2a9772feba4dcf6ac369c801bd300090cfb91c",
+        "supervisor/9bb6de7929f34cefefc01b3c3fa78b3464351b480cc6c1fa1c1c110ec5e020c6.json": "86b4dd9b80f873d3de5f5bbfb76a23c2d8560237ab9ec7bbc669ee2ab4414e64"
+      }
+    },
+    "T05": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/T05",
+      "original_report_sha256": "73094bfaf7738f60bc80d75d9357f8310bd72e694fa18da12d316ec0bcf87202",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "a947f7ca6ff2234999a5909077ff11de922f2c9bf7ce1730908351e51e84d9f7",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "dc32114e0b2f063ba38ada107478f547dd32863e3b65c79693c4318edd75572c",
+        "harness.sqlite-shm": "7f21767467783e4655d1a882ef69cb060051d83a40b8d9317914c799a92b43e2",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "e19c7a70e62d82aafc91117c6ea0ac183b3fc13fbca075ff6759e086a0ac3bee"
+      }
+    },
+    "T07": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/T07",
+      "original_report_sha256": "b67139d030f58ab0e659595a9f8b64249cbb6aff926626f0cd3bfd6d1eb74d51",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "dc6297dbaf3e84ca51a00315bc3c33b830688e4e296dd9045ac19c5d46cf45b3",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "ad20aff241603ce88f07648eb982399e9749eb251b0d2687ff372cecf2729f79",
+        "harness.sqlite-shm": "26383cd3985f2710a386fee1ce22d4a69401a9335b65a59ceae59cb022d2410f",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "6b426bbb006d6fbd3959c39417bf351295478adb0852057440467209131b4fd3"
+      }
+    },
+    "E01": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/E01",
+      "original_report_sha256": "ef6626b893f86caf28aa9d111281376c400321578743255d0ffdd9513d826603",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "fd78c953b050d794ee463b0b05539d896d3170f488d14c6663acf88ea05ef313",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "a1d7eaefc09e1ffc61c909ca99470ff1ffc254db8a73e657578e2a3b8879a737",
+        "harness.sqlite-shm": "0d9de12692f97bb0e9279046556f2ec83329e4cae28af4fc32f8ed547e0749a3",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "557433fbd4d211f97a5a2c89932dd09df3289ac443247a14150fbd0770156d64",
+        "tool-b/2624a65d0c5506a76ba47f96069d3c9bc40a3110f07655de92cdb9296d8d0332.receipt": "6862aaced61bbd1cb872e1b49006e3d60baff9a52c0d9d38d205547dacdcdc46",
+        "tool-b/2624a65d0c5506a76ba47f96069d3c9bc40a3110f07655de92cdb9296d8d0332.claim": "2eeb48f10a3e1956fd1a7f5415ff95e1db79cc29633533005e5583246dd5e1fc",
+        "tool-a/4f04aa23073ccf49dc1c63f373315af018d67dbdbc052329119bc237e065f617.receipt": "aa275506d2cf046a2ed1d1b3d8aef05a3f5b6a831a3606945da7b86e0d170d95",
+        "tool-a/4f04aa23073ccf49dc1c63f373315af018d67dbdbc052329119bc237e065f617.claim": "a196d83295ef25cf47c2000bf711f99d7ddd02a3ccf67045ffea10e0eebf682a"
+      }
+    },
+    "D-before_reserve_commit": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-before_reserve_commit",
+      "original_report_sha256": "1aa0952a56e6ec57af800a76f89c894669b2ec3ab60f897283f4f3ea1989cb0f",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "bc91af8344248c040c713f42cbf9e5123f7bd84189476188d8888029f3b61440",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "f6dd5bfde55844f195abc3e27687f81a01f1033cc3a19c3b6fa09dbacaa53199",
+        "harness.sqlite-shm": "84bcab1cbaa59c367695e4ddd04064bcc48e9f63196d03ce93bfa49061f403b9",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "5d9e1a618d734f7c835058b1f802ed0d0cca9c11f3a27538d7024c1b76991861",
+        "faults/80ad685c534d6f290a96c4e4ec666c9b83ac7f4a8baed357abb240db13a4c431.paused": "740a95e275f29806d6aadedd8be7625e93623e4edbced54f82965bd05b6d28f7",
+        "supervisor/17b4723439a6904d3d66bbf16dfa2a45d42cfacb881a0bf0c22da8d499a21a04.json": "b658a523f0dc5b6c3bdd70ca5b43464b6295feb8ac455c522d14db97ed8f2f25"
+      }
+    },
+    "D-after_reserve_commit": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-after_reserve_commit",
+      "original_report_sha256": "2bf9348b5f3dd48cd5f33822170058cfa8e2b3cfd8e5f763a491216b103a75be",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "2759861a4506d450b2f87eae3981abd275d3f449d6063cf1cda0b9cab9285471",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "f36db1eac3fbed6568c638ad6c74e9b8e3a713f7271b2c174a64aaeb40285124",
+        "harness.sqlite-shm": "308ff2df67c32809ebcce63cbfa19257e4efd69c364fc2438f9154a6523bcd4e",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "5eef7abca6a3b558733abc1ddcfb85feef11656a2f1f4784408c4cb86ed99938",
+        "faults/acdb11de9cb334a80ffffdeaa31c894900823d73e5c22018cb8d696d5ecfdb7b.paused": "c81c5154a853e7cc62a30601f468410a5534f76a45ecfa7adf069d445958846c",
+        "supervisor/5032766e55404f4dbb24e2a0e3977e13c04a6f0816d8200e74a468e72bbf3dfe.json": "619716f9b4f583dbb84056088de50edcdce99c317f593b94787b6331e0b4e378"
+      }
+    },
+    "D-before_attempt_commit": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-before_attempt_commit",
+      "original_report_sha256": "3fcec4b42d4b070e9617631b9a9fe431882413ba7c9aaf1a5a66681eb17de157",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "7062653aa84b276cfa84047185360bd4e87fac0221f8afe34bd5420d7ffd4375",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "37a31acfa476baa94c5216c0e028abe20eb327d112a59832df7c34cd0f5b47c7",
+        "harness.sqlite-shm": "c6e6ed3e531194811cdbbaf5d3fd8559edd43ab18b36c76448a4ae13e1b4a95e",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "4521a5d85965e7ff16419c68a7bea1927a300833a9dcbc25d92caff3ab7a4ce9",
+        "faults/1c178cb593327603b0fa931319c1035fa8a539f2767076e23a2434dd1b0c8ab2.paused": "8ce6d4c41e55379c1a0bb5cdcecee6f7db05fa082811ed7eceb4b0074c7a314a",
+        "supervisor/1564b56e8cccf9e89beaf628c565b0f07146ce192cab596b2267573999d07751.json": "7db21a6b78d00402d7a0e226dd88c0d68f7bee85db710d16244a87d7c1fe97cb"
+      }
+    },
+    "D-after_attempt_commit": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-after_attempt_commit",
+      "original_report_sha256": "152eba3be03b0ba0545288dd0ee228b58bcb5b4d89f318e0d56e9c037f832fb3",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "76e34b8ca7d66a49fc9dfa35118ab3fabd33513087be4af5eba73e276472867b",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "22e65fb93de9fa6fdba7416474d9635fb934bd0cc7ed9163f583adcc23831b96",
+        "harness.sqlite-shm": "7fc8838fad3d6257b0a9e5c84a31604fd83865da55d676e7c965d480e36f79b1",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "5149d1f2ab176a0970b23d1a04ba9414ef53d299b278593d60ca6323c6ddcf94",
+        "faults/23a3157981d86159a6c9db5236139256f946f8e8423b0755c2a9fcecba045804.paused": "4f3a275da3207efb3bd25ca426bacce0e58c08c75eabb42bdb10b3510530dfe9",
+        "supervisor/adfd879268a59bda34c87a0d196e4abbfff192db8942337bfb7abeeb8e95822b.json": "faf66a5f1e600ef3c7f9cd62cfcff39da7f0ad6339cea523ccd19f08f7e41111"
+      }
+    },
+    "D-after_dispatch_claim_commit": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-after_dispatch_claim_commit",
+      "original_report_sha256": "680b6d62da918492f5c8019dc1b25cd14e37f1465a481db8488b38be9434c921",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "8212a2241818744048711468894442b654af146aa89efba1dedb1000e21d8da7",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "97b2bf17bd86d00d3d827416a66a32332576baa8770d45194ec24646505f606a",
+        "harness.sqlite-shm": "c41dd49b8ed079d39ce5e9801143054d9a86a9d957397d95ec1f56b84267c9bd",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "806093f83f54dcaad337ef008955abcf43db2df7a8e733fcbd0ed1ebc66d4ea9",
+        "faults/83318de016f180f2c2beae25b593e4080bd4176592f305b10cd21b6dac27c46f.paused": "7501f1df129f2309c6513a2e190ca525f8bda5a6fb08359a7ea8bb16443d0e43",
+        "supervisor/1f8c105a38b2cd6820a94e81f0c4fb303ece84a70579078c325e103e7bdf69a8.json": "215959d0aed843271c863340671ffbca33511897eacd87f7015fca3d2a99cce3"
+      }
+    },
+    "D-tool_before_execution": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-tool_before_execution",
+      "original_report_sha256": "2d781ff887bcc27a6f2ff7d64ae97b5abd6fa51f465d7ac8c738b5c1993114ff",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "cb26bb259a9eebc59c33d8cee0f734158ab3388c24caeafc1fea8ff4197b32dc",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "2026e10300b7a85c340e9f385483909ce50a2077fb46c0c198e983a432d35405",
+        "harness.sqlite-shm": "5852cca3aad734d496ee0e85ffd247cd8e0a947f53496ad98c963b342da8bc9c",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "501290e770715b37e81ff94430118d9f3c58533f4783b0210872e3c4dce62599",
+        "tool-a/6f8f6e05dd3e197099c3a86ab851b694eedfc65a56d3c0242f6d57b1331f274d.paused": "ba41dd1798034a9563414679b3f83fb45fd245af85d79111cbadcedd60c1eb78",
+        "tool-a/6f8f6e05dd3e197099c3a86ab851b694eedfc65a56d3c0242f6d57b1331f274d.claim": "0ec867bd4479ab56bd1bc6572b399044c4b471bc9ab96d081340d88c0efb8afb",
+        "supervisor/056b688ce446503080e45d0fd6f8e6c3c8e7dd6d03d60f8a8ecac4c638c73150.json": "8ab2105de2a6335862b9720b960dffb56087d6d6317cb86c574530d50e2b8017"
+      }
+    },
+    "D-tool_after_execution_before_reply": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-tool_after_execution_before_reply",
+      "original_report_sha256": "b7807fe3a38b4483d2cce31349ff7e1fb018db5b8b6eedf114c751cd2a83d690",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "2888405fcad322e8acefa79d6bdbb864d21d94de2dac8b4fec3635bbbfd40561",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "d41edc96a41ca8653b2acd9a8c946cbbf0fb8634b97df55ce8046f3f0b87b889",
+        "harness.sqlite-shm": "b1cfd9120954f5c36816ffbbd5afe9480b9eb7aae82ef61a5b4c9bd51867147c",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "ed905cc6e6b5bf7d25d548c7d57a23671f46a0e262d444fc6b5fda15ba2edefa",
+        "tool-a/75c8dab5316ecf7ead8b4e1ddc69e20fb152691fae5221fb257001e291fec43b.paused": "0c8c6a87ac6375670a154c890e5c331922ea631d9b589166970d81fa186c0f32",
+        "tool-a/75c8dab5316ecf7ead8b4e1ddc69e20fb152691fae5221fb257001e291fec43b.receipt": "33375f67f299568ed5485e057bfdb7c8c03da9c731430dc6cb12f3b058e261c8",
+        "tool-a/75c8dab5316ecf7ead8b4e1ddc69e20fb152691fae5221fb257001e291fec43b.claim": "90657a88de27132cbd55131474008ba6b68e96efb78ca0abddea027a547b57c7",
+        "supervisor/435c26cb67de237fe0e105397ea4d42edab9852adcc69d0627b90712f57a3906.json": "b3f00fc98e31075357b94e3ffa88edc43149bd876512a23f05cb9eacddea0cd6"
+      }
+    },
+    "D-after_research-commit_commit": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-after_research-commit_commit",
+      "original_report_sha256": "a81dcdc41ba0e573f8fa0bf9d45ee7e795842a22d86db75436276c5379a464f5",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "48a0b2633b53166db2328b180ac2b98c27532bcfa749712da22e4ce0d37ab8d5",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "fe3588e93e02fa5c89dc4a1b05513c21e2000904933e3b35d4f54f43ecbf23bf",
+        "harness.sqlite-shm": "3e0c05d4e7adb79a3fa6dc688db6d1d6ebd44be134c4230358144ed1979f9780",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "c09846196d93e83959b54795d24b4dda574e45dade8b59a5af84490a9f92a830",
+        "faults/97d48d5723f7c6f609b94b848030cedb1784c9054a9e48bc7eb2d171a916caf3.paused": "801fd79be4ff4a167789131daeb7dff654daa9e7a292da1fdb685dc8551574d5",
+        "tool-a/358acac38497e570a7b6e53ba518664274088b1f94dda70be495c626075d7225.receipt": "57909b7419d59a65938304dea1ff99a32d1055d12105a39f0f6b59a86bf5986e",
+        "tool-a/358acac38497e570a7b6e53ba518664274088b1f94dda70be495c626075d7225.claim": "73ad3db79677b16be9181d6110b942accaf19bfa5bc6780ab0f8e30935e682db",
+        "supervisor/61bfea000bb36cb17734f563117bf2c05156539bd42e968bb460fc26daa675d3.json": "070a1a985885a567cf8a06d82b4f34b62d4ddc11dfe386ead5a0d1bfc1f365fc"
+      }
+    },
+    "D-after_settle_commit": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-after_settle_commit",
+      "original_report_sha256": "ee66b3d707181941b5d18a0b405a215c5788ec2f80fab239fd1494c1a659837b",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "76a5150fe5c22557c131b5dbdc704078731be3f40ca05cc6bd1257163eaebdba",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "f122b7a487d8b2af5b1af40efac49756aa68de9cae84b346fec760d523c20275",
+        "harness.sqlite-shm": "e5827b2fc39b6eed2dd31f6f15f66fa064d9ae9d1fa6cb568df10be183f59051",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "7bbb7e4d34bfe5922dfd5af6329ef00fe04dbf063920d64fb06de0703079c943",
+        "faults/db37d22abb9860ba863d5dc9586e2c5f75e12f4a227fd7d873193bbc33cb053e.paused": "c108feb76a2a83278c2a7948b280d669a4ae737ba851b7421e205a0dfeaeb82b",
+        "tool-a/b1339e743a51e4932c369b3f0ca82e2adeb1ba4dc02be1b3dedecb17bb08eefe.receipt": "c2a6953cc66d729db7b10fc9c821530064b4d6871cb934ae438781921ce0b2e0",
+        "tool-a/b1339e743a51e4932c369b3f0ca82e2adeb1ba4dc02be1b3dedecb17bb08eefe.claim": "2134e18e140f131de137d359d327306539358fd578075968322e9e0ec9233744",
+        "supervisor/7a3043a8bbefeaa2ca70897150b71761f1853ec98a5f56f407dd35f8024aaae2.json": "7178bd3f75fa40610aa392ea2fb270fc82cf10ec13cb81e7e20c9f1f501467b9"
+      }
+    },
+    "D-checker_during_computation": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-checker_during_computation",
+      "original_report_sha256": "4f77bc95243210ac306a32406feff32b2aa4e1c3956e2ef4699167ee43f5c4b6",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "9d0d13373c3e7ef0c24895ea73a1ff07b2bc728e1498142e5b85848337c4b572",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "ec6b0e832ea98eec341eea7706a53bd7e6663d15b057a1bc41add51631f2ab4f",
+        "74945a60cef6158f0dd8dcb1fed0b86fcd56d5e2b497def98cacfab1e8ed77ab.paused": "501a33aba4f20493683a66889e8166e2d3370e8b62cac91f4988a6940b1eaeda",
+        "harness.sqlite-shm": "5d46cabcddbb3e1e638bcd96ccd3ad0f295683c3208888098c8b054aa7b04167",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "7a5d809027de6359e4e750e94fadc51b271f0552a3530de5299dede005382bcc",
+        "tool-a/86edf4561b6499fadc59e3977c5692a79e914112fb715d003217baec520d3acf.claim": "b3f37f412b41c4cb87434e753a664f137c4481c05ae306ac0d6b9dcd44451a5a",
+        "tool-a/86edf4561b6499fadc59e3977c5692a79e914112fb715d003217baec520d3acf.receipt": "2906779255ce4a519ea0843596c2706804dcac185c2ea4fa56581250eb76eb45",
+        "supervisor/19483e1a0ccf4e661245e266a80bba94fc3da65502f75cec54b29c267fabe744.json": "8ccd5a02ea84c584769918d018369165b1d32bc1070f9c6ad2b52c673b0a70c3"
+      }
+    },
+    "D-checker_after_result": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-checker_after_result",
+      "original_report_sha256": "923020ad23642448d8cc9ae510104758368b24d0a7215cc50d81dc51c48de31d",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "c03e3bbfdf644a5465e0cd561df8875d3ffa94b4939fb9e3a586346caad142fa",
+        "a06fe9a2f97343f4f1b1700a4effcae89cb2e8423d68a83087981d142e5ad5d3.paused": "7d33d35ef6a5388fa4aaf89ab21315f33d70ad5e26c3881dfb9cd141b0c834ff",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "2a7cf986d19ad10cc97c78b2d7f7d5709b5ebbbf090c0d52b30b456e57789492",
+        "harness.sqlite-shm": "cdcabd52c053802b5aeef13e700fd251f6a669dc44ae1124abd244ec5996e30d",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "2a13a97ff91f4eb53d6ecdf4d43e7d558c52f28329adac26d4e577d4734ec988",
+        "tool-a/3311005d3f4812f4973cd4c5a161c0ed9ebff53e940b21bef84530a154de2027.receipt": "0511cec2628802cc47d06daa16fb2dd5239f4fc8d6893e10cd3448ab9a6790e5",
+        "tool-a/3311005d3f4812f4973cd4c5a161c0ed9ebff53e940b21bef84530a154de2027.claim": "c703266aeff0f9a7f511277f7e3be771b894c6fcdd49314c8853839ce9ee9ced",
+        "supervisor/2c5c592012f9f4f6747365a05779abeca0119d369d5ecb028f7396af7887d5d9.json": "78e7f90c26f8fbf89cd85d3b63b156027524a9285f3c7a3d8695adbaaf1dab07"
+      }
+    },
+    "D-after_check-commit_commit": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-after_check-commit_commit",
+      "original_report_sha256": "1d6a00be6ac9551f75bbf7dc18059306b6543192b6ec70819bf31c4221dcb321",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "043adc2d59f6f9d23c10f3f8a236d58cce9793918ec61984ed09389418fa28a2",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "7a43f48387c3b229cc384af5150c8fa2425bf549fa9c1e0cbff9c45518949882",
+        "harness.sqlite-shm": "1fc2bd5d47f3838957061e0e79d044469bad19ce27d2af0ad846da3511cf707c",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "90d744c65da1a25d44329fbb425c844a37305c9cedf8a1cef9552c56cdbd3a23",
+        "faults/9bc4124651afbe09189f2b52b4febdf88499d88ac8cf9e153d8c381145df6356.paused": "271d41a5d4de00c4fa4bf7555f54fba73fc8eadc5e732fd710eab5693e6f27b3",
+        "tool-a/dc801b9bd7f4292caa01a5656df569e900df3146573a63df042d4c7f1909e7b9.receipt": "695c38fbd8cc7b10b626854e2c9c7f65a5d74c4f40835f5fda26ab8d51b46a67",
+        "tool-a/dc801b9bd7f4292caa01a5656df569e900df3146573a63df042d4c7f1909e7b9.claim": "3f93b1285785289a47e671b43a6a92f4519f32ff2719a56bccbf2e913342a40e",
+        "supervisor/e35948e0f180926bf02b7ce8796260cc157c6d59cf7f3d377388790a9f0096b9.json": "76fdb3bdabb087d60b0550e8c981c35510083ea800251b5c4b792f2ec78dfb09"
+      }
+    },
+    "D-after_decide_commit": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-after_decide_commit",
+      "original_report_sha256": "94f2b232e1c67da193b5d132fa486df38da0cd0dd8a7bb3afc898897fd468869",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "ac6257ff611b4052f3f0b83100451d1a145b7987bb862bed437a5dacce478fca",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "452c7d6503a0d1106021c484de4aae7f8e41b5ad1d675ba5c96042a2aaf6a68d",
+        "harness.sqlite-shm": "442ba085e5f90cf300179cc0517e60cc577d127d6a74fd9b6a0847f54b88885b",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "4cdeb0e390b81b6122246b7f136c47a4915d8fc58c398e061199d7c665bac565",
+        "faults/fd966e3473a4dd426da923861bcd0fb205e7801d37d879b6b53c42529b74e829.paused": "125765b28c61237610223334bd3140f1452a1abbcc7657528b9032e6ac21c2cc",
+        "tool-a/8aec2221b63dcc25a9f4c8b2bcb6deacac1d3b5d6eaf3e3251d22938af164c7e.receipt": "1d885184f7520e7c9c34c75640c581c60f7cf9472005017ddf4161a99fd08da2",
+        "tool-a/8aec2221b63dcc25a9f4c8b2bcb6deacac1d3b5d6eaf3e3251d22938af164c7e.claim": "ffa9a798e8eb06c39928923eda51a0c5d36f4371ae88767c4ad78dae75d0dc86",
+        "supervisor/bdd6e235100b5c4c62c264c80e8821a4b9fe59e6c15b676297980d179745bc5a.json": "ebe3aa24f018148e605bc3ebfe75b9d6c2e3e521e52592f181f06972499e4216"
+      }
+    },
+    "D-after_bind_commit": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-after_bind_commit",
+      "original_report_sha256": "783d441bc7cdaab0021159e00cf3de37d093b332b623b18262367d080ca489b3",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "de614d8dd6786fc3c25ee3c3e877236959bbce35da6ba94abd8fd6e363bec47c",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "60000a3087e2f8593190ee0fc2c3b7f3d5b9820ca9b42a1d894256895137c1eb",
+        "harness.sqlite-shm": "5f873df2a23a98c128cba383fd73a398609207f19237eec05964232b3dc2a5c6",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "7290666d907e89cc02f2a4cc364f10d368a1b3fa57d3b0fbda5ca6efeccdf411",
+        "faults/ea415d49c5c61bdad23e0db21ebaa8c690868b8c50520f3ba0628657b7d137e2.paused": "c56f37d6c0725dc0b1b8c485a7b3f1610009159b512f44a35ac0dfa22b69a55d",
+        "tool-a/ff41d4dcc15194133470dcc6747fc6bc84b70add7cd20a2e0b038afc62a46810.receipt": "7d6eead928254dc31de5156811eb0cb734362a423ce6256823d8c2f35d0f8694",
+        "tool-a/ff41d4dcc15194133470dcc6747fc6bc84b70add7cd20a2e0b038afc62a46810.claim": "8acb61475247f3d1c1b18977d184a264e6e05559c269d72cefa9b2595507b72e",
+        "supervisor/ba2a93b5bf2248c2c1079aeed64590605a4438a8195de2158edd1a1aa9fda809.json": "57eee2996714e6d1832a6153271e2ce324521f4115c849f925264ff9423a7429"
+      }
+    },
+    "D-before_apply_commit": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-before_apply_commit",
+      "original_report_sha256": "7a88f9292bedb3171c90f06d78cf275e8fafa4d4ae524be83aa8622728bd3362",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "0d56737b6715b6dfc1961cf980d5af628393645fc1840f8407451f2873fb5230",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "e16c05d89987ecc4d913a47b9097a419effbe82ecb9c595d4e1925134fdef42a",
+        "harness.sqlite-shm": "6591dde2317c5df0291aa442873b87f960e3ba7f83b03adea0eab496972921c3",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "037406bc99744486bfcd8ce6cf131f55f2c1807069e920e1fa524bae28b8eb0d",
+        "faults/0ee9be8ce8f5b506e20508aa50cd51be136357fabb8be6aaeb640c188416dfd4.paused": "1cc71ab24afb2905c642937b5e5c0e5c51593d65a6baa754ebd2bb3d61bc5c7d",
+        "tool-a/85e36dd7191e0db4e4d0767225feda1e3de380d9feb5d290386c93dfe8a6770c.claim": "6a40ee91402c6ae635d69ade201f05504d3835b63aac3fb199d7a03d99011e8f",
+        "tool-a/85e36dd7191e0db4e4d0767225feda1e3de380d9feb5d290386c93dfe8a6770c.receipt": "849449f12a574e027bf0e57ee309c3da7a4ff7af1964900b3e0261e300196209",
+        "supervisor/3534c0e77827465a40f30203e1f4b7d079fef81b2fab9b196ebec0e6c77b34d1.json": "84156ef0786833a3079604fae120ecb51e43f520931786ecdf56d784ca1b3a76"
+      }
+    },
+    "D-after_invalidate-request_commit": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-after_invalidate-request_commit",
+      "original_report_sha256": "c53fa9c08e1ccca9c4c01414acb25945944614d0a4c4365490f266b0f4631a99",
+      "files": {
+        "clock.receipts": "687739bf7d10ae14326aab654a6943c0353bf04440eec2f2b524bb64e735f290",
+        "clock.json": "06cebc3e7f993cafcc01f65f387d79462cfd7a3b030bae51ebfb6bea8a4fe780",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "aa5bdb48fab97a11e7460e43e423334d735493122807baefad9f50fd82f766d3",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "dbad4f4406e87cb203e8f96f7e0e56ce62e4295fc3c32bb081f0185106a122ba",
+        "harness.sqlite-shm": "8d83cc39ce6008715d95d41ea1e5b529e8e4e6d3981ee09ea13a7bc545fa8ab1",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "4ebbe599dcd0c3b45a8bba4daab45c3b3411021f3b27883237c68e1df47a4c32",
+        "faults/fad5615e7107c3b60ffc25d91fad4dd68648de6ce8b93bd8f98641fc9128f06b.paused": "2f81caab82795afe7c6935d17266a152147f9cea70541802351b1965dc61f6b2",
+        "faults/81489d1d1f6a4ac8b1761a029843dcf206d0fda8948eeabb425504fcda43e7e9.paused": "f70090169b808d310a05ad58f5f302e3ea5611b110fc612a5cb02ed34d0ed7a8",
+        "tool-a/5345fe70b711fe2d17fbf2d4b24b66e211a2b74540dc0ede313df9a990c2e6f2.claim": "6b48a5612e4c331ea3237dc520f26b8c09a9254d2653b61d1979b3a5c3ace49f",
+        "tool-a/5345fe70b711fe2d17fbf2d4b24b66e211a2b74540dc0ede313df9a990c2e6f2.receipt": "aa73547f540a3cdc83d30f28d2f3c7d14a1d82b73e65638e893b7e7e5d4c4d66",
+        "supervisor/4a433da6c5e73513e2080c29f62061eb3c8dc7f6c7554ee935eede4f25ae17ad.json": "02b15f0aa50b6843494bfc78c98e6d1c877108062637ee9d36ed169dbc046528",
+        "supervisor/358b904eac6ac01bd0461645e253ce89825b47b2f6ac982739fd78c8d571374a.json": "02b15f0aa50b6843494bfc78c98e6d1c877108062637ee9d36ed169dbc046528"
+      }
+    },
+    "D-after_apply_commit": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-after_apply_commit",
+      "original_report_sha256": "72addc10e01788b18f2769a9bed94eb4aebbc1fe6f7c426155d294e26fd8bd6e",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "d5b8497f57339ca267ecf9546b64a0c854e374714ea59ad352a5d4661c250137",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "83f835b503f126a03fb00456628af12fcc70a1d88a87b96f093788475549e6b5",
+        "harness.sqlite-shm": "65dde6547d1dff1eb33fc119b09d4a30e09cfe9e7f8611536336b4f47cf509c8",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "aee57de694ed0e1847ddcb782fa41ae0783df453dbdaf6252ddfbe1c387266c0",
+        "faults/f30a69eafaf48b61ca60eb0cc44d6b3f98e7a49d15a18966ec9681048e9829d5.paused": "8e15b08eea9b42ba71dfe30aba6868ea6e488e53899a54ea2d22275a975e6f90",
+        "tool-a/d1dab471708a603d758d67f67553a46540f245e74dd971410b9b0f3dd278de42.receipt": "2f436a0b929bcac2fdebf42b757bf3d29420f2f2bba7813ca6346aa7f6677de3",
+        "tool-a/d1dab471708a603d758d67f67553a46540f245e74dd971410b9b0f3dd278de42.claim": "78bde002f3c132f2a0636e99d64237f036fefdcb7dc86edb688ac6497da019bc",
+        "supervisor/80999d9361a65d55fc6bb8ed8a36d7e478b22c7d04fbdbf2bcd182b10726647f.json": "237201d10873355b6d5662032cb590a5a82a06ebb21dcac37aff74b9bfc0ef59"
+      }
+    },
+    "D-principal_control_continuation": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-principal_control_continuation",
+      "original_report_sha256": "90cad82b5cb5caf2079623ceefc2db54396ec61fe39365f475eb1c980bfd8439",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "a0ba2f19eebb4552e6e2bb297b8a2a75aade2ed3cadf12101af9bbd43991d0d5",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "10821cae3a372b52b0eca86bd5403f5226b6bba7cc8ccfe2f17fc335b7c7a4a9",
+        "harness.sqlite-shm": "0a7b384bcae5a59bfc1e030c5477f9581941ac953dbe39738b4c5335362314c8",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "5b77532cd4dea52b757535f201186aeeea600ce156dbb08f12bbdadd90433313",
+        "faults/e562e41e814699d465167acbb0e8fedff817ad1e97841b7a96fab436205aca1b.paused": "1638653cb4c9d2765db1a9abb7dbade00f044abaaa436f275d73b45fc5f16203",
+        "tool-a/f80e0c07557e9853d1df00502ea51d2071fe18dd1f8049c00d116f725edb4366.receipt": "ab9d898ca0e126bc01d33aa6615bbc153481b9b15e0809fcfdfd2d1c04f8f470",
+        "tool-a/f80e0c07557e9853d1df00502ea51d2071fe18dd1f8049c00d116f725edb4366.claim": "63902ab007fce909096ef88685e42a9b4e60a570f7ede9aa74e2c6996c62f2ae",
+        "supervisor/2df72ca8741d80bda2d5ba09bb34f5d8248b1d7f51172eb91ae06b42b777d085.json": "47de553ac5d6bca49113d64ce4b78da14185a5cb90490dfe59b2f70182ea5057"
+      }
+    },
+    "D-clock_unavailable": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-clock_unavailable",
+      "original_report_sha256": "eaa05bb778d65cb15276fd8e9fd1b1a32e711a490f735d0cc910a0e71ae831fc",
+      "files": {
+        "clock.receipts": "523bb542d361ae2b2281788ac62d5adb6da46fbe3e39de376793df86fbac2a6a",
+        "clock.json": "190435a84920c3c87efd3c30438c6bc41f6d9e3e0eaf93c6ed9177547e99bb6a",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "220f8cbc99ef23db002c0f145397a73ae356d0695b20323c04342585179ff6ec",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "beb08449a54b9e3f0493edc4c888fda383f1bb521200bb6a9b505ae9bbd1e51c",
+        "harness.sqlite-shm": "51890c1fcb5660d940bf947a8ec53b35275736927800ede0eaa306acc94e78fc",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "17f61870d73a70f819cd929a5194e70a1328d7a68f3c5df012b8700a201e65c2"
+      }
+    },
+    "D-all_components_restart": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-all_components_restart",
+      "original_report_sha256": "38641ee96f44cb6a280c14f466b52f338d5db554da18abe2744ad814b464124c",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "7934b5e5b6edfdcabd14f732246daf5159d5b230d7b49de0dc5bb3f8abf24f30",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "3576b2c153f40b3bcd8fe5c568f690528c1577c789e2863c7e4a4c17238d20f4",
+        "harness.sqlite-shm": "a178491eb353d5affa359f10357836375c1724b0372a8331c8360d4902e5ec5c",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "b7813c46f8d30b65a691d3f9ff7021d34b1c233ac09d05f2a226ccf6c7c14cfb",
+        "tool-a/97f9115b4c7c78823d372b3d815c9a93c806568f95f829d92a59acfb96efc370.claim": "425f1e47db97af7536c26a49df641aca32bb24ac4ee99b3cb18e80b474ae2209",
+        "tool-a/97f9115b4c7c78823d372b3d815c9a93c806568f95f829d92a59acfb96efc370.receipt": "d388849ac5c78d7e15602c7bba891d654c1b278093214dff172b4f1a65fc84f7",
+        "supervisor/3a54103f42b4f6e1ec049ee353e6c01cb7604d43c0a78a67478e4b2d8852ab34.json": "dee3ab6965b0e9c01888f134b6a36b79f3cafd67e49e793b2b010172b4361826"
+      }
+    },
+    "D-terminal-apply": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-terminal-apply",
+      "original_report_sha256": "3b2c76bff0c433a9f6cd2dc4fb6f0e29b0172ceed879be5c10d5773d23e39a18",
+      "files": {
+        "clock.receipts": "687739bf7d10ae14326aab654a6943c0353bf04440eec2f2b524bb64e735f290",
+        "clock.json": "06cebc3e7f993cafcc01f65f387d79462cfd7a3b030bae51ebfb6bea8a4fe780",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "0f8412f12bbc42e02924e7ef5274d621ac9b73cad81ae4e62f79553fa98b4237",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "1ef25be41f102ba6253575029c376e155d6ce4080410df4ee2e254c9d75cd7a3",
+        "harness.sqlite-shm": "6eebbf5f5745fda3e7a5f045d27e594faa36b49c05347adc6a18e72bb246738d",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "d1ebd6cb28ce972aabe26a5db722fa5354554810c47ec95d57286402cfddaced",
+        "faults/0c06b45ba19702e5a166563771606897c074a31dc1810368d98a8e65827d4537.paused": "34705d90036aca7b80abb1e7556876cef623b8107f4166f8b7fcc1c9deb1e66a",
+        "tool-a/ed60cf866c94c13f448f45c8084906d7f1e755c1e7ad2f2613b8708552d9dffd.receipt": "bf4fb150900ba890d6ee762ee0a71f9547fe2262002517c105970e4af795160c",
+        "tool-a/ed60cf866c94c13f448f45c8084906d7f1e755c1e7ad2f2613b8708552d9dffd.claim": "7551a561f27ffe6a9efe743d52b52c6d343c1875de1b2f6d2ca04525a684b14b",
+        "supervisor/43de76c7e372683c863d52dc7bb28c7aea0ad66b6391fd1c785fb75c86b2607a.json": "f4d713fe7f5e6987bf654c0e8e895b0deaf71ce5d3c1cad1e2b8e5e3505dca06"
+      }
+    },
+    "D-terminal-invalidate": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/D-terminal-invalidate",
+      "original_report_sha256": "d5c0e88e23c49f0743dca045a62de9598e9bd64549eb552d4f26c03d05aa327e",
+      "files": {
+        "clock.receipts": "687739bf7d10ae14326aab654a6943c0353bf04440eec2f2b524bb64e735f290",
+        "clock.json": "06cebc3e7f993cafcc01f65f387d79462cfd7a3b030bae51ebfb6bea8a4fe780",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "2aafb487bafdcc53084127f33b342fc13b73217c15defd5af995f217de415ce9",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "72a865c2ea1dfd20d7cc6fb42c97d3e490fd871c35caca4bc93395d5cc10bd30",
+        "harness.sqlite-shm": "387b39c0749b809c314b704c3dfed97bc6642ef4ec818259190647c53f24bf2c",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "5d5e63c7a6acb66b181d9745ebe4dff72dc0242925ec07087c653f1b75db188c",
+        "faults/a7ef2e9e75978f0028d74aed8a619b6f72f53c17d4feb130c2347a3c1da26fe9.paused": "74c0abc9235d0f3f9dc0f905de339e5ac63f9927a8350b1e1baa9d9b0a7f4c3e",
+        "tool-a/45e50d7891b98d963565659c24146988e146b5b586b90e61ce23f4640e1f43d1.claim": "56cfab2e5f7e64dfc2ee9d6b44d8c4638b7164fc7eaecba6c919c0d74f081961",
+        "tool-a/45e50d7891b98d963565659c24146988e146b5b586b90e61ce23f4640e1f43d1.receipt": "4ff0350ec1e2412024e5d937497df9cf5530a0d7c3a50dab67fed36d8a4924f1",
+        "supervisor/005baf877c7bf4688da6709c9ff54948802310a5269627fea9f61736f8732e37.json": "f8e18b55022c666d41dabd40a1baf1cc128aa063c81e5f5110ecf0db728288b4"
+      }
+    },
+    "X01": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/X01",
+      "original_report_sha256": "150b337e78b07b9b6cdd8ff411454e6db428c8ae964788a7348d4d269983c1ac",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "febbedc32adaeb13d28f6277db5c17a0b86462e38d2e6aac265db06a8ef7a925",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "31354842ae9082d5ede4ee26391a25851dcddfedda59b553aaf40a138eece3ac",
+        "harness.sqlite-shm": "6293119526d99e4e8c40d711024ac556e7d165ecffcff5259496d8b0dac449e3",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "440fa1f8a4de812ce79fae9f70924f7b0127cf337f92adf05a6df313abd13527",
+        "faults/8cba92728e350d9a7b14ca430220c2a508e014d778ba885513f2d50379b2ff15.paused": "ea05fcec1c8d371eea948ecef21324f04181bf73f9452c3cb11408262ef37e18",
+        "tool-a/679259c726325849ddaf3aa0f73d4fd5944670e17944f7039181436e63a4cc0b.claim": "506e848a11c64d11e9a7c22791f8bfcdcc7cec840b55ff11de3b7fa97c18d850",
+        "tool-a/679259c726325849ddaf3aa0f73d4fd5944670e17944f7039181436e63a4cc0b.receipt": "3654adc9a4b7d6b0eb3c69aba90c9f324f2130ecd48afaca33afcb4ec873111a",
+        "tool-a/dfd642ad6be849069e03c7c5c65817df1871e2a907c63cd459be524405194164.claim": "53c8ec193f561cd42a0e00d187a28131fcafd7de11f2b7382bd5822dc502b85d",
+        "tool-a/dfd642ad6be849069e03c7c5c65817df1871e2a907c63cd459be524405194164.receipt": "412582a62486be3ee0b484b9f86186e34719b2d673f4680e796b79cd2becd974",
+        "supervisor/e4b026697dd1ba788e197ac7885ebf568e4c448af07a021b89ab8d312246292c.json": "ddc125aca5cee13cddbe59cf0fb99a16b936288959eee362bfcac4f5b9b736b0"
+      }
+    },
+    "X02": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/X02",
+      "original_report_sha256": "b4feeb804daa1b0bc05c05b8497f4367a4527a4899ef9f4e46ce75fb4ce98e60",
+      "files": {
+        "clock.receipts": "687739bf7d10ae14326aab654a6943c0353bf04440eec2f2b524bb64e735f290",
+        "clock.json": "06cebc3e7f993cafcc01f65f387d79462cfd7a3b030bae51ebfb6bea8a4fe780",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "3e06cdc8f5ad39a6c23cef567c76d0b44d0b87e25ab32f60dea8941fd3cd3a29",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "a4cbd849ef5259e01dea8969f679afb44c8d56f31df4d9b6a0b42ef6c681e90f",
+        "harness.sqlite-shm": "d385a543ad59c70713be62d26c93bf34d20023b0fb3e15b3405a519369001e97",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "a626e92a30677945d7176df8d7c7601e77bd8680820ebd5849570b5f0ecd7c57",
+        "faults/8808fde0c0a21911d5860f42cac878f0b5c3cadfb6b073e643861232a3051210.paused": "75eca0c5590a549999ce8527280dc30979aaab090648913aa945fb6087f731fa",
+        "tool-a/a09aab95f8ab6c4f6db63993d15c48a86b512ec4717fb74dc2530e86147fa301.claim": "6f30642bad87fc644710a66151d39f9697cd197899358fd0379aa41944619000",
+        "tool-a/a09aab95f8ab6c4f6db63993d15c48a86b512ec4717fb74dc2530e86147fa301.receipt": "e1ce953233b326d5a57dcf7fe96cac9d861bbe763824908b3d4c45a39cda2a7a",
+        "supervisor/5f5b3d446f2766d31eb71da5c3f5e05b3cacf43a2bd059c6fd5592fdeb17d468.json": "b8ee1ac3bdad40d2b16c6a97a3d22ec1f1ed5e636783e8f21dae8fa29c021ce6"
+      }
+    },
+    "X03": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/X03",
+      "original_report_sha256": "95cc3bcbc8b365cbd1748a8491f44d62dcb4a2a4e388d928c9daf5e76bf57b34",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "f297cfff2723061c4f720b652b68da0b92148c457caf3176f17c5ca15b7cda9f",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "4e446f1c3a2c159581b78ddd56b9167f68e2acd98e03d3f7077485d0076bc15c",
+        "harness.sqlite-shm": "cb9180f1064a30a91b2a44c26ce81e9bac8e6a8e3608213ea50c600453e2d132",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "f84aa490157fba1feadde0753904a9b305a6f8a5c6ce6a7688d5d5ae464afba0",
+        "tool-a/6b33a311aaf6593521561afdb0d6888ccaa1e9a20938f0142a801a2ff97e667e.receipt": "f8073d1c91478306da302c6fe96e9d1dfff1d151277ae2f1fef195ce530a93cf",
+        "tool-a/6b33a311aaf6593521561afdb0d6888ccaa1e9a20938f0142a801a2ff97e667e.claim": "152f4691d86f0ed9a53063025f62d7196dc489845f275484e5f3612f0c2c4e49"
+      }
+    },
+    "X04": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/X04",
+      "original_report_sha256": "ce274193cced490fe628ffc58fa1b4c35c1844a46e0105904246829f9eaf3d18",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "5abe6823bea6ec974de1990fc7c5762c7c7704080286aa485132276e2db80ca1",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "815cce3afa7f26dda8c44f71728c5f8451579712f95c8327966aeb9ae0fcd7c4",
+        "harness.sqlite-shm": "2a12b89ce7765ffb9c1f7290327c786df9606163f46f1e718e9836a53728ed08",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "85b49048db38198ba34798e1addd53e7ad5292dabd9c461a9a6c7d2c51ee39f2"
+      }
+    },
+    "X05": {
+      "status": "RETAINED",
+      "path": "artifacts/development/final-audit/75269ddd9d5a4cab880e66bbcef9fa67/retained-state/X05",
+      "original_report_sha256": "987f3b329784809b413ff1569be6ed07cc3958ced9dfba1b702f388e4b4b0595",
+      "files": {
+        "clock.receipts": "9b71c46be7499777b2f74fa06fa5d5a9334ca16d439416c841542c9766b42730",
+        "clock.json": "2d13a517efa01e81f1395bd97ced4adbec648d81721865bdca30a4d2746567d4",
+        "core-None.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite": "de9dd118f1f1cde2786bced08988d51269b31a192620cda9ca7afbfdae639f6c",
+        "tool-tool-b.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "DISPOSABLE.json": "4c57326a758fefbf711b06a12adc8a518e806727e74aaca0ff10ba24cbc2ddbb",
+        "harness.sqlite-shm": "642eebce1fc5046919d5bb3bb944708f30f7561d467e35a08414a3b14167b790",
+        "tool-tool-a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "harness.sqlite-wal": "8da0e070406b521dc460cbe90e58ca955a1505288a804939c38fce934d17ddba"
+      }
+    }
+  }
+}

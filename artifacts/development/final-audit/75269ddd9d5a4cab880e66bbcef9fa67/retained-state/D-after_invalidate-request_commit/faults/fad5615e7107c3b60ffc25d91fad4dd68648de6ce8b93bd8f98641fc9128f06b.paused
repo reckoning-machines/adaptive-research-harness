@@ -1,0 +1,1 @@
+{"fault":{"case":"D-after_invalidate-request_commit","kind":"PAUSE_AT_BOUNDARY","point":"after_invalidate-request_commit","target":"@op:invalidate-request"},"generation":{"pid":67731,"run":"2dbe0b6b99544b77a35a159ad1040b0d"},"point":"after_invalidate-request_commit"}

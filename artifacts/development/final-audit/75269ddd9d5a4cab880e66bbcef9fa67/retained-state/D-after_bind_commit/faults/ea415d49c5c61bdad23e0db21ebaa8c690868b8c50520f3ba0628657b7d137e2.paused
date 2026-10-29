@@ -1,0 +1,1 @@
+{"fault":{"case":"D-after_bind_commit","kind":"PAUSE_AT_BOUNDARY","point":"after_bind_commit","target":"@op:apply"},"generation":{"pid":67538,"run":"670a9d53eb024bf5a89d66af42b4f6cc"},"point":"after_bind_commit"}

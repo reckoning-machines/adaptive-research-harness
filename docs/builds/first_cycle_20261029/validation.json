@@ -1,0 +1,36 @@
+{
+  "status": "PASS_BUILD_CHECKS_ONLY",
+  "unit_component_tests": {
+    "executed": 43,
+    "passed": 43,
+    "failed": 0,
+    "governed_initialization": false
+  },
+  "static_compilation": "PASS",
+  "cli_help": "PASS",
+  "runtime_catalog_import": "PASS",
+  "git_diff_whitespace": "PASS",
+  "runtime_acceptance": {
+    "executed": 0,
+    "named_cases": 51,
+    "death_schedules": 20,
+    "forced_orders": 2,
+    "status": "NOT_EXECUTED_RUN_APPROVAL_REQUIRED"
+  },
+  "target_host_fingerprint": null,
+  "limitations": [
+    "Target Linux host not provisioned/fingerprinted; exact installed runtime inventory not yet complete.",
+    "Linux isolation and governed process-death evidence unverified.",
+    "Synthetic accounting makes no claim over external billing."
+  ],
+  "no_dependencies_installed": true,
+  "no_apply_zero_invoked": true,
+  "inventory_sha256": "eec2f3dc42a7fbbb89ed77e07103bd86a5744dd285cb7a0794de49f51de8ff4c",
+  "integrity": {
+    "approved_manifest_files": 29,
+    "preexisting_files_preserved": 120,
+    "inventory_files_verified": 100,
+    "local_links": "PASS",
+    "new_file_whitespace": "PASS"
+  }
+}

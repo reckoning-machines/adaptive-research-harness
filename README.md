@@ -1,35 +1,92 @@
-# New Speedway
+# Adaptive Research Harness
 
-New Speedway is a design for an agent-driven quantitative investment
-process. Agents develop research, test strategies and improve their
-methods within defined mandates and budgets. Changes to the investment
-process require independent review and a recorded decision. The aim is
-to retain the evidence and research discipline as individual strategies
-come and go.
+## What this project is
 
-**Status — 19 October 2026:** design baseline admitted. The Principal
-admitted Constitution revision 12 as `ConstitutionVersion 1`, the
-document-phase design baseline, after the
-[independent closure review](docs/audits/cv1_revision12_closure_20261019.md)
-found it ready. The [admission record](docs/decisions/cv1_admission_20261019.md)
-names the exact digest and the parameters still to be supplied before
-genesis. The earlier [final review](docs/audits/cv1_final_independent_review_20261019.md)
-and [follow-up](docs/audits/cv1_revision12_bounded_followup_20261019.md)
-are preserved as the history of how the baseline was reached.
-The Principal, the accountable human owner, has approved the decisions
-recorded to date at the document stage. Implementation has not begun,
-technology has not been selected, and genesis has not been executed.
-The design is not certified and makes no claim of investment performance.
+Here is something we could not do before: run research agents under the same
+rules we run coding agents. A coding agent today works inside a harness that
+gives it a task, a budget, a test suite and a reviewer before anything is
+merged. Adaptive Research Harness does the same for investment research. It
+runs research agents under clear mandates, fixed budgets, independent review
+before anything is adopted, and a complete record of what was tried, what
+worked and what did not.
+
+Strategies lose their edge over time, and so do the research methods that
+produced them. The harness keeps every hypothesis, test, approval and
+rejection as a permanent record, so a firm can see how its thinking evolved
+and why.
+
+The harness is built so that research agents, whether people or software,
+can propose ideas and run authorized experiments, but cannot grant themselves
+money, authority or credibility. A successor strategy starts with its own
+record. It cannot inherit a predecessor's track record or obtain capital
+simply by being related to it.
+
+The harness sits underneath the tools a research team already uses. It holds
+the budgets, the independent checks and the permanent record, while agent
+frameworks supply orchestration and research content on top of it. Two
+candidates have been examined so far: LangGraph as an orchestration layer for
+the agents, and MiroFish as a producer of scenario research. The
+[feasibility review](docs/audits/feasibility_coherence_public_library_20261029.md)
+sets out the handful of boundary points any framework would connect through.
+The first research cycle uses a simple in-house researcher and two synthetic
+tools to prove those boundaries before any framework is attached.
+
+## How it works
+
+- **One accountable owner.** A single human owner, called the Principal, sets
+  the mandates, the budgets, the limits and the standards used to judge
+  results. Nothing in the system can change those without the Principal.
+- **Research within a budget.** Research agents receive a defined allowance
+  and spend it on experiments. Every charge is recorded before the work runs,
+  so spending can never exceed what was approved.
+- **Independent checking.** A separate checker, funded separately and unable
+  to review its own work, examines each proposal before it can be adopted.
+  A proposal that fails the check is kept as evidence, not deleted.
+- **Decisions are recorded, then applied.** A change moves through a fixed
+  sequence: proposed, checked, decided, applied. Each step leaves a durable
+  entry. Nothing is applied without the steps before it.
+- **Failure is preserved.** Rejected ideas, failed tests and negative results
+  are retained as part of what the firm has learned.
+
+## Where the project stands
+
+**As of 29 October 2026:** this is a private prototype running entirely on
+synthetic data. The governing rulebook, called the Constitution, was reviewed
+independently and admitted by the Principal on 19 October 2026 as the design
+baseline. A first working research cycle has since been built in Python and
+tested on a single machine with simulated tools and simulated costs.
+
+The most recent independent review of the code, the
+[first-cycle build audit](docs/audits/adversarial_first_cycle_build_audit_20261029.md),
+lists the defects that remain before a fuller runtime validation. The
+[build decision addendum](docs/decisions/first_research_cycle_build_approval_addendum_20261029.md)
+records what the Principal has authorized.
+
+## Try the example
+
+From the repository root, with standard Python 3.12 and no extra packages:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 -m acceptance.local --example
+```
+
+This creates a disposable database, runs the startup sequence, lets one
+research agent form a hypothesis from synthetic data, has an independent
+checker review it, and records the result with simulated costs. See
+[BUILD.md](BUILD.md) for tests, retained run evidence and known limits.
 
 ## Start here
 
 | For | Read |
 | --- | --- |
-| The investment process, architecture and controls | [Architecture](architecture.md), including planned reuse, the two demonstrations and open decisions |
-| Mandates, budgets, evidence standards and decision rights | [The Constitution](docs/doctrines/new_speedway_constitution.md), admitted as `ConstitutionVersion 1` by the [admission record](docs/decisions/cv1_admission_20261019.md). Its own status banner predates admission and is kept so the admitted bytes stay exact |
-| The prototype and startup sequence | [Design plan](docs/plans/document_first_design.md), [PD-006](docs/decisions/principal_decision_006_replaceable_tools_and_first_prototype.md) §PD-006.3 and [PD-009](docs/decisions/principal_decision_009_genesis.md) |
+| The investment case, the architecture and the controls | [Architecture](architecture.md) |
+| Mandates, budgets, evidence standards and decision rights | [The Constitution](docs/doctrines/new_speedway_constitution.md), admitted by the [admission record](docs/decisions/cv1_admission_20261019.md). Its own status banner predates admission and is kept so the admitted text stays exact |
+| What was built and how to run it | [BUILD.md](BUILD.md) and the [first research-cycle plan](docs/plans/first_research_cycle_implementation_20261029.md) |
+| The prototype and startup sequence as designed | [Design plan](docs/plans/document_first_design.md), [PD-006](docs/decisions/principal_decision_006_replaceable_tools_and_first_prototype.md) and [PD-009](docs/decisions/principal_decision_009_genesis.md) |
 | The original proposal and figures | [Design proposal (.docx)](docs/reference/new_speedway_design_proposal_20261019.docx) and [text transcription](docs/reference/new_speedway_discussion_draft_20261017.md), retained as reference material |
+| Presentations for prospects | [Presentations](docs/presentations/README.md) |
 | Decision and review history | `docs/decisions/` and `docs/audits/`, including superseded proposals and prior findings |
+| Why some files still say "New Speedway" | [Rename record](docs/decisions/project_rename_20261029.md) |
 | Package contents | [Manifest](docs/package/cv1_review_package_manifest.md) |
 
 ## Reading order for a reviewer
@@ -37,10 +94,16 @@ The design is not certified and makes no claim of investment performance.
 Start with the architecture, then read the Constitution. The
 [review handoff](docs/audits/cv1_final_handoff_20261019.md) identifies the
 baseline and scope. The [revision 10 audit](docs/audits/independent_preimplementation_design_audit_20261019.md),
-[PD-010](docs/decisions/principal_decision_010_codex_audit_repairs.md)
-and the final review trace the findings, approved repairs and remaining work.
+[PD-010](docs/decisions/principal_decision_010_codex_audit_repairs.md),
+the [final review](docs/audits/cv1_final_independent_review_20261019.md),
+the [follow-up](docs/audits/cv1_revision12_bounded_followup_20261019.md) and
+the [closure review](docs/audits/cv1_revision12_closure_20261019.md) trace
+the findings, approved repairs and remaining work up to admission. The
+audits dated 29 October 2026 cover the build.
+
+## How the documents relate
 
 The Constitution governs. Decision records document the Principal's
-approvals. Audits provide evidence, plans set out proposed work, and
-reference material preserves the original discussion. This README and
-the architecture explain the design without changing its rules.
+approvals. Audits provide evidence and authorize nothing. Plans set out
+proposed work. Reference material preserves the original discussion. This
+README and the architecture explain the design without changing its rules.

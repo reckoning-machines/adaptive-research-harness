@@ -1,0 +1,12 @@
+[Unit]
+Description=Adaptive Research Harness disposable test supervisor
+After=local-fs.target
+[Service]
+Type=simple
+User=root
+Group=harness-control
+WorkingDirectory=/opt/adaptive-research-harness
+Environment=PYTHONPATH=/opt/adaptive-research-harness PYTHONDONTWRITEBYTECODE=1 PYTHONNOUSERSITE=1
+ExecStart=/usr/bin/python3 -s -m isolation.supervisor --root /opt/adaptive-research-harness --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --permit /etc/adaptive-research-harness/run-approval.json
+Restart=no
+UMask=0027

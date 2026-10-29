@@ -1,0 +1,34 @@
+[Unit]
+Description=Adaptive Research Harness fixed core process
+After=local-fs.target
+
+[Service]
+Type=simple
+User=harness-core
+Group=20050
+SupplementaryGroups=harness-clock-channel harness-tool-a harness-tool-b
+WorkingDirectory=/opt/adaptive-research-harness
+Environment=PYTHONPATH=/opt/adaptive-research-harness PYTHONDONTWRITEBYTECODE=1 PYTHONNOUSERSITE=1
+ExecStart=/usr/bin/python3 -s -m adaptive_research_harness serve --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --socket /run/adaptive-research-harness/core/commands.sock --state /var/lib/adaptive-research-harness/core --clock-socket /run/adaptive-research-harness/clock/clock.sock --tool-a-socket /run/adaptive-research-harness/tool-a/tool.sock --tool-b-socket /run/adaptive-research-harness/tool-b/tool.sock --supervisor-receipts /var/lib/adaptive-research-harness/supervisor
+Restart=no
+KillMode=control-group
+SendSIGKILL=yes
+TimeoutStopSec=5
+UMask=0027
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateNetwork=yes
+RestrictAddressFamilies=AF_UNIX
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+CapabilityBoundingSet=
+ReadWritePaths=/run/adaptive-research-harness/core /var/lib/adaptive-research-harness/core
+
+[Install]
+WantedBy=multi-user.target

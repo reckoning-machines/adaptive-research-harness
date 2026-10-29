@@ -1,5 +1,11 @@
 # Forward Research Design Plan
 
+Current routing note (2026-10-29): the project is Adaptive Research Harness.
+CV1 is admitted; the dated design sequence below preserves its original
+chronology. The next proposed scope is the
+[first research-cycle implementation plan](first_research_cycle_implementation_20261029.md).
+See the [rename record](../decisions/project_rename_20261029.md).
+
 Status: **PROPOSED PLAN — DOCUMENTATION ONLY. Authorizes no code, no
 infrastructure, no revision of the Constitution, PD-001 or PD-002. Nothing
 here is admitted.** Revision 2 (2026-10-18): aligned with revision 2 of

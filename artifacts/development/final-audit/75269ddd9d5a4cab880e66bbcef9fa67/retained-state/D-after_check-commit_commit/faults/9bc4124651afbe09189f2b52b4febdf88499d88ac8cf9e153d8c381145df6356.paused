@@ -1,0 +1,1 @@
+{"fault":{"case":"D-after_check-commit_commit","kind":"PAUSE_AT_BOUNDARY","point":"after_check-commit_commit","target":"@op:check-commit"},"generation":{"pid":67510,"run":"eff80416b53d46848f27e9b0aaacd326"},"point":"after_check-commit_commit"}

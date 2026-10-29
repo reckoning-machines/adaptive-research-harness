@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "/Users/jedgore/dev/speedway/adaptive_research_harness/transport.py", line 56, in __enter__
+    try:fcntl.flock(self.fd,fcntl.LOCK_EX|fcntl.LOCK_NB)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+BlockingIOError: [Errno 35] Resource temporarily unavailable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/jedgore/dev/speedway/acceptance/local.py", line 289, in <module>
+    if __name__=='__main__':raise SystemExit(main())
+                                             ^^^^^^
+  File "/Users/jedgore/dev/speedway/acceptance/local.py", line 249, in main
+    if args.worker:return worker(args.worker,args.config,args.label)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/jedgore/dev/speedway/acceptance/local.py", line 83, in worker
+    with LifetimeLock(state/'writer.lock'):
+  File "/Users/jedgore/dev/speedway/adaptive_research_harness/transport.py", line 58, in __enter__
+    os.close(self.fd);self.fd=None;raise Refusal('INSTANCE_ALREADY_RUNNING')
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+adaptive_research_harness.encoding.Refusal: INSTANCE_ALREADY_RUNNING

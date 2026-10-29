@@ -1,0 +1,59 @@
+{
+  "status": "PROVISIONING_REQUIRED_NOT_RUN_READY",
+  "date": "2026-10-29",
+  "built_inventory_sha256": "eec2f3dc42a7fbbb89ed77e07103bd86a5744dd285cb7a0794de49f51de8ff4c",
+  "built_inventory_entries_verified": 100,
+  "approved_specification_entries_verified": 29,
+  "intended_host": {
+    "proposed_name": "arh-first-cycle-20261029",
+    "identity": null,
+    "fingerprint_sha256": null,
+    "kind": "dedicated disposable local Ubuntu 24.04 LTS VM",
+    "provisioned": false
+  },
+  "read_only_discovery": {
+    "lima": "limactl list --json exited 0 and reported no instances; Rosetta detection warning reported",
+    "colima": "No existing ~/.colima profile directory. colima list --json exited 1 when it attempted to create that directory; no retry permitting writes was performed.",
+    "docker": "Only default local context, unix:///var/run/docker.sock; socket absent.",
+    "vm_processes": "Read-only ps inspection found no matches for Lima, Colima, QEMU, UTM, Multipass, vfkit, VirtualBoxVM, Parallels VM, or com.apple.Virtualization executables.",
+    "ssh_config": "No ~/.ssh/config; no disposable endpoint in repository.",
+    "scope": "No production/cloud hosts queried or substituted. No host created, package installed, service started, clock initialized, run permit written, or governed startup performed."
+  },
+  "verification_limits": [
+    "Discovery establishes no suitable registered/accessibly identified local test host in this session; it does not assert that no machine exists elsewhere.",
+    "Ubuntu, systemd, cgroup, ext4, target Python/SQLite, UID/GID availability and isolation suitability remain unmeasured."
+  ],
+  "recommended_provisioning": {
+    "name": "arh-first-cycle-20261029",
+    "architecture": "aarch64 on this Apple Silicon workstation",
+    "os": "Ubuntu 24.04 LTS",
+    "resources_recommendation": {
+      "vcpus": 4,
+      "ram_gib": 8,
+      "local_disk_gib": 40
+    },
+    "disk": "Native guest ext4 for /var/lib and the harness databases, WAL, SHM, clock, tool and retained-case state; no macOS shared mount, NFS, overlay/container storage.",
+    "process_model": "Booted VM with systemd PID 1 and cgroup v2; root-controlled system units and separate UIDs.",
+    "operator_access": "Dedicated operator administrative access; no production workloads, provider secrets, or host home-directory sharing.",
+    "stage": "Stage inventory-covered bytes read-only to /opt/adaptive-research-harness; verify all hashes before collection. Do not install/start harness units or create governed stores.",
+    "inspection": "Run the unchanged isolation.host_fingerprint with PYTHONDONTWRITEBYTECODE=1 under the exact target Python; separately collect VM ID, hostname, machine/boot identity, exact mounts/options, cgroup and security configuration, and collision checks for the fixed account map."
+  },
+  "build_checks": {
+    "previous_execution": {
+      "passed": 43,
+      "failed": 0
+    },
+    "this_turn": "Read-only integrity and test-source inspection; unit/component suite not rerun.",
+    "establish": "Selected deterministic admission/accounting predicates on fabricated inputs, independent Checker calculations/mutants, A/B calculation equivalence, encoding/time validation, operational receipt persistence/concurrency and SQLite process-death behavior with empty governed ledgers.",
+    "do_not_establish": "A lawful initialized cycle, peer/UID isolation, actual core crash recovery, target filesystem durability, external billing control, or all runtime adversarial outcomes."
+  },
+  "proposed_runtime_scope": {
+    "named_histories": 51,
+    "process_death_histories": 20,
+    "forced_terminal_order_histories": 2,
+    "total": 73,
+    "executed": 0,
+    "startup": "17 Applies including Apply 0; 16 funded computed Checks; ten Research designs; one ordinary researcher.",
+    "authorization": "Separate Principal approval naming built inventory, actual host fingerprint and identified disposable VM remains required."
+  }
+}

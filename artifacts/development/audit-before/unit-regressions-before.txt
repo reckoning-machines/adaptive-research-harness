@@ -1,0 +1,39 @@
+test_f16_unreadable_worker_is_not_proven_dead (tests.component.test_audit_regressions.AuditRegressions.test_f16_unreadable_worker_is_not_proven_dead) ... FAIL
+test_f6_rejected_genesis_preserved_without_poisoning_empty_ledgers (tests.component.test_audit_regressions.AuditRegressions.test_f6_rejected_genesis_preserved_without_poisoning_empty_ledgers) ... FAIL
+test_f7_reader_rejects_apply_without_its_pass_check (tests.component.test_audit_regressions.AuditRegressions.test_f7_reader_rejects_apply_without_its_pass_check) ... FAIL
+
+======================================================================
+FAIL: test_f16_unreadable_worker_is_not_proven_dead (tests.component.test_audit_regressions.AuditRegressions.test_f16_unreadable_worker_is_not_proven_dead)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/ly/h93dpfrj6mg2d4vcccvc_h440000gn/T/arh-audit-before-soai_189/tests/component/test_audit_regressions.py", line 33, in test_f16_unreadable_worker_is_not_proven_dead
+    with self.assertRaises(Refusal) as caught:host.still_alive({'pid':os.getpid()})
+AssertionError: Refusal not raised
+
+======================================================================
+FAIL: test_f6_rejected_genesis_preserved_without_poisoning_empty_ledgers (tests.component.test_audit_regressions.AuditRegressions.test_f6_rejected_genesis_preserved_without_poisoning_empty_ledgers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/ly/h93dpfrj6mg2d4vcccvc_h440000gn/T/arh-audit-before-soai_189/tests/component/test_audit_regressions.py", line 28, in test_f6_rejected_genesis_preserved_without_poisoning_empty_ledgers
+    self.assertEqual(store.events('E'),[]);self.assertEqual(store.events('T'),[])
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [{'seq': 1, 'kind': 'REFUSAL', 'actor': 'P[3836 chars]7'}}] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+{'seq': 1, 'kind': 'REFUSAL', 'actor': 'Principal', 'transition_id': '@genesis-refused', 'time_ms': None, 'body': {'reason': 'GENESIS_SCOPE', 'request': {'constitution_sha256': 'wrong', 'design': {'AgentDesignLineageId': 'AD-CK-1', 'AgentDesignVersionId': 'AD-CK-1.0', 'entrypoint': 'adaptive_research_harness.service:run_agent', 'evaluation_inputs': ['exact proposal', 'Transition lifecycle and Applied History', 'Evidence closure', 'pinned CV1 and ES-1.0', 'own grant', 'referenced source/design/method artifacts'], 'evidence_outputs': ['verification Research Record', 'own reservation/attempt/settlement/close', 'reproduction/Outcome completion only when capability later exists'], 'executable_closure_sha256': 'ac78ece794bb5555ca62c5ebca77e1710ca4fb847ed7de600c30bcce69995466', 'initial_method': {'id': 'MC-CHECKER-1', 'sha256': '728609d6c534ffd5bae0dc52e05144ce5b36c7ebb79ef004d2477f35e70a9797'}, 'instructions': 'Execute every common and class-specific criterion in checker_contract.md on a committed closure under the base-pinned CV1 and ES-1.0. Compute findings independently. Fund verification from own Checker grant. Preserve own-subject and lineage exclusions. Never propose research, grant authority, decide a proposal or waive a criterion. Missing capability never becomes PASS.', 'method_class': 'CHECKER', 'predecessor': None, 'proposable_outputs': ['own Agent Design successor', 'Constitutional proposal STOPPED pending Principal'], 'provenance': {'execution_kind': 'deterministic synthetic program', 'model': None, 'model_version': None, 'not_applicable_reason': 'No trained model or model provider is invoked; no diversity claim.', 'provider': None, 'spec_version': 'synthetic-design-v1', 'training_cutoff': None}, 'step_catalog': ['check-transition'], 'tool_specs': {'CHECK-A-1': 'b1bfc6149a390ad73d935d1971408427f55a02f706a253655dfeba4eaaa15ae3'}}, 'grant': {'AuthorizationId': 'AU-CK-A', 'binding_interval_ms': None, 'binding_interval_reason': 'Checker reservations never bind.', 'capital_cap_units': '0.00', 'capital_permission': False, 'class': 'Checker', 'constitutional_budget': {'delta_A': 0, 'delta_O': 0, 'delta_S': 0}, 'default_reservation_duration_ms': 604800000, 'expiry': '2027-04-30T00:00:00.000Z', 'forbidden_subjects': ['AD-CK-1 lineage and every successor', 'AU-CK-A and its successor chain'], 'grantee': ['AD-CK-1.0'], 'grantor': 'Principal', 'may_check': 'All CV1 classes subject to own-subject restrictions; implemented capability is the supported-class matrix only, never a PASS outside capability.', 'may_commit_evidence': ['Research Record for verification', 'RESERVATION', 'attempt', 'settlement', 'CLOSED', 'reproduction record and expected Outcome completion only when a supported subject exists'], 'may_propose': ['own Agent Design successor', 'Constitutional proposal STOPPED until Principal decides'], 'per_lineage_cap_units': '60.00', 'provider_calls_permitted': False, 'provider_diversity': 'Synthetic-only exception A1 in amendments.md; no provider diversity claimed.', 'research_budget_units': '60.00', 'themes': [], 'tools': [{'actual_rule': '0.25 units once started, including failure; UNKNOWN settlement uses admitted maximum', 'estimation_rule': '0.25 units per complete invocation', 'id': 'CHECK-A-1', 'spec_sha256': 'b1bfc6149a390ad73d935d1971408427f55a02f706a253655dfeba4eaaa15ae3', 'tier': 1}], 'uncapped_calls_permitted': False, 'verification_cadence': None, 'verification_purposes': ['Check of named already-proposed Transition', 'reproduction of named Decision when capability exists', 'Outcome completion for named subject when capability exists']}}}, 'sha256': '2cc0b64a420d78a77367b497e1dec0c03eca19a3bedee7d95778c3ab3d207a65', 'command': {'actor': 'Principal', 'position': 0, 'request_hash': '046d23a0c8aa8cc5e0bcd1f88a4d060eba5e2fb12d82e8dda666c890cf9068a2', 'request_id': '9ce0aed9-0c46-4af4-afc6-e35a69827077'}}
+
+Diff is 11456 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_f7_reader_rejects_apply_without_its_pass_check (tests.component.test_audit_regressions.AuditRegressions.test_f7_reader_rejects_apply_without_its_pass_check)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/ly/h93dpfrj6mg2d4vcccvc_h440000gn/T/arh-audit-before-soai_189/tests/component/test_audit_regressions.py", line 54, in test_f7_reader_rejects_apply_without_its_pass_check
+    with self.assertRaises(AssertionError):read(ReaderClient())
+AssertionError: AssertionError not raised
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.065s
+
+FAILED (failures=3)

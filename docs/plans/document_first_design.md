@@ -1,11 +1,17 @@
 # Document-First Design Plan
 
+Current routing note (2026-10-29): the project is Adaptive Research Harness.
+CV1 is admitted; the dated design sequence below preserves its original
+chronology. The next proposed scope is the
+[first research-cycle implementation plan](first_research_cycle_implementation_20261029.md).
+See the [rename record](../decisions/project_rename_20261029.md).
+
 Status: **PROPOSED PLAN — DOCUMENTATION ONLY. Authorizes no code, tests,
 infrastructure, frameworks, dependencies or service selection.**
 
 Date: 2026-10-18
 
-Governs: the order in which the New Speedway design is completed in
+Governs: the order in which the Adaptive Research Harness design is completed in
 documents, from the
 [constitution draft](../doctrines/new_speedway_constitution.md) and the
 [initial OSA audit](../audits/initial_osa_audit.md).
@@ -79,8 +85,7 @@ draft, and all of it is admitted only when the Principal admits
 - Resolves: D-10 (Checker independence), D-11 (admitted policy).
 - Produces: the Checker contract (what a check must observe and record,
   mirroring the fin123-core boundary authority ledger); the first candidate
-  policy class and the evidence it needs; the standing vocabulary New
-  Speedway uses (`OSA PASS/FAIL`, `CPOC PASS/FAIL`, `CERTIFIED`,
+  policy class and the evidence it needs; the standing vocabulary Adaptive Research Harness uses (`OSA PASS/FAIL`, `CPOC PASS/FAIL`, `CERTIFIED`,
   `IMPLEMENTED NOT CERTIFIED`, `STOPPED`) applied to Transitions.
 - Exit: a consequential Transition record template exists and the three
   worked transitions T-A to T-C are rewritten against it.
@@ -112,7 +117,7 @@ draft, and all of it is admitted only when the Principal admits
 ### 8. Recovery, replay and CPOC applicability
 
 - Produces: the CPOC applicability classification for each Transition
-  class; the canonical New Speedway continuity journey (register, predict,
+  class; the canonical Adaptive Research Harness continuity journey (register, predict,
   resolve, allocate, process death, order, process death, evaluate, retire,
   process death, historical read) as a witness specification; the negative
   witnesses (resurrection, stale materialization, duplicate order, stale
