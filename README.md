@@ -69,6 +69,22 @@ Around those two rules sit the controls a coding harness would recognize.
 - **Failure is preserved.** Rejected ideas and negative results are kept as
   part of what the firm has learned.
 
+```
+ Principal sets mandate, budget and standards. Nothing below changes them.
+
+   proposed  ------>  checked  ------>  decided  ------>  applied
+      |                  |                 |                 |
+  hypothesis         separate          Principal         change made
+  registered,        checker,          records the       only after the
+  budget reserved,   own code,         decision          three entries
+  before any work    own grant,                          to its left
+  runs               replays the                         exist
+                     record
+
+   every step is written to the ledger before it runs
+   a proposal that fails stays in the ledger as evidence
+```
+
 ## How it was made
 
 The design was written as documents, tested as documents, and built last.
