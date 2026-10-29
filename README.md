@@ -126,11 +126,12 @@ so the boundaries are proven before a framework is.
 
 These are the questions I want feedback on.
 
-- **Coverage.** The hypothesis count is only honest if all research passes
-  through the harness. The moment a human picks which registered idea to
-  pursue based on unregistered side analysis, the count is corrupted again.
-  Is partial coverage worth anything, and how would a firm know how partial
-  it is?
+- **Coverage.** The ledger counts the tests that run through the harness.
+  Work done outside it, in a notebook or a spreadsheet, is never counted. If
+  that outside work decides which ideas get registered, the ledger
+  understates how many were tried, and the multiple-testing correction built
+  on it is too small. How much of a firm's research has to run through the
+  harness before the count means anything, and how would the firm know?
 - **Judgment versus arithmetic.** The checker replays computation. Most of
   what makes research good or bad happens before the computation: which
   universe, which window, which definition of an event. The example run shows
