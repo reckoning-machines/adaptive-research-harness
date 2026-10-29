@@ -24,9 +24,8 @@ such a process, the record of how that constitution was written and
 reviewed, and a small working prototype that runs one research cycle under
 it on synthetic data.
 
-The idea is not proven, since the prototype demonstrates the mechanics
-rather than the value. I have put it up to find out where it is wrong, and
-the questions I most want answered are at the end.
+I have put it up for feedback. The questions I most want answered are at
+the end.
 
 ## The idea
 
@@ -102,9 +101,9 @@ forming a hypothesis from synthetic data, two independently written checkers
 recomputing the result, and a decision that is recorded before it is
 applied.
 
-The example run asks a deliberately trivial question of a tiny sample: do
-larger volatility events warrant a narrower selling hypothesis? The question
-itself does not matter, because what the run demonstrates is the sequence.
+The example run asks one question of the synthetic data: do larger
+volatility events warrant a narrower selling hypothesis? The run
+demonstrates the sequence.
 
 1. A first result is registered and costed before it is computed.
 2. The researcher finds a limitation in its own result: the two large events
@@ -112,13 +111,13 @@ itself does not matter, because what the run demonstrates is the sequence.
 3. It changes direction, sets the large-event group aside and tests the rest.
 4. The broad claim fails its own threshold.
 5. The original claim and the negative result are both preserved. Only the
-   narrower, still unproven question is registered for future testing.
+   narrower question is registered for future testing.
 6. The next step is planned and recorded, not executed.
 
-Both checkers verified the contrast, and the costs were in simulated units
-with nothing billed. The run evidence is retained at
+Both checkers verified the contrast. Costs are in simulated units. The run
+evidence is retained at
 [artifacts/development/adaptation-final/3887aa1acdab4e0cbe39be306f13e183/E01.json](artifacts/development/adaptation-final/3887aa1acdab4e0cbe39be306f13e183/E01.json),
-and [BUILD.md](BUILD.md) states test coverage and its limits.
+and [BUILD.md](BUILD.md) covers the tests and retained evidence.
 
 To run it, from the repository root with Python 3.12:
 
@@ -135,7 +134,7 @@ so the boundaries are proven before a framework is.
 
 ## Open questions
 
-These are where the idea is least settled, and where I want feedback.
+These are the questions I want feedback on.
 
 - **Coverage.** The hypothesis count is only honest if all research passes
   through the harness. The moment a human picks which registered idea to
