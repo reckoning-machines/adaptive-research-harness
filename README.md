@@ -43,10 +43,11 @@ tried becomes a fact in a ledger. That is what makes a multiple-testing
 correction or a deflated Sharpe ratio arithmetic rather than a guess, and it
 is the single claim this project rests on.
 
-The same holds for a fundamental process. The ledger records the thesis and
-the condition that would falsify it before the outcome is known, so a hit
-rate and a calibration are facts in the record rather than recollections.
-Theses that were quietly dropped stay on the record with the ones that paid.
+The ledger also records, for every thesis, the condition that would falsify
+it before the outcome is known. A quant signal and a fundamental view are
+treated the same way, so hit rate and calibration are facts in the record
+rather than recollections, and the ideas that were quietly dropped stay on
+the record beside the ones that paid.
 
 **A strategy cannot inherit a track record.** A successor strategy starts
 with its own record. It cannot borrow a predecessor's history or obtain
