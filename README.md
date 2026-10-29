@@ -93,8 +93,8 @@ discipline caught anything.
 The prototype is written in Python with no dependencies beyond the standard
 library, and it runs entirely on synthetic data. It implements one bounded
 research cycle, from startup through a reservation before any spend, one
-researcher forming a hypothesis from synthetic data, two independently written checkers
-recomputing the result, and a decision that is recorded before it is
+researcher forming a hypothesis from synthetic data, two independently written
+checkers recomputing the result, and a decision that is recorded before it is
 applied.
 
 The example run asks whether larger volatility events in the synthetic data
