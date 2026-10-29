@@ -29,7 +29,7 @@ the end.
 
 ## The idea
 
-Alpha decays, and so do the research methods that found it. A firm needs a
+Alpha decays, and so do the methods that find it. A firm needs a
 research process that keeps probing its own ideas, retires the bad ones and
 records why. In practice the process drifts, and the record of what was
 tried lives in people's heads and old notebooks.
