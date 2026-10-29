@@ -1,13 +1,14 @@
-# Adaptive Research Harness — Architecture
+# Adaptive Research Harness: Architecture
 
 A constitutional harness for evolving investment hypotheses, strategies and research agents.
 
 Current name: Adaptive Research Harness. The [rename record](docs/decisions/project_rename_20261029.md)
 explains why CV1 and historical evidence retain their original names. The
 [first research-cycle plan](docs/plans/first_research_cycle_implementation_20261029.md)
-proposes a smaller initial milestone than the two broader demonstrations below:
-one active researcher, controlled synthetic tools, checked admission and fresh-process
-recovery. Storage and process recommendations in that plan are not selections.
+set a smaller initial milestone than the two broader demonstrations in
+section 7: one active researcher, controlled synthetic tools, checked
+admission and fresh-process recovery. That milestone is now built; section 9
+describes it.
 
 This is an explanation of Constitution revision 12, admitted by the
 Principal as `ConstitutionVersion 1`, the document-phase design
@@ -15,13 +16,16 @@ baseline, after the
 [independent closure review](docs/audits/cv1_revision12_closure_20261019.md).
 The [Constitution](docs/doctrines/new_speedway_constitution.md)
 governs and the [admission record](docs/decisions/cv1_admission_20261019.md)
-names its exact digest. Implementation has not begun, no technology has
-been selected, genesis has not executed and no CPOC witness has run.
+names its exact digest. The design sections below describe the full system
+as admitted. The build in section 9 implements the bounded first cycle of
+it on synthetic data.
 
 ## 1. The investment case
 
-Strategies decay. Research methods can become less productive too.
-Adaptive Research Harness is intended to retain what the investment process learns:
+Alpha decays, and so do the research methods that found it. A firm
+therefore needs a research process that keeps probing its own ideas,
+retires the bad ones and records why, rather than one that drifts.
+Adaptive Research Harness retains what the investment process learns:
 what was predicted, what happened, what failed and why a decision was made.
 A successor strategy starts with its own record. It cannot inherit a
 predecessor's performance or obtain capital simply by being related to it.
@@ -153,9 +157,19 @@ components cannot satisfy. Adaptive Research Harness owns the investment rules a
 boundaries that enforce them. This does not require writing every
 computational component from scratch.
 
-**No product or technology has been selected.** The implementation plan
-will assess candidates against concrete requirements, including reserve,
+The first cycle is built on the Python 3.12 standard library and SQLite
+with no third-party dependencies; see section 9. That choice covers the
+bounded prototype and selects nothing for later stages. Each later
+component is assessed against the same concrete requirements: reserve,
 attempt, interruption, fence, retry, settlement and admission.
+
+The harness is the layer underneath agent frameworks, not a replacement for
+them. Frameworks supply orchestration and research content; the harness
+holds the budgets, the independent checks and the record. The
+[feasibility review](docs/audits/feasibility_coherence_public_library_20261029.md)
+defines the boundary points an adapter must pass through and examines
+LangGraph as an orchestration candidate and MiroFish as a scenario-research
+candidate. No adapter is built or authorized.
 
 | Component | Planned reuse | Acceptance requirement |
 | --- | --- | --- |
@@ -173,7 +187,7 @@ custom fill computation. The fill rule is granted with the first Execution
 Authorization, after the two research demonstrations. Any later build
 proposal must satisfy the same reuse requirement.
 
-The governing sources are [PD-006 §PD-006.1](docs/decisions/principal_decision_006_replaceable_tools_and_first_prototype.md),
+The governing sources are [PD-006 section PD-006.1](docs/decisions/principal_decision_006_replaceable_tools_and_first_prototype.md),
 [Part IX principle 10](docs/doctrines/new_speedway_constitution.md#part-ix-operating-principles)
 and [plan step 9](docs/plans/document_first_design.md).
 
@@ -206,16 +220,18 @@ Synthetic resolution tests the machinery and earns no forward market credit.
 
 Both demonstrations depend on the corrected genesis chain described in
 the final review. Neither runs the Strategy Runner or paper execution.
-Their scope remains the one admitted in [PD-006 §PD-006.3](docs/decisions/principal_decision_006_replaceable_tools_and_first_prototype.md)
+Their scope remains the one admitted in [PD-006 section PD-006.3](docs/decisions/principal_decision_006_replaceable_tools_and_first_prototype.md)
 and [PD-009](docs/decisions/principal_decision_009_genesis.md).
 
 ## 8. Current standing and open work
 
 Constitution revision 12 is admitted as `ConstitutionVersion 1`. All
 admissions to date, that one included, are document-phase decisions.
-Genesis has not executed and no CPOC witness has been run. Nothing is
-certified, and the parameters below are still to be supplied before
-the genesis acts that need them.
+The Principal's [build decision addendum](docs/decisions/first_research_cycle_build_approval_addendum_20261029.md)
+authorizes disposable synthetic development runs, including genesis in
+clearly labelled disposable stores. Those runs are build evidence, not
+production genesis. Nothing is certified, and the parameters below are
+still to be supplied before the production genesis acts that need them.
 
 | Open item | Present constraint |
 | --- | --- |
@@ -236,6 +252,32 @@ corrected in revision 12 and closed by the closure review. The
 Principal's decisions on
 [PD-011](docs/decisions/principal_decision_011_proposed_confirmations.md)
 and the admission of `ConstitutionVersion 1` are recorded in the
-[admission record](docs/decisions/cv1_admission_20261019.md). An
-implementation plan with its own declared delta now becomes proposable.
-It authorizes nothing by itself.
+[admission record](docs/decisions/cv1_admission_20261019.md).
+
+## 9. The first cycle as built
+
+The first research cycle is implemented in `adaptive_research_harness/`
+under the [reconciled contracts](docs/plans/research_cycle_reconciled_20261029/contracts.md).
+[BUILD.md](BUILD.md) describes the implementation and its coverage limits;
+the [runbook](runbook.md) says how to run it.
+
+| Element | As built |
+| --- | --- |
+| Ledgers | Two immutable SQLite event logs, Transition and Evidence, with one writer process holding a lifetime lock. Every event records its sequence, digest, authenticated requester and acting role. Views are rebuilt from events; no view is authoritative |
+| Commit boundary | One core service receives commands over a local socket. `rules` admits or refuses each operation; `engine` commits inside a single transaction. Each command carries a request key, so a repeated command returns the original receipt rather than acting twice |
+| Actors | Fixed identities for the Principal, the Observation function, the clock, two Checkers, ten researcher designs and two tools. On Linux the identity is the peer process UID; the local fixture substitutes tokens and reports OS isolation as unverified |
+| Funding | A reservation is appended before any metered work, with the attempt and its maximum charge recorded before dispatch. A proposal cites its funding by a prospective Evidence sequence; a collision strands the proposal rather than re-pointing it. Pending liabilities survive interruption and settle at the actual charge or the admitted maximum |
+| Checking | Two Checker implementations in separate code replay the committed record and recompute each criterion. They import neither the core admission predicates nor the research tool calculations, cannot check their own lineage, and are funded from their own grant |
+| Decision and Apply | Routine Hypothesis registrations are decided under policy `P-1`; everything else is a Principal decision. Apply and binding invalidation compete at one serialized boundary. A refusal at Apply durably invalidates the binding in the same transaction |
+| Tools | Two synthetic calculators, A and B, that compute the same counts by different code paths with an explicit simulated charge. No network or provider is contacted |
+| Dispatch and recovery | Work is handed to a tool only against an admitted attempt and a durable claim. A fresh process reads the ledgers and continues from them. An uncertain dispatch is never retried as new work; replacement requires evidence that the earlier worker generation cannot still act |
+| Clock | A synthetic durable clock with a receipts journal. A rollback below the recorded high-water mark is refused |
+| Acceptance | A catalog of 51 named cases, 20 process-death schedules and two forced orderings, run by a cooperative local fixture that starts core, researchers, Checkers, tools and a final independent reader as separate processes. Each run snapshots the covered source and records its inventory digest |
+
+The example cycle reaches a derived Hypothesis through startup, one
+researcher, two tool calls, an independent Check and `P-1` Apply, then
+extends by one diagnostic experiment whose negative result is preserved.
+The [first-cycle build audit](docs/audits/adversarial_first_cycle_build_audit_20261029.md)
+lists the defects still open. Linux UID, socket, file and cgroup
+enforcement is templated under `isolation/` and has not been exercised on
+the intended host.

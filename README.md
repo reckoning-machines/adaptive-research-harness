@@ -10,10 +10,12 @@ runs research agents under clear mandates, fixed budgets, independent review
 before anything is adopted, and a complete record of what was tried, what
 worked and what did not.
 
-Strategies lose their edge over time, and so do the research methods that
-produced them. The harness keeps every hypothesis, test, approval and
-rejection as a permanent record, so a firm can see how its thinking evolved
-and why.
+The core premise is that alpha decays, and so do the research methods that
+found it. A quant or fundamental firm therefore needs a research process
+that keeps probing its own ideas, retires the bad ones and records why,
+rather than one that drifts. The harness keeps every hypothesis, test,
+approval and rejection as a permanent record, so a firm can see how its
+thinking evolved and why.
 
 The harness is built so that research agents, whether people or software,
 can propose ideas and run authorized experiments, but cannot grant themselves
@@ -39,9 +41,15 @@ tools to prove those boundaries before any framework is attached.
 - **Research within a budget.** Research agents receive a defined allowance
   and spend it on experiments. Every charge is recorded before the work runs,
   so spending can never exceed what was approved.
-- **Independent checking.** A separate checker, funded separately and unable
-  to review its own work, examines each proposal before it can be adopted.
-  A proposal that fails the check is kept as evidence, not deleted.
+- **Independent checking.** A separate checker process, funded from its own
+  grant and written in separate code, replays the committed record and
+  recomputes the acceptance criteria from the original inputs. It cannot
+  check work from its own lineage. A proposal that fails the check is kept
+  as evidence, not deleted.
+- **Every trial is on the record.** A test is logged before it runs, not
+  after it succeeds. The count of hypotheses tried is therefore auditable,
+  which is what makes a multiple-testing correction or a deflated Sharpe
+  ratio honest rather than estimated.
 - **Decisions are recorded, then applied.** A change moves through a fixed
   sequence: proposed, checked, decided, applied. Each step leaves a durable
   entry. Nothing is applied without the steps before it.
@@ -65,11 +73,14 @@ records what the Principal has authorized.
 ## What a run looks like
 
 The example cycle asks one question of synthetic data: do larger volatility
-events warrant a narrower selling hypothesis? The latest run tells this
-story.
+events warrant a narrower selling hypothesis? The hypothesis is deliberately
+trivial and the sample is tiny. The point of the run is the mechanics: a
+reservation before any spend, an independent recomputation, and a claim
+that fails its own diagnostic and is preserved rather than quietly dropped.
+The latest run tells this story.
 
-1. First result: selling appears in 8 of 12 spike rows, including 2 of 2
-   large-event rows.
+1. First result: net selling follows 8 of 12 volatility-spike events,
+   including 2 of 2 large events.
 2. Limitation found: both large-event rows come from a single shock, so they
    are one observation, not independent repetition.
 3. The researcher changes direction: it sets the large-event group aside and
@@ -82,8 +93,9 @@ story.
 6. Next step: find genuinely independent shocks. That step is planned and
    recorded, not executed.
 
-The run cost 2.00 simulated research units, 0.25 for the registration check
-and 4.00 for startup checking. Both independent checker implementations
+The run cost 2.00 simulated research units for the two tool calls, 0.25 for
+the registration check and 4.00 for startup checking. A unit stands in for a
+metered tool or model call; nothing was billed. Both independent checker implementations
 verified the contrast. Fifty-one unit and component tests and six targeted
 integration scenarios passed. The run evidence is retained at
 [artifacts/development/adaptation-final/3887aa1acdab4e0cbe39be306f13e183/E01.json](artifacts/development/adaptation-final/3887aa1acdab4e0cbe39be306f13e183/E01.json).
@@ -111,7 +123,8 @@ checker review it, and records the result with simulated costs. See
 | --- | --- |
 | The investment case, the architecture and the controls | [Architecture](architecture.md) |
 | Mandates, budgets, evidence standards and decision rights | [The Constitution](docs/doctrines/new_speedway_constitution.md), admitted by the [admission record](docs/decisions/cv1_admission_20261019.md). Its own status banner predates admission and is kept so the admitted text stays exact |
-| What was built and how to run it | [BUILD.md](BUILD.md) and the [first research-cycle plan](docs/plans/first_research_cycle_implementation_20261029.md) |
+| How to run it | [Runbook](runbook.md) |
+| What was built and its coverage limits | [BUILD.md](BUILD.md) and the [first research-cycle plan](docs/plans/first_research_cycle_implementation_20261029.md) |
 | The prototype and startup sequence as designed | [Design plan](docs/plans/document_first_design.md), [PD-006](docs/decisions/principal_decision_006_replaceable_tools_and_first_prototype.md) and [PD-009](docs/decisions/principal_decision_009_genesis.md) |
 | The original proposal and figures | [Design proposal (.docx)](docs/reference/new_speedway_design_proposal_20261019.docx) and [text transcription](docs/reference/new_speedway_discussion_draft_20261017.md), retained as reference material |
 | Presentations for prospects | [Presentations](docs/presentations/README.md) |
