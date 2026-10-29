@@ -68,29 +68,19 @@ Around those two rules sit the controls a coding harness would recognize:
 
 The design was written as documents, tested as documents, and built last.
 
-The rulebook, called the Constitution, went through twelve revisions. Each
-revision was reviewed by an independent auditor, and each repair was admitted
-or rejected in a dated decision record. Superseded revisions, rejected
-proposals and the auditor's findings are all retained. The
+The Constitution went through twelve revisions. Each one was reviewed by an
+independent auditor, and each repair was admitted or rejected in a dated
+decision record. Nothing was deleted along the way: superseded revisions,
+rejected proposals and the auditor's findings are all in `docs/`. The
 [revision 10 audit](docs/audits/independent_preimplementation_design_audit_20261019.md)
-and the repairs it forced in
-[PD-010](docs/decisions/principal_decision_010_codex_audit_repairs.md) are
-a representative pair: what an independent review found, and what changed.
+and [PD-010](docs/decisions/principal_decision_010_codex_audit_repairs.md)
+show what a review found and what changed.
 
-Only after the Constitution was admitted on 19 October 2026 was the code
-written, against the admitted text. The
-[first-cycle build audit](docs/audits/adversarial_first_cycle_build_audit_20261029.md)
-then recorded the defects that document-level review could not catch.
-
-This is the same proposed, checked, decided, applied sequence the harness is
-meant to impose on research, applied to the design of the harness. It is
-also the Audit, Plan, Implement, Verify loop from the article, with the
-Constitutional Delta held at zero for ordinary changes and every non-zero
-delta admitted in a decision record. The
-[adoption record](docs/decisions/fin123_core_adoption_20261018.md) states
-exactly which parts of that discipline were taken over and which were not. The
-`docs/decisions/` and `docs/audits/` folders are the experiment's record,
-and the reason a reader can check whether the discipline caught anything.
+The code was written last, against the admitted text, and the
+[build audit](docs/audits/adversarial_first_cycle_build_audit_20261029.md)
+recorded what document review could not catch. That is the article's loop
+applied to the harness itself, and the record is there to check whether the
+discipline caught anything.
 
 ## What exists
 
