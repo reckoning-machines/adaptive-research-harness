@@ -11,7 +11,7 @@ passes. In
 I argued that the harness is not enough. Tests check behavior, not intent,
 so an agent can pass every test while quietly adding a second source of
 truth or giving itself decision rights. What a system needs underneath the
-harness is a constitution: a statement of what exists, what it means and who
+harness is a constitution, a statement of what exists, what it means and who
 may change it, with the expected change to each declared before any work
 begins and measured after.
 
@@ -37,7 +37,7 @@ tried lives in people's heads and old notebooks.
 Two things change once the researcher is an agent.
 
 **Every test can be registered before it runs.** A human researcher will not
-pre-register. An agent has no choice: the harness logs the test, reserves
+pre-register. An agent has no choice. The harness logs the test, reserves
 the budget and only then lets the work proceed. The count of hypotheses
 tried becomes a fact in a ledger. That is what makes a multiple-testing
 correction or a deflated Sharpe ratio arithmetic rather than a guess, and it
@@ -54,7 +54,7 @@ with its own record. It cannot borrow a predecessor's history or obtain
 capital by being related to it. Agents can propose ideas and run authorized
 experiments, but cannot grant themselves money, authority or credibility.
 
-Around those two rules sit the controls a coding harness would recognize:
+Around those two rules sit the controls a coding harness would recognize.
 
 - **One accountable owner.** A single human, the Principal, sets mandates,
   budgets, limits and the standards results are judged by. Nothing in the
@@ -76,7 +76,7 @@ The design was written as documents, tested as documents, and built last.
 
 The Constitution went through twelve revisions. Each one was reviewed by an
 independent auditor, and each repair was admitted or rejected in a dated
-decision record. Nothing was deleted along the way: superseded revisions,
+decision record. Nothing was deleted along the way. Superseded revisions,
 rejected proposals and the auditor's findings are all in `docs/`. The
 [revision 10 audit](docs/audits/independent_preimplementation_design_audit_20261019.md)
 and [PD-010](docs/decisions/principal_decision_010_codex_audit_repairs.md)
@@ -92,17 +92,16 @@ discipline caught anything.
 
 The prototype is written in Python with no dependencies beyond the standard
 library, and it runs entirely on synthetic data. It implements one bounded
-research cycle: startup, a reservation before any spend, one researcher
+research cycle, from startup through a reservation before any spend, one researcher
 forming a hypothesis from synthetic data, two independently written checkers
 recomputing the result, and a decision that is recorded before it is
 applied.
 
-The example run asks one question of the synthetic data: do larger
-volatility events warrant a narrower selling hypothesis? The run
-demonstrates the sequence.
+The example run asks whether larger volatility events in the synthetic data
+warrant a narrower selling hypothesis. The run demonstrates the sequence.
 
 1. A first result is registered and costed before it is computed.
-2. The researcher finds a limitation in its own result: the two large events
+2. The researcher finds a limitation in its own result. The two large events
    come from a single shock and are one observation, not two.
 3. It changes direction, sets the large-event group aside and tests the rest.
 4. The broad claim fails its own threshold.
@@ -115,7 +114,7 @@ evidence is retained at
 [artifacts/development/adaptation-final/3887aa1acdab4e0cbe39be306f13e183/E01.json](artifacts/development/adaptation-final/3887aa1acdab4e0cbe39be306f13e183/E01.json),
 and [BUILD.md](BUILD.md) covers the tests and retained evidence.
 
-To run it, from the repository root with Python 3.12:
+Run it from the repository root with Python 3.12.
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 python3 -m acceptance.local --example
@@ -139,8 +138,8 @@ These are the questions I want feedback on.
   on it is too small. How much of a firm's research has to run through the
   harness before the count means anything, and how would the firm know?
 - **Judgment versus arithmetic.** The checker replays computation. Most of
-  what makes research good or bad happens before the computation: which
-  universe, which window, which definition of an event. The example run shows
+  what makes research good or bad happens before the computation, in the
+  choice of universe, window and definition of an event. The example run shows
   this, when the researcher notices two events are one shock. A checker
   cannot recompute that. What is the harness's answer to judgment errors?
 - **Lookahead.** The dominant practical failure in quantitative research is
