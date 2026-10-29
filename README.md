@@ -141,10 +141,6 @@ These are the questions I want feedback on.
   a hypothesis formed after seeing the test window. Timestamped registration
   helps only if data vintage is part of the record. Is that enough, and what
   else is needed?
-- **One Principal.** The Constitution assumes authority flows from one
-  human. Real firms have committees, portfolio managers with their own books
-  and researchers who allocate their own time. Which parts of the design
-  survive without a single owner, and which do not?
 
 ## Where to read
 
