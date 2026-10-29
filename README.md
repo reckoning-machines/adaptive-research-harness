@@ -92,8 +92,8 @@ discipline caught anything.
 
 The prototype is written in Python with no dependencies beyond the standard
 library, and it runs entirely on synthetic data. It implements one bounded
-research cycle, from startup through a reservation before any spend, one researcher
-forming a hypothesis from synthetic data, two independently written checkers
+research cycle, from startup through a reservation before any spend, one
+researcher forming a hypothesis from synthetic data, two independently written checkers
 recomputing the result, and a decision that is recorded before it is
 applied.
 
@@ -124,8 +124,8 @@ The harness is meant to sit under whatever orchestration a team already
 uses. LangGraph and MiroFish have been examined as candidates, and the
 [feasibility review](docs/audits/feasibility_coherence_public_library_20261029.md)
 lists the boundary points any framework would connect through, though none
-is attached yet. The first cycle uses an in-house researcher and synthetic tools
-so the boundaries are proven before a framework is.
+is attached yet. The first cycle uses an in-house researcher and synthetic
+tools so the boundaries are proven before a framework is.
 
 ## Open questions
 
