@@ -15,14 +15,13 @@ harness is a constitution, a statement of what exists, what it means and who
 may change it, with the expected change to each declared before any work
 begins and measured after.
 
-Investment research has never had either. Researchers are not
-pre-registered, their failed ideas are not kept, and nobody can say how many
-hypotheses a firm tried before it found the one it now trades. This
-repository asks what research would look like under the discipline that
-article proposed for code. It contains the constitution that would govern
-such a process, the record of how that constitution was written and
-reviewed, and a small working prototype that runs one research cycle under
-it on synthetic data.
+Investment research runs without either. Researchers are not pre-registered,
+their failed ideas are not kept, and nobody can say how many hypotheses a firm
+tried before it found the one it now trades. This repository asks what research
+would look like under the discipline that article proposed for code. It
+contains the constitution that would govern such a process, the record of how
+that constitution was written and reviewed, and a small working prototype that
+runs one research cycle under it on synthetic data.
 
 I have put it up for feedback. The questions I most want answered are at
 the end.
@@ -36,12 +35,11 @@ tried lives in people's heads and old notebooks.
 
 Two things change once the researcher is an agent.
 
-**Every test can be registered before it runs.** A human researcher will not
-pre-register. An agent has no choice. The harness logs the test, reserves
-the budget and only then lets the work proceed. The count of hypotheses
-tried becomes a fact in a ledger. That is what makes a multiple-testing
-correction or a deflated Sharpe ratio arithmetic rather than a guess, and it
-is the single claim this project rests on.
+**Every test is registered before it runs.** Nothing submitted through the
+harness executes until it is logged and its budget reserved. The count of
+hypotheses tried becomes a fact in a ledger. A multiple-testing correction or a
+deflated Sharpe ratio still has to account for dependence among the trials, but
+it starts from a recorded count rather than a guess.
 
 The ledger also records, for every thesis, the condition that would falsify
 it before the outcome is known. A quant signal and a fundamental view are
@@ -59,8 +57,9 @@ Around those two rules sit the controls a coding harness would recognize.
 - **One accountable owner.** A single human, the Principal, sets mandates,
   budgets, limits and the standards results are judged by. Nothing in the
   system changes those without the Principal.
-- **Spend is reserved before work.** Every charge is recorded before the
-  work runs, so spending can never exceed what was approved.
+- **Spend is reserved before work.** Budget is reserved before work runs.
+  Actual charges and any overrun are settled into the record afterward, so the
+  ledger shows what was approved and what was spent.
 - **Independent checking.** A separate checker, funded from its own grant
   and written in separate code, replays the committed record and recomputes
   the acceptance criteria from the original inputs. It cannot check work
@@ -95,16 +94,20 @@ library, and it runs entirely on synthetic data. It implements one bounded
 research cycle, from startup through a reservation before any spend, one
 researcher forming a hypothesis from synthetic data, two independently written
 checkers recomputing the result, and a decision that is recorded before it is
-applied.
+applied. The researcher in this cycle is a deterministic policy. It computes
+its next action from the recorded inputs, so the change of direction in the
+example below is a rule firing on the evidence rather than a model exercising
+judgment.
 
 The example run asks whether larger volatility events in the synthetic data
 warrant a narrower selling hypothesis. The run demonstrates the sequence.
 
-1. A first result is registered and costed before it is computed.
-2. The researcher finds a limitation in its own result. The two large events
-   come from a single shock and are one observation, not two.
+1. The first experiment is registered and its budget reserved before it runs.
+2. The researcher's diagnostic finds that the two large events come from a
+   single shock and are one observation, not two.
 3. It changes direction, sets the large-event group aside and tests the rest.
-4. The broad claim fails its own threshold.
+4. The remaining events fall short of the threshold the hypothesis set for
+   itself, and the broad claim is not adopted.
 5. The original claim and the negative result are both preserved. Only the
    narrower question is registered for future testing.
 6. The next step is planned and recorded, not executed.
@@ -120,12 +123,12 @@ Run it from the repository root with Python 3.12.
 PYTHONDONTWRITEBYTECODE=1 python3 -m acceptance.local --example
 ```
 
-The harness is meant to sit under whatever orchestration a team already
-uses. LangGraph and MiroFish have been examined as candidates, and the
-[feasibility review](docs/audits/feasibility_coherence_public_library_20261029.md)
-lists the boundary points any framework would connect through, though none
-is attached yet. The first cycle uses an in-house researcher and synthetic
-tools so the boundaries are proven before a framework is.
+The harness is meant to sit under whatever orchestration a team already uses.
+LangGraph and MiroFish have been examined as candidates, and the [feasibility
+review](docs/audits/feasibility_coherence_public_library_20261029.md) lists the
+boundary points any framework would connect through, though none is attached
+yet. The first cycle uses an in-house researcher and synthetic tools so the
+boundaries are exercised before a framework is attached.
 
 ## Open questions
 
@@ -137,11 +140,13 @@ These are the questions I want feedback on.
   understates how many were tried, and the multiple-testing correction built
   on it is too small. How much of a firm's research has to run through the
   harness before the count means anything, and how would the firm know?
-- **Judgment versus arithmetic.** The checker replays computation. Most of
-  what makes research good or bad happens before the computation, in the
-  choice of universe, window and definition of an event. The example run shows
-  this, when the researcher notices two events are one shock. A checker
-  cannot recompute that. What is the harness's answer to judgment errors?
+- **Judgment versus arithmetic.** The checker replays computation. Most of what
+  makes research good or bad happens before the computation, in the choice of
+  universe, window and definition of an event. The example run shows this, when
+  the two large events turn out to be one shock. A checker can confirm that two
+  events share a shock identifier when the data carries one. It cannot decide
+  whether grouping events by shock was the right economic call. What is the
+  harness's answer to judgment errors?
 - **Lookahead.** The dominant practical failure in quantitative research is
   a hypothesis formed after seeing the test window. Timestamped registration
   helps only if data vintage is part of the record. Is that enough, and what
