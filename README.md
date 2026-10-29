@@ -145,8 +145,9 @@ These are the questions I want feedback on.
   universe, window and definition of an event. The example run shows this, when
   the two large events turn out to be one shock. A checker can confirm that two
   events share a shock identifier when the data carries one. It cannot decide
-  whether grouping events by shock was the right economic call. What is the
-  harness's answer to judgment errors?
+  whether grouping events by shock was the right economic call. Recomputation
+  catches arithmetic errors. What catches a bad definition, and is that a job
+  for a checker, a second researcher or the Principal?
 - **Lookahead.** The dominant practical failure in quantitative research is
   a hypothesis formed after seeing the test window. Timestamped registration
   helps only if data vintage is part of the record. Is that enough, and what
