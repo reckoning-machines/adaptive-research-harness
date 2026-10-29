@@ -62,6 +62,36 @@ lists the defects that remain before a fuller runtime validation. The
 [build decision addendum](docs/decisions/first_research_cycle_build_approval_addendum_20261029.md)
 records what the Principal has authorized.
 
+## What a run looks like
+
+The example cycle asks one question of synthetic data: do larger volatility
+events warrant a narrower selling hypothesis? The latest run tells this
+story.
+
+1. First result: selling appears in 8 of 12 spike rows, including 2 of 2
+   large-event rows.
+2. Limitation found: both large-event rows come from a single shock, so they
+   are one observation, not independent repetition.
+3. The researcher changes direction: it sets the large-event group aside and
+   examines the remaining events on their own.
+4. Control result: 6 of 10 show selling, below the two-thirds threshold. The
+   broad claim does not survive the diagnostic.
+5. Decision: the original claim and the negative result are both preserved.
+   Only the narrower, still unproven question is registered for future
+   testing.
+6. Next step: find genuinely independent shocks. That step is planned and
+   recorded, not executed.
+
+The run cost 2.00 simulated research units, 0.25 for the registration check
+and 4.00 for startup checking. Both independent checker implementations
+verified the contrast. Fifty-one unit and component tests and six targeted
+integration scenarios passed. The run evidence is retained at
+[artifacts/development/adaptation-final/3887aa1acdab4e0cbe39be306f13e183/E01.json](artifacts/development/adaptation-final/3887aa1acdab4e0cbe39be306f13e183/E01.json).
+
+The output states the question, the evidence, the change of direction, the
+decision, the cost and the next action. It identifies the control as a
+same-cohort synthetic analysis rather than new market evidence.
+
 ## Try the example
 
 From the repository root, with standard Python 3.12 and no extra packages:
