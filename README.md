@@ -1,152 +1,179 @@
 # Adaptive Research Harness
 
-## What this project is
+## What this is
 
-Here is something we could not do before: run research agents under the same
-rules we run coding agents. A coding agent today works inside a harness that
-gives it a task, a budget, a test suite and a reviewer before anything is
-merged. Adaptive Research Harness does the same for investment research. It
-runs research agents under clear mandates, fixed budgets, independent review
-before anything is adopted, and a complete record of what was tried, what
-worked and what did not.
+An idea I think is right, carried far enough to run.
 
-The core premise is that alpha decays, and so do the research methods that
-found it. A quant or fundamental firm therefore needs a research process
-that keeps probing its own ideas, retires the bad ones and records why,
-rather than one that drifts. The harness keeps every hypothesis, test,
-approval and rejection as a permanent record, so a firm can see how its
-thinking evolved and why.
+Coding agents now work inside harnesses. An agent gets a task, a budget, a
+test suite and a reviewer, and nothing it writes is merged until the review
+passes. In
+[An Agentic Coding Proposal: Constitutional Coherence](https://reckoningmachines.substack.com/p/an-agentic-coding-proposal-constitutional)
+I argued that the harness is not enough. Tests check behavior, not intent,
+so an agent can pass every test while quietly adding a second source of
+truth or giving itself decision rights. What a system needs underneath the
+harness is a constitution: a statement of what exists, what it means and who
+may change it, with the expected change to each declared before any work
+begins and measured after.
 
-The harness is built so that research agents, whether people or software,
-can propose ideas and run authorized experiments, but cannot grant themselves
-money, authority or credibility. A successor strategy starts with its own
-record. It cannot inherit a predecessor's track record or obtain capital
-simply by being related to it.
+Investment research has never had either. Researchers are not
+pre-registered, their failed ideas are not kept, and nobody can say how many
+hypotheses a firm tried before it found the one it now trades. This
+repository asks what research would look like under the discipline that
+article proposed for code. It contains the constitution that would govern
+such a process, the record of how that constitution was written and
+reviewed, and a small working prototype that runs one research cycle under
+it on synthetic data.
 
-The harness sits underneath the tools a research team already uses. It holds
-the budgets, the independent checks and the permanent record, while agent
-frameworks supply orchestration and research content on top of it. Two
-candidates have been examined so far: LangGraph as an orchestration layer for
-the agents, and MiroFish as a producer of scenario research. The
-[feasibility review](docs/audits/feasibility_coherence_public_library_20261029.md)
-sets out the handful of boundary points any framework would connect through.
-The first research cycle uses a simple in-house researcher and two synthetic
-tools to prove those boundaries before any framework is attached.
+The idea is not proven, since the prototype demonstrates the mechanics
+rather than the value. I have put it up to find out where it is wrong, and
+the questions I most want answered are at the end.
 
-## How it works
+## The idea
 
-- **One accountable owner.** A single human owner, called the Principal, sets
-  the mandates, the budgets, the limits and the standards used to judge
-  results. Nothing in the system can change those without the Principal.
-- **Research within a budget.** Research agents receive a defined allowance
-  and spend it on experiments. Every charge is recorded before the work runs,
-  so spending can never exceed what was approved.
-- **Independent checking.** A separate checker process, funded from its own
-  grant and written in separate code, replays the committed record and
-  recomputes the acceptance criteria from the original inputs. It cannot
-  check work from its own lineage. A proposal that fails the check is kept
-  as evidence, not deleted.
-- **Every trial is on the record.** A test is logged before it runs, not
-  after it succeeds. The count of hypotheses tried is therefore auditable,
-  which is what makes a multiple-testing correction or a deflated Sharpe
-  ratio honest rather than estimated.
-- **Decisions are recorded, then applied.** A change moves through a fixed
-  sequence: proposed, checked, decided, applied. Each step leaves a durable
-  entry. Nothing is applied without the steps before it.
-- **Failure is preserved.** Rejected ideas, failed tests and negative results
-  are retained as part of what the firm has learned.
+Alpha decays, and so do the research methods that found it. A firm needs a
+research process that keeps probing its own ideas, retires the bad ones and
+records why. In practice the process drifts, and the record of what was
+tried lives in people's heads and old notebooks.
 
-## Where the project stands
+Two things change once the researcher is an agent.
 
-**As of 29 October 2026:** this is a private prototype running entirely on
-synthetic data. The governing rulebook, called the Constitution, was reviewed
-independently and admitted by the Principal on 19 October 2026 as the design
-baseline. A first working research cycle has since been built in Python and
-tested on a single machine with simulated tools and simulated costs.
+**Every test can be registered before it runs.** A human researcher will not
+pre-register. An agent has no choice: the harness logs the test, reserves
+the budget and only then lets the work proceed. The count of hypotheses
+tried becomes a fact in a ledger. That is what makes a multiple-testing
+correction or a deflated Sharpe ratio arithmetic rather than a guess, and it
+is the single claim this project rests on.
 
-The most recent independent review of the code, the
-[first-cycle build audit](docs/audits/adversarial_first_cycle_build_audit_20261029.md),
-lists the defects that remain before a fuller runtime validation. The
-[build decision addendum](docs/decisions/first_research_cycle_build_approval_addendum_20261029.md)
-records what the Principal has authorized.
+**A strategy cannot inherit a track record.** A successor strategy starts
+with its own record. It cannot borrow a predecessor's history or obtain
+capital by being related to it. Agents can propose ideas and run authorized
+experiments, but cannot grant themselves money, authority or credibility.
 
-## What a run looks like
+Around those two rules sit the controls a coding harness would recognize:
 
-The example cycle asks one question of synthetic data: do larger volatility
-events warrant a narrower selling hypothesis? The hypothesis is deliberately
-trivial and the sample is tiny. The point of the run is the mechanics: a
-reservation before any spend, an independent recomputation, and a claim
-that fails its own diagnostic and is preserved rather than quietly dropped.
-The latest run tells this story.
+- **One accountable owner.** A single human, the Principal, sets mandates,
+  budgets, limits and the standards results are judged by. Nothing in the
+  system changes those without the Principal.
+- **Spend is reserved before work.** Every charge is recorded before the
+  work runs, so spending can never exceed what was approved.
+- **Independent checking.** A separate checker, funded from its own grant
+  and written in separate code, replays the committed record and recomputes
+  the acceptance criteria from the original inputs. It cannot check work
+  from its own lineage. A proposal that fails the check is kept as evidence.
+- **Decisions are recorded, then applied.** Proposed, checked, decided,
+  applied. Each step leaves a durable entry. Nothing skips a step.
+- **Failure is preserved.** Rejected ideas and negative results are kept as
+  part of what the firm has learned.
 
-1. First result: net selling follows 8 of 12 volatility-spike events,
-   including 2 of 2 large events.
-2. Limitation found: both large-event rows come from a single shock, so they
-   are one observation, not independent repetition.
-3. The researcher changes direction: it sets the large-event group aside and
-   examines the remaining events on their own.
-4. Control result: 6 of 10 show selling, below the two-thirds threshold. The
-   broad claim does not survive the diagnostic.
-5. Decision: the original claim and the negative result are both preserved.
-   Only the narrower, still unproven question is registered for future
-   testing.
-6. Next step: find genuinely independent shocks. That step is planned and
-   recorded, not executed.
+## How it was made
 
-The run cost 2.00 simulated research units for the two tool calls, 0.25 for
-the registration check and 4.00 for startup checking. A unit stands in for a
-metered tool or model call; nothing was billed. Both independent checker implementations
-verified the contrast. Fifty-one unit and component tests and six targeted
-integration scenarios passed. The run evidence is retained at
-[artifacts/development/adaptation-final/3887aa1acdab4e0cbe39be306f13e183/E01.json](artifacts/development/adaptation-final/3887aa1acdab4e0cbe39be306f13e183/E01.json).
+The design was written as documents, tested as documents, and built last.
 
-The output states the question, the evidence, the change of direction, the
-decision, the cost and the next action. It identifies the control as a
-same-cohort synthetic analysis rather than new market evidence.
+The rulebook, called the Constitution, went through twelve revisions. Each
+revision was reviewed by an independent auditor, and each repair was admitted
+or rejected in a dated decision record. Superseded revisions, rejected
+proposals and the auditor's findings are all retained. The
+[revision 10 audit](docs/audits/independent_preimplementation_design_audit_20261019.md)
+and the repairs it forced in
+[PD-010](docs/decisions/principal_decision_010_codex_audit_repairs.md) are
+a representative pair: what an independent review found, and what changed.
 
-## Try the example
+Only after the Constitution was admitted on 19 October 2026 was the code
+written, against the admitted text. The
+[first-cycle build audit](docs/audits/adversarial_first_cycle_build_audit_20261029.md)
+then recorded the defects that document-level review could not catch.
 
-From the repository root, with standard Python 3.12 and no extra packages:
+This is the same proposed, checked, decided, applied sequence the harness is
+meant to impose on research, applied to the design of the harness. It is
+also the Audit, Plan, Implement, Verify loop from the article, with the
+Constitutional Delta held at zero for ordinary changes and every non-zero
+delta admitted in a decision record. The
+[adoption record](docs/decisions/fin123_core_adoption_20261018.md) states
+exactly which parts of that discipline were taken over and which were not. The
+`docs/decisions/` and `docs/audits/` folders are the experiment's record,
+and the reason a reader can check whether the discipline caught anything.
+
+## What exists
+
+The prototype is written in Python with no dependencies beyond the standard
+library, and it runs entirely on synthetic data. It implements one bounded
+research cycle: startup, a reservation before any spend, one researcher
+forming a hypothesis from synthetic data, two independently written checkers
+recomputing the result, and a decision that is recorded before it is
+applied.
+
+The example run asks a deliberately trivial question of a tiny sample: do
+larger volatility events warrant a narrower selling hypothesis? The question
+itself does not matter, because what the run demonstrates is the sequence.
+
+1. A first result is registered and costed before it is computed.
+2. The researcher finds a limitation in its own result: the two large events
+   come from a single shock and are one observation, not two.
+3. It changes direction, sets the large-event group aside and tests the rest.
+4. The broad claim fails its own threshold.
+5. The original claim and the negative result are both preserved. Only the
+   narrower, still unproven question is registered for future testing.
+6. The next step is planned and recorded, not executed.
+
+Both checkers verified the contrast, and the costs were in simulated units
+with nothing billed. The run evidence is retained at
+[artifacts/development/adaptation-final/3887aa1acdab4e0cbe39be306f13e183/E01.json](artifacts/development/adaptation-final/3887aa1acdab4e0cbe39be306f13e183/E01.json),
+and [BUILD.md](BUILD.md) states test coverage and its limits.
+
+To run it, from the repository root with Python 3.12:
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 python3 -m acceptance.local --example
 ```
 
-This creates a disposable database, runs the startup sequence, lets one
-research agent form a hypothesis from synthetic data, has an independent
-checker review it, and records the result with simulated costs. See
-[BUILD.md](BUILD.md) for tests, retained run evidence and known limits.
+The harness is meant to sit under whatever orchestration a team already
+uses. LangGraph and MiroFish have been examined as candidates, and the
+[feasibility review](docs/audits/feasibility_coherence_public_library_20261029.md)
+lists the boundary points any framework would connect through, though none
+is attached yet. The first cycle uses an in-house researcher and synthetic tools
+so the boundaries are proven before a framework is.
 
-## Start here
+## Open questions
+
+These are where the idea is least settled, and where I want feedback.
+
+- **Coverage.** The hypothesis count is only honest if all research passes
+  through the harness. The moment a human picks which registered idea to
+  pursue based on unregistered side analysis, the count is corrupted again.
+  Is partial coverage worth anything, and how would a firm know how partial
+  it is?
+- **Judgment versus arithmetic.** The checker replays computation. Most of
+  what makes research good or bad happens before the computation: which
+  universe, which window, which definition of an event. The example run shows
+  this, when the researcher notices two events are one shock. A checker
+  cannot recompute that. What is the harness's answer to judgment errors?
+- **Lookahead.** The dominant practical failure in quantitative research is
+  a hypothesis formed after seeing the test window. Timestamped registration
+  helps only if data vintage is part of the record. Is that enough, and what
+  else is needed?
+- **One Principal.** The Constitution assumes authority flows from one
+  human. Real firms have committees, portfolio managers with their own books
+  and researchers who allocate their own time. Which parts of the design
+  survive without a single owner, and which do not?
+
+## Where to read
 
 | For | Read |
 | --- | --- |
-| The investment case, the architecture and the controls | [Architecture](architecture.md) |
-| Mandates, budgets, evidence standards and decision rights | [The Constitution](docs/doctrines/new_speedway_constitution.md), admitted by the [admission record](docs/decisions/cv1_admission_20261019.md). Its own status banner predates admission and is kept so the admitted text stays exact |
+| The design, end to end | [Architecture](architecture.md) |
+| The rules themselves | [The Constitution](docs/doctrines/new_speedway_constitution.md), admitted by the [admission record](docs/decisions/cv1_admission_20261019.md). Its own status banner predates admission and is kept so the admitted text stays exact |
+| How the rules were reviewed | [Review handoff](docs/audits/cv1_final_handoff_20261019.md), then the [revision 10 audit](docs/audits/independent_preimplementation_design_audit_20261019.md), [PD-010](docs/decisions/principal_decision_010_codex_audit_repairs.md), the [final review](docs/audits/cv1_final_independent_review_20261019.md), the [follow-up](docs/audits/cv1_revision12_bounded_followup_20261019.md) and the [closure review](docs/audits/cv1_revision12_closure_20261019.md) |
+| What was built, and its limits | [BUILD.md](BUILD.md), the [first-cycle plan](docs/plans/first_research_cycle_implementation_20261029.md) and the [build audit](docs/audits/adversarial_first_cycle_build_audit_20261029.md) |
 | How to run it | [Runbook](runbook.md) |
-| What was built and its coverage limits | [BUILD.md](BUILD.md) and the [first research-cycle plan](docs/plans/first_research_cycle_implementation_20261029.md) |
-| The prototype and startup sequence as designed | [Design plan](docs/plans/document_first_design.md), [PD-006](docs/decisions/principal_decision_006_replaceable_tools_and_first_prototype.md) and [PD-009](docs/decisions/principal_decision_009_genesis.md) |
-| The original proposal and figures | [Design proposal (.docx)](docs/reference/new_speedway_design_proposal_20261019.docx) and [text transcription](docs/reference/new_speedway_discussion_draft_20261017.md), retained as reference material |
-| Presentations for prospects | [Presentations](docs/presentations/README.md) |
-| Decision and review history | `docs/decisions/` and `docs/audits/`, including superseded proposals and prior findings |
-| Why some files still say "New Speedway" | [Rename record](docs/decisions/project_rename_20261029.md) |
-| Package contents | [Manifest](docs/package/cv1_review_package_manifest.md) |
-
-## Reading order for a reviewer
-
-Start with the architecture, then read the Constitution. The
-[review handoff](docs/audits/cv1_final_handoff_20261019.md) identifies the
-baseline and scope. The [revision 10 audit](docs/audits/independent_preimplementation_design_audit_20261019.md),
-[PD-010](docs/decisions/principal_decision_010_codex_audit_repairs.md),
-the [final review](docs/audits/cv1_final_independent_review_20261019.md),
-the [follow-up](docs/audits/cv1_revision12_bounded_followup_20261019.md) and
-the [closure review](docs/audits/cv1_revision12_closure_20261019.md) trace
-the findings, approved repairs and remaining work up to admission. The
-audits dated 29 October 2026 cover the build.
+| The method | [Document-first design plan](docs/plans/document_first_design.md) |
+| The original proposal | [Design proposal (.docx)](docs/reference/new_speedway_design_proposal_20261019.docx) and [text transcription](docs/reference/new_speedway_discussion_draft_20261017.md), kept as reference |
+| The argument as slides | [Presentations](docs/presentations/README.md) |
+| Why some files say "New Speedway" | [Rename record](docs/decisions/project_rename_20261029.md) |
+| Everything else | `docs/decisions/`, `docs/audits/` and the [package manifest](docs/package/cv1_review_package_manifest.md) |
 
 ## How the documents relate
 
-The Constitution governs. Decision records document the Principal's
-approvals. Audits provide evidence and authorize nothing. Plans set out
-proposed work. Reference material preserves the original discussion. This
-README and the architecture explain the design without changing its rules.
+The Constitution governs. Decision records document what the Principal
+approved. Audits are evidence and authorize nothing. Plans propose work.
+Reference material preserves the original discussion. This README and the
+architecture explain the design without changing its rules.
