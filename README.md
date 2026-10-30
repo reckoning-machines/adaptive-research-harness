@@ -4,9 +4,9 @@
 
 An idea I think is right, carried far enough to run.
 
-Coding agents now work inside harnesses. An agent gets a task, a budget, a
-test suite and a reviewer, and nothing it writes is merged until the review
-passes. In
+Coding agents use harnesses, why not research agents? A coding agent gets a
+task, a budget, a test suite and a reviewer, and nothing it writes is merged
+until the review passes. In
 [An Agentic Coding Proposal: Constitutional Coherence](https://reckoningmachines.substack.com/p/an-agentic-coding-proposal-constitutional)
 I argued that the harness is not enough. Tests check behavior, not intent,
 so an agent can pass every test while quietly adding a second source of
@@ -15,13 +15,14 @@ harness is a constitution, a statement of what exists, what it means and who
 may change it, with the expected change to each declared before any work
 begins and measured after.
 
-Investment research runs without either. Researchers are not pre-registered,
-their failed ideas are not kept, and nobody can say how many hypotheses a firm
-tried before it found the one it now trades. This repository asks what research
-would look like under the discipline that article proposed for code. It
-contains the constitution that would govern such a process, the record of how
-that constitution was written and reviewed, and a small working prototype that
-runs one research cycle under it on synthetic data.
+Investment research runs without either. A backtest checks a result, not a
+process. Researchers are not pre-registered, their failed ideas are not kept,
+and nobody can say how many hypotheses a firm tried before it found the one it
+now trades. This repository asks what research would look like under the
+discipline that article proposed for code. It contains the constitution that
+would govern such a process, the record of how that constitution was written
+and reviewed, and a small working prototype that runs one research cycle under
+it on synthetic data.
 
 I have put it up for feedback. The questions I most want answered are at
 the end.
