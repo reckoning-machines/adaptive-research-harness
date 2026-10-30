@@ -26,8 +26,11 @@ class Profile:
     def verify_files(self, root):
         root = Path(root).resolve()
         for entry in self.inventory['files']:
-            path = (root/entry['path']).resolve()
-            require(path.is_relative_to(root) and path.is_file(), 'ARTIFACT_UNREACHABLE')
+            if entry.get('root') == 'bundle':
+                base = self.bundle.resolve(); path = (base/Path(entry['path']).relative_to('bundle')).resolve()
+            else:
+                base = root; path = (root/entry['path']).resolve()
+            require(path.is_relative_to(base) and path.is_file(), 'ARTIFACT_UNREACHABLE')
             require(raw_digest(path.read_bytes()) == entry['sha256'], 'ARTIFACT_CHANGED', entry['path'])
 
     def development_permission(self, root, state):

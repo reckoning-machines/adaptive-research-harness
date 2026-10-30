@@ -47,7 +47,7 @@ def local_serve(path,handler,allowed):
 
 class LocalClient(Client):
     def __init__(self,config,actor):
-        super().__init__(Path(config['state'])/'core.sock',actor);self.token=config['tokens'][actor]
+        super().__init__(Path(config.get('sockets',config['state']))/'core.sock',actor);self.token=config['tokens'][actor]
     def call(self,op,payload=None,key=None):
         return request(self.path,{'actor':self.actor,'op':op,'payload':payload or {},'request_id':key or str(uuid.uuid4()),'token':self.token,'pid':os.getpid()})
 
@@ -69,7 +69,7 @@ def local_quiescence(path,inventory,core,worker):
 
 def worker(mode,config_path,label=None):
     global BUNDLE
-    config=decode(Path(config_path).read_bytes());BUNDLE=Path(config['bundle']);state=Path(config['state']);profile=Profile(BUNDLE)
+    config=decode(Path(config_path).read_bytes());BUNDLE=Path(config['bundle']);state=Path(config['state']);sockets=Path(config.get('sockets',config['state']));profile=Profile(BUNDLE)
     if mode=='core':
         from adaptive_research_harness.storage import Store
         from adaptive_research_harness.engine import Engine
@@ -83,7 +83,7 @@ def worker(mode,config_path,label=None):
         with LifetimeLock(state/'writer.lock'):
             store=Store(state/'harness.sqlite');engine=Engine(store,profile,Clock(),permission)
             faults=Faults(engine,state/'faults',lambda:process_generation(config));engine.fault_hook=faults.hit
-            dispatcher=Dispatcher(engine,{t:str(state/(l+'.sock')) for t,l in [('SYN-A-1','tool-a'),('SYN-B-1','tool-b')]},state/'supervisor',generation_value=process_generation(config),quiescence_verifier=local_quiescence)
+            dispatcher=Dispatcher(engine,{t:str(sockets/(l+'.sock')) for t,l in [('SYN-A-1','tool-a'),('SYN-B-1','tool-b')]},state/'supervisor',generation_value=process_generation(config),quiescence_verifier=local_quiescence)
             engine.dispatcher=dispatcher
             handler=core_handler(engine,dispatcher,faults,lambda pid:process_generation(config,pid))
             uids={v:k for k,v in profile.roles.items()}
@@ -91,10 +91,10 @@ def worker(mode,config_path,label=None):
                 token=b.pop('token',None);pid=b.pop('pid',None)
                 require(token is not None and secrets.compare_digest(token,config['tokens'].get(b.get('actor'),'')),'ACTOR_MISMATCH')
                 return handler({'uid':uids[b['actor']],'pid':pid},b)
-            local_serve(state/'core.sock',ingress,set())
+            local_serve(sockets/'core.sock',ingress,set())
     elif mode=='tool':
         from adaptive_research_harness.tool_worker import run_worker
-        run_worker({'tool-a':'SYN-A-1','tool-b':'SYN-B-1'}[label],state/(label+'.sock'),state/label,profile,serve_function=local_serve,generation_provider=lambda:process_generation(config))
+        run_worker({'tool-a':'SYN-A-1','tool-b':'SYN-B-1'}[label],sockets/(label+'.sock'),state/label,profile,serve_function=local_serve,generation_provider=lambda:process_generation(config))
     else:
         from adaptive_research_harness import actors
         data=decode(sys.stdin.buffer.read());client=LocalClient(config,label);op=data['op'];p=data.get('payload',{})
@@ -111,12 +111,12 @@ def worker(mode,config_path,label=None):
             elif op=='check':result=actors.check(client,p['transition_id'],hook)
             elif op=='choose-next-experiment':result=actors.choose_next_experiment(client,p['research_ref'])
             elif op=='run-next-experiment':result=actors.run_next_experiment(client,p['selection_ref'])
-            elif op=='research':result=actors.research(client,p.get('tool','SYN-A-1'),p.get('stop_after'))
+            elif op=='research':result=actors.research(client,p.get('tool','SYN-A-1'),p.get('stop_after'),p.get('cohort'))
             elif op=='complete-research':result=actors.complete_research(client,p['attempt'])
             elif op=='propose-mutated':result=actors.propose_mutated(client,**p)
             elif op=='propose-hypothesis':result=actors.propose_hypothesis(client,p['research_ref'],p.get('previous'))
             elif op=='propose-successor':result=actors.propose_successor(client,p['case'],p['ordinal'])
-            elif op=='observe':result=actors.observe(client,p.get('date','2026-10-28'),p.get('form','DOCUMENT'))
+            elif op=='observe':result=actors.observe(client,p.get('date','2026-10-28'),p.get('form','DOCUMENT'),p.get('cohort'))
             elif op=='settle-pending':result=actors.recover_settlement(client,p['attempt'])
             elif op=='retry-research':result=actors.retry_research(client,p['attempt'])
             elif op=='inspect-request':result=client.query(op,p)
@@ -221,6 +221,7 @@ class LocalRuntime(Runtime):
             with tempfile.TemporaryDirectory(prefix='arh-candidate-') as d:
                 root=Path(d)
                 for item in profile.inventory['files']:
+                    if item.get('root')=='bundle':continue
                     q=root/item['path'];q.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(ROOT/item['path'],q)
                 target=root/'adaptive_research_harness/checkers/a.py';target.write_bytes(target.read_bytes()+b'\n# deliberate candidate mutation\n')
                 try:profile.verify_files(root)

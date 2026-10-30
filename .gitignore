@@ -5,3 +5,6 @@
 __pycache__/
 *.pyc
 .DS_Store
+# Workbench session tokens exist only while a run is live
+artifacts/development/workbench/*/state/fixture.json
+artifacts/development/workbench/*/state/*.log

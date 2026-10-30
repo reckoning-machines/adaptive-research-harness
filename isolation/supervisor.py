@@ -141,6 +141,7 @@ class Supervisor:
                     root=Path(d)
                     installed=Path('/opt/adaptive-research-harness')
                     for item in self.profile.inventory['files']:
+                        if item.get('root')=='bundle':continue
                         dest=root/item['path'];dest.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(installed/item['path'],dest)
                     changed=root/'adaptive_research_harness/checkers/a.py';changed.write_bytes(changed.read_bytes()+b'\n# injected candidate alteration\n')
                     try:self.profile.verify_files(root)

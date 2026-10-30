@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research Workbench</title>
+<style>
+:root{--bg:#f6f7f8;--panel:#fff;--ink:#1b1f24;--muted:#5c6570;--line:#d9dee4;--accent:#1f5fa8;--ok:#1d7a4a;--warn:#9a5b00;--bad:#a3271f;--chip:#eef1f4}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181c;--panel:#1d2126;--ink:#e6e9ec;--muted:#9aa4ae;--line:#2e343b;--accent:#7fb0ea;--ok:#5fc08a;--warn:#e0a84a;--bad:#ea7b72;--chip:#262c33}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+header{display:flex;align-items:center;gap:14px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:2}
+header h1{font-size:16px;margin:0;font-weight:600}
+.chip{font-size:11.5px;color:var(--muted);background:var(--chip);border:1px solid var(--line);border-radius:12px;padding:2px 9px;white-space:nowrap}
+main{display:grid;grid-template-columns:300px 1fr;gap:16px;padding:16px;max-width:1500px;margin:0 auto}
+@media (max-width:900px){main{grid-template-columns:1fr}}
+section{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:0 0 10px;font-weight:600}
+h3{font-size:14px;margin:12px 0 6px}
+button{font:inherit;padding:6px 11px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff}button:disabled{opacity:.5;cursor:default}
+select{font:inherit;padding:6px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);width:100%}
+.muted{color:var(--muted)}.small{font-size:12px}.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+.runs{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;max-height:50vh;overflow:auto}
+.runs li{border:1px solid var(--line);border-radius:6px;padding:8px;cursor:pointer}.runs li.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.runs .row{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.badge{font-size:11px;padding:1px 7px;border-radius:10px;border:1px solid var(--line);color:var(--muted)}
+.badge.live{color:var(--ok);border-color:var(--ok)}.badge.ro{color:var(--warn);border-color:var(--warn)}.badge.done{color:var(--accent);border-color:var(--accent)}
+.stages{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}@media (max-width:1200px){.stages{grid-template-columns:repeat(2,1fr)}}
+.stage{border:1px solid var(--line);border-radius:8px;padding:10px;min-height:96px;cursor:pointer;background:var(--bg)}
+.stage.todo{opacity:.55;cursor:default}.stage.selected{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.stage .t{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;display:flex;justify-content:space-between}
+.stage .b{margin-top:6px}.stage .n{font-size:11.5px;color:var(--warn);margin-top:6px}
+.next{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0 14px;padding:10px;border:1px dashed var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:4px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--muted);font-weight:600;font-size:12px}
+tr.large td{font-weight:600}td.num,th.num{text-align:right}
+.two{display:grid;grid-template-columns:3fr 2fr;gap:16px}@media (max-width:1100px){.two{grid-template-columns:1fr}}
+details{border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin-top:10px;background:var(--panel)}summary{cursor:pointer;font-weight:600;font-size:13px}
+pre{background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px;overflow:auto;max-height:420px;font-size:12px}
+.callout{border-left:3px solid var(--warn);padding:6px 10px;margin:8px 0;background:var(--bg);font-size:13px}
+.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 12px;font-size:13px}.kv div:nth-child(odd){color:var(--muted)}
+#msg{color:var(--bad);font-size:13px;min-height:1.2em}
+a.ref{color:var(--accent);cursor:pointer;text-decoration:underline dotted}
+</style>
+</head>
+<body>
+<header>
+  <h1>Adaptive Research Harness workbench</h1>
+  <span class="chip" title="Every number is synthetic. The researcher is a fixed deterministic policy. The store is disposable. OS isolation is unverified. Charges are simulated units.">synthetic data &middot; deterministic researcher &middot; disposable store &middot; simulated units</span>
+  <span id="msg" style="margin-left:auto"></span>
+</header>
+<main>
+  <aside>
+    <section>
+      <h2>Start a run</h2>
+      <select id="cohort"></select>
+      <p id="cohortDesc" class="small muted"></p>
+      <button class="primary" id="start">Start run</button>
+      <h2 style="margin-top:18px">Runs</h2>
+      <ul class="runs" id="runs"></ul>
+      <p class="small muted" style="margin:10px 0 0">A run opens live when the current build matches the one that produced it, otherwise read-only.</p>
+    </section>
+  </aside>
+  <div id="content">
+    <section id="empty"><p class="muted">Start a run or open a retained one.</p></section>
+    <div id="run" style="display:none">
+      <section>
+        <div class="row" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline">
+          <div><strong id="runName"></strong> <span id="runMode" class="badge"></span> <span id="runStatus" class="badge"></span></div>
+          <div class="small muted" id="runMeta"></div>
+          <div><button id="closeRun">Close run</button></div>
+        </div>
+        <p class="small" id="cohortInfo"></p>
+      <div class="small" id="observations"></div>
+        <div class="next" id="next"></div>
+        <h2>Research sequence</h2>
+        <div class="stages" id="stages"></div>
+      </section>
+      <div class="two" style="margin-top:16px">
+        <section><h2>Evidence</h2><div id="evidence" class="small muted">Select a stage to see the record it rests on.</div></section>
+        <section><h2>Budget summary</h2><div id="budget"></div></section>
+      </div>
+      <details id="accounting"><summary>Detailed accounting: reservations, attempts, settlements</summary><div id="accountingBody"></div></details>
+      <details id="refusals"><summary>Refused actions</summary><div id="refusalsBody"></div></details>
+      <details id="reader"><summary>Independent reader (separate code, reconstructs the whole history)</summary><div id="readerBody"><button id="runReader">Run the reader</button></div></details>
+      <details id="raw"><summary>Raw records</summary><div style="margin:8px 0"><button data-l="E">Evidence ledger</button> <button data-l="T">Transitions ledger</button></div><div id="rawBody"></div></details>
+    </div>
+  </div>
+</main>
+<script>
+const $=s=>document.querySelector(s);const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let cohorts=[],runs=[],current=null,view=null,selected=null,timer=null;
+async function api(path,opts){const r=await fetch('/api'+path,Object.assign({headers:{'Content-Type':'application/json'}},opts||{}));const j=await r.json();if(!r.ok){throw Object.assign(new Error(j.error||r.status),{detail:j.detail,status:r.status});}return j;}
+function msg(t){$('#msg').textContent=t||'';}
+async function loadCohorts(){cohorts=(await api('/cohorts')).cohorts;const sel=$('#cohort');sel.innerHTML=cohorts.map(c=>`<option value="${c.name}">${c.name}</option>`).join('');describeCohort();}
+function describeCohort(){const c=cohorts.find(x=>x.name===$('#cohort').value);if(!c)return;$('#cohortDesc').innerHTML=`${esc(c.description)}<br><span class="mono">${c.spike_rows} spike rows, ${c.large_rows} large (shocks ${c.large_shocks.join(', ')}), ${c.selling_rows} with selling; non-large ${c.non_large_selling}/${c.non_large_rows}</span>`;}
+async function loadRuns(){runs=(await api('/runs')).runs;const ul=$('#runs');ul.innerHTML=runs.slice().reverse().map(r=>{const mode=r.open?(r.mode==='live'?'<span class="badge live">live</span>':'<span class="badge ro">read-only</span>'):(r.live_eligible?'':'<span class="badge ro">old build</span>');const prog=r.status==='starting'?'<span class="badge">starting</span>':r.status==='failed'?'<span class="badge bad">failed</span>':r.progress==='complete'?'<span class="badge done">complete</span>':'<span class="badge warn">in progress</span>';return `<li data-run="${r.run}" class="${current===r.run?'active':''}"><div class="row"><span class="mono">${esc(r.run)}</span>${prog}</div><div class="row small muted"><span>${esc(r.cohort)}</span><span>${mode}</span></div></li>`;}).join('')||'<li class="muted small" style="cursor:default">No runs yet.</li>';}
+async function openRun(name){msg('');try{history.replaceState(null,'','#run='+encodeURIComponent(name));const r=runs.find(x=>x.run===name);if(r&&r.status==='starting'){current=name;view={run:name,status:'starting'};render();poll();return;}view=await api(`/runs/${name}/open`,{method:'POST'});current=name;selected=null;render();await loadRuns();}catch(e){msg(`${e.message}${e.detail?': '+e.detail:''}`);}}
+async function refresh(){if(!current)return;try{view=await api(`/runs/${current}`);render();}catch(e){msg(e.message);}}
+function poll(){clearTimeout(timer);if(view&&view.status==='starting'){timer=setTimeout(async()=>{await refresh();await loadRuns();poll();},1500);}}
+function stageCard(s){const cls=s.done?'':'todo';const sel=selected&&s.ref&&selected.ledger===s.ref.ledger&&selected.sequence===s.ref.sequence?'selected':'';let note='';if(s.key==='control'&&s.done&&s.nature)note=`<div class="n">${esc(s.nature)}</div>`;return `<div class="stage ${cls} ${sel}" data-key="${s.key}"><div class="t"><span>${esc(s.title)}</span>${s.ref?`<span class="mono">${s.ref.ledger}${s.ref.sequence}</span>`:''}</div><div class="b">${s.done?esc(s.text||''):'<span class="muted">not yet</span>'}</div>${note}</div>`;}
+function render(){$('#empty').style.display='none';$('#run').style.display='';$('#runName').textContent=view.run;
+ if(view.status==='starting'){$('#runMode').textContent='starting';$('#runMode').className='badge';$('#runStatus').textContent='';$('#runMeta').textContent='freezing the bundle, starting core and tools, running the ten-design startup';$('#stages').innerHTML='';$('#next').innerHTML='<span class="muted">Starting. This takes a few seconds.</span>';$('#budget').innerHTML='';$('#cohortInfo').textContent='';return;}
+ if(view.status==='failed'){$('#runMode').textContent='failed';$('#runMode').className='badge bad';$('#next').innerHTML=`<span class="bad">${esc(view.error||'start failed')}</span>`;return;}
+ $('#runMode').textContent=view.mode;$('#runMode').className='badge '+(view.mode==='live'?'live':'ro');$('#runStatus').textContent=view.status==='complete'?'complete':'in progress';$('#runStatus').className='badge '+(view.status==='complete'?'done':'warn');
+ $('#runMeta').innerHTML=`cohort <b>${esc(view.cohort)}</b> &middot; N=${view.state?.N??'?'} &middot; E=${view.counts.E} T=${view.counts.T} &middot; build <span class="mono">${(view.inventory_sha256||'').slice(0,12)}</span>`;
+ const ci=view.cohort_info||{};$('#cohortInfo').innerHTML=`${esc(ci.description||'')} ${ci.differs_from_formation?`<span class="muted">Differs from the admitted cohort: <span class="mono">${esc(JSON.stringify(ci.differs_from_formation))}</span>.</span>`:'<span class="muted">The admitted cohort, unchanged.</span>'}<span class="muted">Cohort content <span class="mono">${esc((ci.content_sha256||'').slice(0,12))}</span>.</span>${view.mode==='read-only'?`<div class="callout">Read-only. This run was retained under a different build (${esc(view.read_only_reason||'')}). Its history can be inspected; nothing can be continued.</div>`:''}`;
+ $('#observations').innerHTML=(view.observations||[]).length?`<span class="muted">Observations on the ledger:</span> ${view.observations.map(o=>`<span title="${esc(o.standing)}"><a class="ref" data-ref="E:${o.seq}">E${o.seq}</a> ${esc(o.item_id)} <span class="mono">${o.content_sha256.slice(0,12)}</span>${o.variant?` <span class="badge warn">variant ${esc(o.variant)}</span>`:' <span class="badge">admitted formation</span>'}${o.used_by_research?' <span class="badge done">used by this run</span>':''}</span>`).join(' &middot; ')}${view.observations.some(o=>o.variant)?'<div class="muted">A variant is a second Observation of the same synthetic item with different bytes. It does not corroborate the admitted cohort and does not replace it.</div>':''}`:'';
+ const n=view.next;const nx=$('#next');
+ if(view.mode!=='live')nx.innerHTML=n?`<span class="muted">Next permitted step would be <b>${esc(n.op)}</b>, unavailable in read-only mode.</span>`:'<span class="muted">Complete. Nothing further is permitted for this run.</span>';
+ else if(!n)nx.innerHTML='<span class="muted">Complete. The next action the researcher recorded, seeking a new independent cohort, is planned and not executable here.</span>';
+ else nx.innerHTML=`<button class="primary" id="doStep">${esc(n.label)}</button><span class="small muted">performed by <b>${esc(n.actor==='r01'?'researcher AD-R1.0':n.actor==='ck1'?'Checker AD-CK-1.0':'Principal')}</b> as <span class="mono">${esc(n.op)}</span>. ${esc(n.why)} The core checks permission and state when it runs.</span>`;
+ $('#stages').innerHTML=view.stages.map(stageCard).join('');
+ renderBudget();renderAccounting();renderRefusals();
+ if(selected)showRecord(selected);
+}
+function renderBudget(){const c=view.controls;const b=c.budgets;const spent=c.settled_hundredths_by_grant||{};const names={'AU-RP-1':'Research grant (researcher)','AU-CK-A':'Checker A grant','AU-CK-B':'Checker B grant','AU-OBS-1':'Observation grant'};let rows='';const grants=b?Object.keys(b):Object.keys(spent);for(const g of grants.sort()){const x=b?b[g]:null;if(x&&x.error)continue;rows+=`<tr><td>${esc(names[g]||g)}<br><span class="mono muted">${g}</span></td><td class="num">${x?esc(x.committed):'-'}</td><td class="num">${x?esc(x.reserved):'-'}</td><td class="num">${((spent[g]||0)/100).toFixed(2)}</td><td class="num">${x?esc(x.headroom):'-'}</td></tr>`;}
+ $('#budget').innerHTML=`<table><tr><th>Grant</th><th class="num">Committed</th><th class="num">Reserved</th><th class="num">Settled</th><th class="num">Headroom</th></tr>${rows}</table><p class="small muted">Simulated research units. Committed counts settled actuals plus pending maxima. Reserved is the budget held before any work ran.${b?'':' Live budget projections need a live core; settled totals come from the records.'}</p>${c.pending_attempts.length?`<div class="callout">Pending attempts (reserved, not settled): ${c.pending_attempts.join(', ')}</div>`:''}`;}
+function renderAccounting(){const rows=view.controls.rows;$('#accountingBody').innerHTML=`<table><tr><th>E</th><th>Kind</th><th>Actor</th><th>Grant</th><th>Detail</th><th class="num">Units</th></tr>${rows.map(r=>{let d='',u='';if(r.kind==='RESERVATION'){d=`purpose ${esc(r.purpose.kind)} ${esc(r.purpose.id)}${r.closed?' (closed)':''}`;u=r.amount;}else if(r.kind==='ATTEMPT'){d=`${esc(r.step)} with ${esc(r.tool)} on reservation E${r.reservation}; ${r.settled!=null?`settled ${r.settled} (${esc(r.provenance)})`:'<span class="warn">pending</span>'}`;u=`max ${r.maximum}`;}else if(r.kind==='SETTLEMENT'){d=`attempt E${r.attempt}, provenance ${esc(r.provenance)}`;u=r.actual;}else d=`<span class="mono">${esc(JSON.stringify(r.body)).slice(0,160)}</span>`;return `<tr><td><a class="ref" data-ref="E:${r.seq}">E${r.seq}</a></td><td>${r.kind}</td><td>${esc(r.actor)}</td><td class="mono">${esc(r.grant||'')}</td><td>${d}</td><td class="num">${esc(u)}</td></tr>`;}).join('')}</table>`;}
+function renderRefusals(){const r=view.controls.refusals;$('#refusals').querySelector('summary').textContent=`Refused actions (${r.length})`;$('#refusalsBody').innerHTML=r.length?`<table><tr><th>Ref</th><th>Actor</th><th>Operation</th><th>Reason</th><th>Detail</th></tr>${r.map(x=>`<tr><td><a class="ref" data-ref="${x.ledger}:${x.seq}">${x.ledger}${x.seq}</a></td><td>${esc(x.actor)}</td><td class="mono">${esc(x.op)}</td><td class="mono bad">${esc(x.reason)}</td><td class="small">${esc(x.detail||'')}</td></tr>`).join('')}</table>`:'<p class="small muted">No refusals recorded in this run. A refused action would appear here with the core\'s reason, and stays on the ledger.</p>';}
+async function showRecord(ref){selected=ref;if(current)history.replaceState(null,'',`#run=${encodeURIComponent(current)}&ref=${ref.ledger}:${ref.sequence}`);try{const e=await api(`/runs/${current}/record/${ref.ledger}/${ref.sequence}`);$('#evidence').innerHTML=renderRecord(e);document.querySelectorAll('.stage').forEach(el=>el.classList.toggle('selected',!!(view.stages.find(s=>s.key===el.dataset.key)?.ref?.sequence===ref.sequence&&view.stages.find(s=>s.key===el.dataset.key)?.ref?.ledger===ref.ledger)));}catch(e){msg(e.message);}}
+function kv(obj){return `<div class="kv">${Object.entries(obj).map(([k,v])=>`<div>${esc(k)}</div><div>${v}</div>`).join('')}</div>`;}
+function refLink(r){return r&&r.ledger?`<a class="ref" data-ref="${r.ledger}:${r.sequence}">${r.ledger}${r.sequence}</a>`:esc(JSON.stringify(r));}
+function renderRecord(e){const b=e.body;const head=`<div class="small muted mono">${e.kind} ${e.ledger||''}${e.seq} by ${esc(e.actor)} &middot; sha ${e.sha256.slice(0,12)}</div>`;let body='';
+ if(e.kind==='OBSERVATION'&&b.form==='DOCUMENT'){const rows=b.document.rows;const vr=b.document.variant;body=`<h3>Declared synthetic cohort ${esc(b.item_id)}${vr?` <span class="badge warn">variant ${esc(vr.name)}</span>`:' <span class="badge">admitted formation</span>'}</h3><p class="small muted">Source ${esc(b.source)}, period ${esc(b.period.start.slice(0,10))}. ${rows.length} rows. Large events (size 2 or more) in bold. No market data.</p>${vr?`<div class="callout">${esc(vr.standing)}<br><span class="mono">edits ${esc(JSON.stringify(vr.edits))} &middot; formation content ${esc(vr.of_content_sha256.slice(0,12))}</span></div>`:''}<table><tr><th>Event</th><th>Shock</th><th class="num">Size</th><th>Spike</th><th>Selling</th></tr>${rows.map(r=>`<tr class="${r.spike&&r.size_units>=2?'large':''}"><td class="mono">${esc(r.event_id)}</td><td class="mono">${esc(r.shock_id)}</td><td class="num">${r.size_units}</td><td>${r.spike?'yes':'no'}</td><td>${r.selling?'yes':'no'}</td></tr>`).join('')}</table>`;}
+ else if(e.kind==='RESEARCH_RECORD'){const r=b.result||{};const a=r.adaptation;body=`<h3>${esc(b.question)}</h3>`;if(b.failure)body+=`<div class="callout bad">Failure recorded: ${esc(b.failure)}</div>`;
+  if('n' in r)body+=kv({'spike rows':r.n,'with selling':r.k,'large-event rows':r.n_large,'large with selling':r.k_large,'tool':`<span class="mono">${esc(b.tool.id)}</span>`,'input':`${(b.closure.refs||[]).map(refLink).join(' ')}`,'classification':esc(b.reproducibility?.classification||'')});
+  if(b.kind==='SELECTION'&&a){body+=`<h3>Diagnostic</h3><p>${esc(a.reason)}</p>${a.initial_failure?`<p class="warn">${esc(a.initial_failure)}</p>`:''}<p>Original claim under test: <i>${esc(a.original_claim)}</i></p><h3>Candidates considered</h3><table><tr><th>Candidate</th><th class="num">Cost estimate</th><th>Disposition</th></tr>${a.candidates.map(c=>{const rej=(a.rejections||[]).find(x=>x.id===c.id);return `<tr><td class="mono">${esc(c.id)}</td><td class="num">${esc(c.cost_estimate_units)}</td><td>${rej?`<span class="muted">rejected: ${esc(rej.reason)}</span>`:'<b class="ok">chosen</b>'}</td></tr>`;}).join('')}</table><p class="small muted">Method ${esc(a.method)}. ${esc(a.revisit_rule||'')}</p><p class="small muted">The researcher is a fixed policy: this choice is a rule applied to the counts and shock identifiers above, not a judgment.</p>`;}
+  else if(a){const contrast=a.id==='complement-control';body+=`<h3>${contrast?'Within-cohort control':'Reproduction with tool B'}</h3>${kv({'rule':`<span class="mono">${esc(a.rule)}</span>`,'comparison':`${a.comparison_k} of ${a.comparison_n}`,'outcome':a.passes?'<b class="ok">meets the diagnostic</b>':'<b class="bad">falls short of the diagnostic</b>','reason':esc(a.reason),'research failure':a.research_failure?`<span class="warn">${esc(a.research_failure)}</span>`:'none recorded','next action (recorded, not executed)':esc(a.next_action),'selection':refLink(a.selection_ref),'prior result':refLink(a.prior_research)})}<div class="callout">${contrast?'Descriptive diagnostic. The two-thirds comparison is the rule the researcher committed to; it is not a statistical test and the rows are the same synthetic cohort.':'Independent calculation, not independent evidence. Tool B recomputed the counts from the same rows. It verifies the arithmetic and supplies no new observation.'}</div>`;}
+ }
+ else if(e.kind==='CHECK'){const c=b.criteria;body=`<h3>Check of ${esc(e.transition_id)}: <span class="${b.result==='PASS'?'ok':'bad'}">${b.result}</span></h3><p class="small muted">Checker ${esc(e.actor)} on grant ${esc(b.grant)}, attempt E${b.attempt}, base N=${b.base}. The Check admits a registration; it is not scientific support.</p><table><tr><th>Criterion</th><th>Status</th><th>Basis</th></tr>${Object.entries(c).map(([k,v])=>`<tr><td class="mono">${esc(k)}</td><td class="${v.status==='MET'?'ok':'bad'}">${esc(v.status)}</td><td class="small">${esc(v.reason)}</td></tr>`).join('')}</table>`;}
+ else if(e.kind==='APPLIED'){body=`<h3>Applied: ${esc(e.transition_id)} at N=${b.n}</h3>${kv({'decision':`T${b.decision}`,'binding consumed':b.bind?`E${b.bind}`:'none (Principal act)','evaluation standard':esc(b.es||'')})}`;}
+ else if(e.kind==='DECISION'){body=`<h3>Decision: ${esc(b.decision)} by ${esc(b.decider)}</h3>${kv({'check':`T${b.check}`,'transition':esc(e.transition_id)})}`;}
+ else if(e.kind==='PROPOSED'){const c=b.content||{};body=`<h3>Proposal ${esc(e.transition_id)} (${esc(b.class)})</h3>${kv({'subject':esc(b.subject),'budget':esc(b.budget),'grant':esc(b.grant),'funding':b.funding_ref?`E${b.funding_ref}`:'none','statement':esc(c.statement||'')})}`;}
+ else if(e.kind==='ATTEMPT'){body=`<h3>Attempt: ${esc(b.step)} with ${esc(b.input.tool_id)}</h3>${kv({'reservation':`E${b.reservation}`,'maximum':esc(b.maximum),'status at commit':esc(b.status),'input':(b.input.input_refs||[]).map(refLink).join(' ')})}<p class="small muted">Recorded before dispatch. Its charge was reserved first; the settlement follows.</p>`;}
+ else if(e.kind==='REFUSAL'){body=`<h3 class="bad">Refused: ${esc(b.reason)}</h3>${kv({'operation':esc(b.op),'detail':esc(b.detail||''),'request':`<span class="mono">${esc(JSON.stringify(b.request)).slice(0,300)}</span>`})}`;}
+ else body='';
+ return head+body+`<details><summary>Raw record</summary><pre>${esc(JSON.stringify(e,null,1))}</pre></details>`;}
+async function showRaw(l){try{const r=await api(`/runs/${current}/records/${l}`);$('#rawBody').innerHTML=`<table><tr><th>Seq</th><th>Kind</th><th>Actor</th>${l==='T'?'<th>Transition</th>':''}<th>Body</th></tr>${r.records.map(e=>`<tr><td><a class="ref" data-ref="${l}:${e.seq}">${l}${e.seq}</a></td><td>${e.kind}</td><td>${esc(e.actor)}</td>${l==='T'?`<td class="mono">${esc(e.transition_id)}</td>`:''}<td class="mono small">${esc(JSON.stringify(e.body)).slice(0,140)}</td></tr>`).join('')}</table>`;}catch(e){msg(e.message);}}
+document.addEventListener('click',async ev=>{const t=ev.target.closest('[data-run],[data-key],[data-ref],#doStep,#closeRun,#start,#runReader,[data-l]');if(!t)return;
+ if(t.id==='start'){msg('');try{const r=await api('/runs',{method:'POST',body:JSON.stringify({cohort:$('#cohort').value})});await loadRuns();await openRun(r.run);}catch(e){msg(e.message);}return;}
+ if(t.dataset.run){await openRun(t.dataset.run);return;}
+ if(t.dataset.key){const s=view.stages.find(x=>x.key===t.dataset.key);if(s&&s.ref)showRecord(s.ref);return;}
+ if(t.dataset.ref){const [l,seq]=t.dataset.ref.split(':');showRecord({ledger:l,sequence:+seq});return;}
+ if(t.id==='doStep'){t.disabled=true;msg('');try{const r=await api(`/runs/${current}/step`,{method:'POST',body:JSON.stringify({op:view.next.op})});const st=r.result&&r.result.status;if(st==='REFUSED'||st==='ERROR')msg(`${r.performed.op}: ${st} ${r.result.reason||''} ${r.result.detail||''}`);await refresh();await loadRuns();const done=view.stages.filter(s=>s.done).slice(-1)[0];if(done&&done.ref)showRecord(done.ref);}catch(e){msg(`${e.message}${e.detail?': '+e.detail:''}`);}return;}
+ if(t.id==='closeRun'){try{await api(`/runs/${current}/close`,{method:'POST'});current=null;view=null;$('#run').style.display='none';$('#empty').style.display='';await loadRuns();}catch(e){msg(e.message);}return;}
+ if(t.id==='runReader'){t.disabled=true;try{const r=await api(`/runs/${current}/reader`);$('#readerBody').innerHTML=`<p>${r.status==='RECONSTRUCTED'?'<b class="ok">RECONSTRUCTED</b>':`<b class="bad">${esc(r.status)}</b>`} &middot; N=${r.N} E=${r.E} &middot; pending attempts ${(r.pending_attempts||[]).length} &middot; preserved refusals ${r.preserved_refusals} &middot; forward standing ${r.synthetic_forward_standing}</p><p class="small muted">${esc(r.next_operation||r.reason||'')}</p><pre>${esc(JSON.stringify(r,null,1))}</pre>`;}catch(e){$('#readerBody').innerHTML=`<p class="bad">${esc(e.message)} ${esc(e.detail||'')}</p>`;}return;}
+ if(t.dataset.l){showRaw(t.dataset.l);return;}
+});
+$('#cohort').addEventListener('change',describeCohort);
+function hashState(){const h=new URLSearchParams(location.hash.slice(1));return {run:h.get('run'),ref:h.get('ref')};}
+(async()=>{await loadCohorts();await loadRuns();const h=hashState();if(h.run){await openRun(h.run);if(h.ref&&view&&view.stages){const [l,seq]=h.ref.split(':');await showRecord({ledger:l,sequence:+seq});}}})();
+</script>
+</body>
+</html>

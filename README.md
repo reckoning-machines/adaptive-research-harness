@@ -139,6 +139,22 @@ Run it from the repository root with Python 3.12.
 PYTHONDONTWRITEBYTECODE=1 python3 -m acceptance.local --example
 ```
 
+A local workbench shows the same cycle on one page. It starts a run on one
+of three synthetic cohorts, shows each stage with the record it rests on,
+the rows and counts, the researcher's recorded reasons, and the budget per
+grant. The original cohort sends the researcher to a within-cohort control
+that falls short of its diagnostic. A cohort with independent large shocks
+sends it to reproduce the counts with tool B instead, which the page labels
+an independent calculation and not independent evidence. A third cohort
+survives its control. A run closed after the diagnostic reopens and
+continues from the next permitted step without repeating work or charges.
+The workbench uses only the standard library and binds to the local
+machine.
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 -m workbench --port 8765
+```
+
 The harness is meant to sit under whatever orchestration a team already uses.
 LangGraph and MiroFish have been examined as candidates, and the [feasibility
 review](docs/audits/feasibility_coherence_public_library_20261029.md) lists the

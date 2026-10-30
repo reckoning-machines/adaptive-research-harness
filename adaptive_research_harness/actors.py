@@ -21,20 +21,36 @@ def settle(client,attempt,receipt):
         'unit':'simulated_research_units','provenance':{'kind':'TOOL_RECEIPT','receipt':receipt}})
 
 
-def formation(client,profile):
+def cohort_content(profile,cohort=None):
+    """Declared synthetic cohort bytes from the frozen bundle; None means the formation cohort."""
+    if cohort is None:return profile['artifacts']['formation_cohort']['content']
+    variants=profile['artifacts'].get('variant_cohorts') or {}
+    require(cohort in variants,'UNKNOWN_COHORT',str(cohort))
+    return variants[cohort]['content']
+
+
+def cohort_name(profile,document):
+    """Catalog name whose bytes equal this document, or None for an uncatalogued document."""
+    h=digest(document)
+    for name,v in (profile['artifacts'].get('variant_cohorts') or {}).items():
+        if v['content_sha256']==h:return name
+    return None
+
+
+def formation(client,profile,cohort=None):
     closure=client.query('closure')
-    expected=profile['artifacts']['formation_cohort']['content_sha256']
+    expected=digest(cohort_content(profile,cohort))
     docs=[e for e in closure['evidence'] if e['kind']=='OBSERVATION' and e['body']['form']=='DOCUMENT'
           and digest(e['body']['document'])==expected]
-    require(bool(docs),'FORMATION_MISSING')
+    require(bool(docs),'FORMATION_MISSING' if cohort is None else 'COHORT_NOT_OBSERVED',str(cohort))
     return min(docs,key=lambda e:e['seq'])
 
 
-def research(client,tool='SYN-A-1',stop_after=None):
+def research(client,tool='SYN-A-1',stop_after=None,cohort=None):
     profile=client.query('profile');design=next(d['content'] for d in profile['artifacts']['designs'] if d['content']['AgentDesignVersionId']==client.actor)
     require(design['ordinary_cycle_enabled'] is True,'CAPABILITY_UNSUPPORTED','Dormant profile has no ordinary research loop')
     require(tool in design['tool_specs'],'TOOL_NOT_PERMITTED')
-    doc=formation(client,profile);ref=event_ref(doc)
+    doc=formation(client,profile,cohort);ref=event_ref(doc)
     reservation=client.committed('reserve',{'grant':'AU-RP-1','amount':'3.00' if tool=='SYN-A-1' else '1.00','purpose':{'kind':'Theme','id':'TH-G1'}})['refs'][0]
     step='research-counts' if tool=='SYN-A-1' else 'replacement-counts'
     data=invocation(profile,tool,step,[ref],{'threshold':2})
@@ -135,11 +151,11 @@ def check(client,transition_id,hook=lambda point:None):
     return {'check':result,'settlement':settlement,'computed_result':candidate['result'] if candidate else None,'attempt':a}
 
 
-def observe(client,date='2026-10-28',form='DOCUMENT'):
+def observe(client,date='2026-10-28',form='DOCUMENT',cohort=None):
     require(client.actor=='Observation function','UNAUTHORIZED')
     profile=client.query('profile');source=next(s for g in profile['setup']['grants'] if g['content']['AuthorizationId']=='AU-OBS-1'
         for s in g['content']['source_declarations'] if s['content']['SourceId']=='SRC-SYN')
-    doc=deepcopy(profile['artifacts']['formation_cohort']['content'])
+    doc=deepcopy(cohort_content(profile,cohort))
     start=datetime.strptime(date,'%Y-%m-%d');end=start+timedelta(days=1)
     doc.update(item_id='cohort-'+date,period_start=start.strftime('%Y-%m-%dT00:00:00.000Z'),
                period_end=end.strftime('%Y-%m-%dT00:00:00.000Z'),claimed_publication_time=end.strftime('%Y-%m-%dT00:00:00.000Z'))
@@ -282,7 +298,7 @@ def run_next_experiment(client,selection_ref):
     require(next_experiment(prior['body']['result'],doc)['id']==plan['id'],'INVALID_SELECTION')
     # The authorized tool returns the sufficient count statistics. The researcher
     # performs the selected complement contrast; it does not alter source bytes.
-    work=research(client,'SYN-B-1');require(not work['failure'],'NO_POSITIVE_RESEARCH')
+    work=research(client,'SYN-B-1',cohort=cohort_name(client.query('profile'),doc));require(not work['failure'],'NO_POSITIVE_RESEARCH')
     measured_ref=work['record']['refs'][0];measured=client.query('get',{'ref':measured_ref})
     counts=measured['body']['result'];n=counts['n']-counts['n_large'];k=counts['k']-counts['k_large']
     contrast=plan['id']=='complement-control'
@@ -291,7 +307,7 @@ def run_next_experiment(client,selection_ref):
       'proposing_transition':plan['proposing_transitions'][0],
       'comparison_n':n if contrast else counts['n'],'comparison_k':k if contrast else counts['k'],
       'rule':'3*k >= 2*n on non-large spikes' if contrast else 'exact count reproduction',
-      'passes':passes,'reason':f"{k} of {n} non-large spike rows show selling; {'meets' if passes else 'falls below'} the two-thirds comparison." if contrast else 'Independent count reproduction completed.',
+      'passes':passes,'reason':f"{k} of {n} non-large spike rows show selling; {'meets' if passes else 'falls below'} the two-thirds comparison." if contrast else 'Tool B reproduced the counts from the same rows. This verifies the calculation; it adds no independent observation.',
       'research_failure':'The broad claim fails this within-cohort control.' if contrast and not passes else None,
       'next_action':'Keep only the narrower large-event question as an unproven hypothesis; seek new independent shocks before generalizing.' if contrast and not passes else 'Seek a new independent cohort before any stronger conclusion.'})
     ref=_derived_research(client,measured,plan['question'],result,[doc_ref,prior_ref,selection_ref,measured_ref],

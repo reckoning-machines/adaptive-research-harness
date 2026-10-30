@@ -83,6 +83,60 @@ installation templates remain unexecuted. They require a dedicated disposable
 Ubuntu/ext4 host, not a production machine. No exact-digest approval is required
 for these authorized disposable development runs.
 
+## Local research workbench
+
+Authorized by the [workbench authorization](docs/decisions/workbench_authorization_20261030.md)
+and planned in the [workbench plan](docs/plans/local_research_workbench_20261030.md).
+From the repository root:
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 -m workbench --port 8765
+```
+
+Open `http://127.0.0.1:8765/`. The server binds to loopback only and uses
+nothing outside the standard library. `python3 -m workbench --demo` runs the
+same cycle headless: three cohorts, an interrupted run resumed, a copy under
+a differing build opened read-only.
+
+The page starts a run on one of three declared synthetic cohorts in
+`workbench/cohorts.json`, shows the research sequence as eight stages linked
+to the ledger records they rest on, renders the rows, counts, the
+researcher's recorded reasons and candidates, the budget per grant, and puts
+accounting, refusals, the independent reader and raw records behind
+expandable sections. Starting a run freezes a bundle, starts core and tool
+workers as processes and runs the ten-design startup, exactly as
+`acceptance.local` does. Every step is one existing actor operation or
+Principal command; the page's list of next steps is derived from the ledgers
+and is a convenience. The core enforces permission and current state when a
+step executes, and refusals stay on the ledger.
+
+Variant cohorts are second Observations of the same `SRC-SYN` item
+`cohort-2026-10-28` with different rows, which the source declaration
+already classes as new Observations. `independent-shocks` sends the
+researcher down its reproduction branch: tool B recomputes the same rows,
+which the page labels an independent calculation and not independent
+evidence. `control-survives` meets the two-thirds diagnostic, shown as the
+researcher's rule rather than a statistical test.
+
+A bundle's `inventory.json` names the source bytes only, and its digest is
+the build identity; working-tree status and the build environment sit beside
+it in `build_metadata.json`, outside the digest, so identical source yields
+one identity. Each variant document carries its own name, its edits and the
+formation content hash, and states that it is neither corroboration of the
+admitted cohort nor a replacement of it.
+
+State is retained in place under `artifacts/development/workbench/<run>/`.
+A run reopens live when every file in its bundle inventory matches the
+current tree, so an interrupted run continues from the next permitted step
+without repeating computation, charges or admission. After any covered
+source change, earlier runs open read-only from SQLite with the reader's
+reconstruction and nothing can be continued. Limits: the workbench process
+holds every actor token, as the acceptance fixture does, and makes no OS
+isolation claim; `fixture.json` holds the session tokens while a run is live
+and is removed on close, so a crashed server leaves it behind until the run
+is reopened or closed; quiescence proofs on resume rest on recorded process
+ids no longer running, which is fixture evidence, not host evidence.
+
 No real spending, providers, trading, Paper Book, framework adapters, public
 release or license selection is included. Arbitrary scientific prose and a
 general-purpose constitution interpreter remain outside capability.

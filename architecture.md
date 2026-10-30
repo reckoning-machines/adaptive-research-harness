@@ -281,3 +281,25 @@ The [first-cycle build audit](docs/audits/adversarial_first_cycle_build_audit_20
 lists the defects still open. Linux UID, socket, file and cgroup
 enforcement is templated under `isolation/` and has not been exercised on
 the intended host.
+
+## 10. The local workbench
+
+The [workbench authorization](docs/decisions/workbench_authorization_20261030.md)
+admitted a local page over the first cycle, planned in the
+[workbench plan](docs/plans/local_research_workbench_20261030.md) after the
+[readiness audit](docs/audits/workbench_readiness_audit_20261030.md). It
+adds a view and a session; it adds no record kind, query, grant, Transition
+class, Checker, tool or Rule.
+
+| Element | As built |
+| --- | --- |
+| Session | The acceptance fixture kept alive. Core, tool workers and actor programs run as separate processes; state is retained in place under `artifacts/development/workbench/<run>/`. The session derives the one permitted next operation from the ledgers and performs it through an existing actor operation or Principal command. The core enforces permission and current state when it runs |
+| Reopen | A retained run reopens live when every file in its bundle inventory matches the current tree, and continues from the next permitted step without repeating computation, charges or admission. Under a differing build it opens read-only from SQLite, with the independent reader's reconstruction, and nothing can be continued |
+| Cohorts | Three declared synthetic cohorts in `workbench/cohorts.json`, carried into each bundle as artifacts with content hashes. The original equals the admitted formation cohort. A variant is a second Observation of the same `SRC-SYN` item with different bytes; the document carries its name, its edits and the formation content hash, and states that it is neither corroboration of the admitted cohort nor a replacement of it |
+| Page | One HTML file served by a standard-library HTTP server on loopback. Run selection, the eight-stage sequence linked to records, evidence, and a budget summary; accounting, refusals, the reader and raw records behind expandable sections; a compact persistent synthetic and deterministic label |
+| Build identity | A bundle's `inventory.json` names the source bytes only and its digest is the build identity. Working-tree status and the build environment are metadata in `build_metadata.json`, outside the digest |
+| Language on the page | Tool B reproducing counts on the same rows is labelled an independent calculation, not independent evidence. The two-thirds comparison is labelled the researcher's descriptive diagnostic, not a statistical test |
+
+The workbench process holds every actor token, as the fixture does, and
+makes no OS isolation claim. Resume rests on recorded process ids no longer
+running, which is fixture evidence, not host evidence.
