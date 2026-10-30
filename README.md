@@ -126,7 +126,6 @@ the budgets and the checks stay where they are.
    +-------------------------------------------------------------+
 
    Principal sets mandate, budgets and standards in the harness.
-   Nothing above or below it changes them.
 ```
 
 ## How it was made
