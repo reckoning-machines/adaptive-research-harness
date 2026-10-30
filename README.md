@@ -53,7 +53,10 @@ The ledger also records, for every thesis, the condition that would falsify
 it before the outcome is known. A quant signal and a fundamental view are
 treated the same way, so hit rate and calibration are facts in the record
 rather than recollections, and the ideas that were quietly dropped stay on
-the record beside the ones that paid.
+the record beside the ones that paid. Each evaluation commits an expected
+range for the next one, so decay shows up as departure from a stated
+expectation rather than as a story told afterward. Two departures in a row
+open an investigation. Retirement is a recorded decision, never a reflex.
 
 **A strategy cannot inherit a track record.** A successor strategy starts
 with its own record. It cannot borrow a predecessor's history or obtain
@@ -91,6 +94,39 @@ Around those two rules sit the controls a coding harness would recognize.
 
    every step is written to the ledger before it runs
    a proposal that fails stays in the ledger as evidence
+```
+
+## Where this fits
+
+The harness is not an agent framework and does not compete with one. It is
+the layer underneath. A team keeps whatever swarm it has, in LangGraph,
+LangChain, CrewAI or its own code, and the swarm's proposals, experiments
+and results pass through the harness on their way to data, tools and
+capital. The agents can be swapped, retrained or multiplied. The ledger,
+the budgets and the checks stay where they are.
+
+```
+   +-------------------------------------------------------------+
+   |  Agent swarm           LangGraph, LangChain, CrewAI, custom  |
+   |  proposers, researchers, critics, tool users                 |
+   |  replaceable, no authority of its own                        |
+   +-------------------------------------------------------------+
+        |  proposals, experiments, results                 ^
+        v                      decisions, refusals, evidence |
+   +-------------------------------------------------------------+
+   |  Adaptive Research Harness                                  |
+   |  registration   budget reservation   independent check      |
+   |  decision then apply   evaluation against expectation       |
+   |  two immutable ledgers hold every step                      |
+   +-------------------------------------------------------------+
+        |  authorized, recorded actions only               ^
+        v                                  results, outcomes |
+   +-------------------------------------------------------------+
+   |  Data, tools, capital                                       |
+   +-------------------------------------------------------------+
+
+   Principal sets mandate, budgets and standards in the harness.
+   Nothing above or below it changes them.
 ```
 
 ## How it was made
@@ -163,12 +199,12 @@ machine.
 PYTHONDONTWRITEBYTECODE=1 python3 -m workbench --port 8765
 ```
 
-The harness is meant to sit under whatever orchestration a team already uses.
-LangGraph and MiroFish have been examined as candidates, and the [feasibility
+No agent framework is attached yet. LangGraph and MiroFish have been
+examined as candidates, and the [feasibility
 review](docs/audits/feasibility_coherence_public_library_20261029.md) lists the
-boundary points any framework would connect through, though none is attached
-yet. The first cycle uses an in-house researcher and synthetic tools so the
-boundaries are exercised before a framework is attached.
+boundary points any framework would connect through. The first cycle uses an
+in-house researcher and synthetic tools so the boundaries are exercised before
+a framework is attached.
 
 ## Open questions
 
