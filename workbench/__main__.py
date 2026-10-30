@@ -18,11 +18,13 @@ def main():
     from .api import serve
     bench,server=serve(args.port)
     print(f'Adaptive Research Harness workbench: http://127.0.0.1:{args.port}/  (loopback only; Ctrl-C closes live runs)',flush=True)
+    import threading
     def stop(*_):
-        print('closing live runs',flush=True);bench.close_all();server.shutdown()
+        # shutdown() must run off the serving thread, or it waits on itself.
+        print('closing live runs',flush=True);threading.Thread(target=server.shutdown,daemon=True).start()
     signal.signal(signal.SIGINT,stop);signal.signal(signal.SIGTERM,stop)
     try:server.serve_forever()
-    finally:bench.close_all()
+    finally:bench.close_all();server.server_close()
     return 0
 
 if __name__=='__main__':raise SystemExit(main())

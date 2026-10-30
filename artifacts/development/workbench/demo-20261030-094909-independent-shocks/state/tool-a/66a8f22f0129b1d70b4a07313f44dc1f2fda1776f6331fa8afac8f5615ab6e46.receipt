@@ -1,1 +1,0 @@
-{"actual":"1.00","attempt":72,"error":null,"generation":{"pid":3887,"run":"aa8d28c77eb04df983a34903f83db0a1"},"input_hash":"d4c85439ea4baf2a7f7a84255e8255da9d33964bb4d9718340cec9518a156e6a","result":{"input_sha256":"35406e42fe0cf7bee6df0333caa5f39e3538503c93bf296830dfba4994d99e35","k":8,"k_large":2,"n":12,"n_large":2,"synthetic":true},"synthetic":true,"tool_id":"SYN-A-1"}

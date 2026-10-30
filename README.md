@@ -26,6 +26,13 @@ runs one research cycle under it on synthetic data.
 I have put it up for feedback. The questions I most want answered are at
 the end.
 
+![The local workbench showing one research run. The sequence runs from question to admission, each card linked to the ledger record it rests on, with the evidence and budget below.](docs/images/workbench.png)
+
+The local workbench, on a synthetic cohort whose two large shocks are
+independent. The researcher reproduced its counts with a second tool rather
+than running a control, and the page says what that is worth. Every number
+is synthetic and the researcher is a fixed policy.
+
 ## The idea
 
 Alpha decays, and so do the methods that find it. A firm needs a

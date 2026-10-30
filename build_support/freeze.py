@@ -99,7 +99,7 @@ def freeze(bundle=None):
     # identical source yields one build identity.
     metadata={'identity':'build_metadata.json is metadata, not identity; inventory.json names the source',
       'source_head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
-      'source_status':status,'dirty_tracked_files':{p:raw_digest((ROOT/p).read_bytes()) for p in tracked},
+      'source_status':status,'dirty_tracked_files':{p:(raw_digest((ROOT/p).read_bytes()) if (ROOT/p).is_file() else 'DELETED') for p in tracked},
       'build_environment':{'python':sys.version,'python_executable':str(Path(sys.executable).resolve()),'python_executable_sha256':raw_digest(Path(sys.executable).resolve().read_bytes()),'sqlite':sqlite3.sqlite_version,'os':platform.platform(),'machine':platform.machine(),'filesystem':'APFS (kernel implementation)' if sys.platform=='darwin' else 'see host fingerprint','mount_evidence':subprocess.check_output(['mount'],text=True).splitlines() if sys.platform=='darwin' else []}}
     write('build_metadata.json',metadata)
     inventory={'status':'DISPOSABLE_DEVELOPMENT_BUILD','specification_manifest':SPEC_MANIFEST,'files':files,
