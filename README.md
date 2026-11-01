@@ -24,8 +24,7 @@ A backtest result is easier to judge when you can see how it was
 selected. What else was tried? Which assumptions changed after the results
 were seen? What evidence justified taking the idea further? ARH
 preserves that history for work run through it, alongside the checks and
-decisions. Statistical validation and trading realism remain the job of
-the research methods connected to it.
+decisions.
 
 I have made the prototype public so other teams can try it with their own
 workflows and help determine which parts are useful.
