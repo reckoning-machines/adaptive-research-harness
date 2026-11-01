@@ -11,8 +11,8 @@ It is the layer underneath the swarm, not part of it. Keep whatever agents
 you have, in LangGraph or anything else. Their experiments, results and
 proposals pass through the harness on the way to data, tools and the
 accepted record, and the harness holds the budgets, the checks and the
-history. The agents can be swapped, retrained or multiplied. The record
-stays where it is.
+history. The agents can be swapped, retrained or multiplied. Your agents
+and the record are your IP.
 
 It keeps the experiments, the failures and how one idea led to the next, so
 a researcher choosing the next question, revising a hypothesis or trying a
