@@ -57,7 +57,7 @@ work. The owner's rules, who may do what and which routine registrations
 go through without a fresh decision, are described in the
 [architecture](architecture.md).
 
-## Where it sits among your tools
+## Where ARH sits among your tools
 
 A research harness that lets teams change their agents and methods while
 preserving the evidence, spending controls and review process around them.
