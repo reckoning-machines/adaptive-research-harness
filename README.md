@@ -20,6 +20,13 @@ which results become part of the accepted research.
 The aim is to let a team change its agents and methods without losing
 what it has learned or quietly changing the rules for success.
 
+This is not a substitute for backtesting. A backtest says how a rule would
+have done on past data. It says nothing about how many rules were tried
+before this one, which were dropped, whether the rule changed after the
+results were seen, or who decided it was good enough. Those are what
+decide whether the number means anything. The harness records them, so a
+backtest run through it comes with its history attached.
+
 There are three ways to use it.
 
 - **The shipped example.** One research cycle on synthetic data with a
