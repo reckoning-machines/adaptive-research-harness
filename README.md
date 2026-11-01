@@ -20,22 +20,23 @@ different method works from the record and not from memory. Spending,
 checking and what enters the accepted record are handled separately, by
 rules the researcher cannot change.
 
-The prototype shows this inside one research cycle. Give the researcher
-different evidence and it runs a different experiment, and the record says
-why. The full design takes the same loop further, to evaluating and
-replacing hypotheses, strategies and the researchers themselves over time.
+There are three ways to use it.
 
-A team supplies its own researcher, experiment and evaluation methods
-through a Python client connected to a running harness. The included
-LangGraph example demonstrates that integration without modifying the core.
-LangGraph is one way to organize the researchers, and tools such as MLflow
-could provide complementary experiment tracking.
+- **The shipped example.** One research cycle on synthetic data with a
+  deterministic researcher. Give the researcher different evidence and it
+  runs a different experiment, and the record says why.
+- **Your own researcher.** A team supplies its researcher, experiment and
+  evaluation methods through a Python client connected to a running
+  harness. The LangGraph example does this without changing the core.
+  LangGraph is one way to organize the researchers, and tools such as
+  MLflow could track experiments alongside.
+- **Your own documents.** Start a run with a charter, import text,
+  markdown, CSV or JSON files, write down what you expect before the
+  analysis runs, run it, and pick the next question from what the result
+  showed. Every step is on the record, including the ones that failed.
 
-You can also run it on your own documents. Start a run with a charter,
-import text, markdown, CSV or JSON files, write down what you expect before
-the analysis runs, run it, and pick the next question from what the result
-showed. Every step is on the record, including the ones that failed. The
-two shipped examples use synthetic data and deterministic researchers.
+The full design takes the same loop further, to evaluating and replacing
+hypotheses, strategies and the researchers themselves over time.
 
 I have made the prototype public so other teams can try it with their own
 workflows and help determine which parts are useful.
