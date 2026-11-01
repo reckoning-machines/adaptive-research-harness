@@ -158,10 +158,11 @@ your own researcher to a separately started harness, and the
 | The owner's decisions, or a policy the owner set for routine registrations | A decision needs a passing check at the current base, and applying it needs the decision and bound funding |
 
 When a researcher calls a provider itself, ARH records the charge the
-researcher reports. A tool ARH runs under its own credential is the
-stronger arrangement, and the original synthetic tools work that way. One
-local process holds every identity token. The [architecture](architecture.md)
-states the trust model in full.
+researcher reports and does not limit what that process spends. A tool ARH
+runs under its own credential is the stronger arrangement, and the
+original synthetic tools work that way. One local process holds every
+identity token, and there is no operating-system isolation. The
+[architecture](architecture.md) states the trust model in full.
 
 ## What is implemented and what the design describes
 
