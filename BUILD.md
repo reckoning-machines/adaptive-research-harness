@@ -121,7 +121,11 @@ researcher's rule rather than a statistical test.
 A bundle's `inventory.json` names the source bytes only, and its digest is
 the build identity; working-tree status and the build environment sit beside
 it in `build_metadata.json`, outside the digest, so identical source yields
-one identity. Each variant document carries its own name, its edits and the
+one identity. Within the inventory, `execution_files` names the files that
+take part in a run or its recovery; with `environment.json`, which records
+the installed Python and declared package versions outside the digest,
+they decide whether a retained run reopens live. Edits to tests or
+documents change the build identity without turning earlier runs read-only. Each variant document carries its own name, its edits and the
 formation content hash, and states that it is neither corroboration of the
 admitted cohort nor a replacement of it.
 

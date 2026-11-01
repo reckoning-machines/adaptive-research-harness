@@ -26,6 +26,12 @@ from adaptive_research_harness.profile import SPEC_MANIFEST
 from adaptive_research_harness.experiment import Experiment
 
 BUNDLE=ROOT/'docs/builds/first_cycle_20261029/run_bundle'
+# Files that take part in a run or its recovery. A change to one of these turns
+# an earlier run read-only. Tests, documents, build tooling and the Linux
+# templates are in the build identity but not here.
+EXECUTION_PREFIXES=('adaptive_research_harness/','client/arh_client/')
+EXECUTION_FILES=('workbench/session.py','workbench/local_session.py','workbench/records.py','workbench/api.py','workbench/__main__.py',
+                 'acceptance/local.py','acceptance/runtime.py','acceptance/reader.py')
 SYNTHETIC={'setup':ROOT/'docs/plans/research_cycle_admission_20261029/setup.json',
            'artifacts':ROOT/'docs/plans/research_cycle_admission_20261029/designs_and_methods.json',
            'experiment':ROOT/'experiments/synthetic_flow/experiment.json',
@@ -134,8 +140,11 @@ def freeze(bundle=None,setup=None):
             assert raw_digest((ROOT/item['path']).read_bytes())==item['sha256'],item['path']
             covered.append(item['path'])
     paths=set(covered+[str(manifest.relative_to(ROOT))])
-    for directory in ('adaptive_research_harness','build_support','tests','acceptance','isolation','workbench','experiments'):
+    for directory in ('adaptive_research_harness','build_support','tests','acceptance','isolation','workbench','experiments','client/arh_client'):
         paths.update(str(p.relative_to(ROOT)) for p in (ROOT/directory).rglob('*') if p.is_file() and '__pycache__' not in str(p))
+    setup_dir=Path(desc['experiment']).resolve().parent
+    setup_in_root=setup_dir.is_relative_to(ROOT)
+    if setup_in_root:paths.update(str(p.relative_to(ROOT)) for p in setup_dir.rglob('*') if p.is_file() and '__pycache__' not in str(p))
     paths.add('docs/decisions/first_research_cycle_build_approval_addendum_20261029.md')
     if (ROOT/'BUILD.md').exists():paths.add('BUILD.md')
     files=[{'path':p,'sha256':raw_digest((ROOT/p).read_bytes()),'bytes':(ROOT/p).stat().st_size} for p in sorted(paths)]
@@ -143,7 +152,23 @@ def freeze(bundle=None,setup=None):
     # prefix 'bundle/' and resolved against the bundle directory, so the
     # directory a run happens to use does not change the build identity.
     files+=[{'path':'bundle/'+str(p.relative_to(BUNDLE)),'root':'bundle','sha256':raw_digest(p.read_bytes()),'bytes':p.stat().st_size}
-            for p in sorted(BUNDLE.rglob('*')) if p.is_file() and str(p.relative_to(BUNDLE)) not in ('inventory.json','build_metadata.json')]
+            for p in sorted(BUNDLE.rglob('*')) if p.is_file() and str(p.relative_to(BUNDLE)) not in ('inventory.json','build_metadata.json','environment.json')]
+    def takes_part(entry):
+        p=entry['path']
+        if entry.get('root')=='bundle':return True
+        if p.startswith(EXECUTION_PREFIXES) or p in EXECUTION_FILES:return True
+        return setup_in_root and (ROOT/p).resolve().is_relative_to(setup_dir)
+    execution_files=[{k:v for k,v in e.items() if k!='bytes'} for e in files if takes_part(e)]
+    # Declared dependencies: the experiment directory may name the packages its tools and evaluator import.
+    # Installed versions are recorded beside the bundle, outside the build identity, and compared on reopen.
+    import importlib.metadata
+    declared=json.loads((setup_dir/'dependencies.json').read_bytes()) if (setup_dir/'dependencies.json').is_file() else {'packages':[]}
+    versions={}
+    for name in declared.get('packages',[]):
+        try:versions[name]=importlib.metadata.version(name)
+        except importlib.metadata.PackageNotFoundError:versions[name]=None
+    write('environment.json',{'python':platform.python_version(),'packages':versions,'declared':declared,
+      'meaning':'Installed interpreter and declared package versions at freeze. Compared on reopen; a difference opens the run read-only. Outside the build identity.'})
     status=subprocess.check_output(['git','status','--porcelain=v1'],cwd=ROOT,text=True).splitlines()
     tracked=subprocess.check_output(['git','ls-files','-m'],cwd=ROOT,text=True).splitlines()
     from acceptance.catalog import CASES,DEATH_POINTS
@@ -156,7 +181,8 @@ def freeze(bundle=None,setup=None):
       'setup_descriptor':{k:(str(v) if v else None) for k,v in desc.items()},
       'build_environment':{'python':platform.python_version(),'python_implementation':platform.python_implementation(),'executable_sha256':raw_digest(Path(sys.executable).resolve().read_bytes()),'sqlite':sqlite3.sqlite_version,'os':platform.platform(),'machine':platform.machine(),'filesystem':'APFS (kernel implementation)' if sys.platform=='darwin' else 'see host fingerprint','mount_evidence':subprocess.check_output(['mount'],text=True).splitlines() if sys.platform=='darwin' else []}}
     write('build_metadata.json',metadata)
-    inventory={'status':'DISPOSABLE_DEVELOPMENT_BUILD','specification_manifest':SPEC_MANIFEST,'files':files,
+    inventory={'status':'DISPOSABLE_DEVELOPMENT_BUILD','specification_manifest':SPEC_MANIFEST,'files':files,'execution_files':execution_files,
+      'execution_identity':'files that take part in a run or its recovery; with environment.json they decide whether a retained run reopens live',
       'build_metadata':'build_metadata.json (status and environment; outside this identity)',
       'tool_executables':tool_executables,
       'code_closure':index,
@@ -171,7 +197,7 @@ def freeze(bundle=None,setup=None):
     archive=ROOT/'artifacts/development/builds'/inventory_hash
     if not archive.exists():
         archive.mkdir(parents=True);shutil.copyfile(BUNDLE/'inventory.json',archive/'inventory.json')
-        shutil.copyfile(BUNDLE/'build_metadata.json',archive/'build_metadata.json')
+        shutil.copyfile(BUNDLE/'build_metadata.json',archive/'build_metadata.json');shutil.copyfile(BUNDLE/'environment.json',archive/'environment.json')
         for item in files:
             destination=archive/'source'/item['path'];destination.parent.mkdir(parents=True,exist_ok=True)
             source=BUNDLE/Path(item['path']).relative_to('bundle') if item.get('root')=='bundle' else ROOT/item['path']

@@ -39,13 +39,39 @@ class Profile:
             require(path.is_relative_to(base) and path.is_file(), 'ARTIFACT_UNREACHABLE')
             require(raw_digest(path.read_bytes()) == entry['sha256'], 'ARTIFACT_CHANGED', entry['path'])
 
+    def verify_execution(self, root):
+        """The execution identity: files that take part in a run or its recovery, and the recorded environment.
+
+        Bundles frozen before the execution identity existed fall back to the full inventory.
+        """
+        import platform
+        entries=self.inventory.get('execution_files')
+        if entries is None:return self.verify_files(root)
+        root=Path(root).resolve()
+        for entry in entries:
+            if entry.get('root')=='bundle':
+                base=self.bundle.resolve(); path=(base/Path(entry['path']).relative_to('bundle')).resolve()
+            else:
+                base=root; path=(root/entry['path']).resolve()
+            require(path.is_relative_to(base) and path.is_file(), 'ARTIFACT_UNREACHABLE', entry['path'])
+            require(raw_digest(path.read_bytes()) == entry['sha256'], 'ARTIFACT_CHANGED', entry['path'])
+        env_path=self.bundle/'environment.json'
+        if env_path.is_file():
+            env=decode(env_path.read_bytes())
+            require(env.get('python')==platform.python_version(),'ENVIRONMENT_CHANGED',f"python {env.get('python')} recorded, {platform.python_version()} installed")
+            import importlib.metadata
+            for name,recorded in (env.get('packages') or {}).items():
+                try:installed=importlib.metadata.version(name)
+                except importlib.metadata.PackageNotFoundError:installed=None
+                require(installed==recorded,'ENVIRONMENT_CHANGED',f"{name} {recorded} recorded, {installed} installed")
+
     def development_permission(self, root, state):
         """Operator-authorized disposable development; automatic traceability only."""
         marker=Path(state)/'DISPOSABLE.json'
         require(marker.is_file(),'DISPOSABLE_MARKER_REQUIRED')
         record=decode(marker.read_bytes())
         require(record.get('disposable') is True and record.get('run_id'),'DISPOSABLE_MARKER_REQUIRED')
-        self.verify_files(root)
+        self.verify_execution(root)
         return {'inventory_sha256':self.inventory_hash,'allow_apply_zero':True,
                 'scope':'DISPOSABLE_SYNTHETIC_DEVELOPMENT','run_id':record['run_id']}
 

@@ -47,8 +47,8 @@ def manifest(run_dir):return decode((Path(run_dir)/'workbench.json').read_bytes(
 
 
 def inventory_matches(bundle):
-    """True when every inventory file of this run's bundle equals the current tree."""
-    try:Profile(bundle).verify_files(ROOT);return True,None
+    """True when every file that takes part in this run's execution or recovery equals the current tree and the environment matches."""
+    try:Profile(bundle).verify_execution(ROOT);return True,None
     except Refusal as exc:return False,exc.code+(' '+exc.detail if exc.detail else '')
     except OSError as exc:return False,'BUNDLE_UNREADABLE '+str(exc)
 

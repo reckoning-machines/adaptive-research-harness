@@ -35,14 +35,14 @@ minutes of setup.
   a separate test with the decisions the
   [local documents report](../implementation/local_documents_research_20261101.md)
   lists in section 4.
-- **P2, what reopen identity covers.** Today a retained run reopens live
-  only when every file in its bundle inventory matches the tree, and the
-  inventory covers tests, documents and the workbench as well as the core.
-  This plan proposes that live eligibility rest on an execution identity:
-  the core package, the experiment directory, the bundle, and the declared
-  dependencies named in section 5. The full inventory is still recorded
-  and still names the build. Because `BUILD.md` states what identity
-  covers, the Principal decides this before step 4.
+- **P2, what reopen identity covers.** Answered on 2026-11-01: the
+  Principal authorized the reopen change within the scope of section 5,
+  with two corrections. Files are included by whether they take part in a
+  run or its recovery, not by directory, so the client, the workbench
+  session code and the fixture modules the sessions use are in. The
+  installed Python and declared package versions are compared on reopen,
+  since hashing a declaration does not detect an environment change. It
+  is implemented and tested; section 5 records what it covers.
 
 ## 3. The experience, step by step
 
@@ -65,11 +65,14 @@ minutes of setup.
    re-runs the committed script on the committed inputs under the Checker
    identity and compares the result hash, verifies the design preceded
    the attempt and the attempt settled, and verifies the selection. That
-   checks reproducibility and order. It makes no judgment about whether
-   the method is sound, and the report says so.
-4. **Run it and keep a failure.** Import the data, record the expectation,
-   run, and let the first expectation fail or a first variant fall short.
-   The failed result and its conclusion stay on the ledger.
+   checks reproducibility and record integrity. It does not independently
+   validate the calculation or the research method, and the report says
+   so.
+4. **Run it and keep what happens.** Import the data, record the
+   expectation before running, run, and retain the result whatever it
+   is. The expectation is written to be tested, not to fail. If the
+   demonstration needs a refused or failed case to show a control, that
+   case is labelled as deliberate in its record and in the report.
 5. **Let the failure change the next step.** The candidate rule reads the
    history under the current direction. Candidates already tried and
    rejected are shown with the reason they were rejected and a condition
@@ -82,10 +85,14 @@ minutes of setup.
    its record, close the host, reopen the run, and continue. The record
    is intact, the attempt resolves as resumed, recovered or reconciled,
    and nothing runs twice.
-7. **Measure.** Lines added to the script, lines in the experiment
-   directory, minutes from first command to the first admitted direction,
-   and the list of concepts the Principal had to touch. These go in the
-   report beside the baseline from step 1.
+7. **Measure.** Two separate figures. Development time: the hours spent
+   building the integration, the generator and the evaluator for this
+   script. Adoption time: the minutes a subsequent user needs to configure
+   and run the finished integration, from first command to the first
+   admitted direction, measured by doing it again from a clean run
+   directory. Beside them, lines added to the script, lines in the
+   experiment directory, and the list of concepts the user had to touch.
+   These go in the report with the baseline from step 1.
 
 ## 4. Changes to the code, in order
 
@@ -95,24 +102,39 @@ minutes of setup.
 | 3 | A reproducibility evaluator for a host-run or caller-executed script, written per script on the toolkit's `validate_motivation` hook | the new experiment directory |
 | 5 | Candidate rule reads history; rejected candidates carry reason and reconsideration condition; selection records cite the history they used | `experiments/local_documents/researcher.py` and its evaluator, or the new experiment's researcher if the script lives there |
 | 6 | Nothing new. The host, the client's `Execution.run` and the workbench session already do this; the step verifies it on this script | `tests/integration/` |
-| after P2 | Live reopen decided on the execution identity; the full inventory kept as the build identity | `workbench/session.inventory_matches`, `build_support/freeze.py`, `BUILD.md` |
+| done | Live reopen decided on the execution identity and the recorded environment; the full inventory kept as the build identity | `build_support/freeze.py`, `adaptive_research_harness/profile.py`, `workbench/session.inventory_matches`, `tests/integration/test_reopen_identity.py` |
 
 Deferred: packaging the host so it runs outside the checkout (R2). The
 immediate irritation is unrelated edits preventing reopen, which P2
 addresses. A general setup framework is not built; the generator does
 only what this script needed.
 
-## 5. The execution identity, proposed for P2
+## 5. The execution identity, as built
 
-Files whose change should turn an earlier run read-only: everything under
-`adaptive_research_harness/`, the experiment directory the run was frozen
-from, the run's bundle, and a declared dependency list in the experiment
-directory naming the Python version and any package the tool or evaluator
-imports with its version. Files whose change should not: `tests/`,
-`workbench/`, `acceptance/`, `isolation/`, `build_support/`, `experiments/`
-other than the run's own, and every document. The full inventory, with
-all of these, remains the build identity recorded in every bundle and
-report.
+A file is in the execution identity when it takes part in a run or in its
+recovery, whatever directory it sits in. The list is kept in
+`build_support/freeze.py` and recorded in every bundle's inventory as
+`execution_files`.
+
+| In | Why |
+| --- | --- |
+| Everything under `adaptive_research_harness/` | The core, the host, the workers |
+| Everything under `client/arh_client/` | The researcher, Checker and Principal processes run on it |
+| `workbench/session.py`, `local_session.py`, `records.py`, `api.py`, `__main__.py` | The sessions that drive and reopen runs |
+| `acceptance/local.py`, `runtime.py`, `reader.py` | The fixture modules the synthetic session is built on |
+| The experiment directory the run was frozen from | Profile, setup, tool modules, evaluator, researcher program |
+| The run's bundle | The frozen profile and artifacts the core reads |
+
+| Out | Why |
+| --- | --- |
+| `tests/`, `isolation/`, `build_support/`, the workbench pages, other experiment directories, every document | They do not run during execution or recovery. They stay in the build identity, which still names the build in every bundle and report |
+
+Beside the inventory, `environment.json` records the installed Python
+version and the installed version of each package the experiment directory
+declares in `dependencies.json`. On reopen both are compared with what is
+installed now. A difference opens the run read-only with
+`ENVIRONMENT_CHANGED` and the name of what differs. Bundles frozen before
+this existed fall back to the full inventory.
 
 ## 6. Two corrections carried into the documents
 

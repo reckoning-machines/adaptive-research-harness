@@ -147,6 +147,13 @@ the provider has reported completion or cancellation of the earlier
 operation. Provider deduplication recovers the earlier operation under its
 own identity and never authorizes a new one.
 
+**Reopen eligibility.** A retained run reopens live when every file that
+takes part in running or recovering it matches the current tree and the
+installed Python and declared package versions match those recorded at
+freeze. The list of such files is recorded in the bundle inventory as
+`execution_files`; tests, documents and build tooling are in the build
+identity but not in it. Otherwise the run opens read-only and says why.
+
 **Recovery.** A host reopened on the same run directory rebuilds budgets,
 admissions, bindings and obligations from the two ledgers. Three other
 things are retained on disk and read on recovery rather than

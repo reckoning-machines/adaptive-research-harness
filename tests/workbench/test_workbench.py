@@ -116,8 +116,8 @@ class Reopen(unittest.TestCase):
         if not src.exists():self.skipTest('completed run not available')
         name=PREFIX+'old-build';self.created.append(name);dst=RUNS/name
         shutil.copytree(src,dst,ignore=shutil.ignore_patterns('*.sock','fixture.json'))
-        inv=json.loads((dst/'bundle/inventory.json').read_bytes());inv['files'][0]['sha256']='0'*64
-        (dst/'bundle/inventory.json').write_bytes(json.dumps(inv,sort_keys=True,separators=(',',':')).encode()+b'\n')
+        from workbench.demo import differing_build
+        differing_build(dst/'bundle')
         r=open_run(dst);self.assertEqual(r.mode,'read-only');self.assertIn('ARTIFACT_CHANGED',r.reason)
         v=r.view();self.assertEqual(v['mode'],'read-only');self.assertTrue(all(s['done'] for s in v['stages']))
         self.assertEqual(r.reader()['status'],'RECONSTRUCTED')

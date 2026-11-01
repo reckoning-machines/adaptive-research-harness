@@ -10,6 +10,15 @@ from adaptive_research_harness.encoding import Refusal
 from .session import Session, open_run, RUNS, list_runs
 from . import records
 
+def differing_build(bundle):
+    """Rewrite a copied bundle's inventory so an execution file no longer matches: the run must open read-only."""
+    import json
+    p=bundle/'inventory.json';inv=json.loads(p.read_bytes())
+    for key in ('files','execution_files'):
+        for e in inv.get(key,[]):
+            if e['path']=='adaptive_research_harness/engine.py':e['sha256']='0'*64
+    p.write_bytes(json.dumps(inv,sort_keys=True,separators=(',',':')).encode()+b'\n')
+
 
 def complete(run):
     n=0
@@ -43,7 +52,7 @@ def run_demo():
     for cohort,v in outcomes.items():
         r=open_run(RUNS/f'demo-{stamp}-{cohort}');say(f"reopened completed {cohort}: {r.mode}, status {r.view()['status']}, next={r.view()['next']}");ok&=r.view()['next'] is None;r.close()
     old=RUNS/f'demo-{stamp}-old-build';shutil.copytree(RUNS/name,old,ignore=shutil.ignore_patterns('*.sock','fixture.json'))
-    inv=json.loads((old/'bundle/inventory.json').read_bytes());inv['files'][0]['sha256']='0'*64;(old/'bundle/inventory.json').write_bytes(json.dumps(inv,sort_keys=True,separators=(',',':')).encode()+b'\n')
+    differing_build(old/'bundle')
     ro=open_run(old);say(f"copy with a differing build: {ro.mode} ({ro.reason}); reader {ro.reader()['status']}")
     try:ro.step();ok=False
     except Refusal as exc:say('   step refused:',exc.code)

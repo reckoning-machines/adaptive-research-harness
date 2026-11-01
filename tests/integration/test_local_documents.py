@@ -87,7 +87,8 @@ class LocalDocuments(unittest.TestCase):
         finally: r.close()
         # a retained run under a differing build opens read-only with the same derivation
         old = RUNS / (name + '-old'); self.created.append(old.name); shutil.copytree(RUNS / name, old, ignore=shutil.ignore_patterns('*.sock', 'fixture.json', 'connection.json'))
-        inv = json.loads((old / 'bundle/inventory.json').read_bytes()); inv['files'][0]['sha256'] = '0' * 64; (old / 'bundle/inventory.json').write_bytes(json.dumps(inv, sort_keys=True, separators=(',', ':')).encode() + b'\n')
+        from workbench.demo import differing_build
+        differing_build(old / 'bundle')
         ro = open_local(old); self.assertEqual(ro.mode, 'read-only'); self.assertEqual(len(ro.view()['investigations']), 3); self.assertEqual(ro.view()['state']['N'], 6)
 
     def test_derive_on_empty_ledgers(self):

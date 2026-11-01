@@ -248,9 +248,11 @@ process with the new file. Reopening does not run anything again.
 PYTHONDONTWRITEBYTECODE=1 python3 -m adaptive_research_harness.local_host --setup examples/langgraph_headlines --run /tmp/arh-run
 ```
 
-If the source tree changed since the bundle was frozen, the core refuses to
-start with `ARTIFACT_CHANGED` and the run can only be read. Freeze a new
-run directory for new work.
+If a file that takes part in execution or recovery changed since the
+bundle was frozen, the core refuses to start with `ARTIFACT_CHANGED` and
+names the file; a changed Python or declared package version refuses with
+`ENVIRONMENT_CHANGED`. The run can still be read. Freeze a new run
+directory for new work. Edits to tests or documents do not affect it.
 
 **Recovering an existing attempt.** Re-run the same researcher job with the
 same `--job` name. The graph resumes from its checkpoint and the execute
@@ -351,7 +353,10 @@ an admitted direction. Both designs and both results stay.
 **Stop and reopen.** Close run keeps everything under
 `artifacts/development/workbench/<run>/`. Open it from the list to carry
 on from the same next step, and nothing that already ran will run again.
-If the source has changed since the run was frozen it opens read-only.
+It opens read-only when a file that takes part in running or recovering
+it has changed since the run was frozen, or when the installed Python or a
+declared package version differs. Edits to tests or documents do not
+affect it.
 
 After the first cycle you should see N=6, directions `TH-L0, TH-L1`,
 `AU-RL-1` committed 0.30 for three documents, no pending attempts. The
@@ -388,7 +393,8 @@ liabilities remain. An operational error raises `HarnessError`.
 | `INVALID_DOCUMENT` with `provenance` or `file identity` | A historical document without origin, receipt time or file hash | Import through `Observer.import_file`, which supplies them |
 | `NO_CHECK` on decide | The direction has not been checked | Run the check first |
 | `REQUEST_KEY_CONFLICT` | A different payload under a key already used | Make a new key for new work |
-| `HarnessError ARTIFACT_CHANGED` at host start | The source changed since the bundle was frozen | Read the old run, or freeze a new run directory |
+| `HarnessError ARTIFACT_CHANGED` at host start | A file that takes part in execution or recovery changed since the bundle was frozen | Read the old run, or freeze a new run directory |
+| `HarnessError ENVIRONMENT_CHANGED` at host start | The installed Python or a declared package version differs from the one recorded at freeze | Use the recorded environment, or freeze a new run directory |
 | `HarnessError ACTOR_MISMATCH` | The token does not match the identity | Reconnect with the current `connection.json` |
 | `HarnessError` with a socket error | The host is not up or the path moved | Start or reopen the host and use the new connection file |
 | `inspect-request` answers `UNKNOWN` | No committed outcome was found for that key | Send the same payload with the same key again. If the core had received it, the original outcome comes back |
