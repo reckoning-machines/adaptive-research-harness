@@ -57,6 +57,16 @@ work. The owner's rules, who may do what and which routine registrations
 go through without a fresh decision, are described in the
 [architecture](architecture.md).
 
+![The workbench showing one synthetic run: the research sequence from question to admission, the control record it rests on, and the budget each grant has committed, reserved and settled](docs/images/workbench.png)
+
+The workbench on the synthetic example, October 30, 2026. Each card in
+the research sequence is a ledger record, from the question through the
+independent check to the admission, which registers a hypothesis for
+future testing and is not scientific support. The evidence pane shows
+the control record the check rests on, with its note that an independent
+calculation is not independent evidence. The budget summary shows what
+each grant committed, reserved and settled.
+
 ## Where ARH sits among your tools
 
 A research harness that lets teams change their agents and methods while
