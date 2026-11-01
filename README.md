@@ -42,7 +42,7 @@ flowchart LR
 ```
 
 Budget makes the search visible. Separate acceptance makes the result
-accountable. The alpha-decay argument needs both, because what you want to
+accountable. The alpha-decay assumption needs both, because what you want to
 know later is how much searching it took to find the thing and who decided
 it was real.
 
