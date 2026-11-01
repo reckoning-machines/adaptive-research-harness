@@ -15,9 +15,7 @@ many attempts.
 Adaptive Research Harness keeps track of what was tried, what it cost,
 what failed and why a conclusion was accepted. Researchers can use that
 history to choose what to investigate next, while separate checks govern
-which results become part of the accepted research. The current checkers
-verify specified calculations and record consistency. They do not
-establish that a hypothesis predicts returns.
+which results become part of the accepted research.
 
 The aim is to let a team change its agents and methods without losing
 what it has learned or quietly changing the rules for success.
