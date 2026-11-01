@@ -6,11 +6,12 @@ Coding agents have harnesses. What governs a swarm of research agents?
 
 I made the case for coding agents in
 [An Agentic Coding Proposal: Constitutional Coherence](https://reckoningmachines.substack.com/p/an-agentic-coding-proposal-constitutional).
-A harness checks behavior, so an agent can pass every test while giving
-itself a second source of truth or a decision right. What has to sit
-underneath the harness, so that what exists, what it means and who may
-change it are settled before the agent starts? This repository applies
-that question to research.
+Tests tell you whether the code works. They do not tell you whether the
+agent quietly added a second copy of the data or gave itself a permission
+it should not have. The article argued that a harness needs something
+written down underneath it, saying what exists, what each thing means and
+who is allowed to change it. This repository asks the same question of
+research agents.
 
 Adaptive Research Harness is an operating system for research that learns
 from its own results and changes what it investigates next.
