@@ -6,7 +6,8 @@ Alpha decays, and so do the methods that find it. An institutional
 investment firm needs a research process that keeps probing its own ideas,
 retires the bad ones and records why.
 
-Research agents can generate ideas faster than a team can evaluate them.
+Research agents can now generate ideas faster than a team can evaluate
+them.
 As they test and revise those ideas, it becomes harder to tell whether a
 promising result will hold up or is simply the best-looking outcome of
 many attempts.
