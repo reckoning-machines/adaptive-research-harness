@@ -32,12 +32,14 @@ workflows and help determine which parts are useful.
 
 ## How the loop works
 
-1. Choose a question using the evidence already collected.
-2. Record the planned work and reserve its budget.
-3. Run the analysis and preserve the result, including failures.
-4. Have a separate evaluator check the proposed conclusion.
-5. Accept or reject the proposal under the owner's rules.
-6. Use what was learned to choose the next investigation.
+```mermaid
+flowchart LR
+  Q[Choose a question from the evidence collected so far] --> P[Record the planned work and reserve its budget]
+  P --> R[Run the analysis and preserve the result, including failures]
+  R --> C[A separate evaluator checks the proposed conclusion]
+  C --> D[Accept or reject under the owner's rules]
+  D -->|what was learned| Q
+```
 
 Each step writes its record before the next can start, so the count of
 attempts and of registered hypotheses is a fact of the record rather than
