@@ -43,8 +43,8 @@ flowchart LR
 
 Budget makes the search visible. Separate acceptance makes the result
 accountable. The alpha-decay assumption needs both, because what you want to
-know later is how much searching it took to find the thing and who decided
-it was real.
+know later is how much searching it took to find the result you accepted
+and who decided it was real.
 
 Each step writes its record before the next can start, so the count of
 attempts and of registered hypotheses is a fact of the record rather than
