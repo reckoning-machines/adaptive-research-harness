@@ -7,6 +7,13 @@ Coding agents have harnesses. What governs a swarm of research agents?
 Adaptive Research Harness is an operating system for research that learns
 from its own results and changes what it investigates next.
 
+It is the layer underneath the swarm, not part of it. Keep whatever agents
+you have, in LangGraph or anything else. Their experiments, results and
+proposals pass through the harness on the way to data, tools and the
+accepted record, and the harness holds the budgets, the checks and the
+history. The agents can be swapped, retrained or multiplied. The record
+stays where it is.
+
 It keeps the experiments, the failures and how one idea led to the next, so
 a researcher choosing the next question, revising a hypothesis or trying a
 different method works from the record and not from memory. Spending,
