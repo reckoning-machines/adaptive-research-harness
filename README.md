@@ -63,6 +63,24 @@ A research harness that lets teams change their agents and methods while
 preserving the evidence, spending controls and review process around them.
 It sits around the tools that do the analysis.
 
+Agent frameworks already give you persistence, pause and resume, guardrails
+and human approval. What ARH adds is how those pieces hold together across
+a research process.
+
+- Completed work does not become accepted research by itself. A proposal
+  needs its evidence, a separate check and an authorized decision.
+- An interrupted attempt still has a cost and an unresolved status.
+  Restarting an agent neither erases what it owes nor permits another call.
+- Rejected work stays useful. The next researcher sees the failed variants
+  and the decisions behind the accepted result.
+- Researchers and evaluators can change while the acceptance rules stay in
+  place. A team can replace its graph without rebuilding the meaning of
+  its research record.
+
+That matters when several agents repeatedly revise hypotheses, draw on a
+shared budget and contribute to conclusions someone will act on. A short
+workflow that produces a summary does not need it.
+
 | Kind of tool | Main job |
 | --- | --- |
 | Backtesting library | Calculate how a strategy would have performed |
