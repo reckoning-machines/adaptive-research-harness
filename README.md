@@ -50,14 +50,15 @@ and who decided it was real.
 
 Each step writes its record before the next can start, so the count of
 attempts and of registered hypotheses is a fact of the record rather than
-a recollection. In the prototype the choice at steps 1 and 6 is made by a fixed rule in
-the synthetic researcher, or by you in the documents workflow. An LLM
-researcher that makes that choice from the accumulated evidence is future
-work. The owner's rules, who may do what and which routine registrations
+a recollection. In the prototype the choice of the next question is made
+by a fixed rule in the synthetic researcher, by you in the documents
+workflow, or by the research code you write on the everyday interface. An
+LLM researcher that makes that choice from the accumulated evidence is
+future work. The owner's rules, who may do what and which routine registrations
 go through without a fresh decision, are described in the
 [architecture](architecture.md).
 
-![The workbench showing one synthetic run: the research sequence from question to admission, the control record it rests on, and the budget each grant has committed, reserved and settled](docs/images/workbench.png)
+![The workbench showing one synthetic run, the research sequence from question to admission, the control record it rests on, and the budget each grant has committed, reserved and settled](docs/images/workbench.png)
 
 The workbench on the synthetic example, October 30, 2026. Each card in
 the research sequence is a ledger record, from the question through the
@@ -111,75 +112,88 @@ refused, and the refusal is recorded too.
 
 ## How to try it
 
-There are three ways to use ARH.
-
-- **The shipped example.** One research cycle on synthetic data with a
-  deterministic researcher. Give the researcher different evidence and it
-  runs a different experiment, and the record says why.
-- **Your own researcher.** A team supplies its researcher, experiment and
-  evaluation methods through a Python client connected to a running
-  harness. The LangGraph example does this without changing the core.
-  LangGraph is one way to organize the researchers, and tools such as
-  MLflow could track experiments alongside.
-- **Your own documents.** Start a run with a charter, import text,
-  markdown, CSV or JSON files, write down what you expect before the
-  analysis runs, run it, and pick the next question from what the result
-  showed. Every step is on the record, including the ones that failed.
-  Two analyses are available: how many of your text documents contain
-  any of a list of terms, and a count, ratio, sum or mean over table rows
-  that pass filters you set. Anything else needs a new calculator.
-
-
-Python 3.12, from the repository root. ARH itself has no
+The quickest path is the everyday interface. You write ordinary research
+code and a short project file. ARH handles the reservations, the
+attempts, the permissions, the receipts, the settlement and the recovery
+around it. Python 3.12, from the repository root. ARH itself has no
 dependencies. The client installs from `client/` and LangGraph is an
 optional extra.
 
 ```sh
 python3 -m venv .venv && .venv/bin/pip install -e './client[langgraph]'
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m arh_client.dev up examples/memo_returns --run /tmp/arh-memo
+```
+
+One command writes the setup from the project file, freezes it, starts a
+host and signs the startup. In your research code, three lines connect
+an analysis.
+
+```python
+from arh_client import api
+research = api.connect('examples/memo_returns', 'researcher', run='/tmp/arh-memo')
+result = research.analysis(join, inputs=['SRC-RET-SYN', *scores], expectation=EXPECT, budget='memo-tests', operation='join')()
+```
+
+You get the result back with its evidence reference, its conclusion
+against the expectation you recorded first, its check status once a
+check exists, and, if the work was refused, the reason and what to do
+about it. Give each piece of work a name and a process that dies resumes
+it on restart instead of repeating it. In a LangGraph graph the same
+call is a node, and a review node pauses the graph until the independent
+check and the owner's decision are in. The example in
+`examples/memo_returns/` is 136 lines of research code and a 33-line
+project file. The demonstration runs the whole thing, with the
+interruptions, in one command.
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m examples.memo_returns
+```
+
+There are four ways to use ARH.
+
+- **Your own research code and graphs.** As above. You supply an
+  analysis function, its inputs, an expectation, an evaluator and a
+  project file. The [client README](client/README.md) has the interface
+  and `examples/memo_returns/README.md` lists what the scientist wrote.
+- **Your own CSV through a script.** `examples/signal_groups/` wraps a
+  55-line analysis. One command takes your table, records your
+  expectation, runs the analysis and shows the candidates for the next
+  question. The runbook, path G.
+- **Your own documents on a page.** Start a run with a charter, import
+  text, markdown, CSV or JSON files, write down what you expect, run the
+  analysis and pick the next question from what the result showed. Two
+  analyses are available, term counts over text and statistics over
+  rows. The runbook, path F.
+- **The shipped examples.** The headline example runs one research cycle
+  with a LangGraph researcher and walks through the situations the rules
+  have to handle. The original synthetic cycle, with a built-in
+  researcher and two tools ARH runs itself, is still one command.
+
+```sh
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m examples.langgraph_headlines
-```
-
-The command starts a local harness against the example's experiment
-directory, runs startup and one research cycle, then walks through a set
-of situations the rules have to handle, and prints each decision. Synthetic headlines are
-classified by a deterministic stand-in for a model provider, next-day
-returns arrive one period later from a second source, the researcher joins
-its recorded labels to those returns, and an evaluator under a separate
-identity recomputes the join before the proposal is admitted. The same run
-shows an overstated result failing its check, a researcher refused when it
-tries to approve its own proposal, over-budget work refused before the
-provider is called, and three kinds of interruption resumed without a
-second provider call.
-
-To work on your own files, start the workbench and open the local page.
-
-```sh
 PYTHONDONTWRITEBYTECODE=1 python3 -m workbench --port 8765
-```
-
-Then open `http://127.0.0.1:8765/local`. Write the question you are
-investigating, import your documents, state what you expect, run the
-analysis, and choose the next question from the candidates the result
-produced. A separate check recomputes the analysis before you admit the
-direction. Close the run whenever you like and reopen it later from the
-list. The runbook, path F, walks through it step by step.
-
-The original synthetic cycle, with a built-in researcher and two tools the
-harness runs itself, is still one command.
-
-```sh
 PYTHONDONTWRITEBYTECODE=1 python3 -m acceptance.local --example
 ```
 
-The [runbook](runbook.md) has the complete paths, including connecting
-your own researcher to a separately started harness, and the
-[client README](client/README.md) documents the Python interface.
+The headline example classifies synthetic headlines with a deterministic
+stand-in for a model provider, joins the recorded labels to next-day
+returns that arrive one period later, and has an evaluator under a
+separate identity recompute the join before the proposal is admitted.
+The same run shows an overstated result failing its check, a researcher
+refused when it tries to approve its own proposal, over-budget work
+refused before the provider is called, and three kinds of interruption
+resumed without a second provider call. The workbench opens at
+`http://127.0.0.1:8765/local` for your own files.
+
+The [runbook](runbook.md) has every verified path, and the
+[client README](client/README.md) documents the interface, operation by
+operation.
 
 ## What a team supplies and what ARH does
 
 | You supply | What ARH does |
 | --- | --- |
-| An experiment directory with the grants, limits, theme, designs, tools, methods, hypothesis template, formation data and a profile naming steps, tariffs and sources | Only declared steps, tools and parameters are admitted, cost estimates must match the tariff, and sources follow their declared period and item rules |
+| A project file naming the question, the sources and their classes, the analyses with their costs, the budgets by name, and the researcher and evaluator entry points. The generator writes the grants, limits, theme, designs and profile from it, and a team that needs more writes those files itself | Only declared steps, tools and parameters are admitted, cost estimates must match the tariff, and sources follow their declared period and item rules. Amounts in the project file become authoritative when the owner signs the grants at startup |
 | A researcher, in LangGraph or any other code, running under the researcher identity. On the everyday interface, an analysis function, its inputs, an expectation and a name for each piece of work | Budget reserved before an attempt, attempt recorded before execution, one fresh permission per attempt, settlement at the actual charge or at the maximum, every refusal kept. The client journals each operation so a killed process resumes it and never repeats it |
 | A provider or tool the researcher calls | The receipt is bound to the attempt and counted. A second, different receipt for the same attempt is refused |
 | An evaluator running under the Checker identity. On the everyday interface, a recompute function that says what counts as a valid result | A check must come from a separate lineage with its own funded attempt, its content must equal the registered receipt, and the proposer cannot check, decide or apply. A graph that resumes approves nothing |
@@ -194,9 +208,9 @@ identity token, and there is no operating-system isolation. The
 
 ## What is implemented and what the design describes
 
-Implemented and exercised. The two shipped examples run on synthetic
-data. The documents path runs on files you supply, which are recorded as
-historical material.
+Implemented and exercised. The shipped examples run on generated data
+labelled synthetic. The documents path and the CSV command line run on
+files you supply, which are recorded as historical material.
 
 - Reservation, attempt, execution, settlement and closure of research
   budget, with pending liabilities surviving interruption.
@@ -227,7 +241,7 @@ historical material.
   proposes the scientist's own next question and waits for the check and
   the decision. Killed between permission and receipt, the call is
   settled and replaced only after the host confirms the dead process is
-  gone. The scientist wrote the research and a project file;
+  gone. The scientist wrote the research and a project file.
   `arh_client.api` and its LangGraph nodes did the rest.
 
 The current prototype records research, checks calculations and preserves
@@ -299,7 +313,8 @@ These are the questions I want feedback on.
 | Verified steps to operate it | [Runbook](runbook.md) |
 | The Python client, operation by operation | [Client README](client/README.md) |
 | What it would take for another team to adopt it | [Adoption review](docs/audits/adoption_review_20261101.md) |
-| What was built, with its tests and limits | [BUILD.md](BUILD.md) and the [integration report](docs/implementation/langgraph_integration_20261101.md) |
+| What was built, with its tests and limits | [BUILD.md](BUILD.md), the [integration report](docs/implementation/langgraph_integration_20261101.md) and the [interface report](docs/implementation/first_class_interface_20261101.md) |
+| What a second analysis must supply | `examples/memo_returns/README.md` and `examples/signal_groups/README.md` |
 | The rules themselves | [The Constitution](docs/doctrines/new_speedway_constitution.md), admitted by the [admission record](docs/decisions/cv1_admission_20261019.md) |
 | How it was made and reviewed | The design was written and reviewed as documents before code. [Document-first design plan](docs/plans/document_first_design.md), the [revision 10 audit](docs/audits/independent_preimplementation_design_audit_20261019.md), [PD-010](docs/decisions/principal_decision_010_codex_audit_repairs.md), the [closure review](docs/audits/cv1_revision12_closure_20261019.md) and the [build audit](docs/audits/adversarial_first_cycle_build_audit_20261029.md) |
 | The article the idea came from | [An Agentic Coding Proposal: Constitutional Coherence](https://reckoningmachines.substack.com/p/an-agentic-coding-proposal-constitutional) |

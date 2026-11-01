@@ -7,6 +7,25 @@ The [README](README.md) says what it is for, the
 command below was run on macOS with Python 3.12.3 on 2026-11-01 against
 the current tree. Anything not exercised is marked.
 
+## Quick start
+
+Three commands, from the repository root, with Python 3.12.
+
+```sh
+python3 -m venv .venv && .venv/bin/pip install -e './client[langgraph]'
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m arh_client.dev up examples/memo_returns --run /tmp/arh-memo
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m examples.memo_returns.job --run /tmp/arh-memo
+```
+
+The first installs the client. The second writes the setup from the
+example's project file, freezes it, starts a host, signs the startup and
+prints the connection file; it stays up until Ctrl-C or
+`python3 -m arh_client.dev down /tmp/arh-memo`. The third runs the
+example's graph in its own process to the point where it waits for a
+check and a decision. Path H says what to do then, and how to put your
+own research code in the graph's place. Path G does the same for a CSV
+through one command, and path F for your documents on a page.
+
 ## Prerequisites
 
 | Need | Detail |
@@ -15,11 +34,12 @@ the current tree. Anything not exercised is marked.
 | Operating system | macOS or Linux. No virtual machine, no container |
 | Working directory | The repository root for every harness command. The client runs from anywhere |
 | Environment | `PYTHONDONTWRITEBYTECODE=1` on each harness command so no bytecode is written next to the covered source. The examples include it |
-| For the LangGraph paths | A virtual environment with the client and its `langgraph` extra, as in path C |
+| For the LangGraph paths | A virtual environment with the client and its `langgraph` extra, as in the quick start and path C |
 
-Every run is disposable development. The examples in paths A to E use
-synthetic data. Path F uses files you supply, recorded as historical
-material. Charges are simulated units, nothing outside the machine is
+Every run is disposable development. The examples in paths A to E and H
+use generated data labelled synthetic. Path F uses files you supply,
+recorded as historical material, and path G does the same for your own
+CSV. Charges are simulated units, nothing outside the machine is
 contacted, and nothing earns forward standing.
 
 ## Where run records are stored
@@ -29,9 +49,10 @@ contacted, and nothing earns forward standing.
 | `artifacts/development/latest/<run>/` | Synthetic example and acceptance reports, one directory per invocation | `acceptance.local` |
 | `artifacts/development/workbench/<run>/` | Workbench runs, bundle and state kept in place | `workbench` |
 | `artifacts/development/langgraph/<stamp>/` | LangGraph example runs, with `report.json`, the host state, the provider's records and the researcher's checkpoints and receipts | the example runner |
+| `artifacts/development/memo_returns/<stamp>/` | Memo-returns example runs, with `report.json`, the host state and, under `researcher/`, the operation journal, the receipts, the checkpoints and the provider's call count | the example runner |
 | `artifacts/development/run-bundles/<id>/bundle/` | Disposable bundles frozen by tests and fixtures | tests |
 | `artifacts/development/builds/<inventory>/` | One snapshot of the covered source per build identity | every freeze |
-| The directory you pass as `--run` | A host you start yourself, with `bundle/` and `state/` | path D |
+| The directory you pass as `--run` | A host you start yourself, with `bundle/` and `state/`, and `researcher/` once research code has run | path D, `arh_client.dev up` |
 
 Inside a host's `state/` are `harness.sqlite`, the two ledgers in one
 database, `clock.json`, the synthetic clock, `connection.json` while the
@@ -129,7 +150,10 @@ The host still runs inside the checkout. The example imports only
 ## D. Your own researcher against a separately started host
 
 Three processes under three identities. The host runs from the checkout.
-The others run wherever the client is installed.
+The others run wherever the client is installed. For a project with a
+`project.json`, `python3 -m arh_client.dev up DIR --run RUN` does steps
+1 and 3 in one command, and the everyday interface in path H replaces
+steps 4 to 6 with a few calls. This path is the lower level under both.
 
 **1. Start a host.** From the repository root, against your experiment
 directory. The headline example's directory is used here.
@@ -627,6 +651,9 @@ liabilities remain. An operational error raises `HarnessError`.
 | `INVALID_DOCUMENT` with `provenance` or `file identity` | A historical document without origin, receipt time or file hash | Import through `Observer.import_file`, which supplies them |
 | `NO_CHECK` on decide | The direction has not been checked | Run the check first |
 | `REQUEST_KEY_CONFLICT` | A different payload under a key already used | Make a new key for new work |
+| `OPERATION_REQUIRED`, `OPERATION_MISMATCH` (HarnessError) | An analysis, call or selection without a name, or a name reused for different work | Name each piece of work; the same name resumes it, a new name is new work |
+| `NOT_UNCERTAIN` (HarnessError) | A replacement asked for an operation whose attempt is not uncertain | Nothing to replace; read the operation's result |
+| `NOT_A_CANDIDATE` | The chosen candidate is not in the live set | Choose from the set, or name your own question with `chosen='own'` |
 | `HarnessError ARTIFACT_CHANGED` at host start | A file that takes part in execution or recovery changed since the bundle was frozen | Read the old run, or freeze a new run directory |
 | `HarnessError ENVIRONMENT_CHANGED` at host start | The installed Python or a declared package version differs from the one recorded at freeze | Use the recorded environment, or freeze a new run directory |
 | `HarnessError ACTOR_MISMATCH` | The token does not match the identity | Reconnect with the current `connection.json` |
@@ -641,8 +668,9 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -t .
 
 Unit, component, workbench and integration tests. The workbench and
 integration tests start real processes. The integration tests run the
-LangGraph example when `.venv/bin/python` exists and skip it otherwise.
-The whole suite takes about ninety seconds. Last result 81 tests, OK.
+LangGraph examples, paths C and H, when `.venv/bin/python` exists and
+skip them otherwise. The whole suite takes about two minutes. Last
+result 100 tests, OK.
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 python3 -m acceptance.local --jobs 4
@@ -657,4 +685,9 @@ which is accurate.
 
 - Linux user, socket and cgroup isolation under `isolation/`.
 - Path D steps 5 and 6 as separate hand-run commands.
-- Any real provider or network access. Real local files are exercised in path F.
+- A graph pausing for review without a checkpointer; the examples use the
+  SQLite checkpointer.
+- `arh_client.dev up` against a project outside this checkout; the host
+  runs from the checkout and `ARH_ROOT` points at it.
+- Any real provider or network access. Real local files are exercised in
+  paths F and G.
