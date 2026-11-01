@@ -4,6 +4,13 @@ An idea I think is right, carried far enough to run.
 
 Coding agents have harnesses. What governs a swarm of research agents?
 
+I made the case for coding agents in
+[An Agentic Coding Proposal: Constitutional Coherence](https://reckoningmachines.substack.com/p/an-agentic-coding-proposal-constitutional).
+A harness checks behavior, so an agent can pass every test while giving
+itself a second source of truth or a decision right. What has to sit
+underneath the harness is a statement of what exists, what it means and
+who may change it. This repository applies that argument to research.
+
 Adaptive Research Harness is an operating system for research that learns
 from its own results and changes what it investigates next.
 
@@ -208,6 +215,7 @@ These are the questions I want feedback on.
 | What was built, with its tests and limits | [BUILD.md](BUILD.md) and the [integration report](docs/implementation/langgraph_integration_20261101.md) |
 | The rules themselves | [The Constitution](docs/doctrines/new_speedway_constitution.md), admitted by the [admission record](docs/decisions/cv1_admission_20261019.md) |
 | How it was made and reviewed | The design was written and reviewed as documents before code. [Document-first design plan](docs/plans/document_first_design.md), the [revision 10 audit](docs/audits/independent_preimplementation_design_audit_20261019.md), [PD-010](docs/decisions/principal_decision_010_codex_audit_repairs.md), the [closure review](docs/audits/cv1_revision12_closure_20261019.md) and the [build audit](docs/audits/adversarial_first_cycle_build_audit_20261029.md) |
+| The article the idea came from | [An Agentic Coding Proposal: Constitutional Coherence](https://reckoningmachines.substack.com/p/an-agentic-coding-proposal-constitutional) |
 | The original proposal and slides | [Design proposal (.docx)](docs/reference/new_speedway_design_proposal_20261019.docx), [text transcription](docs/reference/new_speedway_discussion_draft_20261017.md), [presentations](docs/presentations/README.md) |
 | Why some files say "New Speedway" | [Rename record](docs/decisions/project_rename_20261029.md) |
 | Everything else | `docs/decisions/`, `docs/audits/` and the [package manifest](docs/package/cv1_review_package_manifest.md) |
