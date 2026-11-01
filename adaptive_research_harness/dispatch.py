@@ -1,6 +1,6 @@
 """Attempt-backed handoff. Receipts suppress duplication, never authorize work."""
 from pathlib import Path
-from .encoding import canonical, decode, digest, require, Refusal
+from .encoding import canonical, decode, digest, require, Refusal, units
 from .transport import request
 from .host import generation, verify_quiescence
 
@@ -11,9 +11,11 @@ class Dispatcher:
         self.generation=generation_value or generation();engine.generation=self.generation
         self.verify_quiescence=quiescence_verifier
 
+    def caller_executed(self, tool_id): return self.engine.profile.experiment.caller_executed(tool_id)
+
     def work_key(self, attempt):
-        b=attempt['body'];i=b['input']
-        return digest({'actor':attempt['actor'], 'step':'research' if b['step'] in ('research-counts','replacement-counts') else b['step'],
+        b=attempt['body'];i=b['input'];step=self.engine.profile.experiment.step(b['step'])
+        return digest({'actor':attempt['actor'], 'step':'research' if step and step['kind']=='research' else b['step'],
                        'inputs':i['input_refs'],'question':i['parameters'].get('transition_id')})
 
     def ensure_retry(self, view, actor, body):
@@ -24,6 +26,24 @@ class Dispatcher:
             settled=view.settlements.get(seq)
             if settled is not None and claim is not None and claim['receipt'] is not None:continue
             require(settled is not None,'PENDING_PREDECESSOR')
+            tool=a['body']['input']['tool_id']
+            if self.caller_executed(tool):
+                # The core handed nothing to a worker. Without a claim nothing was
+                # ever permitted to run. With one, the caller that consumed it must
+                # be gone, and a provider that can outlive its caller must have a
+                # recorded disposition showing the earlier work can no longer
+                # execute: completion or cancellation. Provider deduplication
+                # recovers the original claim under its own identity and never
+                # authorizes a new one. Settlement at the maximum is accounting
+                # and establishes none of these.
+                if claim is None:continue
+                old=decode(claim['body']);receipt=self.supervisor_directory/(digest(old['worker'])+'.json')
+                proof=self.verify_quiescence(receipt,self.engine.profile.inventory_hash,None,old['worker'])
+                if self.engine.profile.experiment.may_outlive_caller(tool):
+                    disposition=(proof.get('provider_dispositions') or {}).get(str(seq))
+                    require(isinstance(disposition,dict) and disposition.get('state') in ('COMPLETED','CANCELLED')
+                            and disposition.get('claim_input_hash')==old['input_hash'],'WORKER_NOT_QUIESCENT','provider disposition for attempt %d not recorded'%seq)
+                continue
             old=decode(claim['body']) if claim else {'core':a['body']['admission_generation'],'worker':None}
             receipt=self.supervisor_directory/(digest(old['core'])+'.json')
             self.verify_quiescence(receipt,self.engine.profile.inventory_hash,old['core'],old.get('worker'))
@@ -38,7 +58,7 @@ class Dispatcher:
             if old:return {'status':'RECEIPT','receipt':decode(old['receipt'])} if old['receipt'] else {'status':'IN_PROGRESS_OR_UNCERTAIN'}
             require(a['body'].get('admission_generation')==self.generation,'UNCERTAIN_OLD_ATTEMPT')
             tool=a['body']['input']['tool_id']
-        if tool.startswith('CHECK'):worker=peer_generation
+        if self.caller_executed(tool):worker=peer_generation
         else:
             desc=request(self.tool_sockets[tool],{'op':'describe'})
             require(desc['tool_id']==tool,'TOOL_VERSION_MISMATCH');worker=desc['generation']
@@ -51,12 +71,12 @@ class Dispatcher:
                    'tool_id':tool,'inventory_sha256':e.profile.inventory_hash}
             e.store.db.execute('INSERT INTO dispatch_claims(attempt_seq,body) VALUES(?,?)',(seq,canonical(claim)))
             doc=None
-            if not tool.startswith('CHECK'):doc=v.exact(a['body']['input']['input_refs'][0])['body']['document']
+            if not self.caller_executed(tool):doc=v.exact(a['body']['input']['input_refs'][0])['body']['document']
             fault=e.store.db.execute('SELECT body FROM faults WHERE target=? AND consumed=0',(str(seq),)).fetchone()
             fault=decode(fault['body']) if fault else None
             if fault:e.store.db.execute('UPDATE faults SET consumed=1 WHERE target=?',(str(seq),))
         e.fault_hook('after_dispatch_claim_commit')
-        if tool.startswith('CHECK'):return {'status':'PERMISSION_CONSUMED','claim':claim}
+        if self.caller_executed(tool):return {'status':'PERMISSION_CONSUMED','claim':claim}
         try:
             receipt=request(self.tool_sockets[tool],{'op':'run','claim':claim,'document':doc,
                              'maximum':a['body']['maximum'],'fault':fault})
@@ -87,11 +107,17 @@ class Dispatcher:
                 receipt=decode(e.store.db.execute('SELECT receipt FROM dispatch_claims WHERE attempt_seq=?',(seq,)).fetchone()['receipt'])
         return {'receipt':receipt,'status':'RECEIPT_OR_UNKNOWN'}
 
-    def finish_check(self, actor, seq, receipt):
-        e=self.engine
+    def finish(self, actor, seq, receipt):
+        """Register the receipt of a caller-executed attempt once. A different receipt for the same claim is refused."""
+        e=self.engine;exp=e.profile.experiment
         with e.lock,e.store.transaction():
-            a=e.view().attempts.get(seq);require(a is not None and a['actor']==actor and a['body']['input']['tool_id'].startswith('CHECK'),'UNAUTHORIZED')
-            require(receipt['attempt']==seq and receipt['input_hash']==a['body']['input_hash'] and receipt['actual']=='0.25' and receipt['synthetic'] is True,'INVALID_TOOL_RECEIPT')
+            a=e.view().attempts.get(seq);require(a is not None and a['actor']==actor,'UNAUTHORIZED')
+            tool=a['body']['input']['tool_id'];require(self.caller_executed(tool),'UNAUTHORIZED')
+            step=exp.step(a['body']['step'])
+            require(isinstance(receipt,dict) and receipt.get('attempt')==seq and receipt.get('input_hash')==a['body']['input_hash']
+                    and receipt.get('tool_id')==tool and receipt.get('synthetic') is True and isinstance(receipt.get('actual'),str),'INVALID_TOOL_RECEIPT')
+            if step['kind']=='check':require(receipt['actual']==step['maximum'],'INVALID_TOOL_RECEIPT')
+            else:units(receipt['actual'])
             row=e.store.db.execute('SELECT receipt FROM dispatch_claims WHERE attempt_seq=?',(seq,)).fetchone()
             require(row is not None,'NO_DISPATCH_CLAIM')
             if row['receipt'] is not None:require(decode(row['receipt'])==receipt,'RECEIPT_CONFLICT')

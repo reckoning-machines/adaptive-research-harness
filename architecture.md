@@ -1,305 +1,188 @@
 # Adaptive Research Harness: Architecture
 
-A constitutional harness for evolving investment hypotheses, strategies and research agents.
+How the system works and where a team connects its code. The
+[README](README.md) says what the harness is for and how to try it, and
+the [runbook](runbook.md) gives the verified steps. The
+[client README](client/README.md) documents each Python operation. The
+[Constitution](docs/doctrines/new_speedway_constitution.md) governs where
+this explanation and the rules disagree.
 
-Current name: Adaptive Research Harness. The [rename record](docs/decisions/project_rename_20261029.md)
-explains why CV1 and historical evidence retain their original names. The
-[first research-cycle plan](docs/plans/first_research_cycle_implementation_20261029.md)
-set a smaller initial milestone than the two broader demonstrations in
-section 7: one active researcher, controlled synthetic tools, checked
-admission and fresh-process recovery. That milestone is now built; section 9
-describes it.
+Terms used below. A **grant** is the Principal's authorization for an
+identity to do a kind of work with named tools and a budget. The
+**Principal** is the accountable owner. An **attempt** is one recorded
+piece of metered work. A **check** is an independent verification of a
+proposal. **Apply** is the one act that changes the accepted record.
 
-This is an explanation of Constitution revision 12, admitted by the
-Principal as `ConstitutionVersion 1`, the document-phase design
-baseline, after the
-[independent closure review](docs/audits/cv1_revision12_closure_20261019.md).
-The [Constitution](docs/doctrines/new_speedway_constitution.md)
-governs and the [admission record](docs/decisions/cv1_admission_20261019.md)
-names its exact digest. The design sections below describe the full system
-as admitted. The build in section 9 implements the bounded first cycle of
-it on synthetic data.
-
-## 1. The investment case
-
-Alpha decays, and so do the research methods that found it. A firm
-therefore needs a research process that keeps probing its own ideas,
-retires the bad ones and records why, rather than one that drifts.
-Adaptive Research Harness retains what the investment process learns:
-what was predicted, what happened, what failed and why a decision was made.
-A successor strategy starts with its own record. It cannot inherit a
-predecessor's performance or obtain capital simply by being related to it.
-
-The Principal, the accountable human owner, controls mandates, capital,
-limits and the standards used to evaluate results. Agents can propose
-changes and conduct authorized research. Independent checking sits
-between a proposal and its admission.
-
-The original [design proposal with figures](docs/reference/new_speedway_design_proposal_20261019.docx)
-and its [text transcription](docs/reference/new_speedway_discussion_draft_20261017.md)
-provide background. They remain reference material where later decisions
-have changed the design.
-
-### Why documents first
-
-Working through the design in documents is cheaper and faster than
-building first. It allows us to debug the system before writing the
-software, when a correction usually means changing a few clauses rather
-than reworking code and data.
-
-The reviews follow concrete cases: a process dies after a decision, a
-provider charges more than expected, a funding stop arrives during
-registration, or a fill arrives after an allocation expires. The aim is
-to settle what should happen before implementing it. Paper review does
-not establish that the eventual software works.
-
-Ten decision records have been admitted at the document stage. The
-independent review of revision 10 found ten blocking defects. PD-010
-addressed those findings through four proposal revisions. The final
-review checks the consolidated text and its interactions. All prior
-audits, including failures, remain in `docs/audits/`.
-
-## 2. The operating loop
-
-| Stage | What happens |
-| --- | --- |
-| Frame the research | An agent proposes a Theme or investigates an authorized empirical question, recording its motivation and selection basis |
-| Fund the work | The Principal grants scope, tools, budget and expiry. The agent reserves budget and records each metered attempt before using it |
-| Preserve the evidence | Research Records retain inputs, methods, results and failures. Predictions and their Outcomes are recorded separately under declared resolution rules |
-| Check the proposal | An independent Checker reviews a proposed registration, allocation or other change against the applicable criteria |
-| Decide and apply | The Principal decides, or policy `P-1` decides a permitted routine registration. Apply records the admitted change in the Applied History |
-| Review and repeat | Evaluations inform the next research or capital proposal. They do not change standing or capital by themselves |
-
-The contracts are in [Evidence](docs/doctrines/new_speedway_constitution.md#5-evidence),
-[Authorizations](docs/doctrines/new_speedway_constitution.md#7-authorization),
-[Transitions](docs/doctrines/new_speedway_constitution.md#8-transition)
-and the [Evaluation Standard](docs/doctrines/new_speedway_constitution.md#part-x-evaluation-standard-es-10).
-
-## 3. What evolves
-
-| Population | Basis for assessment | What a successor inherits |
-| --- | --- | --- |
-| Hypotheses | Calibration of their own committed Predictions | The visible research history, with no transferred predictive record |
-| Strategy Versions | Their own forward decision record, assessed with costs, stress and the full search family | Lineage and prior evidence, with no transferred performance or allocation |
-| Agent Designs | Research contribution relative to budget, including negative results that close a question | Access to lineage history, with no automatic Authorization |
-
-Historical backtests can reject candidates and motivate new work. They
-cannot establish forward investment performance. A profitable strategy
-does not validate a Hypothesis merely because it cites it. These
-separations are explicit in the [invariants](docs/doctrines/new_speedway_constitution.md#part-iv-invariants).
-
-## 4. Records and responsibilities
-
-Three logical ledgers preserve the authoritative records. Each has one
-commit boundary that enforces the permitted callers and admission rules.
-
-| Ledger | Records and responsibility |
-| --- | --- |
-| Transition ledger | Proposals, Checks, decisions, refusals and binding invalidations. Its applied subsequence, the Applied History, establishes membership, standing, allocations, limits and active governing versions. Only Apply adds to that subsequence |
-| Evidence ledger | Observations, Predictions, Outcomes, Strategy Decisions, Research Records, budget records and committed Evaluations. It supplies the system's clock. A stored Evaluation remains a derived assessment and cannot decide standing |
-| Paper Book | Orders, provisional fills, confirmations and refusals, committed on the Execution function's calls under the Paper Book rules |
-
-The Observation function commits market data. The Strategy Runner commits
-Strategy Decisions. The Execution function submits paper orders and fills.
-Each operates under its own Authorization. Research agents propose and
-record research. Checkers verify. The Principal grants authority and makes
-the decisions reserved to the owner.
+## 1. The pieces and the authority boundaries
 
 ```mermaid
-flowchart LR
-  RA[Research agents] -->|proposals| TL[Transition ledger]
-  CK[Independent Checker] -->|Check records| TL
-  PR[Principal] -->|decisions| TL
-  PR -->|FENCE funding stop| EV[Evidence ledger]
-  CK -->|reproductions and verification costs| EV
-  RA -->|research and budget records| EV
-  OBS[Observation function] -->|market observations| EV
-  RUN[Strategy Runner] -->|Strategy Decisions| EV
-  TL -->|applied standing| RUN
-  TL -->|applied allocation and limits| EXE[Execution function]
-  EV -->|Decisions and clock| EXE
-  EXE -->|orders and fills| PB[Paper Book]
+flowchart TB
+  subgraph team [Your code, no authority of its own]
+    W[Researcher, for example a LangGraph graph]
+    E[Evaluator]
+    T[Provider or tool the researcher calls]
+  end
+  subgraph client [arh_client, one connection per identity]
+    CR[Researcher identity]
+    CE[Checker identity]
+    CP[Principal and Observation identities]
+  end
+  subgraph core [Core, the only writer]
+    H[Host and command boundary]
+    RU[Rules]
+    L[(Evidence and Transition ledgers, SQLite)]
+    TW[Tool workers the host runs]
+  end
+  W --> CR --> H
+  E --> CE --> H
+  CP --> H
+  H --> RU --> L
+  H -->|admitted input only| TW
+  W -. calls .-> T
 ```
 
-The diagram shows the main record flows, not every caller or validation
-step. Tools produce inputs to these boundaries. A cache, dashboard or
-runtime checkpoint cannot establish current authority. A database may
-host the ledgers without acquiring decision rights.
+Three boundaries matter.
 
-## 5. Controls
-
-| Control | Design rule |
-| --- | --- |
-| Research budgets | Reserve before work, record an attempt before spending, then settle actual cost. Pending liabilities survive interruption and closure. Overruns count in full. A `FENCE` stops new spending without erasing existing liabilities |
-| Independent checking | Consequential Transitions require an independent Check under criteria pinned at the base. The narrowly specified genesis act is the exception. A Checker funds its work from its own grant and cannot waive a criterion |
-| Delegated admission | `P-1` permits scoped Hypothesis registrations and successor Agent Design registrations that request no Authorization. Capital, grants, the Standard and the Constitution remain Principal decisions |
-| Registration funding | `BIND` establishes funding eligibility before Apply. A later fence, expiry or overrun can stop spending while that registration remains eligible. Apply and invalidation compete at one serialized boundary. Release requires durable invalidation, so a delayed Apply cannot use a released binding |
-| Capital qualification | Exploratory paper capital is bounded and expires. Qualified capital requires the exact version's forward record, sufficient effective observations, family adjustment, verified cost evidence and stress assessment |
-| Reduction | A Principal-decided, independently checked `REDUCE` can lower an allocation without meeting a qualification floor. It changes the target, not the position. Revision 12 limits the residual-breach exception at the execution boundary to orders that execute an applied `REDUCE` toward its target. Ordinary Decision orders and expiry orders stay under the ordinary limit rule, as the follow-up check required |
-| Expiry | Opening fills need clock-bracketed confirmation. Expiry stops opening permission and creates the applicable cancellation and reduction obligations. Residual positions can remain during an outage or incomplete execution. A permitted `HOLD` has its own declared end time |
-| Recovery | A fresh process reads the ledgers to establish the next lawful action. Applied changes are not repeated. An uncertain dispatch cannot be retried as though no spending occurred. A Principal control act continues on the Principal's own authority, which revision 12 states at every lifecycle point |
-
-See the [Evidence contract](docs/doctrines/new_speedway_constitution.md#5-evidence),
-[Transition contract](docs/doctrines/new_speedway_constitution.md#8-transition),
-[Paper Book rules](docs/doctrines/new_speedway_constitution.md#10-paper-book)
-and [Transition classes](docs/doctrines/new_speedway_constitution.md#part-v-transition-classes).
-
-A workflow engine can resume a task, but its checkpoint cannot establish
-permission to continue. The resumed process must consult current ledger
-state. Binding recovery also has no guaranteed release time. If a required
-ledger cannot be reached, the binding remains frozen.
-
-## 6. Build versus reuse
-
-The standing rule is to reuse commodity capabilities as replaceable tools.
-Custom infrastructure requires an identified OSA requirement that existing
-components cannot satisfy. Adaptive Research Harness owns the investment rules and the
-boundaries that enforce them. This does not require writing every
-computational component from scratch.
-
-The first cycle is built on the Python 3.12 standard library and SQLite
-with no third-party dependencies; see section 9. That choice covers the
-bounded prototype and selects nothing for later stages. Each later
-component is assessed against the same concrete requirements: reserve,
-attempt, interruption, fence, retry, settlement and admission.
-
-The harness is the layer underneath agent frameworks, not a replacement for
-them. Frameworks supply orchestration and research content; the harness
-holds the budgets, the independent checks and the record. The
-[feasibility review](docs/audits/feasibility_coherence_public_library_20261029.md)
-defines the boundary points an adapter must pass through and examines
-LangGraph as an orchestration candidate and MiroFish as a scenario-research
-candidate. No adapter is built or authorized.
-
-| Component | Planned reuse | Acceptance requirement |
+| Boundary | What crosses it | What cannot cross it |
 | --- | --- | --- |
-| Agent runtime | An existing model and tool runtime | Replacement preserves governed records. Agent context and memory confer no authority |
-| Scheduling and recovery | An existing workflow or job engine | Recovery derives permission from ledgers, with no duplicate spending or admission |
-| Storage | An existing transactional store | Ordered durable append, stale-base and duplicate refusal, and readable authoritative heads |
-| Data retrieval | Vendor APIs, document feeds and caches | The Observation function commits declared sources with witnessed receipt times and the required extraction or absence evidence |
-| Backtesting | One existing, simple backtester | Exact data, parameters and tool versions are recorded. Repeated execution under the same reproducibility binding yields the same result hash |
-| Paper fill computation | Reusable computation within an internal simulator, assessed later | Proposed fills pass Adaptive Research Harness's Paper Book rules, including expiry and reversal cases. The governed boundary remains Adaptive Research Harness's responsibility |
-| Model inference | A bounded synthetic provider for the demonstrations, with real providers assessed separately | A maximum charge is computable before dispatch. Real-provider cap and billing assumptions require recorded Principal acceptance |
+| Your code to the client | Requests under one identity's token | Authority. A request is admitted or refused by the core |
+| Client to core | Commands with a request key, reads of the ledgers | Direct writes. The core is the only writer and every write is one of its rules |
+| Researcher to provider | Input the attempt admitted, the claim identity | Anything before the attempt is admitted, a second execution of the same attempt |
 
-An internal simulator means simulated execution within Adaptive Research Harness rather
-than an external paper-trading account. It does not establish a need for
-custom fill computation. The fill rule is granted with the first Execution
-Authorization, after the two research demonstrations. Any later build
-proposal must satisfy the same reuse requirement.
+The researcher, the evaluator and the Principal run as separate processes
+under separate tokens. A researcher connection that calls a Checker or
+Principal operation is refused and the refusal is kept.
 
-The governing sources are [PD-006 section PD-006.1](docs/decisions/principal_decision_006_replaceable_tools_and_first_prototype.md),
-[Part IX principle 10](docs/doctrines/new_speedway_constitution.md#part-ix-operating-principles)
-and [plan step 9](docs/plans/document_first_design.md).
+## 2. One attempt, end to end
 
-## 7. The two prototype demonstrations
+The headline example, followed through the records it writes. Sequence
+numbers are from a retained run and will differ on yours.
 
-**Evolutionary research.** Ten registered research agents use a shared
-budget and one replaceable backtester on historical or synthetic data.
-They test and reject candidates, preserve negative results and propose
-successors. An independent Checker reviews registrations. The demonstration
-includes a lineage reaching its cap, interruption and a funding stop.
-Retiring an admitted Hypothesis requires the applicable checked Transition.
-An agent's abandonment note cannot retire it.
+| Step | Who | Operation | Record |
+| --- | --- | --- | --- |
+| 1 | Observation function | commit the headline document | Evidence, OBSERVATION |
+| 2 | Researcher | reserve 0.50 for theme TH-H1 | Evidence, RESERVATION |
+| 3 | Researcher | attempt step classify-headlines with tool FAKE-LLM-1, maximum 0.48 | Evidence, ATTEMPT, pending liability 0.48 |
+| 4 | Researcher | claim, which returns permission exactly once | durable claim in the core |
+| 5 | Researcher | call the provider, store the receipt durably, register it | receipt bound to the claim |
+| 6 | Researcher | commit the research record with labels and counts, settle 0.48, close the reservation | Evidence, RESEARCH_RECORD, SETTLEMENT, CLOSED |
+| 7 | Observation function | commit the returns document one period later | Evidence, OBSERVATION |
+| 8 | Researcher | join recorded labels to committed returns, commit a second record, propose the hypothesis and fund it | Evidence, RESEARCH_RECORD, RESERVATION. Transition, PROPOSED |
+| 9 | Evaluator | reserve under its own grant, attempt, compute every criterion, register the receipt, commit the check | Evidence, four records. Transition, CHECK with PASS or FAIL |
+| 10 | Principal, or policy P-1 | decide | Transition, DECISION |
+| 11 | Principal | apply | Evidence, BIND. Transition, APPLIED, head N moves by one |
 
-The expected record includes reservations, attempts, settlements, failed
-proposals and successor registrations. The demonstration tests the research
-process under budget and recovery constraints. Backtest results establish
-no investment edge.
+A failing check stops at step 9. The proposal stays on the Transition
+ledger with its check, the head does not move, and nothing is lost.
 
-**Development-driven research.** Agents receive an unfamiliar synthetic
-market development through a declared feed, investigate within scope,
-propose a Theme and develop competing Hypotheses under a common experiment
-design. They also produce an executable Strategy Version registered at zero
-capital and record how they choose the next research question.
+## 3. What the team supplies and what the core enforces
 
-Theme admission is a checked Principal decision. Research on a new Theme
-requires an appropriate grant. Registering the Theme does not expand an
-existing grant's scope. The demonstration preserves document provenance,
-typed claims, selection history and the order of Predictions and resolution.
-Synthetic resolution tests the machinery and earns no forward market credit.
+| You supply | Where | The core enforces |
+| --- | --- | --- |
+| Setup, designs, methods, tools, hypothesis template, formation data | `setup.json`, `designs_and_methods.json` in your experiment directory | Grants decide who may act. Designs must be registered. Methods and tools are referenced by hash |
+| The profile of the experiment | `experiment.json` | Steps, permitted tools, exact parameters, tariff, check cost, source period and item rules, extraction validator chosen from the core's registry, the genesis pair |
+| A researcher | Any program using `arh_client.Researcher` under the researcher token, optionally the LangGraph adapter | Reserve, attempt, one permission, one receipt, settlement, record shape, proposal scope |
+| A provider or tool | Called by the researcher (`execution: caller`) or run by the host (`execution: core`) | Its bytes are pinned in the build inventory. A caller-executed tool's receipt is counted and bound. A host-run tool receives only the admitted input |
+| An evaluator | Any program using `arh_client.Checker` under the Checker token, supplying the experiment's recomputation | Separate lineage and grant, own funded attempt, criteria complete, content equal to the registered receipt |
 
-Both demonstrations depend on the corrected genesis chain described in
-the final review. Neither runs the Strategy Runner or paper execution.
-Their scope remains the one admitted in [PD-006 section PD-006.3](docs/decisions/principal_decision_006_replaceable_tools_and_first_prototype.md)
-and [PD-009](docs/decisions/principal_decision_009_genesis.md).
+## 4. Research execution is not acceptance
 
-## 8. Current standing and open work
+Executing an attempt produces evidence. It does not make a conclusion
+accepted. Acceptance is the separate sequence of proposal, independent
+check, decision and apply. A node completing in a graph, a record being
+committed, or a provider returning a result changes nothing in the
+accepted record. The example makes this visible by proposing an overstated
+count, which fails its check and is never applied, before proposing the
+honest one.
 
-Constitution revision 12 is admitted as `ConstitutionVersion 1`. All
-admissions to date, that one included, are document-phase decisions.
-The Principal's [build decision addendum](docs/decisions/first_research_cycle_build_approval_addendum_20261029.md)
-authorizes disposable synthetic development runs, including genesis in
-clearly labelled disposable stores. Those runs are build evidence, not
-production genesis. Nothing is certified, and the parameters below are
-still to be supplied before the production genesis acts that need them.
+The evaluator recomputes the arithmetic and the join from the recorded
+labels and the committed returns. It does not verify the labels, which
+only the provider produced, and it does not supply new evidence. The same
+holds in the synthetic cycle, where tool B reproducing counts on the same
+rows is an independent calculation and not independent evidence.
 
-| Open item | Present constraint |
-| --- | --- |
-| Provider identity, D-14 | The prototype fixes the provider and model version to the registered design. Substitution under that identity stops pending an admitted rule. A vendor update does not automatically retire a pinned design |
-| Non-reproducible strategies, U-1 | Their records can be preserved and scored, but the current Standard provides no route to capital qualification |
-| Limits between execution witnesses, U-8 | The exact moving-limit rule remains plan step 7 work. Timing a manual limit change is not an admitted solution |
-| Real-provider output caps | Each provider needs a recorded decision on its cap, billing basis and enforcement assumption before calls are treated as capped |
-| Paper fill rule | `FR-0` is provisional content for a later Execution Authorization. Neither initial demonstration needs it |
-| Pre-genesis grant and source content | The binding interval of `AU-RP-1`, the Source Declarations with extraction rules and resolution grace, the exact design provenance and method commitments, and the complete grant content are supplied by the Principal before their genesis acts. An incomplete grant cannot be applied or used for a binding |
+## 5. Where things belong
 
-These limits are recorded in the [initial audit](docs/audits/initial_osa_audit.md),
-[PD-002](docs/decisions/principal_decision_002_predictions_decisions_observation.md),
-[PD-004](docs/decisions/principal_decision_004_exploratory_capital_standings.md)
-and [PD-009](docs/decisions/principal_decision_009_genesis.md).
+| Thing | Location | Who reads it |
+| --- | --- | --- |
+| The core and its rules | `adaptive_research_harness/` | Nobody edits it to add an experiment |
+| The synthetic experiment's profile | `experiments/synthetic_flow/experiment.json` | The core, after it is frozen into a bundle |
+| An external experiment | A directory such as `examples/langgraph_headlines/` holding the three JSON files and the modules the profile names | The host freezes it into a bundle and pins every module's bytes |
+| Evaluation methods | Declared in `designs_and_methods.json` and implemented in the evaluator the team registers as a Checker design | The evaluator process. The core checks the method hash, not the method |
+| Tool implementations | Modules named in the profile, installed or relative to the experiment directory | A worker the host starts, or the researcher process. Never the core process |
+| The client | `client/`, import name `arh_client` | Any process the team runs |
+| Run records | A run directory holding `bundle/`, `state/` and whatever the researcher keeps | The host, the client and the workbench |
 
-The final review and its first follow-up found two defects, both
-corrected in revision 12 and closed by the closure review. The
-Principal's decisions on
-[PD-011](docs/decisions/principal_decision_011_proposed_confirmations.md)
-and the admission of `ConstitutionVersion 1` are recorded in the
-[admission record](docs/decisions/cv1_admission_20261019.md).
+## 6. Identity, retries, uncertain execution and recovery
 
-## 9. The first cycle as built
+**Identity.** The host writes one token per identity into a connection
+file. A connection presents its token on every request. In the local
+arrangement this is a shared secret plus a self-reported process id.
 
-The first research cycle is implemented in `adaptive_research_harness/`
-under the [reconciled contracts](docs/plans/research_cycle_reconciled_20261029/contracts.md).
-[BUILD.md](BUILD.md) describes the implementation and its coverage limits;
-the [runbook](runbook.md) says how to run it.
+**Request keys.** Every command carries a key the caller made and
+persisted first. Sending the same key and payload again returns the
+original outcome, so a retried node or a reconnecting process cannot act
+twice. A different payload under the same key is refused. A lost reply is
+resolved by asking the core what became of the key.
 
-| Element | As built |
-| --- | --- |
-| Ledgers | Two immutable SQLite event logs, Transition and Evidence, with one writer process holding a lifetime lock. Every event records its sequence, digest, authenticated requester and acting role. Views are rebuilt from events; no view is authoritative |
-| Commit boundary | One core service receives commands over a local socket. `rules` admits or refuses each operation; `engine` commits inside a single transaction. Each command carries a request key, so a repeated command returns the original receipt rather than acting twice |
-| Actors | Fixed identities for the Principal, the Observation function, the clock, two Checkers, ten researcher designs and two tools. On Linux the identity is the peer process UID; the local fixture substitutes tokens and reports OS isolation as unverified |
-| Funding | A reservation is appended before any metered work, with the attempt and its maximum charge recorded before dispatch. A proposal cites its funding by a prospective Evidence sequence; a collision strands the proposal rather than re-pointing it. Pending liabilities survive interruption and settle at the actual charge or the admitted maximum |
-| Checking | Two Checker implementations in separate code replay the committed record and recompute each criterion. They import neither the core admission predicates nor the research tool calculations, cannot check their own lineage, and are funded from their own grant |
-| Decision and Apply | Routine Hypothesis registrations are decided under policy `P-1`; everything else is a Principal decision. Apply and binding invalidation compete at one serialized boundary. A refusal at Apply durably invalidates the binding in the same transaction |
-| Tools | Two synthetic calculators, A and B, that compute the same counts by different code paths with an explicit simulated charge. No network or provider is contacted |
-| Dispatch and recovery | Work is handed to a tool only against an admitted attempt and a durable claim. A fresh process reads the ledgers and continues from them. An uncertain dispatch is never retried as new work; replacement requires evidence that the earlier worker generation cannot still act |
-| Clock | A synthetic durable clock with a receipts journal. A rollback below the recorded high-water mark is refused |
-| Acceptance | A catalog of 51 named cases, 20 process-death schedules and two forced orderings, run by a cooperative local fixture that starts core, researchers, Checkers, tools and a final independent reader as separate processes. Each run snapshots the covered source and records its inventory digest |
+**Permission.** Claiming an attempt returns permission exactly once. Every
+later claim of the same attempt, including a replay of the request that
+once succeeded, returns no permission. The LangGraph adapter obtains
+permission inside the node that executes and keeps it out of graph state,
+because a node that dies re-runs from its beginning on resume.
 
-The example cycle reaches a derived Hypothesis through startup, one
-researcher, two tool calls, an independent Check and `P-1` Apply, then
-extends by one diagnostic experiment whose negative result is preserved.
-The [first-cycle build audit](docs/audits/adversarial_first_cycle_build_audit_20261029.md)
-lists the defects still open. Linux UID, socket, file and cgroup
-enforcement is templated under `isolation/` and has not been exercised on
-the intended host.
+**Receipts.** The researcher writes its receipt durably before telling the
+core. The core binds the first receipt and refuses a different one.
 
-## 10. The local workbench
+**Uncertain execution.** When permission was consumed and no receipt exists
+in the researcher's store, the provider's own record or the core, the work
+may have run or may still be running. The client reports `uncertain`, the
+researcher settles at the maximum so the liability is counted, and nothing
+calls the provider again for that attempt.
 
-The [workbench authorization](docs/decisions/workbench_authorization_20261030.md)
-admitted a local page over the first cycle, planned in the
-[workbench plan](docs/plans/local_research_workbench_20261030.md) after the
-[readiness audit](docs/audits/workbench_readiness_audit_20261030.md). It
-adds a view and a session; it adds no record kind, query, grant, Transition
-class, Checker, tool or Rule.
+**Replacement.** A new attempt for the same work is admitted only when the
+earlier one is settled, the host has recorded that the process which held
+the claim is gone, and, for a provider declared able to outlive its caller,
+the provider has reported completion or cancellation of the earlier
+operation. Provider deduplication recovers the earlier operation under its
+own identity and never authorizes a new one.
 
-| Element | As built |
-| --- | --- |
-| Session | The acceptance fixture kept alive. Core, tool workers and actor programs run as separate processes; state is retained in place under `artifacts/development/workbench/<run>/`. The session derives the one permitted next operation from the ledgers and performs it through an existing actor operation or Principal command. The core enforces permission and current state when it runs |
-| Reopen | A retained run reopens live when every file in its bundle inventory matches the current tree, and continues from the next permitted step without repeating computation, charges or admission. Under a differing build it opens read-only from SQLite, with the independent reader's reconstruction, and nothing can be continued |
-| Cohorts | Three declared synthetic cohorts in `workbench/cohorts.json`, carried into each bundle as artifacts with content hashes. The original equals the admitted formation cohort. A variant is a second Observation of the same `SRC-SYN` item with different bytes; the document carries its name, its edits and the formation content hash, and states that it is neither corroboration of the admitted cohort nor a replacement of it |
-| Page | One HTML file served by a standard-library HTTP server on loopback. Run selection, the eight-stage sequence linked to records, evidence, and a budget summary; accounting, refusals, the reader and raw records behind expandable sections; a compact persistent synthetic and deterministic label |
-| Build identity | A bundle's `inventory.json` names the source bytes only and its digest is the build identity. Working-tree status and the build environment are metadata in `build_metadata.json`, outside the digest |
-| Language on the page | Tool B reproducing counts on the same rows is labelled an independent calculation, not independent evidence. The two-thirds comparison is labelled the researcher's descriptive diagnostic, not a statistical test |
+**Recovery.** A host reopened on the same run directory rebuilds every view
+from the ledgers. Nothing is kept in memory that the ledgers do not hold.
 
-The workbench process holds every actor token, as the fixture does, and
-makes no OS isolation claim. Resume rests on recorded process ids no longer
-running, which is fixture evidence, not host evidence.
+## 7. The local trust model
+
+- One host process generates every token and writes them to one file.
+  Anyone who can read that file can act as any identity.
+- There is no operating-system isolation. Linux templates for user, socket
+  and cgroup isolation exist under `isolation/` and have not been exercised.
+- For a tool the researcher calls itself, the receipt is the researcher's
+  statement. The core binds it and counts it. It cannot stop that process
+  spending at a provider it can reach. A tool the host runs is handed the
+  admitted input and its receipt comes from the worker the host started.
+- Quiescence proofs rest on process ids no longer running, which is fixture
+  evidence. Provider dispositions are recorded by the host from what the
+  provider reported. The core checks their shape and binding to the claim,
+  not their truth.
+- Everything shipped is synthetic and earns no forward standing.
+
+## 8. Implemented behavior and the broader design
+
+| Area | Implemented and exercised | In the Constitution, not built |
+| --- | --- | --- |
+| Research budget | Reserve, attempt, settle, close, fence, lineage caps, pending liabilities across interruption | Discovery screening cadence beyond the declared scope |
+| Admission | Proposal, independent check, Principal decision or policy P-1, apply, binding, invalidation, release | Suspension of policy as an exercised path |
+| Evidence | Observations with listing and extraction, research records, refusals | Predictions, outcomes, evaluations against a committed expectation, decay monitoring |
+| Recovery | Fresh-process reconstruction, lost replies, uncertain attempts, replacement rule | Linux generation and cgroup evidence on the intended host |
+| Integration | Profile, client, host, LangGraph example, evaluator under a Checker identity | A general independent reader for arbitrary experiments |
+| Capital and execution | Zero-capital limits as a registered control | Strategy versions, paper execution, qualification, allocation, reduction, retirement |
+| Provenance | Synthetic sources and deterministic programs | Real documents, real providers, provider caps and identity rules |
+
+The broader design is explained in the Constitution and in the decision
+records under `docs/decisions/`. The governing records for the
+integration are the
+[integration plan](docs/plans/langgraph_integration_20261101.md), the
+[readiness audit](docs/audits/langgraph_integration_readiness_audit_20261101.md)
+and the
+[implementation report](docs/implementation/langgraph_integration_20261101.md).
+[BUILD.md](BUILD.md) records the coverage and its limits.

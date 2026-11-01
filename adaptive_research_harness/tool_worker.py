@@ -9,8 +9,8 @@ from .transport import LifetimeLock, serve
 
 
 def run_worker(tool_id, socket_path, state_dir, profile, *, serve_function=serve, generation_provider=generation):
-    from . import tools_a, tools_b
-    calculate={'SYN-A-1':tools_a.calculate,'SYN-B-1':tools_b.calculate}[tool_id]
+    require(not profile.experiment.caller_executed(tool_id),'INVALID_TOOL_REQUEST')
+    calculate=profile.experiment.load_callable(tool_id,profile.bundle)
     state=Path(state_dir);state.mkdir(parents=True,exist_ok=True,mode=0o700)
     lock=threading.Lock();gen=generation_provider()
     def handle(who,b):

@@ -26,7 +26,6 @@ SCHEMAS = {
  'genesis': ({'constitution_sha256','design','grant'}, set()),
 }
 READS = {'get','history','state','budget','obligations','inspect-request','clock','profile','closure','dispatch-status'}
-STEPS = {'research-counts','replacement-counts','check-transition','verification-candidate'}
 
 
 def validate(op, payload):

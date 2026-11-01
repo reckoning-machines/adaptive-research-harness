@@ -14,9 +14,9 @@ def main():
         p=sub.add_parser(name);p.add_argument('--bundle',required=True);p.add_argument('--root',required=True)
         p.add_argument('--run-approval',default=None,help=argparse.SUPPRESS);p.add_argument('--socket',required=True);p.add_argument('--state',required=True)
         if name=='serve':
-            p.add_argument('--clock-socket',required=True);p.add_argument('--tool-a-socket',required=True);p.add_argument('--tool-b-socket',required=True)
+            p.add_argument('--clock-socket',required=True);p.add_argument('--tool-a-socket');p.add_argument('--tool-b-socket');p.add_argument('--tool-socket',action='append')
             p.add_argument('--supervisor-receipts',required=True)
-        if name=='tool-service':p.add_argument('--tool',choices=['SYN-A-1','SYN-B-1'],required=True)
+        if name=='tool-service':p.add_argument('--tool',required=True)
         if name=='actor-service':p.add_argument('--actor',required=True);p.add_argument('--core-socket',required=True)
     args=parser.parse_args()
     try:
@@ -37,7 +37,7 @@ def main():
             from .profile import Profile
             from .tool_worker import run_worker
             profile=Profile(args.bundle);profile.approve_run(args.run_approval,args.root)
-            require(os.getuid()=={'SYN-A-1':20101,'SYN-B-1':20102}[args.tool],'WRONG_TOOL_UID')
+            require(os.getuid()==profile.experiment.tool(args.tool).get('uid'),'WRONG_TOOL_UID')
             run_worker(args.tool,args.socket,args.state,profile)
         return 0
     except (Refusal,OSError) as exc:

@@ -1,245 +1,163 @@
 # Adaptive Research Harness
 
-## What this is
-
 An idea I think is right, carried far enough to run.
 
-Coding agents use harnesses, why not research agents? A coding agent gets a
-task, a budget, a test suite and a reviewer, and nothing it writes is merged
-until the review passes. In
-[An Agentic Coding Proposal: Constitutional Coherence](https://reckoningmachines.substack.com/p/an-agentic-coding-proposal-constitutional)
-I argued that the harness is not enough. Tests check behavior, not intent,
-so an agent can pass every test while quietly adding a second source of
-truth or giving itself decision rights. What a system needs underneath the
-harness is a constitution, a statement of what exists, what it means and who
-may change it, with the expected change to each declared before any work
-begins and measured after.
+If agent swarms make research and strategy generation extremely cheap, what
+has to sit underneath them so the process remains investable over time?
 
-Investment research runs without either. A backtest checks a result, not a
-process. Researchers are not pre-registered, their failed ideas are not kept,
-and nobody can say how many hypotheses a firm tried before it found the one it
-now trades. This repository asks what research would look like under the
-discipline that article proposed for code. It contains the constitution that
-would govern such a process, the record of how that constitution was written
-and reviewed, and a small working prototype that runs one research cycle under
-it on synthetic data.
+Adaptive Research Harness is a working prototype of that layer. It records
+authorized research attempts, reserves their budgets, preserves results and
+failures, and requires separate checking and admission before a proposal
+enters the accepted record. As researchers change their ideas, the system
+retains what they tried and why a conclusion was accepted, rejected or
+replaced.
 
-I have put it up for feedback. The questions I most want answered are at
-the end.
+A team supplies its own researcher, experiment and evaluation methods
+through a Python client connected to a running harness. The included
+LangGraph example demonstrates that integration without modifying the core.
+LangGraph is one way to organize the researchers, and tools such as MLflow
+could provide complementary experiment tracking.
 
-![The local workbench showing one research run. The sequence runs from question to admission, each card linked to the ledger record it rests on, with the evidence and budget below.](docs/images/workbench.png)
+The current examples use synthetic data and deterministic researchers. They
+demonstrate the controls and recovery behavior. The next step is using those
+interfaces for actual research.
 
-The local workbench, on a synthetic cohort whose two large shocks are
-independent. The researcher reproduced its counts with a second tool rather
-than running a control, and the page says what that is worth. Every number
-is synthetic and the researcher is a fixed policy.
+I have made the prototype public so other teams can try it with their own
+workflows and help determine which parts are useful.
 
-## The idea
+## Try it
 
-Alpha decays, and so do the methods that find it. A firm needs a
-research process that keeps probing its own ideas, retires the bad ones and
-records why. In practice the process drifts, and the record of what was
-tried lives in people's heads and old notebooks.
+Python 3.12, from the repository root. The harness itself has no
+dependencies. The client installs from `client/` and LangGraph is an
+optional extra.
 
-Two things change once the researcher is an agent.
-
-**Every test is registered before it runs.** Nothing submitted through the
-harness executes until it is logged and its budget reserved. The count of
-hypotheses tried becomes a fact in a ledger. A multiple-testing correction or a
-deflated Sharpe ratio still has to account for dependence among the trials, but
-it starts from a recorded count rather than a guess.
-
-The ledger also records, for every thesis, the condition that would falsify
-it before the outcome is known. A quant signal and a fundamental view are
-treated the same way, so hit rate and calibration are facts in the record
-rather than recollections, and the ideas that were quietly dropped stay on
-the record beside the ones that paid. Each evaluation commits an expected
-range for the next one, so decay shows up as departure from a stated
-expectation rather than as a story told afterward. Two departures in a row
-open an investigation. Retirement is a recorded decision, never a reflex.
-
-**A strategy cannot inherit a track record.** A successor strategy starts
-with its own record. It cannot borrow a predecessor's history or obtain
-capital by being related to it. Agents can propose ideas and run authorized
-experiments, but cannot grant themselves money, authority or credibility.
-
-Around those two rules sit the controls a coding harness would recognize.
-
-- **One accountable owner.** A single human, the Principal, sets mandates,
-  budgets, limits and the standards results are judged by. Nothing in the
-  system changes those without the Principal.
-- **Spend is reserved before work.** Budget is reserved before work runs.
-  Actual charges and any overrun are settled into the record afterward, so the
-  ledger shows what was approved and what was spent.
-- **Independent checking.** A separate checker, funded from its own grant
-  and written in separate code, replays the committed record and recomputes
-  the acceptance criteria from the original inputs. It cannot check work
-  from its own lineage. A proposal that fails the check is kept as evidence.
-- **Decisions are recorded, then applied.** Proposed, checked, decided,
-  applied. Each step leaves a durable entry. Nothing skips a step.
-- **Failure is preserved.** Rejected ideas and negative results are kept as
-  part of what the firm has learned.
-
-```
- Principal sets mandate, budget and standards. Nothing below changes them.
-
-   proposed  ------>  checked  ------>  decided  ------>  applied
-      |                  |                 |                 |
-  hypothesis         separate          Principal         change made
-  registered,        checker,          records the       only after the
-  budget reserved,   own code,         decision          three entries
-  before any work    own grant,                          to its left
-  runs               replays the                         exist
-                     record
-
-   every step is written to the ledger before it runs
-   a proposal that fails stays in the ledger as evidence
+```sh
+python3 -m venv .venv && .venv/bin/pip install -e './client[langgraph]'
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m examples.langgraph_headlines
 ```
 
-## Where this fits
+The command starts a local harness against the example's experiment
+directory, runs startup, one research cycle and the control
+demonstrations, and prints each decision. Synthetic headlines are
+classified by a deterministic stand-in for a model provider, next-day
+returns arrive one period later from a second source, the researcher joins
+its recorded labels to those returns, and an evaluator under a separate
+identity recomputes the join before the proposal is admitted. The same run
+shows an overstated result failing its check, a researcher refused when it
+tries to approve its own proposal, over-budget work refused before the
+provider is called, and three kinds of interruption resumed without a
+second provider call.
 
-The harness is not an agent framework and does not compete with one. It is
-the layer underneath. A team keeps whatever swarm it has, in LangGraph,
-LangChain, CrewAI or its own code, and the swarm's proposals, experiments
-and results pass through the harness on their way to data, tools and
-capital. The agents can be swapped, retrained or multiplied. The ledger,
-the budgets and the checks stay where they are.
-
-```
-   +-------------------------------------------------------------+
-   |  Agent swarm           LangGraph, LangChain, CrewAI, custom  |
-   |  proposers, researchers, critics, tool users                 |
-   |  replaceable, no authority of its own                        |
-   +-------------------------------------------------------------+
-        |  proposals, experiments, results                 ^
-        v                      decisions, refusals, evidence |
-   +-------------------------------------------------------------+
-   |  Adaptive Research Harness                                  |
-   |  registration   budget reservation   independent check      |
-   |  decision then apply   evaluation against expectation       |
-   |  two immutable ledgers hold every step                      |
-   +-------------------------------------------------------------+
-        |  authorized, recorded actions only               ^
-        v                                  results, outcomes |
-   +-------------------------------------------------------------+
-   |  Data, tools, capital                                       |
-   +-------------------------------------------------------------+
-
-   Principal sets mandate, budgets and standards in the harness.
-```
-
-## How it was made
-
-The design was written as documents, tested as documents, and built last.
-
-The Constitution went through twelve revisions. Each one was reviewed by an
-independent auditor, and each repair was admitted or rejected in a dated
-decision record. Nothing was deleted along the way. Superseded revisions,
-rejected proposals and the auditor's findings are all in `docs/`. The
-[revision 10 audit](docs/audits/independent_preimplementation_design_audit_20261019.md)
-and [PD-010](docs/decisions/principal_decision_010_codex_audit_repairs.md)
-show what a review found and what changed.
-
-The code was written last, against the admitted text, and the
-[build audit](docs/audits/adversarial_first_cycle_build_audit_20261029.md)
-recorded what document review could not catch. That is the article's loop
-applied to the harness itself, and the record is there to check whether the
-discipline caught anything.
-
-## What exists
-
-The prototype is written in Python with no dependencies beyond the standard
-library, and it runs entirely on synthetic data. It implements one bounded
-research cycle, from startup through a reservation before any spend, one
-researcher forming a hypothesis from synthetic data, two independently written
-checkers recomputing the result, and a decision that is recorded before it is
-applied. The researcher in this cycle is a deterministic policy. It computes
-its next action from the recorded inputs, so the change of direction in the
-example below is a rule firing on the evidence rather than a model exercising
-judgment.
-
-The example run asks whether larger volatility events in the synthetic data
-warrant a narrower selling hypothesis. The run demonstrates the sequence.
-
-1. The first experiment is registered and its budget reserved before it runs.
-2. The researcher's diagnostic finds that the two large events come from a
-   single shock and are one observation, not two.
-3. It changes direction, sets the large-event group aside and tests the rest.
-4. The remaining events fall short of the threshold the hypothesis set for
-   itself, and the broad claim is not adopted.
-5. The original claim and the negative result are both preserved. Only the
-   narrower question is registered for future testing.
-6. The next step is planned and recorded, not executed.
-
-Both checkers verified the contrast. Costs are in simulated units. The run
-evidence is retained at
-[artifacts/development/adaptation-final/3887aa1acdab4e0cbe39be306f13e183/E01.json](artifacts/development/adaptation-final/3887aa1acdab4e0cbe39be306f13e183/E01.json),
-and [BUILD.md](BUILD.md) covers the tests and retained evidence.
-
-Run it from the repository root with Python 3.12.
+The original synthetic cycle, with a built-in researcher and two tools the
+harness runs itself, is still one command.
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 python3 -m acceptance.local --example
 ```
 
-A local workbench shows the same cycle on one page. It starts a run on one
-of three synthetic cohorts, shows each stage with the record it rests on,
-the rows and counts, the researcher's recorded reasons, and the budget per
-grant. The original cohort sends the researcher to a within-cohort control
-that falls short of its diagnostic. A cohort with independent large shocks
-sends it to reproduce the counts with tool B instead, which the page labels
-an independent calculation and not independent evidence. A third cohort
-survives its control. A run closed after the diagnostic reopens and
-continues from the next permitted step without repeating work or charges.
-The workbench uses only the standard library and binds to the local
-machine.
+The [runbook](runbook.md) has the complete paths, including connecting
+your own researcher to a separately started harness, and the
+[client README](client/README.md) documents the Python interface.
 
-```sh
-PYTHONDONTWRITEBYTECODE=1 python3 -m workbench --port 8765
+## What a team supplies and what the harness enforces
+
+| You supply | The harness enforces |
+| --- | --- |
+| An experiment directory with the grants, limits, theme, designs, tools, methods, hypothesis template, formation data and a profile naming steps, tariffs and sources | Only declared steps, tools and parameters are admitted, cost estimates must match the tariff, and sources follow their declared period and item rules |
+| A researcher, in LangGraph or any other code, running under the researcher identity | Budget reserved before an attempt, attempt recorded before execution, one fresh permission per attempt, settlement at the actual charge or at the maximum, every refusal kept |
+| A provider or tool the researcher calls | The receipt is bound to the attempt and counted. A second, different receipt for the same attempt is refused |
+| An evaluator running under the Checker identity | A check must come from a separate lineage with its own funded attempt, its content must equal the registered receipt, and the proposer cannot check, decide or apply |
+| The owner's decisions, or a policy the owner set for routine registrations | A decision needs a passing check at the current base, and applying it needs the decision and bound funding |
+
+The receipt a researcher reports for a provider it calls itself is
+accounting, not enforcement over what that process spends. A tool the
+harness runs under its own credential is the stronger arrangement, and the
+original synthetic tools work that way. One local process holds every
+identity token. There is no operating-system isolation.
+
+## The research loop
+
+The owner, called the Principal, sets authority and policy. Grants say who
+may research what, with which tools and how much budget. Policy `P-1` lets
+qualifying registrations proceed under that authority without a fresh
+decision each time. Everything else stays with the Principal.
+
+```mermaid
+flowchart LR
+  P[Principal sets grants, limits, policy] --> L[(ledgers)]
+  R[Researcher] -->|reserve, attempt, record, propose| L
+  C[Checker, separate lineage and grant] -->|check| L
+  L -->|decision by Principal, or by policy P-1 when it qualifies| A[apply]
+  A --> L
 ```
 
-No agent framework is attached yet. LangGraph and MiroFish have been
-examined as candidates, and the [feasibility
-review](docs/audits/feasibility_coherence_public_library_20261029.md) lists the
-boundary points any framework would connect through. The first cycle uses an
-in-house researcher and synthetic tools so the boundaries are exercised before
-a framework is attached.
+A proposal is admitted only after a check from a separate lineage, a
+recorded decision and an apply. A proposal that fails its check stays on
+the ledger as evidence. Attempts that run through the harness are recorded
+before they run, so the count of attempts and of registered hypotheses is a
+fact of the record rather than a recollection. That is a record of executed
+work, not preregistration. The example forms its hypothesis after examining
+the data and registers it for future testing, and the record says so.
+
+## What is implemented and what the design describes
+
+Implemented and exercised, on synthetic data.
+
+- Reservation, attempt, execution, settlement and closure of research
+  budget, with pending liabilities surviving interruption.
+- Research records, proposals, independent checks, decisions under the
+  Principal or policy `P-1`, apply, binding and invalidation.
+- Recovery from a fresh process using the ledgers alone, including lost
+  responses and the rule for replacing an uncertain attempt.
+- An experiment profile, an installable client, a local host and a
+  LangGraph example supplied from outside the core.
+
+Described in the [Constitution](docs/doctrines/new_speedway_constitution.md)
+and not built.
+
+- Forward predictions and their outcomes, evaluation against a committed
+  expectation, and decay monitoring.
+- Strategy versions, paper execution, capital qualification, allocation and
+  reduction.
+- Retirement of strategies and hypotheses as recorded decisions.
+- Real providers, real documents and operating-system isolation.
+
+The [architecture](architecture.md) keeps the two apart in detail.
 
 ## Open questions
 
 These are the questions I want feedback on.
 
-- **Coverage.** The ledger counts the tests that run through the harness.
-  Work done outside it, in a notebook or a spreadsheet, is never counted. If
-  that outside work decides which ideas get registered, the ledger
-  understates how many were tried, and the multiple-testing correction built
-  on it is too small. How much of a firm's research has to run through the
-  harness before the count means anything, and how would the firm know?
-- **Judgment versus arithmetic.** The checker replays computation. Most of what
-  makes research good or bad happens before the computation, in the choice of
-  universe, window and definition of an event. The example run shows this, when
-  the two large events turn out to be one shock. A checker can confirm that two
-  events share a shock identifier when the data carries one. It cannot decide
-  whether grouping events by shock was the right economic call. Recomputation
-  catches arithmetic errors. What catches a bad definition, and is that a job
-  for a checker, a second researcher or the Principal?
+- **Coverage.** The ledger counts the attempts that run through the
+  harness. Work done outside it, in a notebook or a spreadsheet, is never
+  counted. If that outside work decides which ideas get registered, the
+  ledger understates how many were tried, and any multiple-testing
+  correction built on it is too small. How much of a team's research has to
+  run through the harness before the count means anything, and how would
+  the team know?
+- **Judgment versus arithmetic.** The checker replays computation. Most of
+  what makes research good or bad happens before the computation, in the
+  choice of universe, window and definition of an event. A checker can
+  confirm that two events share a shock identifier when the data carries
+  one. It cannot decide whether grouping events by shock was the right
+  economic call. What catches a bad definition, and is that a job for a
+  checker, a second researcher or the Principal?
 - **Lookahead.** The dominant practical failure in quantitative research is
-  a hypothesis formed after seeing the test window. Timestamped registration
-  helps only if data vintage is part of the record. Is that enough, and what
+  a hypothesis formed after seeing the test window. Timestamped records
+  help only if data vintage is part of the record. Is that enough, and what
   else is needed?
 
 ## Where to read
 
 | For | Read |
 | --- | --- |
-| The design, end to end | [Architecture](architecture.md) |
-| The rules themselves | [The Constitution](docs/doctrines/new_speedway_constitution.md), admitted by the [admission record](docs/decisions/cv1_admission_20261019.md). Its own status banner predates admission and is kept so the admitted text stays exact |
-| How the rules were reviewed | [Review handoff](docs/audits/cv1_final_handoff_20261019.md), then the [revision 10 audit](docs/audits/independent_preimplementation_design_audit_20261019.md), [PD-010](docs/decisions/principal_decision_010_codex_audit_repairs.md), the [final review](docs/audits/cv1_final_independent_review_20261019.md), the [follow-up](docs/audits/cv1_revision12_bounded_followup_20261019.md) and the [closure review](docs/audits/cv1_revision12_closure_20261019.md) |
-| What was built, and its limits | [BUILD.md](BUILD.md), the [first-cycle plan](docs/plans/first_research_cycle_implementation_20261029.md) and the [build audit](docs/audits/adversarial_first_cycle_build_audit_20261029.md) |
-| How to run it | [Runbook](runbook.md) |
-| The method | [Document-first design plan](docs/plans/document_first_design.md) |
-| The original proposal | [Design proposal (.docx)](docs/reference/new_speedway_design_proposal_20261019.docx) and [text transcription](docs/reference/new_speedway_discussion_draft_20261017.md), kept as reference |
-| The argument as slides | [Presentations](docs/presentations/README.md) |
+| How the system works and where your code connects | [Architecture](architecture.md) |
+| Verified steps to operate it | [Runbook](runbook.md) |
+| The Python client, operation by operation | [Client README](client/README.md) |
+| What was built, with its tests and limits | [BUILD.md](BUILD.md) and the [integration report](docs/implementation/langgraph_integration_20261101.md) |
+| The rules themselves | [The Constitution](docs/doctrines/new_speedway_constitution.md), admitted by the [admission record](docs/decisions/cv1_admission_20261019.md) |
+| How it was made and reviewed | The design was written and reviewed as documents before code. [Document-first design plan](docs/plans/document_first_design.md), the [revision 10 audit](docs/audits/independent_preimplementation_design_audit_20261019.md), [PD-010](docs/decisions/principal_decision_010_codex_audit_repairs.md), the [closure review](docs/audits/cv1_revision12_closure_20261019.md) and the [build audit](docs/audits/adversarial_first_cycle_build_audit_20261029.md) |
+| The original proposal and slides | [Design proposal (.docx)](docs/reference/new_speedway_design_proposal_20261019.docx), [text transcription](docs/reference/new_speedway_discussion_draft_20261017.md), [presentations](docs/presentations/README.md) |
 | Why some files say "New Speedway" | [Rename record](docs/decisions/project_rename_20261029.md) |
 | Everything else | `docs/decisions/`, `docs/audits/` and the [package manifest](docs/package/cv1_review_package_manifest.md) |
 
@@ -247,5 +165,5 @@ These are the questions I want feedback on.
 
 The Constitution governs. Decision records document what the Principal
 approved. Audits are evidence and authorize nothing. Plans propose work.
-Reference material preserves the original discussion. This README and the
-architecture explain the design without changing its rules.
+Reference material preserves the original discussion. This README, the
+architecture and the runbook explain the system without changing its rules.

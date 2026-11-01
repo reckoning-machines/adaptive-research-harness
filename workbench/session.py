@@ -50,6 +50,7 @@ def inventory_matches(bundle):
     """True when every inventory file of this run's bundle equals the current tree."""
     try:Profile(bundle).verify_files(ROOT);return True,None
     except Refusal as exc:return False,exc.code+(' '+exc.detail if exc.detail else '')
+    except OSError as exc:return False,'BUNDLE_UNREADABLE '+str(exc)
 
 
 class Session(LocalRuntime):
@@ -125,7 +126,7 @@ class Session(LocalRuntime):
         while time.monotonic()<deadline:
             try:
                 self.read('profile')
-                if all((self.sockets/(x+'.sock')).exists() for x in ('tool-a','tool-b')):return
+                if all((self.sockets/(x+'.sock')).exists() for x in self.profile_obj.experiment.core_labels()):return
             except (OSError,EOFError,Refusal):pass
             time.sleep(.02)
         raise AssertionError('Workbench core failed: '+str([p.read_text() for p in self.state.glob('*.log')]))
@@ -134,7 +135,7 @@ class Session(LocalRuntime):
         if op=='new-case':
             SyntheticClock(self.state/'clock.json',self.profile_obj.setup['clock']).initialize()
         elif op!='resume':raise Refusal('CAPABILITY_UNSUPPORTED',op)
-        for label in ('tool-a','tool-b'):self.launch('tool',label)
+        for label in self.profile_obj.experiment.core_labels():self.launch('tool',label)
         self.launch('core');return {'status':op.upper()}
     def note(self,**fields):
         m=manifest(self.run_dir);m.update(fields);durable_write(self.run_dir/'workbench.json',m)
@@ -196,10 +197,11 @@ class ReadOnlyRun:
     def __init__(self,run_dir,reason):
         self.run_dir=Path(run_dir);self.m=manifest(run_dir);self.cohort=self.m['cohort'];self.reason=reason;self.mode='read-only'
         self.es,self.ts,self.claims=records.load_readonly(self.run_dir/'state'/'harness.sqlite')
-        self.profile_obj=Profile(self.run_dir/'bundle')
+        # Read the retained artifacts directly: an older bundle may predate the experiment profile and cannot form a Profile.
+        self.artifacts=decode((self.run_dir/'bundle'/'designs_and_methods.json').read_bytes())
     def view(self):
         d=records.derive(self.es,self.ts);step=records.next_step(d,self.cohort,self.claims)
-        v=self.profile_obj.artifacts['variant_cohorts'][self.cohort]
+        v=self.artifacts['variant_cohorts'][self.cohort]
         return {'run':self.run_dir.name,'cohort':self.cohort,'mode':'read-only','read_only_reason':self.reason,'status':'complete' if step is None else 'in_progress',
                 'inventory_sha256':self.m.get('inventory_sha256'),'labels':LABELS,'cohort_info':{k:v[k] for k in ('description','differs_from_formation','expected_path','content_sha256')},
                 'state':{'N':max((e['body']['n'] for e in self.ts if e['kind']=='APPLIED'),default=None)},'clock':None,

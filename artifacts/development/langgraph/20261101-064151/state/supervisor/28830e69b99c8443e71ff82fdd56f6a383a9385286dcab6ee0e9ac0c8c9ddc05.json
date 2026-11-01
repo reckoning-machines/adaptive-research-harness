@@ -1,0 +1,1 @@
+{"channels_discarded":true,"inventory_sha256":"d9aa85d42d394945765cf1e47e3630c107bf532e603941cee361ee90ec4514f0","old_channels_closed":true,"provider_dispositions":{"64":{"claim_input_hash":"c4040167cfb67bf233f5851a186429fec58c608a2621cce438e77acec70066dc","state":"CANCELLED"}},"terminated_generations":[{"pid":77077,"run":"22301b67aa934ab987323498e04993e7"}]}

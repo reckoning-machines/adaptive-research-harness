@@ -22,114 +22,52 @@ from adaptive_research_harness.clock import durable_write,SyntheticClock
 from adaptive_research_harness.transport import receive,send,request,LifetimeLock,DropReply
 from adaptive_research_harness.client import Client
 from adaptive_research_harness.profile import Profile
+from adaptive_research_harness.local_host import local_serve,LocalClient,process_generation,local_quiescence,serve_core,serve_tool
 from .runtime import Runtime
 
 ROOT=Path(__file__).resolve().parents[1]
 BUNDLE=ROOT/'docs/builds/first_cycle_20261029/run_bundle'
 
 
-def local_serve(path,handler,allowed):
-    """Private fixture sockets; assumed same-user identity, never OS-isolation evidence."""
-    path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
-    if path.exists():path.unlink()
-    with socket.socket(socket.AF_UNIX,socket.SOCK_STREAM) as server:
-        server.bind(str(path));os.chmod(path,0o600);server.listen(64)
-        def connection(conn):
-            with conn:
-                try:send(conn,handler({'uid':20000,'pid':0},receive(conn)))
-                except DropReply:pass
-                except (Refusal,OSError,EOFError,ValueError,KeyError,TypeError) as exc:
-                    try:send(conn,{'status':'ERROR','reason':getattr(exc,'code','OPERATIONAL_ERROR'),'detail':str(exc)})
-                    except OSError:pass
-        while True:
-            conn,_=server.accept();threading.Thread(target=connection,args=(conn,),daemon=True).start()
-
-
-class LocalClient(Client):
-    def __init__(self,config,actor):
-        super().__init__(Path(config.get('sockets',config['state']))/'core.sock',actor);self.token=config['tokens'][actor]
-    def call(self,op,payload=None,key=None):
-        return request(self.path,{'actor':self.actor,'op':op,'payload':payload or {},'request_id':key or str(uuid.uuid4()),'token':self.token,'pid':os.getpid()})
-
-
-def process_generation(config,pid=None):return {'pid':pid or os.getpid(),'run':config['run_id']}
-
-
-def local_quiescence(path,inventory,core,worker):
-    require(Path(path).is_file(),'WORKER_NOT_QUIESCENT');proof=decode(Path(path).read_bytes())
-    require(proof['inventory_sha256']==inventory and proof.get('channels_discarded') is True,'WORKER_NOT_QUIESCENT')
-    for old in (core,worker):
-        if old is None:continue
-        require(old in proof['terminated_generations'],'WORKER_NOT_QUIESCENT')
-        try:os.kill(old['pid'],0)
-        except ProcessLookupError:continue
-        raise Refusal('WORKER_NOT_QUIESCENT')
-    return proof
-
-
 def worker(mode,config_path,label=None):
     global BUNDLE
     config=decode(Path(config_path).read_bytes());BUNDLE=Path(config['bundle']);state=Path(config['state']);sockets=Path(config.get('sockets',config['state']));profile=Profile(BUNDLE)
-    if mode=='core':
-        from adaptive_research_harness.storage import Store
-        from adaptive_research_harness.engine import Engine
-        from adaptive_research_harness.dispatch import Dispatcher
-        from adaptive_research_harness.service import core_handler,Faults
-        permission=profile.development_permission(ROOT,state)
-        class Clock:
-            def read(self):
-                require(not (state/'clock-off').exists(),'CLOCK_UNAVAILABLE')
-                return SyntheticClock(state/'clock.json',profile.setup['clock']).read()
-        with LifetimeLock(state/'writer.lock'):
-            store=Store(state/'harness.sqlite');engine=Engine(store,profile,Clock(),permission)
-            faults=Faults(engine,state/'faults',lambda:process_generation(config));engine.fault_hook=faults.hit
-            dispatcher=Dispatcher(engine,{t:str(sockets/(l+'.sock')) for t,l in [('SYN-A-1','tool-a'),('SYN-B-1','tool-b')]},state/'supervisor',generation_value=process_generation(config),quiescence_verifier=local_quiescence)
-            engine.dispatcher=dispatcher
-            handler=core_handler(engine,dispatcher,faults,lambda pid:process_generation(config,pid))
-            uids={v:k for k,v in profile.roles.items()}
-            def ingress(who,b):
-                token=b.pop('token',None);pid=b.pop('pid',None)
-                require(token is not None and secrets.compare_digest(token,config['tokens'].get(b.get('actor'),'')),'ACTOR_MISMATCH')
-                return handler({'uid':uids[b['actor']],'pid':pid},b)
-            local_serve(sockets/'core.sock',ingress,set())
-    elif mode=='tool':
-        from adaptive_research_harness.tool_worker import run_worker
-        run_worker({'tool-a':'SYN-A-1','tool-b':'SYN-B-1'}[label],sockets/(label+'.sock'),state/label,profile,serve_function=local_serve,generation_provider=lambda:process_generation(config))
-    else:
-        from adaptive_research_harness import actors
-        data=decode(sys.stdin.buffer.read());client=LocalClient(config,label);op=data['op'];p=data.get('payload',{})
-        def hook(point):
-            fault=state/('actor-'+label+'.fault')
-            if not fault.exists() or decode(fault.read_bytes())['point']!=point:return
-            fault.unlink();paused=state/(digest([label,point,os.getpid()])+'.paused')
-            durable_write(paused,{'point':point,'generation':process_generation(config)})
-            while not paused.with_suffix('.release').exists():time.sleep(.01)
-        try:
-            if op=='independent-read':
-                from .reader import read
-                result=read(client)
-            elif op=='check':result=actors.check(client,p['transition_id'],hook)
-            elif op=='choose-next-experiment':result=actors.choose_next_experiment(client,p['research_ref'])
-            elif op=='run-next-experiment':result=actors.run_next_experiment(client,p['selection_ref'])
-            elif op=='research':result=actors.research(client,p.get('tool','SYN-A-1'),p.get('stop_after'),p.get('cohort'))
-            elif op=='complete-research':result=actors.complete_research(client,p['attempt'])
-            elif op=='propose-mutated':result=actors.propose_mutated(client,**p)
-            elif op=='propose-hypothesis':result=actors.propose_hypothesis(client,p['research_ref'],p.get('previous'))
-            elif op=='propose-successor':result=actors.propose_successor(client,p['case'],p['ordinal'])
-            elif op=='observe':result=actors.observe(client,p.get('date','2026-10-28'),p.get('form','DOCUMENT'),p.get('cohort'))
-            elif op=='settle-pending':result=actors.recover_settlement(client,p['attempt'])
-            elif op=='retry-research':result=actors.retry_research(client,p['attempt'])
-            elif op=='inspect-request':result=client.query(op,p)
-            elif op=='close-reservation':result=client.call('close',p)
-            elif op=='reserve':result=client.call(op,p,data.get('request_id'))
-            elif op=='adversarial-command':
-                require(p['command'] not in ('propose','research-commit'),'INVALID_CASE')
-                result=client.call(p['command'],p['payload'],p.get('request_id'))
-            elif op=='peer-impersonation':
-                result=request(client.path,{'actor':p['actor'],'op':'fence','payload':{'grant':'AU-RP-1','reason':'negative'},'request_id':str(uuid.uuid4()),'token':client.token,'pid':os.getpid()})
-            else:raise Refusal('CAPABILITY_UNSUPPORTED',op)
-        except (Refusal,OSError,EOFError,ValueError,KeyError,TypeError) as exc:result={'status':'ERROR','reason':getattr(exc,'code','OPERATIONAL_ERROR'),'detail':str(exc)}
-        print(canonical(result).decode())
+    if mode=='core':return serve_core(config,ROOT)
+    if mode=='tool':return serve_tool(config,label)
+    from adaptive_research_harness import actors
+    data=decode(sys.stdin.buffer.read());client=LocalClient(config,label);op=data['op'];p=data.get('payload',{})
+    def hook(point):
+        fault=state/('actor-'+label+'.fault')
+        if not fault.exists() or decode(fault.read_bytes())['point']!=point:return
+        fault.unlink();paused=state/(digest([label,point,os.getpid()])+'.paused')
+        durable_write(paused,{'point':point,'generation':process_generation(config)})
+        while not paused.with_suffix('.release').exists():time.sleep(.01)
+    try:
+        if op=='independent-read':
+            from .reader import read
+            result=read(client)
+        elif op=='check':result=actors.check(client,p['transition_id'],hook)
+        elif op=='choose-next-experiment':result=actors.choose_next_experiment(client,p['research_ref'])
+        elif op=='run-next-experiment':result=actors.run_next_experiment(client,p['selection_ref'])
+        elif op=='research':result=actors.research(client,p.get('tool','SYN-A-1'),p.get('stop_after'),p.get('cohort'))
+        elif op=='complete-research':result=actors.complete_research(client,p['attempt'])
+        elif op=='propose-mutated':result=actors.propose_mutated(client,**p)
+        elif op=='propose-hypothesis':result=actors.propose_hypothesis(client,p['research_ref'],p.get('previous'))
+        elif op=='propose-successor':result=actors.propose_successor(client,p['case'],p['ordinal'])
+        elif op=='observe':result=actors.observe(client,p.get('date','2026-10-28'),p.get('form','DOCUMENT'),p.get('cohort'))
+        elif op=='settle-pending':result=actors.recover_settlement(client,p['attempt'])
+        elif op=='retry-research':result=actors.retry_research(client,p['attempt'])
+        elif op=='inspect-request':result=client.query(op,p)
+        elif op=='close-reservation':result=client.call('close',p)
+        elif op=='reserve':result=client.call(op,p,data.get('request_id'))
+        elif op=='adversarial-command':
+            require(p['command'] not in ('propose','research-commit'),'INVALID_CASE')
+            result=client.call(p['command'],p['payload'],p.get('request_id'))
+        elif op=='peer-impersonation':
+            result=request(client.path,{'actor':p['actor'],'op':'fence','payload':{'grant':'AU-RP-1','reason':'negative'},'request_id':str(uuid.uuid4()),'token':client.token,'pid':os.getpid()})
+        else:raise Refusal('CAPABILITY_UNSUPPORTED',op)
+    except (Refusal,OSError,EOFError,ValueError,KeyError,TypeError) as exc:result={'status':'ERROR','reason':getattr(exc,'code','OPERATIONAL_ERROR'),'detail':str(exc)}
+    print(canonical(result).decode())
 
 
 class LocalRuntime(Runtime):
@@ -157,7 +95,7 @@ class LocalRuntime(Runtime):
         while time.monotonic()<deadline:
             try:
                 self.read('profile')
-                if all((self.state/(x+'.sock')).exists() for x in ('tool-a','tool-b')):return
+                if all((self.state/(x+'.sock')).exists() for x in Profile(BUNDLE).experiment.core_labels()):return
             except (OSError,EOFError,Refusal):pass
             time.sleep(.02)
         raise AssertionError('Local core failed: '+str([p.read_text() for p in self.state.glob('*.log')]))
@@ -186,14 +124,14 @@ class LocalRuntime(Runtime):
     def host(self,op,**p):
         if op=='new-case':
             clock=SyntheticClock(self.state/'clock.json',Profile(BUNDLE).setup['clock']);clock.initialize()
-            for label in ('tool-a','tool-b'):self.launch('tool',label)
+            for label in Profile(BUNDLE).experiment.core_labels():self.launch('tool',label)
             self.launch('core');return {'status':'NEW_EMPTY_CASE'}
         if op in ('restart','quiesce'):
             old=list(self.dead);processes=self.stop();proof={'inventory_sha256':Profile(BUNDLE).inventory_hash,'terminated_generations':self.dead,'channels_discarded':True,'old_channels_closed':True}
-            cores=[process_generation(self.config,proc.pid) for mode,label,proc in processes if mode=='core']
-            for g in cores:durable_write(self.state/'supervisor'/(digest(g)+'.json'),proof)
+            # One proof per dead generation: cores for core-dispatched tools, actors for caller-executed ones.
+            for g in self.dead:durable_write(self.state/'supervisor'/(digest(g)+'.json'),proof)
             if op=='restart':
-                for label in ('tool-a','tool-b'):self.launch('tool',label)
+                for label in Profile(BUNDLE).experiment.core_labels():self.launch('tool',label)
                 self.launch('core')
             return {'proof':proof}
         if op in ('kill','stop','start'):

@@ -39,7 +39,7 @@ class Engine:
                 require(actor=='Principal','UNAUTHORIZED')
                 return {'claims':[{'attempt':r['attempt_seq'],'claim':decode(r['body']),'receipt':decode(r['receipt']) if r['receipt'] else None} for r in self.store.db.execute('SELECT * FROM dispatch_claims ORDER BY attempt_seq')], 'classification':'OPERATIONAL_RECEIPT_NOT_AUTHORIZATION'}
             if op == 'profile':
-                return {'setup':self.profile.setup,'artifacts':self.profile.artifacts,
+                return {'setup':self.profile.setup,'artifacts':self.profile.artifacts,'experiment':self.profile.experiment.data,
                         'inventory':self.profile.inventory,'inventory_sha256':self.profile.inventory_hash}
             if op == 'clock': return {'t':self.now(),'E':v.E}
             if op == 'closure':
@@ -183,8 +183,9 @@ class Engine:
                 refs=[self.store.append('T','REFUSAL',actor,{'reason':'UNAUTHORIZED','request':b},transition_id='@genesis-refused')] if v.n is not None else []
                 result={'status':'REFUSED','reason':'UNAUTHORIZED','refs':refs,'request':b}
                 self.store.remember(actor,key,h,result);return result
-            expected={'constitution_sha256':CV1,'design':self.profile.designs['AD-CK-1.0'],
-                      'grant':self.profile.grants['AU-CK-A']}
+            pair=self.profile.experiment.genesis
+            expected={'constitution_sha256':CV1,'design':self.profile.designs[pair['design']],
+                      'grant':self.profile.grants[pair['grant']]}
             if v.evidence or v.transitions or b!=expected:
                 # Pre-initialization receipts are operational. Neither governed
                 # ledger acquires a record before the exact empty-ledger Apply 0.

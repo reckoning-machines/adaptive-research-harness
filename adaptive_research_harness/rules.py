@@ -5,7 +5,7 @@ Checker programs do not import this module.
 """
 from __future__ import annotations
 from .encoding import require, Refusal, units, amount, digest, fields, instant, canonical
-from .contracts import COMMON, CLASS_CRITERIA, STEPS
+from .contracts import COMMON, CLASS_CRITERIA
 
 
 def independence(v, checker, grant, p):
@@ -154,7 +154,8 @@ class Rules:
         require(maximum <= max(units(g['research_budget_units'])-committed,0), 'GRANT_EXHAUSTED')
         lc, _ = v.totals(rb['grant'], now, rb['lineage'])
         require(lc+maximum <= units(g['per_lineage_cap_units']), 'CAP_EXHAUSTED')
-        require(b['step'] in STEPS and b['input']['step'] == b['step'], 'INVALID_STEP')
+        exp = self.profile.experiment; step = exp.step(b['step'])
+        require(step is not None and b['input']['step'] == b['step'], 'INVALID_STEP')
         fields(b['input'], {'schema_version','tool_id','tool_spec_hash','executable_hash','step','parameters','input_refs'})
         require(b['input']['schema_version']==1, 'INVALID_INPUT')
         for ref in b['input']['input_refs']:
@@ -166,18 +167,19 @@ class Rules:
         require(v.designs[actor]['tool_specs'].get(tool['id']) == tool['spec_sha256'], 'TOOL_NOT_PERMITTED')
         expected_code = self.profile.inventory['tool_executables'][tool['id']]
         require(b['input']['executable_hash'] == expected_code, 'TOOL_VERSION_MISMATCH')
-        if tool['id'].startswith('CHECK'):
-            require(b['step'] == 'check-transition' and rb['purpose']['kind'] == 'Check', 'PURPOSE_OUT_OF_SCOPE')
+        if step['kind'] == 'check':
+            require(tool['id'] in step['tools'] and rb['purpose']['kind'] == 'Check', 'PURPOSE_OUT_OF_SCOPE')
             require(b['input']['parameters']['transition_id'] == rb['purpose']['id'], 'PURPOSE_OUT_OF_SCOPE')
-            require(maximum == 25, 'INVALID_ESTIMATE')
+            require(maximum == units(step['maximum']), 'INVALID_ESTIMATE')
         else:
-            require(b['step'] in ('research-counts','replacement-counts'), 'INVALID_STEP')
+            require(tool['id'] in step['tools'], 'INVALID_STEP')
             docs = [v.exact(ref) for ref in b['input']['input_refs']]
-            require(len(docs) == 1 and docs[0]['kind'] == 'OBSERVATION' and docs[0]['body']['form'] == 'DOCUMENT', 'INVALID_INPUT')
-            require(len(canonical(docs[0]['body']['document']))<=16*1024*1024, 'INPUT_TOO_LARGE')
-            require(b['input']['parameters']=={'threshold':2}, 'CAPABILITY_UNSUPPORTED')
-            count = len(docs[0]['body']['document'].get('rows', []))
-            require(count <= 4096 and maximum == (100 if count <= 1024 else 200), 'INVALID_ESTIMATE')
+            shape = step['inputs']
+            require(len(docs) == shape['count'] and all(d['kind'] == shape['kind'] and d['body']['form'] == shape['form'] for d in docs), 'INVALID_INPUT')
+            require(len(canonical(docs[0]['body']['document'])) <= step['input_limit_bytes'], 'INPUT_TOO_LARGE')
+            require(b['input']['parameters'] == step['parameters'], 'CAPABILITY_UNSUPPORTED')
+            rows = docs[0]['body']['document'].get('rows', [])
+            require(isinstance(rows, list) and maximum == exp.expected_maximum(step, len(rows)), 'INVALID_ESTIMATE')
         ih = digest(b['input']); index = b['dispatch_index']
         require(type(index) is int and index >= 0, 'INVALID_DISPATCH_INDEX')
         previous = [e for e in v.attempts.values() if e['body']['reservation'] == b['reservation'] and
@@ -362,34 +364,27 @@ class Rules:
         require(right in g['may_commit_evidence'],'UNAUTHORIZED')
         src = next((s for s in g['source_declarations'] if s['content']['SourceId']==b['source']),None)
         require(src is not None and src['SourceRevision'] == b['revision'], 'SOURCE_NOT_ACTIVE')
-        require(b['source'] == 'SRC-SYN', 'CAPABILITY_UNSUPPORTED')
+        rule = self.profile.experiment.sources.get(b['source'])
+        require(rule is not None, 'CAPABILITY_UNSUPPORTED')
         require(b['slot']==now, 'STALE_OBSERVATION_SLOT')
         start,end=instant(b['period']['start']),instant(b['period']['end'])
-        require(end-start==86400000 and start%86400000==0 and
-                instant('2026-10-28T00:00:00.000Z')<=start<instant('2027-04-30T00:00:00.000Z'),'INVALID_PERIOD')
-        require(b['item_id']=='cohort-'+b['period']['start'][:10],'INVALID_ITEM')
+        require(end-start==rule['period_ms'] and start%rule['period_ms']==0 and
+                instant(rule['window']['start'])<=start<instant(rule['window']['end']),'INVALID_PERIOD')
+        require(b['item_id']==rule['item_id']['prefix']+b['period']['start'][:10],'INVALID_ITEM')
         require(b['form'] in ('DOCUMENT','VALUE','NOT_EXTRACTABLE','RETRIEVAL_FAILED','COMPLETE','PARTIAL'),'CAPABILITY_UNSUPPORTED')
         if b['form']=='DOCUMENT':
             d=b['document']
             require(d.get('synthetic') is True and b['item_id']==d['item_id'] and
                     d['period_start']==b['period']['start'] and d['period_end']==b['period']['end'],'INVALID_DOCUMENT')
             require(end<=now,'SOURCE_NOT_YET_AVAILABLE')
-            require(len(canonical(d))<=16*1024*1024,'INPUT_TOO_LARGE')
+            require(len(canonical(d))<=rule['document']['max_bytes'],'INPUT_TOO_LARGE')
         elif b['form'] in ('VALUE','NOT_EXTRACTABLE'):
             document=v.exact(b['document_ref']);db=document['body']
             require(document['kind']=='OBSERVATION' and db['form']=='DOCUMENT' and
                     db['source']==b['source'] and db['revision']==b['revision'] and
                     db['period']==b['period'] and db['item_id']==b['item_id'],'INVALID_EXTRACTION_BINDING')
-            try:
-                rows=db['document']['rows'];seen=set();n=k=0
-                for row in rows:
-                    require(isinstance(row['event_id'],str) and row['event_id'] not in seen and type(row['size_units']) is int and
-                            type(row['spike']) is bool and type(row['selling']) is bool,'NOT_EXTRACTABLE')
-                    seen.add(row['event_id'])
-                    if row['spike'] and row['size_units']>=2:n+=1;k+=int(row['selling'])
-                extractable=n>0
-            except (Refusal,KeyError,TypeError):extractable=False
-            if b['form']=='VALUE':require(extractable and b.get('value')=={'numerator':k,'denominator':n},'INVALID_EXTRACTION')
+            extractable,value=self.profile.experiment.extract(b['source'],db['document'])
+            if b['form']=='VALUE':require(extractable and b.get('value')==value,'INVALID_EXTRACTION')
             else:require(not extractable and bool(b.get('error')),'INVALID_EXTRACTION')
         elif b['form']=='COMPLETE':
             require(b.get('window')==b['period'] and b.get('items')==([b['item_id']] if end<=now else []),'INCOMPLETE_LISTING')

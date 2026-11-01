@@ -1,0 +1,298 @@
+{
+ "clock": {
+  "advance": "explicit host advance only",
+  "binding_interval_ms": 300000,
+  "epoch": "2026-10-29T00:00:00.000Z",
+  "initial_tick": 0,
+  "maximum_instant": "2027-05-01T00:00:00.000Z",
+  "maximum_tick": 15897600000,
+  "tick_unit": "millisecond"
+ },
+ "constitution": {
+  "evaluation_standard": "ES-1.0",
+  "sha256": "c56a9cf50a7e9efadad8f2f2be6605e82c758f18d4096ba07eaaf86a8f8b7a64",
+  "version": 1
+ },
+ "grants": [
+  {
+   "content": {
+    "AuthorizationId": "AU-CK-H",
+    "binding_interval_ms": null,
+    "capital_permission": false,
+    "class": "Checker",
+    "constitutional_budget": {
+     "delta_A": 0,
+     "delta_O": 0,
+     "delta_S": 0
+    },
+    "default_reservation_duration_ms": 604800000,
+    "expiry": "2027-04-30T00:00:00.000Z",
+    "forbidden_subjects": [
+     "AD-CK-H1 lineage and every successor",
+     "AU-CK-H and its successor chain"
+    ],
+    "grantee": [
+     "AD-CK-H1.0"
+    ],
+    "grantor": "Principal",
+    "may_check": [
+     "every supported Transition class except own subjects"
+    ],
+    "may_commit_evidence": [
+     "Research Record for verification",
+     "RESERVATION",
+     "attempt",
+     "settlement",
+     "CLOSED"
+    ],
+    "may_propose": [
+     "own Agent Design successor",
+     "Constitutional proposal STOPPED until Principal decides"
+    ],
+    "per_lineage_cap_units": "20.00",
+    "provider_calls_permitted": false,
+    "provider_diversity": "No provider diversity claimed: deterministic program under the A1 synthetic-only exception.",
+    "research_budget_units": "20.00",
+    "tools": [
+     {
+      "id": "CHECK-H-1",
+      "spec_sha256": "77b568d468ae44a2fa05026869c3004e813eaf19e259899f441aea4fb7abb590",
+      "tier": 1
+     }
+    ],
+    "uncapped_calls_permitted": false
+   }
+  },
+  {
+   "content": {
+    "AuthorizationId": "AU-OBS-H",
+    "capital_permission": false,
+    "class": "Observation",
+    "constitutional_budget": {
+     "delta_A": 0,
+     "delta_O": 0,
+     "delta_S": 0
+    },
+    "expiry": "2027-04-30T00:00:00.000Z",
+    "grantee": [
+     "Observation function"
+    ],
+    "grantor": "Principal",
+    "may_check": [],
+    "may_commit_evidence": [
+     "DOCUMENT Observation",
+     "feed retrieval COMPLETE/PARTIAL/RETRIEVAL_FAILED",
+     "Market Observation VALUE/ABSENT/NOT_EXTRACTABLE/RETRIEVAL_FAILED"
+    ],
+    "may_propose": [],
+    "observation_plan": {
+     "SRC-NEWS-SYN": {
+      "period_dates_inclusive": [
+       "2026-10-28",
+       "2027-04-29"
+      ],
+      "retrieval_slot": "period_end plus 1000 milliseconds",
+      "stop_rule": "No slot at or after grant expiry."
+     },
+     "SRC-RET-SYN": {
+      "period_dates_inclusive": [
+       "2026-10-29",
+       "2027-04-30"
+      ],
+      "retrieval_slot": "period_end plus 1000 milliseconds",
+      "stop_rule": "No slot at or after grant expiry."
+     }
+    },
+    "provider_calls_permitted": false,
+    "source_declarations": [
+     {
+      "SourceId": "SRC-NEWS-SYN",
+      "SourceRevision": "857da4abacd099954dbaa9cd717266cf777acf635f50cc1436f8f890bc0fadc4",
+      "content": {
+       "SourceId": "SRC-NEWS-SYN",
+       "access_method": "Local fixture lookup; no network",
+       "claimed_time_field": "claimed_publication_time",
+       "dataset": "Daily synthetic headline cohort documents",
+       "endpoint": "synthetic://SRC-NEWS-SYN/headlines/{period_date}",
+       "enumeration_contract": {
+        "complete_set": "Exactly the headline item for each declared period_date whose period_end <= current synthetic time.",
+        "completeness": "COMPLETE requires a successful full listing.",
+        "item_identity": "headlines-YYYY-MM-DD, one FIRST_RELEASE document per period; differing bytes are a new Observation.",
+        "window": "One UTC daily period per retrieval; 2026-10-28 through 2027-04-29."
+       },
+       "extraction_rule": "Count well-formed rows over listed rows; malformed bytes => NOT_EXTRACTABLE. Headlines carry no outcome.",
+       "field": "well_formed_rows",
+       "field_definition": "Rows with a unique string row_id and a string headline over all listed rows.",
+       "parsing": "Strict JSON; rows with row_id and headline; unique row_id; exact period and item binding.",
+       "print_rule": "FIRST_RELEASE",
+       "provider": "Local deterministic headline fixture in this example; not a news vendor",
+       "resolution_grace_ms": 600000,
+       "source_kind": "DOCUMENT_FEED",
+       "structural_availability_bound": "Released no earlier than period_end within the simulated source contract.",
+       "synthetic": true,
+       "unit": "dimensionless exact numerator/denominator pair"
+      }
+     },
+     {
+      "SourceId": "SRC-RET-SYN",
+      "SourceRevision": "42a931b05f953c8ed6f2535d9afd3dba90a24dd416075bbdbc7cc53041cba4b6",
+      "content": {
+       "SourceId": "SRC-RET-SYN",
+       "access_method": "Local fixture lookup; no network",
+       "claimed_time_field": "claimed_publication_time",
+       "dataset": "Next-day synthetic returns in basis points per headline row",
+       "endpoint": "synthetic://SRC-RET-SYN/returns/{period_date}",
+       "enumeration_contract": {
+        "complete_set": "Exactly the returns item for each declared period_date whose period_end <= current synthetic time.",
+        "completeness": "COMPLETE requires a successful full listing.",
+        "item_identity": "returns-YYYY-MM-DD, one FIRST_RELEASE document per period.",
+        "window": "One UTC daily period per retrieval; 2026-10-29 through 2027-04-30."
+       },
+       "extraction_rule": "Count rows with next_day_return_bp > 0 over listed rows; malformed bytes => NOT_EXTRACTABLE. Published one period after the headlines it scores.",
+       "field": "positive_return_fraction",
+       "field_definition": "Rows with next_day_return_bp > 0 over all listed rows.",
+       "parsing": "Strict JSON; rows with row_id and integer next_day_return_bp; unique row_id.",
+       "print_rule": "FIRST_RELEASE",
+       "provider": "Local deterministic return fixture in this example; not a market",
+       "resolution_grace_ms": 600000,
+       "source_kind": "DOCUMENT_FEED",
+       "structural_availability_bound": "Released no earlier than period_end within the simulated source contract; never before the headline period it scores has ended.",
+       "synthetic": true,
+       "unit": "dimensionless exact numerator/denominator pair"
+      }
+     }
+    ],
+    "tools": [],
+    "uncapped_calls_permitted": false
+   }
+  },
+  {
+   "content": {
+    "AuthorizationId": "AU-RH-1",
+    "binding_interval_ms": 300000,
+    "capital_permission": false,
+    "class": "Research",
+    "constitutional_budget": {
+     "delta_A": 0,
+     "delta_O": 0,
+     "delta_S": 0
+    },
+    "default_reservation_duration_ms": 604800000,
+    "discovery_scope": {
+     "SearchFamily": "SF-HEAD-DISCOVERY",
+     "expected_screening_cadence": "One classification per available headline item; inactivity leaves visible missing screens.",
+     "feed_sources": [
+      "SRC-NEWS-SYN"
+     ],
+     "fixed_subgrant_units": "1.00",
+     "followup_count": 0,
+     "included_in_pool": true,
+     "max_hop_depth": 1,
+     "shared_across_grantees": true
+    },
+    "expiry": "2027-04-30T00:00:00.000Z",
+    "grantee": [
+     "AD-RH1.0"
+    ],
+    "grantor": "Principal",
+    "may_check": [],
+    "may_commit_evidence": [
+     "plain Research Record",
+     "SELECTION",
+     "RESERVATION",
+     "attempt",
+     "settlement",
+     "CLOSED"
+    ],
+    "may_propose": [
+     "Hypothesis registration",
+     "Agent Design successor registration without grant request",
+     "Theme registration",
+     "Constitutional proposal STOPPED until Principal decides"
+    ],
+    "per_lineage_cap_units": "3.00",
+    "provider_calls_permitted": false,
+    "research_budget_units": "3.00",
+    "scope_by_grantee": {
+     "AD-RH1.0": {
+      "empirical_search_families": [],
+      "themes": [
+       "TH-H1"
+      ]
+     }
+    },
+    "tools": [
+     {
+      "id": "FAKE-LLM-1",
+      "spec_sha256": "0f55e5c6925331cb8efa6a1446b7d29d67669bbdd8a00301144f257f50bee6b6",
+      "tier": 1
+     }
+    ],
+    "uncapped_calls_permitted": false
+   }
+  }
+ ],
+ "initial_limits": {
+  "exploratory_pool_units": "0.00",
+  "factor_exposure_units": "0.00",
+  "interpretation": "Research-only zero-capital state.",
+  "per_instrument_exposure_units": "0.00",
+  "per_strategy_allocation_cap_units": "0.00",
+  "per_strategy_lifetime_exploratory_cap_units": "0.00",
+  "portfolio_absolute_net_exposure_units": "0.00",
+  "portfolio_capital_units": "0.00",
+  "portfolio_drawdown_loss_units": "0.00",
+  "portfolio_gross_exposure_units": "0.00",
+  "strategy_versions": []
+ },
+ "ordinary_researcher": "AD-RH1.0",
+ "profile": "headline-sentiment-persistence-1",
+ "startup": {
+  "apply_0": [
+   "CV1",
+   "AD-CK-H1.0",
+   "AU-CK-H"
+  ],
+  "ordinary_operation_from": 6,
+  "then": [
+   "AU-OBS-H",
+   "formation observation",
+   "initial_limits",
+   "AD-RH1.0",
+   "AU-RH-1",
+   "TH-H1"
+  ]
+ },
+ "status": "BUILD_APPROVED_RUNTIME_NOT_INITIALIZED",
+ "theme": {
+  "content": {
+   "ThemeId": "TH-H1",
+   "motivation_closure": "The exact SRC-NEWS-SYN formation DOCUMENT committed after Apply 1; its sequence is resolved from that commit.",
+   "predecessor": null,
+   "selection_basis": {
+    "cost_estimate_units": "1.00",
+    "decision_it_could_change": "Which labelling attempt to fund next.",
+    "experiment": "Classify the admitted headline cohort with FAKE-LLM-1, join to the returns document, propose the pinned template.",
+    "horizon": "One simulated daily period.",
+    "origin": "discovery-scope initiative",
+    "stopping_rule": "Stop after one accepted or refused registration.",
+    "time_estimate_ms": 600000,
+    "uncertainty": "Whether a fixed lexicon label has any relation to the next synthetic return.",
+    "value_basis": "Synthetic figures carry no economic meaning.",
+    "value_estimate": "UNESTIMATED"
+   },
+   "statement": "Lexicon-labelled headline sentiment may carry over to the next synthetic day.",
+   "typed_claims": [
+    {
+     "kind": "QUESTION",
+     "text": "Do bullish-labelled headlines precede positive next-day returns in the synthetic cohort?"
+    },
+    {
+     "kind": "ASSUMPTION",
+     "text": "Headlines and returns are synthetic fixtures; nothing here is market evidence."
+    }
+   ]
+  },
+  "content_sha256": "e2e38525b84633c2a47130319e8d844096e27b84c8b209e6305ba131e10f7f75"
+ }
+}

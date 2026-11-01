@@ -1,0 +1,443 @@
+{
+ "designs": [
+  {
+   "content": {
+    "AgentDesignLineageId": "AD-RH1",
+    "AgentDesignVersionId": "AD-RH1.0",
+    "entrypoint": "examples.langgraph_headlines.researcher:main",
+    "evaluation_inputs": [
+     "own Research Records",
+     "active grant and population",
+     "declared source observations"
+    ],
+    "evidence_outputs": [
+     "plain Research Record",
+     "SELECTION"
+    ],
+    "initial_method": {
+     "id": "MC-RESEARCH-H1",
+     "sha256": "854bf4c68895bf22dd6f6d5dff76d8182ba46f5addcaafae9ef2e752bd0c5085"
+    },
+    "instructions": "Read only committed closure. Reserve, pre-record each attempt, obtain one fresh permission, send headlines and nothing else to FAKE-LLM-1, keep the receipt durably before telling the core, settle, record labels and counts. After the returns document is committed, join recorded labels to committed returns and record the counts. Propose the pinned hypothesis template when research motivates it. Never check, decide, grant, fence, change a profile or claim forward standing. Preserve failures.",
+    "method_class": "RESEARCH",
+    "ordinary_cycle_enabled": true,
+    "predecessor": null,
+    "program": "researcher.py",
+    "proposable_outputs": [
+     "Hypothesis registration",
+     "Agent Design successor registration without grant request"
+    ],
+    "provenance": {
+     "execution_kind": "deterministic synthetic program",
+     "model": null,
+     "model_version": null,
+     "not_applicable_reason": "FAKE-LLM-1 is a deterministic lexicon stand-in; no trained model or model provider is invoked; no diversity claim.",
+     "provider": null,
+     "spec_version": "headline-design-v1",
+     "training_cutoff": null
+    },
+    "research_question": {
+     "difference_basis": "Fixed lexicon labelling; no claim of model capability.",
+     "predicate": "label=bullish",
+     "scope": "TH-H1",
+     "target": "bullish label then positive next-day return"
+    },
+    "scope_profile": "TH-H1",
+    "tool_specs": {
+     "FAKE-LLM-1": "0f55e5c6925331cb8efa6a1446b7d29d67669bbdd8a00301144f257f50bee6b6"
+    }
+   },
+   "content_sha256": "60e0581ae597c21750909c8939fea35c258280c31b6a237b7fdf0aa85a8e31a8"
+  },
+  {
+   "content": {
+    "AgentDesignLineageId": "AD-CK-H1",
+    "AgentDesignVersionId": "AD-CK-H1.0",
+    "entrypoint": "examples.langgraph_headlines.check:main",
+    "evaluation_inputs": [
+     "exact proposal",
+     "Transition lifecycle and Applied History",
+     "Evidence closure",
+     "pinned CV1 and ES-1.0",
+     "own grant",
+     "referenced artifacts"
+    ],
+    "evidence_outputs": [
+     "verification Research Record",
+     "own reservation/attempt/settlement/close"
+    ],
+    "initial_method": {
+     "id": "MC-CHECKER-H1",
+     "sha256": "96f73a4522d3bee6691fa5413247c0029dffeb7ce05e1fd8d1c3f8e9ea88bf1f"
+    },
+    "instructions": "Execute every common and class criterion on a committed closure under the base-pinned CV1 and ES-1.0 through the client checking toolkit. Recompute the join of recorded labels to committed returns independently. Fund verification from own Checker grant. Never propose research, grant authority, decide a proposal or waive a criterion. Missing capability never becomes PASS.",
+    "method_class": "CHECKER",
+    "predecessor": null,
+    "program": "evaluator.py",
+    "proposable_outputs": [
+     "own Agent Design successor"
+    ],
+    "provenance": {
+     "execution_kind": "deterministic synthetic program",
+     "model": null,
+     "model_version": null,
+     "not_applicable_reason": "FAKE-LLM-1 is a deterministic lexicon stand-in; no trained model or model provider is invoked; no diversity claim.",
+     "provider": null,
+     "spec_version": "headline-design-v1",
+     "training_cutoff": null
+    },
+    "tool_specs": {
+     "CHECK-H-1": "77b568d468ae44a2fa05026869c3004e813eaf19e259899f441aea4fb7abb590"
+    }
+   },
+   "content_sha256": "f5f2bbe5f18e06f17eadedf2fded9375cef62ceb6c59dcaeb599f9157c8f172b"
+  }
+ ],
+ "formation_cohort": {
+  "content": {
+   "claimed_publication_time": "2026-10-29T00:00:00.000Z",
+   "item_id": "headlines-2026-10-28",
+   "period_end": "2026-10-29T00:00:00.000Z",
+   "period_start": "2026-10-28T00:00:00.000Z",
+   "rows": [
+    {
+     "headline": "Acme beats estimates and raises full-year guidance",
+     "row_id": "h01"
+    },
+    {
+     "headline": "Borealis posts record quarterly revenue",
+     "row_id": "h02"
+    },
+    {
+     "headline": "Cobalt Mining wins supply contract with carmaker",
+     "row_id": "h03"
+    },
+    {
+     "headline": "Delta Pharma receives regulatory approval for new drug",
+     "row_id": "h04"
+    },
+    {
+     "headline": "Evergreen expands into two new markets",
+     "row_id": "h05"
+    },
+    {
+     "headline": "Falcon Air announces share buyback",
+     "row_id": "h06"
+    },
+    {
+     "headline": "Granite Bank upgrade from regional broker",
+     "row_id": "h07"
+    },
+    {
+     "headline": "Helios Solar output surge on new plant",
+     "row_id": "h08"
+    },
+    {
+     "headline": "Indigo Retail beats on margins, raises dividend",
+     "row_id": "h09"
+    },
+    {
+     "headline": "Juniper Software wins government tender",
+     "row_id": "h10"
+    },
+    {
+     "headline": "Kestrel Energy record output in the quarter",
+     "row_id": "h11"
+    },
+    {
+     "headline": "Lumen Media approval for merger clears",
+     "row_id": "h12"
+    },
+    {
+     "headline": "Meridian cuts outlook on weak demand",
+     "row_id": "h13"
+    },
+    {
+     "headline": "Nimbus Cloud misses revenue estimates",
+     "row_id": "h14"
+    },
+    {
+     "headline": "Orion Steel warns of plant closure",
+     "row_id": "h15"
+    },
+    {
+     "headline": "Pinnacle Foods recalls product line",
+     "row_id": "h16"
+    },
+    {
+     "headline": "Quartz Semis delays chip launch",
+     "row_id": "h17"
+    },
+    {
+     "headline": "Redwood Timber suspends dividend",
+     "row_id": "h18"
+    },
+    {
+     "headline": "Sable Shipping reports loss on fuel costs",
+     "row_id": "h19"
+    },
+    {
+     "headline": "Tundra Telecom loses key customer",
+     "row_id": "h20"
+    },
+    {
+     "headline": "Umber Chemicals faces lawsuit over spill",
+     "row_id": "h21"
+    },
+    {
+     "headline": "Vega Motors recalls vehicles",
+     "row_id": "h22"
+    },
+    {
+     "headline": "Willow Health downgrades growth forecast",
+     "row_id": "h23"
+    },
+    {
+     "headline": "Xenon Labs halts trial after side effects",
+     "row_id": "h24"
+    }
+   ],
+   "synthetic": true
+  },
+  "content_sha256": "d54578d4d75cb7d5cf446e130dc3fa98ddc19399ae9f8c43aadaa98a52afddf6",
+  "source": "SRC-NEWS-SYN"
+ },
+ "future_cohort_rule": {
+  "content": {
+   "algorithm": "For period date d reuse the formation rows with item_id headlines-d and returns-(d+1); released no earlier than period_end.",
+   "meaning": "Deterministic synthetic daily headline and returns cohorts, not an observed market.",
+   "version": 1
+  },
+  "content_sha256": "a1294b32963cdb97d5ec6587a37b42dc51029f70fc70e2624a6e829473568eea"
+ },
+ "hypothesis_template": {
+  "content": {
+   "HypothesisId": "HY-HEAD-1.0",
+   "HypothesisLineageId": "HY-HEAD-1",
+   "SearchFamily": "SF-HEAD",
+   "falsifier": "Registered success probability p>=3/5 is contradicted only if the exact one-sided Binomial(n,3/5) lower-tail probability of observed successes is <=0.05 after the family adjustment.",
+   "horizon": "One UTC day per target; first resolution member fixed below. No predictions are executed in this milestone.",
+   "initial_method": {
+    "id": "MC-HYPOTHESIS-H1",
+    "sha256": "af96ef6cd009abfc69f0cf13ffb16fc8a9a894fbecdc884ce008d80dc7d87acc"
+   },
+   "motivated_by": [
+    "TH-H1",
+    "the exact committed joined research record"
+   ],
+   "motivation_closure": "Headline document, returns document, label record and joined record supplied from completed commits.",
+   "observable": "Binary predicate over the fraction of bullish-labelled headlines followed by a positive next-day return",
+   "predecessor": null,
+   "print": "FIRST_RELEASE",
+   "resolution_period": {
+    "end": "2026-10-31T00:00:00.000Z",
+    "start": "2026-10-30T00:00:00.000Z"
+   },
+   "resolution_rule": {
+    "algorithm": "For the resolution period, take the committed headline document of the preceding period and the committed returns document of the resolution period; label headlines with FAKE-LLM-1 under the registered lexicon; join labels to returns by row_id; target is 1 iff 5*k_bullish_up >= 3*n_bullish with n_bullish>0, otherwise 0. A missing member cannot be substituted.",
+    "input_fields": [
+     "n_bullish",
+     "k_bullish_up"
+    ],
+    "missing_member": "Unresolved; no alternative print, imputation or substitution.",
+    "version": 1
+   },
+   "resolution_rule_sha256": "359b37e993b5dae78d6db08225f68ce712da29d9ccf1505482acc71c7fc7f8dc",
+   "resolution_set": [
+    {
+     "SourceId": "SRC-RET-SYN",
+     "period": {
+      "end": "2026-10-31T00:00:00.000Z",
+      "start": "2026-10-30T00:00:00.000Z"
+     },
+     "print": "FIRST_RELEASE"
+    }
+   ],
+   "resolution_source": "SRC-RET-SYN",
+   "selection_basis": {
+    "cost_estimate_units": "0.30",
+    "decision_it_could_change": "Which labelling experiment receives the next authorized attempt.",
+    "experiment": "Classify the next headline cohort, join to the next returns document, compare to three in five.",
+    "horizon": "One synthetic day for the declared resolution member.",
+    "origin": "theme TH-H1",
+    "stopping_rule": "Abandon as research if source or method requirements cannot be satisfied.",
+    "time_estimate_ms": 600000,
+    "uncertainty": "Whether lexicon-labelled sentiment carries over to the next synthetic day.",
+    "value_basis": "No investment-economic inference from synthetic data.",
+    "value_estimate": "UNESTIMATED"
+   },
+   "statement": "In the next synthetic daily headline cohort, at least three in five headlines labelled bullish by FAKE-LLM-1 are followed by a positive next-day return.",
+   "stopping_rule": "Review after 12 effective finalized forward Outcomes; no standing conclusion before the CV1 floor or from synthetic records.",
+   "template_id": "HEAD-H1",
+   "tolerance": "0"
+  },
+  "content_sha256": "2b00433ffaa9d7774b83a9b43624581dc6e7b7328d745fe826a7dcce101dda60"
+ },
+ "methods": {
+  "MC-CHECKER-H1": {
+   "content": {
+    "limits": "Absence of a later defect finding is not proof of correctness.",
+    "meaning": "Verification contribution, not permission.",
+    "measure": "Defects later established in passed subjects and refusals later shown unwarranted, with exact references, divided by settled Checker units.",
+    "version": 1
+   },
+   "content_sha256": "96f73a4522d3bee6691fa5413247c0029dffeb7ce05e1fd8d1c3f8e9ea88bf1f"
+  },
+  "MC-HYPOTHESIS-H1": {
+   "content": {
+    "effective_observations": "One headline row is one raw observation; rows sharing a row_id prefix letter are clustered; N_eff is the number of clusters.",
+    "falsifier": "Registered success probability p>=3/5 is contradicted only if the exact one-sided Binomial(n,3/5) lower-tail probability of observed successes is <=0.05 after the family adjustment.",
+    "limits": "Illustrative scientific choices, not constitutional constants.",
+    "multiplicity": "Compare the nominal one-sided p-value to 0.05/T_total over every recorded trial.",
+    "predictive_check": "Before each scoring window commit Bernoulli(p=3/5) as the working predictive model; central 0.95 interval.",
+    "scoring": "Binary target; hit = 1 when prediction equals resolved target; tolerance 0.",
+    "stopping_rule": "Review after 12 effective finalized forward Outcomes; no standing conclusion before the CV1 floor or from synthetic records.",
+    "version": 1
+   },
+   "content_sha256": "af96ef6cd009abfc69f0cf13ffb16fc8a9a894fbecdc884ce008d80dc7d87acc"
+  },
+  "MC-RESEARCH-H1": {
+   "content": {
+    "forward_contribution": "Count distinct registrations with their own finalized forward Outcomes; synthetic count is zero. Divide by settled actual research units; zero denominator NOT_ESTIMABLE.",
+    "limits": "No profitability credit; no statistical claim from synthetic counts.",
+    "meaning": "Contribution report only; no standing or grant.",
+    "version": 1
+   },
+   "content_sha256": "854bf4c68895bf22dd6f6d5dff76d8182ba46f5addcaafae9ef2e752bd0c5085"
+  }
+ },
+ "returns_cohort": {
+  "content": {
+   "claimed_publication_time": "2026-10-30T00:00:00.000Z",
+   "item_id": "returns-2026-10-29",
+   "period_end": "2026-10-30T00:00:00.000Z",
+   "period_start": "2026-10-29T00:00:00.000Z",
+   "rows": [
+    {
+     "next_day_return_bp": 180,
+     "row_id": "h01"
+    },
+    {
+     "next_day_return_bp": 95,
+     "row_id": "h02"
+    },
+    {
+     "next_day_return_bp": 60,
+     "row_id": "h03"
+    },
+    {
+     "next_day_return_bp": 240,
+     "row_id": "h04"
+    },
+    {
+     "next_day_return_bp": 40,
+     "row_id": "h05"
+    },
+    {
+     "next_day_return_bp": 70,
+     "row_id": "h06"
+    },
+    {
+     "next_day_return_bp": -35,
+     "row_id": "h07"
+    },
+    {
+     "next_day_return_bp": 110,
+     "row_id": "h08"
+    },
+    {
+     "next_day_return_bp": 85,
+     "row_id": "h09"
+    },
+    {
+     "next_day_return_bp": -20,
+     "row_id": "h10"
+    },
+    {
+     "next_day_return_bp": 55,
+     "row_id": "h11"
+    },
+    {
+     "next_day_return_bp": -15,
+     "row_id": "h12"
+    },
+    {
+     "next_day_return_bp": -140,
+     "row_id": "h13"
+    },
+    {
+     "next_day_return_bp": -90,
+     "row_id": "h14"
+    },
+    {
+     "next_day_return_bp": -60,
+     "row_id": "h15"
+    },
+    {
+     "next_day_return_bp": -30,
+     "row_id": "h16"
+    },
+    {
+     "next_day_return_bp": 25,
+     "row_id": "h17"
+    },
+    {
+     "next_day_return_bp": -75,
+     "row_id": "h18"
+    },
+    {
+     "next_day_return_bp": -45,
+     "row_id": "h19"
+    },
+    {
+     "next_day_return_bp": 10,
+     "row_id": "h20"
+    },
+    {
+     "next_day_return_bp": -55,
+     "row_id": "h21"
+    },
+    {
+     "next_day_return_bp": 30,
+     "row_id": "h22"
+    },
+    {
+     "next_day_return_bp": -20,
+     "row_id": "h23"
+    },
+    {
+     "next_day_return_bp": 50,
+     "row_id": "h24"
+    }
+   ],
+   "synthetic": true
+  },
+  "content_sha256": "ce3b24862e260bac0f5e6d7059f8b274c0d56df94388d40fb3bbe2b3425a0db3",
+  "source": "SRC-RET-SYN"
+ },
+ "status": "BUILT_PRIVATE_NOT_INITIALIZED",
+ "tools": {
+  "CHECK-H-1": {
+   "content": {
+    "algorithm": "Common and class criteria through the client checking toolkit; HYPOTHESIS recomputation joins the recorded labels to the committed returns and recounts. Verifies arithmetic and join, not labels.",
+    "cost": "0.25 units per full Check attempt including a failing or incomplete Check; zero external billing.",
+    "input_limit_bytes": 33554432,
+    "kind": "deterministic Checker",
+    "version": 1
+   },
+   "content_sha256": "77b568d468ae44a2fa05026869c3004e813eaf19e259899f441aea4fb7abb590"
+  },
+  "FAKE-LLM-1": {
+   "content": {
+    "algorithm": "Label each headline bullish when it contains a word from the fixed lexicon beats, raises, record, upgrade, surge, wins, approval, expands, buyback, otherwise bearish. Return labels, counts, input SHA-256 and synthetic=true. Receives headlines only; never sees returns.",
+    "cost": "0.02 units per row, charged on the row count of the admitted input; 500 rows maximum.",
+    "failure": "Invalid shape returns failure with diagnostic and the same charge.",
+    "inputs": "Exact canonical headline DOCUMENT bytes from committed closure.",
+    "kind": "deterministic synthetic classifier standing in for a model provider",
+    "provider_work": "Declared as able to outlive its caller, as a remote provider would; keeps its own record per claim, answers lookup, honours cancellation.",
+    "version": 1
+   },
+   "content_sha256": "0f55e5c6925331cb8efa6a1446b7d29d67669bbdd8a00301144f257f50bee6b6"
+  }
+ }
+}

@@ -1,0 +1,115 @@
+{
+ "ExperimentId": "HEADLINE-SENT-1",
+ "description": "Lexicon labels on synthetic headlines, joined to next-day synthetic returns committed one period later.",
+ "genesis": {
+  "design": "AD-CK-H1.0",
+  "grant": "AU-CK-H"
+ },
+ "sources": {
+  "SRC-NEWS-SYN": {
+   "document": {
+    "max_bytes": 1048576,
+    "synthetic": true
+   },
+   "extraction": {
+    "denominator": [],
+    "numerator": [],
+    "row_fields": {
+     "headline": "str",
+     "row_id": "str"
+    },
+    "unique": "row_id",
+    "validator": "row-ratio"
+   },
+   "item_id": {
+    "prefix": "headlines-"
+   },
+   "period_ms": 86400000,
+   "window": {
+    "end": "2027-04-30T00:00:00.000Z",
+    "start": "2026-10-28T00:00:00.000Z"
+   }
+  },
+  "SRC-RET-SYN": {
+   "document": {
+    "max_bytes": 1048576,
+    "synthetic": true
+   },
+   "extraction": {
+    "denominator": [],
+    "numerator": [
+     {
+      "field": "next_day_return_bp",
+      "greater_than": 0
+     }
+    ],
+    "row_fields": {
+     "next_day_return_bp": "int",
+     "row_id": "str"
+    },
+    "unique": "row_id",
+    "validator": "row-ratio"
+   },
+   "item_id": {
+    "prefix": "returns-"
+   },
+   "period_ms": 86400000,
+   "window": {
+    "end": "2027-05-01T00:00:00.000Z",
+    "start": "2026-10-29T00:00:00.000Z"
+   }
+  }
+ },
+ "steps": [
+  {
+   "input_limit_bytes": 1048576,
+   "inputs": {
+    "count": 1,
+    "form": "DOCUMENT",
+    "kind": "OBSERVATION"
+   },
+   "kind": "research",
+   "name": "classify-headlines",
+   "parameters": {
+    "labels": [
+     "bullish",
+     "bearish"
+    ],
+    "lexicon": "LEX-1"
+   },
+   "tariff": {
+    "limit": 500,
+    "measure": "rows",
+    "per_unit": "0.02"
+   },
+   "tools": [
+    "FAKE-LLM-1"
+   ]
+  },
+  {
+   "kind": "check",
+   "maximum": "0.25",
+   "name": "check-transition",
+   "tools": [
+    "CHECK-H-1"
+   ]
+  }
+ ],
+ "tools": {
+  "CHECK-H-1": {
+   "callable": "evaluate",
+   "execution": "caller",
+   "label": "check-h",
+   "module": "evaluator.py",
+   "provider_work": "ends_with_caller"
+  },
+  "FAKE-LLM-1": {
+   "callable": "classify",
+   "execution": "caller",
+   "label": "fake-llm",
+   "module": "provider.py",
+   "provider_work": "may_outlive_caller"
+  }
+ },
+ "version": 1
+}

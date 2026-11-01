@@ -28,9 +28,11 @@ def verify_quiescence(path, inventory_hash, old_core, old_worker):
     st=path.stat();require(st.st_uid==0 and not st.st_mode&(stat.S_IWGRP|stat.S_IWOTH),'UNTRUSTED_QUIESCENCE')
     b=decode(path.read_bytes())
     require(b.get('inventory_sha256')==inventory_hash and b.get('kind')=='HOST_QUIESCENCE', 'WORKER_NOT_QUIESCENT')
-    require(old_core in b.get('terminated_generations',[]) and
-            (old_worker is None or old_worker in b['terminated_generations']), 'WORKER_NOT_QUIESCENT')
-    require(not still_alive(old_core) and (old_worker is None or not still_alive(old_worker)), 'WORKER_NOT_QUIESCENT')
+    # old_core is None for a caller-executed tool: the core queued nothing, so
+    # only the caller generation that consumed the claim must be shown gone.
+    require((old_core is None or old_core in b.get('terminated_generations',[])) and
+            (old_worker is None or old_worker in b.get('terminated_generations',[])), 'WORKER_NOT_QUIESCENT')
+    require((old_core is None or not still_alive(old_core)) and (old_worker is None or not still_alive(old_worker)), 'WORKER_NOT_QUIESCENT')
     require(b.get('activation_jobs_cancelled') is True and b.get('old_channels_closed') is True,'WORKER_NOT_QUIESCENT')
     required={'harness-core.service','harness-tool-a.service','harness-tool-b.service'}
     require(required <= set(b.get('stopped_units', [])), 'WORKER_NOT_QUIESCENT')

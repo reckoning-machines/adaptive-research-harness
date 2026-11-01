@@ -8,3 +8,5 @@ __pycache__/
 # Workbench session tokens exist only while a run is live
 artifacts/development/workbench/*/state/fixture.json
 artifacts/development/workbench/*/state/*.log
+# Local virtual environment for the client and the LangGraph example
+.venv/

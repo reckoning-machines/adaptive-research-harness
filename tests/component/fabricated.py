@@ -12,7 +12,16 @@ from adaptive_research_harness.actors import event_ref,invocation
 ROOT=Path(__file__).resolve().parents[2]
 
 
-def profile():return Profile(ROOT/'docs/builds/first_cycle_20261029/run_bundle')
+_BUNDLE=None
+def bundle():
+    """A disposable bundle frozen from the current tree, once per process. The historical bundle under docs/builds is a record of an older tree."""
+    global _BUNDLE
+    if _BUNDLE is None:
+        import os,uuid
+        from build_support.freeze import freeze
+        _BUNDLE=ROOT/'artifacts/development/run-bundles'/('component-'+uuid.uuid4().hex)/'bundle';freeze(_BUNDLE)
+    return _BUNDLE
+def profile():return Profile(bundle())
 
 
 class Input:

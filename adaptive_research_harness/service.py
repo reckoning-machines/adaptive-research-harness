@@ -55,8 +55,8 @@ def core_handler(engine, dispatcher, faults, peer_generation=generation):
         if op=='tool-run':
             faults.take(key,op)
             fields(payload,{'attempt'});return dispatcher.run(actor,payload['attempt'],peer_generation(who['pid']))
-        if op=='check-finish':
-            fields(payload,{'attempt','receipt'});return dispatcher.finish_check(actor,payload['attempt'],payload['receipt'])
+        if op in ('tool-finish','check-finish'):
+            fields(payload,{'attempt','receipt'});return dispatcher.finish(actor,payload['attempt'],payload['receipt'])
         if op=='tool-receipt':
             fields(payload,{'attempt'})
             return dispatcher.receipt(actor,payload['attempt'])
@@ -93,6 +93,16 @@ def core_handler(engine, dispatcher, faults, peer_generation=generation):
     return handler
 
 
+def core_tool_sockets(profile,args):
+    """One socket per core-dispatched tool: --tool-socket ID=PATH, or the historical --tool-a-socket/--tool-b-socket by label."""
+    named=dict(item.split('=',1) for item in getattr(args,'tool_socket',None) or [])
+    out={}
+    for tool,spec in profile.experiment.core_tools().items():
+        path=named.get(tool) or getattr(args,spec['label'].replace('-','_')+'_socket',None)
+        require(path is not None,'TOOL_SOCKET_REQUIRED',tool);out[tool]=path
+    return out
+
+
 def run_core(args):
     require(os.getuid()==20000,'WRONG_SERVICE_UID')
     profile=Profile(args.bundle);permit=profile.approve_run(args.run_approval,args.root)
@@ -101,7 +111,7 @@ def run_core(args):
         store=Store(state/'harness.sqlite');clock=ClockClient(args.clock_socket)
         engine=Engine(store,profile,clock,permit)
         faults=Faults(engine,state/'faults');engine.fault_hook=faults.hit
-        dispatcher=Dispatcher(engine,{'SYN-A-1':args.tool_a_socket,'SYN-B-1':args.tool_b_socket},args.supervisor_receipts)
+        dispatcher=Dispatcher(engine,core_tool_sockets(profile,args),args.supervisor_receipts)
         engine.dispatcher=dispatcher
         handler=core_handler(engine,dispatcher,faults)
         try:serve(args.socket,handler,set(profile.roles))

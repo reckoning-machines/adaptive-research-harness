@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "adaptive-research-harness-client"
+version = "0.1.0"
+description = "Client for the Adaptive Research Harness local host: governed research lifecycle, checking toolkit, principal and observation helpers."
+requires-python = ">=3.12"
+readme = "README.md"
+dependencies = []
+
+[project.optional-dependencies]
+langgraph = ["langgraph>=1.0,<2", "langgraph-checkpoint-sqlite>=2,<4"]
+
+[tool.setuptools]
+packages = ["arh_client"]

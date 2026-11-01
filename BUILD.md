@@ -140,3 +140,63 @@ ids no longer running, which is fixture evidence, not host evidence.
 No real spending, providers, trading, Paper Book, framework adapters, public
 release or license selection is included. Arbitrary scientific prose and a
 general-purpose constitution interpreter remain outside capability.
+
+## Experiment profile, client, host and the LangGraph example
+
+Authorized as disposable synthetic development under the addendum's
+workflow paragraph, audited in the
+[integration readiness audit](docs/audits/langgraph_integration_readiness_audit_20261101.md),
+planned in the [integration plan](docs/plans/langgraph_integration_20261101.md)
+and reported in the
+[implementation report](docs/implementation/langgraph_integration_20261101.md).
+
+The synthetic experiment's shape now lives in
+`experiments/synthetic_flow/experiment.json` and is frozen into every bundle
+as `bundle/experiment.json`: permitted steps, the tools each step may use,
+tariffs, the Check cost, source period and item rules, the extraction
+validator and the genesis pair. `rules`, `dispatch`, `tool_worker`,
+`engine` and `freeze` read it; the literals they carried before are gone.
+A profile selects validators by name from a closed registry in
+`adaptive_research_harness/experiment.py` and cannot name code for the
+enforcement process. The core process never imports experiment code. Tool
+modules named in a profile are imported only by a worker the host starts
+(`execution: core`) or by the caller that holds the attempt
+(`execution: caller`); their bytes are pinned in the inventory.
+
+A caller-executed tool consumes a durable claim through `tool-run`, which
+answers `PERMISSION_CONSUMED` exactly once, registers its receipt through
+`tool-finish`, which refuses a second different receipt for the same claim,
+and settles at the receipt or at the maximum with `UNKNOWN` provenance. A
+replacement attempt for such a tool needs a host proof that the caller
+generation which held the claim is gone, and for a tool declared
+`may_outlive_caller` a recorded provider disposition for that claim,
+`COMPLETED` or `CANCELLED`. Provider deduplication recovers the original
+claim under its own identity and never authorizes a new one.
+
+`adaptive_research_harness/local_host.py` is the cooperative host the
+acceptance fixture and the workbench always used, now runnable on its own:
+`python3 -m adaptive_research_harness.local_host --setup DIR --run DIR`
+freezes a bundle from a setup directory, starts the core and core-run tool
+workers as processes, writes a connection file with one token per actor and
+serves a control socket for clock advance, quiescence proofs and stop. One
+host process holds every token; this is no OS isolation.
+
+`client/` is the installable client, `arh_client`, standard library only,
+with the public surface and its documentation in `client/README.md`.
+`examples/langgraph_headlines/` is a complete experiment supplied from
+outside the core: a setup directory, a deterministic fake provider declared
+`may_outlive_caller`, a LangGraph researcher with a SQLite checkpointer, an
+evaluator built on the client checking toolkit and a runner. Run it with
+`.venv/bin/python -m examples.langgraph_headlines` after installing the
+client with its `langgraph` extra. It prints the research result and
+thirteen control decisions. Its receipts are the researcher's own statements:
+accounting, not enforcement over what that process spends. The independent
+reader under `acceptance/reader.py` reconstructs the synthetic experiment
+only; the headline experiment's arithmetic is checked by its registered
+evaluator, which is a registered design and not an independent reader.
+
+The historical bundle under `docs/builds/first_cycle_20261029/run_bundle/`
+predates the profile and is left as it was. Bundles without
+`experiment.json` open read-only in the workbench. Component tests freeze a
+disposable bundle from the current tree instead.
+

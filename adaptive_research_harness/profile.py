@@ -4,6 +4,7 @@ from pathlib import Path
 import os
 import stat
 from .encoding import decode, raw_digest, digest, require
+from .experiment import Experiment
 
 SPEC_MANIFEST = '063b442e83690851a890bdc885cc39ba39545362f38d505b67edd046c12b3884'
 CV1 = 'c56a9cf50a7e9efadad8f2f2be6605e82c758f18d4096ba07eaaf86a8f8b7a64'
@@ -21,6 +22,11 @@ class Profile:
         self.inventory_hash = raw_digest((self.bundle/'inventory.json').read_bytes())
         require(self.inventory['specification_manifest'] == SPEC_MANIFEST, 'WRONG_SPECIFICATION')
         require(self.setup['constitution']['sha256'] == CV1, 'WRONG_CONSTITUTION')
+        require((self.bundle/'experiment.json').is_file(), 'BUNDLE_INCOMPLETE', 'experiment.json: bundles frozen before the experiment profile existed open read-only only')
+        self.experiment = Experiment(decode((self.bundle/'experiment.json').read_bytes()))
+        require(set(self.inventory['tool_executables']) == set(self.experiment.tools), 'WRONG_SPECIFICATION', 'tool executables')
+        g = self.experiment.genesis
+        require(g['design'] in self.designs and g['grant'] in self.grants, 'WRONG_SPECIFICATION', 'genesis pair')
         self.code_root = self.bundle.parents[2] if self.bundle.name == 'run_bundle' else None
 
     def verify_files(self, root):

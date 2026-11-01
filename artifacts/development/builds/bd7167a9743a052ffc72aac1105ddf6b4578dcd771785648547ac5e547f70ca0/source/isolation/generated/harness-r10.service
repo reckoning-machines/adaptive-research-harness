@@ -1,0 +1,34 @@
+[Unit]
+Description=Adaptive Research Harness fixed r10 process
+After=local-fs.target
+
+[Service]
+Type=simple
+User=harness-r10
+Group=20054
+SupplementaryGroups=harness-clients
+WorkingDirectory=/opt/adaptive-research-harness
+Environment=PYTHONPATH=/opt/adaptive-research-harness PYTHONDONTWRITEBYTECODE=1 PYTHONNOUSERSITE=1
+ExecStart=/usr/bin/python3 -s -m adaptive_research_harness actor-service --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --actor "AD-R10.0" --socket /run/adaptive-research-harness/r10/control.sock --state /var/lib/adaptive-research-harness/r10 --core-socket /run/adaptive-research-harness/core/commands.sock
+Restart=no
+KillMode=control-group
+SendSIGKILL=yes
+TimeoutStopSec=5
+UMask=0027
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateNetwork=yes
+RestrictAddressFamilies=AF_UNIX
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+CapabilityBoundingSet=
+ReadWritePaths=/run/adaptive-research-harness/r10 /var/lib/adaptive-research-harness/r10
+
+[Install]
+WantedBy=multi-user.target
