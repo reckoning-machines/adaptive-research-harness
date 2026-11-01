@@ -2,10 +2,13 @@
 
 An idea I think is right, carried far enough to run.
 
-If agent swarms make research and strategy generation extremely cheap, what
-has to sit underneath them so the process remains investable over time?
+Coding agents have harnesses. What governs a swarm of research agents?
 
-Adaptive Research Harness is a working prototype of that layer. It records
+Adaptive Research Harness is an operating system for governed research:
+experiments, evidence, budgets, lineage, independent checks, and authority
+over what gets funded.
+
+This repository is a working prototype of that layer. It records
 authorized research attempts, reserves their budgets, preserves results and
 failures, and requires separate checking and admission before a proposal
 enters the accepted record. As researchers change their ideas, the system
