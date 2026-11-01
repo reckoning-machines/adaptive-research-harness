@@ -85,3 +85,18 @@ exercises them. Adoption work should sit around them.
 
 `dO/dS/dA` of this review: **`0/0/0`**. It adds evidence and
 recommendations only.
+
+## Correction, 2026-11-01
+
+Section 2 says ARH's difference is a commit boundary "that the
+researcher's process cannot write to". That overstates the protection in
+the local arrangement, where every token sits in one process. What is
+demonstrated is that the researcher's designated identity is refused when
+it tries to check, decide, apply or fence, and that the refusal is
+recorded. Section 4, R1, says a generator writes the setup files with
+"sensible grants, limits, methods, provenance and a theme". A generator can
+supply those administrative defaults. It cannot supply a meaningful
+scientific evaluator, which must be written for the experiment. The
+[plan](../plans/existing_script_through_arh_20261101.md) that follows this
+review carries both corrections.
+
