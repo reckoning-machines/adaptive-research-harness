@@ -8,7 +8,7 @@
   "  ok   replacement admitted after quiescence; six memos, seven calls, one authorized repeat: calls 7, attempts 7",
   "  ok   join killed after its record, before the node returned: the record is on the ledger and in the journal: join stages ['attempt', 'design', 'record', 'reserve'], join attempts 2",
   "  ok   parallel branches resumed, one attempt each, nothing run twice: join 3/3 MET; placebo 1/3 MET; join attempts 2",
-  "  ok   own next question recorded and proposed; graph paused waiting for review: TR-51022f68-4d7e-4dcc-a72a-6e7ec9688fa0 TH-M1",
+  "  ok   own next question recorded and proposed; graph paused waiting for review: TR-610e653e-0339-4ad6-b8ca-e1d07323643a TH-M1",
   "  ok   check fails when the result does not recompute, passes when it does: first check FAIL, second PASS",
   "  ok   resume is not approval; a researcher deciding is refused: resume resumed_after_review_pause paused True; decide UNAUTHORIZED",
   "  ok   decision recorded; graph pauses again because a decision is not an application: review decided decision ADMITTED",
@@ -16,8 +16,8 @@
   "Host closed. Reopening the run with the same call.",
   "  ok   reopened: the finished graph reports the same state and starts nothing: already_finished",
   "  ok   history query by analysis field: 1 conclusion(s) for next_day_bp",
-  "Lines: research 136 | configuration 33 | process 54 | demonstration 160 | client api+nodes 407",
-  "Timings: {'up_s': 0.5, 'to_applied_s': 6.0, 'total_s': 6.5}",
+  "Lines: research 136 | configuration 33 | process 54 | demonstration 160 | client api+nodes 409",
+  "Timings: {'up_s': 0.5, 'to_applied_s': 6.1, 'total_s': 6.6}",
   "Result: PASS | generated data labelled synthetic; no forward standing."
  ],
  "checks": {
@@ -39,8 +39,8 @@
  },
  "timings": {
   "up_s": 0.5,
-  "to_applied_s": 6.0,
-  "total_s": 6.5
+  "to_applied_s": 6.1,
+  "total_s": 6.6
  },
  "name": "demo-20261101-memo-returns",
  "results": {
@@ -95,7 +95,7 @@
   "demonstration": 160
  },
  "client_lines": {
-  "api.py": 304,
+  "api.py": 306,
   "langgraph_nodes.py": 103,
   "analysis.py": 416,
   "operations.py": 80,

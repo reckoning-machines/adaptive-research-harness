@@ -46,7 +46,7 @@ flowchart LR
 Budget makes the search visible. Separate acceptance makes the result
 accountable. The alpha-decay assumption needs both, because what you want to
 know later is how much searching it took to find the result you accepted
-and who decided it was real.
+and why it was accepted.
 
 Each step writes its record before the next can start, so the count of
 attempts and of registered hypotheses is a fact of the record rather than
@@ -112,89 +112,66 @@ refused, and the refusal is recorded too.
 
 ## How to try it
 
-The quickest path is the everyday interface. You write ordinary research
-code and a short project file. ARH handles the reservations, the
-attempts, the permissions, the receipts, the settlement and the recovery
-around it. Python 3.12, from the repository root. ARH itself has no
-dependencies. The client installs from `client/` and LangGraph is an
-optional extra.
+Python 3.12, from the repository root. ARH itself has no dependencies.
+The client installs from `client/` and LangGraph is an optional extra.
+Two commands give a working result.
 
 ```sh
 python3 -m venv .venv && .venv/bin/pip install -e './client[langgraph]'
-PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m arh_client.dev up examples/memo_returns --run /tmp/arh-memo
-```
-
-One command writes the setup from the project file, freezes it, starts a
-host and signs the startup. In your research code, three lines connect
-an analysis.
-
-```python
-from arh_client import api
-research = api.connect('examples/memo_returns', 'researcher', run='/tmp/arh-memo')
-result = research.analysis(join, inputs=['SRC-RET-SYN', *scores], expectation=EXPECT, budget='memo-tests', operation='join')()
-```
-
-You get the result back with its evidence reference, its conclusion
-against the expectation you recorded first, its check status once a
-check exists, and, if the work was refused, the reason and what to do
-about it. Give each piece of work a name and a process that dies resumes
-it on restart instead of repeating it. In a LangGraph graph the same
-call is a node, and a review node pauses the graph until the independent
-check and the owner's decision are in. The example in
-`examples/memo_returns/` is 136 lines of research code and a 33-line
-project file. The demonstration runs the whole thing, with the
-interruptions, in one command.
-
-```sh
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m examples.memo_returns
 ```
 
-There are four ways to use ARH.
+The second command brings a small project up, imports six analyst memos
+and a returns table, and runs a LangGraph graph that scores the memos
+for tone, joins the scores to the returns in two parallel branches, one
+of them a placebo, proposes the next question and waits for review. It
+kills the graph at three points and resumes it, has one evaluator fail
+the check and another pass it, records the owner's decision and applies
+it, and closes and reopens the host. It prints each step and ends with
+`Result: PASS` in about ten seconds. Generated data, labelled synthetic.
 
-- **Your own research code and graphs.** As above. You supply an
-  analysis function, its inputs, an expectation, an evaluator and a
-  project file. The [client README](client/README.md) has the interface
-  and `examples/memo_returns/README.md` lists what the scientist wrote.
-- **Your own CSV through a script.** `examples/signal_groups/` wraps a
-  55-line analysis. One command takes your table, records your
-  expectation, runs the analysis and shows the candidates for the next
-  question. The runbook, path G.
-- **Your own documents on a page.** Start a run with a charter, import
-  text, markdown, CSV or JSON files, write down what you expect, run the
-  analysis and pick the next question from what the result showed. Two
-  analyses are available, term counts over text and statistics over
-  rows. The runbook, path F.
-- **The shipped examples.** The headline example runs one research cycle
-  with a LangGraph researcher and walks through the situations the rules
-  have to handle. The original synthetic cycle, with a built-in
-  researcher and two tools ARH runs itself, is still one command.
+What the scientist wrote for that example is 136 lines of research code
+and a 33-line project file, in `examples/memo_returns/`. The shape of the
+interface, as a sketch rather than a runnable snippet, is this.
 
-```sh
-PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m examples.langgraph_headlines
-PYTHONDONTWRITEBYTECODE=1 python3 -m workbench --port 8765
-PYTHONDONTWRITEBYTECODE=1 python3 -m acceptance.local --example
+```python
+# Interface sketch. The complete form is examples/memo_returns/research.py and graph.py.
+research = api.connect('examples/memo_returns', 'researcher', run='/tmp/arh-memo')
+result = research.analysis(join, inputs=[returns_table, *tone_scores], expectation=EXPECT, budget='memo-tests', operation='join')()
 ```
 
-The headline example classifies synthetic headlines with a deterministic
-stand-in for a model provider, joins the recorded labels to next-day
-returns that arrive one period later, and has an evaluator under a
-separate identity recompute the join before the proposal is admitted.
-The same run shows an overstated result failing its check, a researcher
-refused when it tries to approve its own proposal, over-budget work
-refused before the provider is called, and three kinds of interruption
-resumed without a second provider call. The workbench opens at
-`http://127.0.0.1:8765/local` for your own files.
+`join` is a plain function over the inputs. The expectation is recorded
+before the analysis runs. The result comes back with its evidence
+reference, its conclusion against the expectation, its check status once
+a check exists, and, if the work was refused, the reason and what to do
+about it. Each piece of work has a name. Reusing the name after a crash
+recovers the progress the client journaled for it, the design, the
+reservation, the attempt and the receipt, and continues from there. An
+attempt whose outcome was lost is settled at its maximum and replaced
+only after the host confirms the process that held it is gone. In a
+LangGraph graph the same call is a node, and a review node holds the
+graph until the proposal has passed its check, been authorized by the
+owner and been applied to the accepted record.
 
-The [runbook](runbook.md) has every verified path, and the
-[client README](client/README.md) documents the interface, operation by
-operation.
+The other routes, each with its verified steps in the [runbook](runbook.md).
+
+- Your own CSV through a 55-line script, one command, path G.
+- Your own documents on a page in the workbench, path F.
+- The headline example, one research cycle with a LangGraph researcher
+  and the situations the rules have to handle, path C.
+- The original synthetic cycle with a built-in researcher, path A.
+- Your own researcher on the lower-level client against a host you
+  start yourself, path D.
+
+The [client README](client/README.md) documents the interface, operation
+by operation.
 
 ## What a team supplies and what ARH does
 
 | You supply | What ARH does |
 | --- | --- |
 | A project file naming the question, the sources and their classes, the analyses with their costs, the budgets by name, and the researcher and evaluator entry points. The generator writes the grants, limits, theme, designs and profile from it, and a team that needs more writes those files itself | Only declared steps, tools and parameters are admitted, cost estimates must match the tariff, and sources follow their declared period and item rules. Amounts in the project file become authoritative when the owner signs the grants at startup |
-| A researcher, in LangGraph or any other code, running under the researcher identity. On the everyday interface, an analysis function, its inputs, an expectation and a name for each piece of work | Budget reserved before an attempt, attempt recorded before execution, one fresh permission per attempt, settlement at the actual charge or at the maximum, every refusal kept. The client journals each operation so a killed process resumes it and never repeats it |
+| A researcher, in LangGraph or any other code, running under the researcher identity. On the everyday interface, an analysis function, its inputs, an expectation and a name for each piece of work | Budget reserved before an attempt, attempt recorded before execution, one fresh permission per attempt, settlement at the actual charge or at the maximum, every refusal kept. The client journals each named operation, so reusing the name recovers its recorded progress, and an attempt whose outcome was lost is settled and replaced only after the host confirms its process is gone |
 | A provider or tool the researcher calls | The receipt is bound to the attempt and counted. A second, different receipt for the same attempt is refused |
 | An evaluator running under the Checker identity. On the everyday interface, a recompute function that says what counts as a valid result | A check must come from a separate lineage with its own funded attempt, its content must equal the registered receipt, and the proposer cannot check, decide or apply. A graph that resumes approves nothing |
 | The owner's decisions, or a policy the owner set for routine registrations | A decision needs a passing check at the current base, and applying it needs the decision and bound funding |

@@ -580,11 +580,12 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m examples.memo_returns.job --run /t
 It prints the graph state: six tone calls recorded, the join at 3/3
 MET, the placebo at 1/3 MET, the selection proposed as `TH-M1`, and
 `paused` with the review status `waiting_for_review`. Kill it at any
-point and run it again: every node reads the researcher's operation
-journal under `/tmp/arh-memo/researcher/operations/` first and repeats
-nothing it already did. A call whose outcome was lost is settled at its
-maximum and replaced only after the host confirms the dead process is
-gone, which the demonstration does with the host control's `quiesce`.
+point and run it again. Every node reads the researcher's operation
+journal under `/tmp/arh-memo/researcher/operations/` first and continues
+from the progress it recorded there. A call whose outcome was lost is
+settled at its maximum and replaced only on an explicit request, which
+the host admits after it confirms the dead process is gone; the
+demonstration proves that with the host control's `quiesce`.
 
 The check and the decision come from the other identities.
 

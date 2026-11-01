@@ -8,8 +8,10 @@ an evaluator, and names each piece of work. They get back the result, its
 evidence reference, its conclusion, its check status and any refusal with
 what to do about it. Reservations, attempts, permission, receipts,
 settlement and recovery happen underneath, journaled per operation so a
-process that dies resumes the same operation and never repeats it. The
-same operation identity resumes; a new identity is new work. Nothing here
+process that dies resumes the same operation from its recorded progress.
+An attempt whose outcome was lost is settled at its maximum and replaced
+only on an explicit request the host admits after quiescence. The same
+operation identity resumes; a new identity is new work. Nothing here
 approves anything: a decision is the Principal's, under the Principal's
 identity, and a check is the evaluator's, under its own.
 """

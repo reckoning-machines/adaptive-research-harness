@@ -146,7 +146,8 @@ branches never overwrite each other. Nothing relies on a LangGraph
 branch key. A node wrapped as an analysis is one metered attempt. A node
 you write that makes calls through `research.langgraph.call` is an
 uncharged grouping; each call is its own attempt with its own identity,
-and a resumed node repeats none that the journal holds. The review node
+and a resumed node recovers from the journal the calls that completed and
+reconciles any whose outcome was lost before asking for a replacement. The review node
 pauses the graph while the proposal is waiting for review, and again
 while it is decided but not applied; resuming re-reads the ledger and
 approves nothing. Calls a node makes outside the wrapper are invisible

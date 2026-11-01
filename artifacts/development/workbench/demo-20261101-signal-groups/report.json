@@ -1,24 +1,24 @@
 {
  "lines": [
   "Baseline, the script on its own: spread 55.5 bp over 240 rows, 0.001 s",
-  "  ok   startup through checked controls: N=5 in 0.5 s",
+  "  ok   startup through checked controls: N=5 in 0.6 s",
   "  ok   table imported with its hash: E22 signals.csv 240 rows sha ea54d5cdfa14",
   "  ok   expectation recorded before the analysis: design E23: top tercile beats bottom tercile by at least 50 bp",
   "  ok   analysis run by the host and recorded: spread 55.5 bp, same as the direct run; conclusion MET; settled True",
   "Candidates from the evidence: ['other-horizon', 'finer-groups', 'placebo-signal'] excluded []",
   "  ok   selection recorded with rejections and their reconsideration conditions: [('other-horizon', 'new_documents'), ('finer-groups', 'new_documents')]",
-  "  ok   direction checked, admitted and applied: TR-59f28544-1c0e-4d15-bb19-fc524937ddb7 check PASS, N=6",
+  "  ok   direction checked, admitted and applied: TR-10ce7500-93ef-4282-8346-179b3f549e18 check PASS, N=6",
   "Placebo result: spread 5.2 bp, conclusion MET",
   "Candidates now: ['placebo-signal'] excluded by the earlier rejection: [('other-horizon', 'new_documents'), ('finer-groups', 'new_documents')]",
   "  ok   history shapes the candidate set: 2 candidates held back until new documents arrive",
   "  ok   new rows reinstate the held-back candidates: reinstated ['other-horizon', 'finer-groups']",
-  "  ok   second direction checked against the history it cites: TR-2f98701b-af47-4f11-b487-9526b0756441 check PASS, N=7",
+  "  ok   second direction checked against the history it cites: TR-02f06b42-abd1-43f6-b7c2-31d2254ce6fd check PASS, N=7",
   "  ok   attempt interrupted after the host ran the tool, before the record: pending attempt [54]",
   "Host closed. Reopening the run.",
   "  ok   run reopened live with its records: N=7, next run for design E52",
   "  ok   interrupted attempt resumed without running again: execution registered, conclusion MET, spread 82.0 bp, attempts 3",
   "Lines: script 55 | experiment-specific 71 | setup 37 | command line and job 177 | demonstration 157 | client analysis module 416",
-  "Timings: {'script_direct_s': 0.001, 'startup_s': 0.5, 'first_result_s': 0.7, 'first_admitted_direction_s': 1.2, 'total_s': 2.8}",
+  "Timings: {'script_direct_s': 0.001, 'startup_s': 0.6, 'first_result_s': 0.8, 'first_admitted_direction_s': 1.2, 'total_s': 2.8}",
   "Result: PASS | new example on generated data; the calculation is the script's own; no forward standing."
  ],
  "checks": {
@@ -37,8 +37,8 @@
  },
  "timings": {
   "script_direct_s": 0.001,
-  "startup_s": 0.5,
-  "first_result_s": 0.7,
+  "startup_s": 0.6,
+  "first_result_s": 0.8,
   "first_admitted_direction_s": 1.2,
   "total_s": 2.8
  },

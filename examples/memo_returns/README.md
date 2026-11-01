@@ -28,9 +28,10 @@ nobody needs to run their own graph.
 `arh_client.api` and `arh_client.langgraph_nodes`, 407 lines, written
 once. Every reservation, attempt, permission, receipt, record,
 settlement and closure. A durable journal per operation, so a node
-killed before its first return finds its own attempt on restart and
-repeats nothing. An explicit replacement for a call whose outcome was
-lost, admitted only after the host confirms the dead process is gone.
+killed before its first return finds its own design, reservation, attempt
+and receipt on restart and continues from there. A call whose outcome was
+lost is settled at its maximum and replaced only by an explicit request,
+admitted after the host confirms the dead process is gone.
 Namespaces that merge by operation, so parallel branches never overwrite
 each other. A review node that pauses while the proposal is waiting, and
 again while it is decided but not applied. Refusals with their meaning
