@@ -41,6 +41,11 @@ flowchart LR
   D -->|what was learned| Q
 ```
 
+Budget makes the search visible. Separate acceptance makes the result
+accountable. The alpha-decay argument needs both, because what you want to
+know later is how much searching it took to find the thing and who decided
+it was real.
+
 Each step writes its record before the next can start, so the count of
 attempts and of registered hypotheses is a fact of the record rather than
 a recollection. That is a record of executed work, not preregistration.
