@@ -4,7 +4,8 @@ An idea I think is right, carried far enough to run.
 
 Alpha decays, and so do the methods that find it. Investment teams need a
 research process that uses what worked and what failed to decide what to
-test next, which ideas to pursue and which to retire.
+test next, which ideas to pursue and which to retire. Coding harnesses
+already do this. Here I apply that idea to research agent swarms.
 
 Research agents can now generate ideas faster than a team can evaluate
 them.
