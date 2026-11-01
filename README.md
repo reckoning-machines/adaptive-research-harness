@@ -8,8 +8,9 @@ I made the case for coding agents in
 [An Agentic Coding Proposal: Constitutional Coherence](https://reckoningmachines.substack.com/p/an-agentic-coding-proposal-constitutional).
 A harness checks behavior, so an agent can pass every test while giving
 itself a second source of truth or a decision right. What has to sit
-underneath the harness is a statement of what exists, what it means and
-who may change it. This repository applies that argument to research.
+underneath the harness, so that what exists, what it means and who may
+change it are settled before the agent starts? This repository applies
+that question to research.
 
 Adaptive Research Harness is an operating system for research that learns
 from its own results and changes what it investigates next.
