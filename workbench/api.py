@@ -27,6 +27,18 @@ class Workbench:
                         'rows':len(rows),'spike_rows':len(spikes),'large_rows':len(large),'large_shocks':sorted({r['shock_id'] for r in large}),
                         'selling_rows':sum(r['selling'] for r in spikes),'non_large_selling':sum(r['selling'] for r in spikes if r['size_units']<2),'non_large_rows':sum(1 for r in spikes if r['size_units']<2)})
         return out
+    def start_local(self,charter,name=None):
+        import time,uuid
+        from . import local_session
+        name=name or time.strftime('%Y%m%d-%H%M%S')+'-local-'+uuid.uuid4().hex[:6]
+        with self.lock:self.starting[name]={'status':'starting','cohort':None,'kind':'local'}
+        def work():
+            try:
+                s=local_session.LocalRun.create(charter,name)
+                with self.lock:self.live[name]=s;self.starting.pop(name,None)
+            except Exception as exc:
+                with self.lock:self.starting[name]={'status':'failed','cohort':None,'kind':'local','error':str(exc),'trace':traceback.format_exc()}
+        threading.Thread(target=work,daemon=True).start();return {'run':name,'status':'starting','kind':'local'}
     def start(self,cohort):
         import time,uuid
         name=time.strftime('%Y%m%d-%H%M%S')+'-'+cohort+'-'+uuid.uuid4().hex[:6]
@@ -82,8 +94,8 @@ def make_handler(bench):
             return json.loads(self.rfile.read(n) or b'{}') if n else {}
         def route(self,method):
             path=self.path.split('?')[0].rstrip('/') or '/';parts=path.split('/')[1:]
-            if method=='GET' and path=='/':
-                html=(HERE/'index.html').read_bytes()
+            if method=='GET' and path in ('/','/local'):
+                html=(HERE/('index.html' if path=='/' else 'local.html')).read_bytes()
                 self.send_response(200);self.send_header('Content-Type','text/html; charset=utf-8');self.send_header('Cache-Control','no-store');self.send_header('Content-Length',str(len(html)));self.end_headers();self.wfile.write(html);return
             if parts[:1]!=['api']:return self.send_json(404,{'error':'NOT_FOUND'})
             parts=parts[1:]
@@ -91,6 +103,8 @@ def make_handler(bench):
             if parts==['runs'] and method=='GET':return self.send_json(200,{'runs':bench.runs()})
             if parts==['runs'] and method=='POST':
                 b=self.body_json();return self.send_json(202,bench.start(b.get('cohort','original')))
+            if parts==['local','runs'] and method=='POST':
+                b=self.body_json();charter=b.get('charter') or '';return self.send_json(202,bench.start_local(charter,b.get('name')) if charter.strip() else {'error':'CHARTER_REQUIRED'})
             if len(parts)>=2 and parts[0]=='runs':
                 name=parts[1];rest=parts[2:]
                 if rest==['open'] and method=='POST':r=bench.open(name);return self.send_json(200,r.view())
@@ -101,6 +115,26 @@ def make_handler(bench):
                 if rest==[] and method=='GET':return self.send_json(200,r.view())
                 if rest==['step'] and method=='POST':
                     b=self.body_json();return self.send_json(200,r.step(b.get('op')))
+                if getattr(r,'kind',None)=='local' and method=='POST' and len(rest)==1:
+                    b=self.body_json();op=rest[0]
+                    if r.mode!='live':raise Refusal('READ_ONLY','This run was retained under a different build; it can be inspected, not continued')
+                    if op=='documents':
+                        o=r.import_document(b['name'],b['text'].encode(),b.get('origin') or 'the Principal',b.get('note'),b.get('date'));return self.send_json(200,{'status':o.status,'ref':o.ref.as_dict() if o.ref else None,'item_id':o.raw.get('document',{}).get('item_id')})
+                    if op=='design':
+                        o=r.design(b['question'],b['expectation'],b['analysis'],b['documents'],b.get('revises'),b.get('theme'));return self.send_json(200,{'status':o.status,'reason':o.reason,'detail':o.detail,'ref':o.ref.as_dict() if o.ref else None})
+                    if op=='run':
+                        out=r.run(b['design']);return self.send_json(200,{k:(v.raw if hasattr(v,'raw') else v) for k,v in out.items()})
+                    if op=='candidates':return self.send_json(200,{'candidates':r.candidates(b['analysis'])})
+                    if op=='select':
+                        o=r.select(b['analysis'],b['chosen'],b['reason'],b['next_question']);return self.send_json(200,{'status':o.status,'reason':o.reason,'ref':o.ref.as_dict() if o.ref else None})
+                    if op=='propose':
+                        o=r.propose(b['selection']);return self.send_json(200,{'status':o.status,'reason':o.reason,'transition_id':o.transition_id,'funded':o.raw.get('funded')})
+                    if op=='check':
+                        c=r.check(b['transition']);return self.send_json(200,{'result':c.result,'criteria':c.criteria,'check_sequence':c.check_sequence})
+                    if op=='decide':
+                        o=r.decide(b['transition'],b['decision'],b.get('reason') or 'Principal decision');return self.send_json(200,{'status':o.status,'reason':o.reason,'detail':o.detail})
+                    if op=='apply':
+                        o=r.apply(b['transition']);return self.send_json(200,{'status':o.status,'reason':o.reason,'detail':o.detail})
                 if rest==['reader'] and method=='GET':return self.send_json(200,r.reader())
                 if len(rest)==2 and rest[0]=='records' and method=='GET':
                     es,ts=r.records();return self.send_json(200,{'ledger':rest[1],'records':es if rest[1]=='E' else ts})

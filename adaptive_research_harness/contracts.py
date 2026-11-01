@@ -21,7 +21,7 @@ SCHEMAS = {
  'policy-decide': ({'transition_id','check'}, set()),
  'apply': ({'transition_id','decision'}, {'bind'}),
  'invalidate-request': ({'bind'}, set()), 'release': ({'bind'}, set()),
- 'research-commit': ({'grant','attempt','question','result','closure','claims','kind','snapshot','source_cutoff','parameters','tool','reproducibility','synthetic'}, {'SearchFamily','failure'}),
+ 'research-commit': ({'grant','attempt','question','result','closure','claims','kind','snapshot','source_cutoff','parameters','tool','reproducibility','synthetic'}, {'SearchFamily','failure','class','revises','design','expectation','analysis','conclusion'}),
  'observation-commit': ({'grant','source','revision','form','period','item_id','document','slot'}, {'document_ref','value','items','window','error'}),
  'genesis': ({'constitution_sha256','design','grant'}, set()),
 }

@@ -70,15 +70,17 @@ class Dispatcher:
             claim={'attempt':seq,'input_hash':a['body']['input_hash'],'core':self.generation,'worker':worker,
                    'tool_id':tool,'inventory_sha256':e.profile.inventory_hash}
             e.store.db.execute('INSERT INTO dispatch_claims(attempt_seq,body) VALUES(?,?)',(seq,canonical(claim)))
-            doc=None
-            if not self.caller_executed(tool):doc=v.exact(a['body']['input']['input_refs'][0])['body']['document']
+            doc=None;inputs=None
+            if not self.caller_executed(tool):
+                inputs=[{'kind':x['kind'],'seq':x['seq'],'sha256':x['sha256'],'actor':x['actor'],'body':x['body']} for x in (v.exact(ref) for ref in a['body']['input']['input_refs'])]
+                first=next((x for x in inputs if x['kind']=='OBSERVATION'),None);doc=first['body']['document'] if first else None
             fault=e.store.db.execute('SELECT body FROM faults WHERE target=? AND consumed=0',(str(seq),)).fetchone()
             fault=decode(fault['body']) if fault else None
             if fault:e.store.db.execute('UPDATE faults SET consumed=1 WHERE target=?',(str(seq),))
         e.fault_hook('after_dispatch_claim_commit')
         if self.caller_executed(tool):return {'status':'PERMISSION_CONSUMED','claim':claim}
         try:
-            receipt=request(self.tool_sockets[tool],{'op':'run','claim':claim,'document':doc,
+            receipt=request(self.tool_sockets[tool],{'op':'run','claim':claim,'document':doc,'inputs':inputs,
                              'maximum':a['body']['maximum'],'fault':fault})
             require(receipt['attempt']==seq and receipt['input_hash']==a['body']['input_hash'],'INVALID_TOOL_RECEIPT')
         except (OSError,EOFError,KeyError) as exc:

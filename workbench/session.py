@@ -219,7 +219,10 @@ class ReadOnlyRun:
 
 
 def open_run(run_dir):
-    """Live when the inventory matches the current tree, otherwise read-only."""
+    """Live when the inventory matches the current tree, otherwise read-only. Local-document runs open through their own session."""
+    if manifest(run_dir).get('kind')=='local':
+        from .local_session import open_local
+        return open_local(run_dir)
     ok,reason=inventory_matches(Path(run_dir)/'bundle')
     if ok:return Session.resume(run_dir)
     return ReadOnlyRun(run_dir,reason)
@@ -230,10 +233,14 @@ def list_runs(live=None):
     out=[]
     for p in run_dirs():
         m=manifest(p);name=p.name
-        entry={'run':name,'cohort':m.get('cohort'),'status':m.get('status'),'created_ms':m.get('created_ms'),'inventory_sha256':m.get('inventory_sha256'),'open':name in live,'mode':getattr(live.get(name),'mode',None)}
+        entry={'run':name,'kind':m.get('kind','synthetic'),'cohort':m.get('cohort'),'status':m.get('status'),'created_ms':m.get('created_ms'),'inventory_sha256':m.get('inventory_sha256'),'open':name in live,'mode':getattr(live.get(name),'mode',None)}
         try:
-            es,ts,claims=records.load_readonly(p/'state'/'harness.sqlite');d=records.derive(es,ts)
-            entry['progress']='complete' if records.next_step(d,m.get('cohort'),claims) is None else 'in_progress'
+            es,ts,claims=records.load_readonly(p/'state'/'harness.sqlite')
+            if entry['kind']=='local':
+                from .local_session import derive as derive_local
+                entry['progress']='in_progress' if derive_local(es,ts)['next'] else 'complete'
+            else:
+                d=records.derive(es,ts);entry['progress']='complete' if records.next_step(d,m.get('cohort'),claims) is None else 'in_progress'
             entry['counts']={'E':len(es),'T':len(ts)}
         except (OSError,Refusal,KeyError) as exc:entry['progress']='unreadable';entry['error']=str(exc)
         ok,reason=inventory_matches(p/'bundle');entry['live_eligible']=ok;entry['live_reason']=reason

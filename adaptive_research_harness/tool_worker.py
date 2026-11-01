@@ -11,6 +11,7 @@ from .transport import LifetimeLock, serve
 def run_worker(tool_id, socket_path, state_dir, profile, *, serve_function=serve, generation_provider=generation):
     require(not profile.experiment.caller_executed(tool_id),'INVALID_TOOL_REQUEST')
     calculate=profile.experiment.load_callable(tool_id,profile.bundle)
+    wants_inputs=profile.experiment.tool(tool_id).get('interface','document')=='inputs'
     state=Path(state_dir);state.mkdir(parents=True,exist_ok=True,mode=0o700)
     lock=threading.Lock();gen=generation_provider()
     def handle(who,b):
@@ -36,7 +37,7 @@ def run_worker(tool_id, socket_path, state_dir, profile, *, serve_function=serve
             actual=b['maximum'];value=None;error=None
             try:
                 if fault.get('kind')=='AFTER_START_FAILURE':raise Refusal('AFTER_START_FAILURE')
-                value=calculate(b['document'])
+                value=calculate(b['inputs']) if wants_inputs else calculate(b['document'])
                 if fault.get('case')=='T03':value=dict(value,approval='ADMITTED',grant='FORGED-NO-AUTHORITY')
             except Refusal as exc:error=exc.code
             if fault.get('kind')=='OVERRUN_601':

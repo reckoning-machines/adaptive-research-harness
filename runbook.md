@@ -291,6 +291,83 @@ Then execute the new attempt with `Execution.run` as usual. Verified on
 belongs to the earlier host incarnation, and the proof is accepted on the
 process id being gone.
 
+## F. Research on your own documents through the workbench
+
+One usable research workflow on real local files. Documents keep their
+provenance and are classed historical. Nothing here is a forward
+prediction and nothing earns forward standing.
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 -m workbench --port 8765
+```
+
+Open `http://127.0.0.1:8765/local`. The synthetic page at `/` is
+unchanged and does not run this workflow.
+
+**1. Start a run with a charter.** Write the question you are
+investigating and press Start. The charter becomes the first committed
+document and the umbrella direction `TH-L0` cites it. Startup takes a few
+seconds and ends at N=5.
+
+**2. Import documents.** Choose files, state their origin and a note, press
+Import. Text, markdown, CSV, TSV and JSON rows are accepted. Each file is
+committed with its name, content hash, size, media type, your declared
+origin and receipt time. The item id carries the content hash, so the same
+bytes imported twice are the same item.
+
+**3. Record the expectation before the analysis.** Fill in the question,
+the expectation statement, a comparator with an integer or fraction value,
+a minimum n, the analysis and the documents, then Commit the design. This
+writes an `EXPERIMENT DESIGN` record that meters no work. Two analyses
+exist. `term-count` gives the fraction of text documents containing any of
+the terms. `table-stat` gives a count, ratio, sum or mean over rows passing
+declared filters.
+
+**4. Run the analysis.** The researcher reserves 0.10 units per document,
+records the attempt citing the documents and the design, and the host-run
+calculator computes. The result is recorded with its conclusion against
+the expectation, MET, NOT_MET or INCONCLUSIVE below the minimum n, and
+settled.
+
+**5. Choose the next step from the evidence.** The page lists the
+candidates the conclusion produced, a fixed rule of the researcher
+program, not a script of what to do. Pick one, give a reason and write the
+next question. The selection and the rejected candidates are recorded.
+
+**6. Propose, check, decide, apply.** The chosen investigation is proposed
+as a direction, a Theme. The evaluator under the Checker identity
+recomputes the analysis from the committed documents and design with its
+own code and verifies the conclusion, the order of design before attempt,
+the settlement and the selection. After a passing check the Principal
+admits or rejects. A rejected direction stays on the record. An admitted
+one is applied and appears under Directions.
+
+**7. Revise.** A new design may name an earlier one it revises and run
+under an admitted direction. Both designs, both results and both
+conclusions stay on the ledger.
+
+**Stop and resume.** Close run keeps everything under
+`artifacts/development/workbench/<run>/`. Opening the run from the list
+starts the host again on the same records when the source still matches
+the run's inventory, and continues from the same next actions. Otherwise
+it opens read-only. Nothing is re-executed on reopen: a design that was
+run stays run, an attempt that was settled stays settled.
+
+Expected shape after the first cycle: N=6, directions `TH-L0, TH-L1`,
+`AU-RL-1` committed 0.30 for three documents, no pending attempts. A
+retained run, `demo-20261101-072344-local-memos`, is listed on the page.
+It holds three memos and a trade table, a met expectation admitted as
+direction `TH-L1`, and a second investigation stopped at its selection
+step, so opening it shows the candidates waiting for a choice.
+Verified on 2026-11-01 through the session and through the HTTP routes,
+including a forged conclusion failing its check on `motivation` and a
+run reopened after close with identical records.
+
+Limits. The synthetic clock is advanced to the day after each import; your
+declared receipt time is provenance, not a system witness. PDFs are not
+read. The independent reader covers the synthetic experiment only; the
+evaluator is a registered design, not an independent reader.
+
 ## Refusals and errors
 
 A refusal is an `Outcome` with `ok == False`. It is on the ledger and
@@ -308,6 +385,9 @@ nothing was spent. An operational error raises `HarnessError`.
 | `PENDING_PREDECESSOR` | A retry before the earlier attempt was settled | Settle it first, at the receipt or at the maximum |
 | `WORKER_NOT_QUIESCENT` | No proof that the earlier work can no longer execute | Path E, authorizing new work |
 | `GENESIS_SCOPE` | Startup was already run on this run directory | Reconnect, do not restart |
+| `INVALID_CLASS` | A record called itself synthetic while citing historical documents, or the reverse | Let the client set the class from the cited documents |
+| `INVALID_DOCUMENT` with `provenance` or `file identity` | A historical document without origin, receipt time or file hash | Import through `Observer.import_file`, which supplies them |
+| `NO_CHECK` on decide | The direction has not been checked | Run the check first |
 | `REQUEST_KEY_CONFLICT` | A different payload under a key already used | Make a new key for new work |
 | `HarnessError ARTIFACT_CHANGED` at host start | The source changed since the bundle was frozen | Read the old run, or freeze a new run directory |
 | `HarnessError ACTOR_MISMATCH` | The token does not match the identity | Reconnect with the current `connection.json` |
@@ -338,4 +418,4 @@ which is accurate.
 
 - Linux user, socket and cgroup isolation under `isolation/`.
 - Path D steps 5 and 6 as separate hand-run commands.
-- Any real provider, real data or network access.
+- Any real provider or network access. Real local files are exercised in path F.

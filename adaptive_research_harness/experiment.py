@@ -6,6 +6,7 @@ needs is selected by name from the closed registry below and parametrised;
 a profile cannot name code, change who may act, or widen any control.
 """
 from __future__ import annotations
+from copy import deepcopy
 import importlib
 import importlib.util
 from pathlib import Path
@@ -15,6 +16,9 @@ from .encoding import fields, require, Refusal, units
 EXECUTIONS = ('core', 'caller')
 PROVIDER_WORK = ('ends_with_caller', 'may_outlive_caller')
 KINDS = ('research', 'check')
+DOCUMENT_CLASSES = ('synthetic', 'historical')
+MEASURES = ('rows', 'documents', 'kilobytes')
+INPUT_KINDS = ('OBSERVATION', 'RESEARCH_RECORD')
 FIELD_TYPES = {'str': str, 'int': int, 'bool': bool}
 CONDITIONS = ('equals', 'at_least', 'at_most', 'greater_than', 'less_than')
 IDENT = re.compile(r'[A-Za-z0-9][A-Za-z0-9._-]{0,63}')
@@ -73,12 +77,14 @@ def row_ratio(spec, document):
     return n > 0, ({'numerator': k, 'denominator': n} if n > 0 else None)
 
 
-VALIDATORS = {'row-ratio': row_ratio}
+VALIDATORS = {'row-ratio': row_ratio, 'none': None}
 
 
 def _validate_extraction(spec):
+    require(isinstance(spec, dict) and spec.get('validator') in VALIDATORS, 'INVALID_PROFILE', 'validator')
+    if spec['validator'] == 'none':
+        fields(spec, {'validator'}); return
     fields(spec, {'validator', 'row_fields', 'unique', 'denominator', 'numerator'})
-    require(spec['validator'] in VALIDATORS, 'INVALID_PROFILE', 'validator')
     require(isinstance(spec['row_fields'], dict) and spec['row_fields'] and
             all(v in FIELD_TYPES for v in spec['row_fields'].values()), 'INVALID_PROFILE', 'row_fields')
     require(spec['unique'] in spec['row_fields'], 'INVALID_PROFILE', 'unique')
@@ -87,10 +93,28 @@ def _validate_extraction(spec):
             require(c['field'] in spec['row_fields'], 'INVALID_PROFILE', part)
 
 
+def _input_shapes(spec):
+    """Normalize a step's inputs to a list of shapes {kind, form or record_kind, min, max}."""
+    if isinstance(spec, dict):
+        fields(spec, {'count', 'kind', 'form'})
+        require(spec['count'] == 1 and spec['kind'] == 'OBSERVATION' and spec['form'] == 'DOCUMENT', 'INVALID_PROFILE', 'inputs')
+        return [{'kind': 'OBSERVATION', 'form': 'DOCUMENT', 'min': 1, 'max': 1}]
+    require(isinstance(spec, list) and spec, 'INVALID_PROFILE', 'inputs')
+    out = []
+    for shape in spec:
+        fields(shape, {'kind', 'min', 'max'}, {'form', 'record_kind'})
+        require(shape['kind'] in INPUT_KINDS and type(shape['min']) is int and type(shape['max']) is int and 0 <= shape['min'] <= shape['max'], 'INVALID_PROFILE', 'input shape')
+        if shape['kind'] == 'OBSERVATION': require(shape.get('form') == 'DOCUMENT' and 'record_kind' not in shape, 'INVALID_PROFILE', 'observation inputs are DOCUMENT')
+        else: require(isinstance(shape.get('record_kind'), str) and 'form' not in shape, 'INVALID_PROFILE', 'record inputs name a record kind')
+        out.append(dict(shape))
+    require(sum(s['min'] for s in out) >= 1, 'INVALID_PROFILE', 'a step needs at least one input')
+    return out
+
+
 class Experiment:
     def __init__(self, data):
         fields(data, {'ExperimentId', 'version', 'genesis', 'steps', 'tools', 'sources'}, {'description'})
-        self.data = data
+        self.data = data; data = deepcopy(data)   # normalized copies below; the caller's bytes are never changed
         self.id = _ident(data['ExperimentId'], 'INVALID_PROFILE')
         require(type(data['version']) is int and data['version'] >= 1, 'INVALID_PROFILE', 'version')
         fields(data['genesis'], {'design', 'grant'}); self.genesis = data['genesis']
@@ -98,7 +122,8 @@ class Experiment:
         require(isinstance(data['tools'], dict) and data['tools'], 'INVALID_PROFILE', 'tools')
         for tool_id, spec in data['tools'].items():
             _ident(tool_id, 'INVALID_PROFILE')
-            fields(spec, {'execution', 'module', 'callable', 'label', 'provider_work'}, {'uid'})
+            fields(spec, {'execution', 'module', 'callable', 'label', 'provider_work'}, {'uid', 'interface'})
+            require(spec.get('interface', 'document') in ('document', 'inputs'), 'INVALID_PROFILE', 'interface')
             require(spec['execution'] in EXECUTIONS, 'INVALID_PROFILE', tool_id)
             require(spec['provider_work'] in PROVIDER_WORK, 'INVALID_PROFILE', tool_id)
             m = spec['module']
@@ -120,13 +145,11 @@ class Experiment:
                 fields(spec, {'name', 'kind', 'tools', 'maximum'}); units(spec['maximum'])
             else:
                 fields(spec, {'name', 'kind', 'tools', 'inputs', 'parameters', 'input_limit_bytes', 'tariff'})
-                fields(spec['inputs'], {'count', 'kind', 'form'})
-                require(spec['inputs']['count'] == 1 and spec['inputs']['kind'] == 'OBSERVATION' and spec['inputs']['form'] == 'DOCUMENT',
-                        'INVALID_PROFILE', 'only one DOCUMENT input is supported')
+                spec['inputs'] = _input_shapes(spec['inputs'])
                 require(isinstance(spec['parameters'], dict), 'INVALID_PROFILE', 'parameters')
                 require(type(spec['input_limit_bytes']) is int and 0 < spec['input_limit_bytes'] <= 16 * 1024 * 1024, 'INVALID_PROFILE', 'input_limit_bytes')
                 t = spec['tariff']; fields(t, {'measure', 'limit'}, {'bands', 'per_unit'})
-                require(t['measure'] == 'rows' and type(t['limit']) is int and t['limit'] > 0, 'INVALID_PROFILE', 'tariff')
+                require(t['measure'] in MEASURES and type(t['limit']) is int and t['limit'] > 0, 'INVALID_PROFILE', 'tariff')
                 require(('bands' in t) != ('per_unit' in t), 'INVALID_PROFILE', 'tariff needs bands or per_unit')
                 if 'bands' in t:
                     require(isinstance(t['bands'], list) and t['bands'], 'INVALID_PROFILE', 'bands')
@@ -143,10 +166,13 @@ class Experiment:
             _ident(source_id, 'INVALID_PROFILE')
             fields(spec, {'period_ms', 'item_id', 'window', 'document', 'extraction'})
             require(type(spec['period_ms']) is int and spec['period_ms'] > 0, 'INVALID_PROFILE', 'period_ms')
-            fields(spec['item_id'], {'prefix'}); _ident(spec['item_id']['prefix'], 'INVALID_PROFILE')
+            fields(spec['item_id'], {'prefix'}, {'per_period'}); _ident(spec['item_id']['prefix'], 'INVALID_PROFILE')
+            require(spec['item_id'].get('per_period', 'one') in ('one', 'many'), 'INVALID_PROFILE', 'per_period')
             fields(spec['window'], {'start', 'end'})
-            fields(spec['document'], {'synthetic', 'max_bytes'})
-            require(spec['document']['synthetic'] is True, 'INVALID_PROFILE', 'only synthetic sources are supported')
+            fields(spec['document'], {'max_bytes'}, {'synthetic', 'class'})
+            d = spec['document']
+            if 'class' in d: require(d['class'] in DOCUMENT_CLASSES and d.get('synthetic', d['class'] == 'synthetic') == (d['class'] == 'synthetic'), 'INVALID_PROFILE', 'document class')
+            else: require(d.get('synthetic') is True, 'INVALID_PROFILE', 'a source declares class historical or synthetic'); d['class'] = 'synthetic'
             require(type(spec['document']['max_bytes']) is int and 0 < spec['document']['max_bytes'] <= 16 * 1024 * 1024, 'INVALID_PROFILE', 'max_bytes')
             _validate_extraction(spec['extraction'])
             self.sources[source_id] = spec
@@ -163,6 +189,19 @@ class Experiment:
             if s['label'] == label: return t
         raise Refusal('TOOL_NOT_PERMITTED', label)
 
+    def document_class(self, source_id): return self.sources[source_id]['document']['class']
+
+    def measure(self, step, inputs):
+        """The tariff's unit count for admitted inputs: first document's rows, number of documents, or kilobytes of all inputs."""
+        from .encoding import canonical
+        m = step['tariff']['measure']
+        docs = [e for e in inputs if e['kind'] == 'OBSERVATION']
+        if m == 'rows':
+            rows = docs[0]['body']['document'].get('rows', []) if docs else []
+            require(isinstance(rows, list), 'INVALID_INPUT'); return len(rows)
+        if m == 'documents': return len(docs)
+        total = sum(len(canonical(e['body'].get('document', e['body']))) for e in inputs); return (total + 1023) // 1024
+
     def expected_maximum(self, step, row_count):
         """Hundredths the attempt must declare, or a refusal when the input is outside the tariff."""
         t = step['tariff']; require(type(row_count) is int and 0 <= row_count <= t['limit'], 'INVALID_ESTIMATE')
@@ -172,6 +211,7 @@ class Experiment:
 
     def extract(self, source_id, document):
         spec = self.sources[source_id]['extraction']
+        require(spec['validator'] != 'none', 'CAPABILITY_UNSUPPORTED', 'no extraction declared for ' + source_id)
         return VALIDATORS[spec['validator']](spec, document)
 
     def may_outlive_caller(self, tool_id): return self.tool(tool_id)['provider_work'] == 'may_outlive_caller'

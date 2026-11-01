@@ -200,3 +200,33 @@ predates the profile and is left as it was. Bundles without
 `experiment.json` open read-only in the workbench. Component tests freeze a
 disposable bundle from the current tree instead.
 
+## Research on the Principal's own documents
+
+Directed by the [local documents record](docs/decisions/local_documents_research_20261101.md)
+and reported in the
+[implementation report](docs/implementation/local_documents_research_20261101.md).
+
+A source rule declares its documents `synthetic` or `historical`. A
+historical document keeps its file name, content hash, size, media type,
+declared origin and receipt time; the ledger stamps the class and refuses
+a synthetic label on a historical source. A research record citing a
+historical input is historical. Research records of kind `EXPERIMENT
+DESIGN` and `SELECTION` may be committed without an attempt, so an
+expectation is recorded before the analysis that tests it. A step's inputs
+are declared as shapes, so an attempt can cite several documents and the
+one design record that pins its analysis, and the tariff may be measured
+in rows, documents or kilobytes. A source may hold many items per period,
+identified by the document content hash. A host-run tool declared
+`interface: inputs` receives every admitted input.
+
+`experiments/local_documents/` holds the setup, profile, host-run
+calculator (`term-count`, `table-stat`), evaluator and researcher program.
+`workbench/local.html` and `workbench/local_session.py` drive it: charter,
+imports, designs with expectations, host-run analyses with conclusions,
+candidates derived from the conclusion by the researcher's declared rule,
+recorded selections, Theme proposals, independent checks, Principal
+decisions, revisions, stop and resume. The evaluator recomputes each cited
+analysis with its own code and fails a Theme whose conclusion does not
+recompute. Everything runs in the workbench process under separate tokens.
+No OS isolation. No forward standing.
+

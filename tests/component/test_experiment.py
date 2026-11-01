@@ -188,3 +188,99 @@ class ReceiptBinding(unittest.TestCase):
             with self.assertRaises(Refusal) as ctx: disp.run('AD-R1.0', seq, peer)
             self.assertEqual(ctx.exception.code, 'UNAUTHORIZED')
             store.close()
+
+
+LOCAL = json.loads((ROOT / 'experiments/local_documents/experiment.json').read_bytes())
+
+
+class HistoricalDocuments(unittest.TestCase):
+    """The document class and the shapes the local-documents workflow needs, through Rules with fabricated views."""
+    def local_input(self):
+        x = Input(); x.profile.experiment = Experiment(LOCAL); return x
+    def doc(self, text='alpha beta', name='a.md', date='2026-10-30'):
+        import hashlib
+        raw = text.encode(); sha = hashlib.sha256(raw).hexdigest()
+        return {'class': 'historical', 'synthetic': False, 'file': {'name': name, 'sha256': sha, 'bytes': len(raw), 'media_type': 'text/markdown'},
+                'provenance': {'origin': 'test', 'received_at': '2026-10-31T00:00:00.000Z', 'note': ''}, 'text': text,
+                'item_id': 'doc-' + date + '-' + sha[:16], 'period_start': date + 'T00:00:00.000Z', 'period_end': '2026-10-31T00:00:00.000Z', 'claimed_publication_time': '2026-10-31T00:00:00.000Z'}
+    def observation(self, x, d, **over):
+        g = x.profile.grants['AU-OBS-1']; src = next(s for s in g['source_declarations'] if s['content']['SourceId'] == 'SRC-SYN')
+        p = {'grant': 'AU-OBS-1', 'source': 'SRC-SYN', 'revision': src['SourceRevision'], 'form': 'DOCUMENT', 'period': {'start': d['period_start'], 'end': d['period_end']}, 'item_id': d['item_id'], 'document': d, 'slot': x.now}
+        p.update(over); return p
+    def test_profile_loads_with_the_new_shapes(self):
+        e = Experiment(LOCAL)
+        self.assertEqual(e.document_class('SRC-LOCAL-DOC'), 'historical'); self.assertEqual(e.steps['analyze-documents']['tariff']['measure'], 'documents')
+        self.assertEqual(e.expected_maximum(e.step('analyze-documents'), 3), 30); self.assertEqual(e.tool('LOCAL-CALC-1')['interface'], 'inputs')
+        with self.assertRaises(Refusal): e.extract('SRC-LOCAL-DOC', {})
+        bad = deepcopy(LOCAL); bad['sources']['SRC-LOCAL-DOC']['document']['class'] = 'prospective'
+        with self.assertRaises(Refusal): Experiment(bad)
+        bad = deepcopy(LOCAL); bad['steps'][0]['inputs'] = [{'kind': 'RESEARCH_RECORD', 'min': 0, 'max': 1, 'record_kind': 'EXPERIMENT DESIGN'}]
+        with self.assertRaises(Refusal): Experiment(bad)
+    def test_historical_document_rules(self):
+        """A source declared historical refuses synthetic labels and incomplete provenance, and stamps the class it admits."""
+        x = Input(); rules = Rules(x.profile)
+        local = deepcopy(SYNTHETIC); local['sources']['SRC-SYN']['document'] = {'class': 'historical', 'synthetic': False, 'max_bytes': 4194304}
+        local['sources']['SRC-SYN']['item_id'] = {'prefix': 'cohort-', 'per_period': 'many'}; local['sources']['SRC-SYN']['extraction'] = {'validator': 'none'}
+        x.profile.experiment = Experiment(local); now = x.now + 3 * 86400000
+        d = self.doc(); d['item_id'] = 'cohort-2026-10-30-' + d['file']['sha256'][:16]
+        out = rules.execute(x.view(), 'Observation function', 'observation-commit', self.observation(x, d, slot=now), now)[0]
+        self.assertEqual(out['body']['class'], 'historical'); self.assertFalse(out['body']['synthetic'])
+        for name, change, code in [
+            ('synthetic label on a historical source', lambda q: q['document'].update({'class': 'synthetic', 'synthetic': True}), 'INVALID_DOCUMENT'),
+            ('missing provenance', lambda q: q['document'].pop('provenance'), 'INVALID_DOCUMENT'),
+            ('file hash not in the item id', lambda q: q.update(item_id='cohort-2026-10-30-0000000000000000') or q['document'].update(item_id='cohort-2026-10-30-0000000000000000'), 'INVALID_ITEM'),
+            ('listing for a many-per-period source', lambda q: q.update(form='COMPLETE', document=None, items=[q['item_id']], window=q['period']), 'CAPABILITY_UNSUPPORTED'),
+        ]:
+            q = self.observation(x, deepcopy(d), slot=now); change(q)
+            with self.subTest(name), self.assertRaises(Refusal) as ctx: rules.execute(x.view(), 'Observation function', 'observation-commit', q, now)
+            self.assertEqual(ctx.exception.code, code, name)
+        committed = x.add('E', 'OBSERVATION', dict(self.observation(x, d, slot=now), **{'class': 'historical', 'synthetic': False}), 'Observation function')
+        q = dict(self.observation(x, d, slot=now), form='VALUE', document=None, document_ref={'ledger': 'E', 'sequence': committed['seq'], 'sha256': committed['sha256']}, value={'numerator': 1, 'denominator': 1})
+        with self.assertRaises(Refusal) as ctx: rules.execute(x.view(), 'Observation function', 'observation-commit', q, now)
+        self.assertEqual(ctx.exception.code, 'CAPABILITY_UNSUPPORTED')
+        # The synthetic source still refuses a historical document.
+        y = Input(); q = self.observation(y, dict(y.profile.artifacts['formation_cohort']['content'], **{'class': 'historical', 'synthetic': False}))
+        with self.assertRaises(Refusal) as ctx: Rules(y.profile).execute(y.view(), 'Observation function', 'observation-commit', q, y.now)
+        self.assertEqual(ctx.exception.code, 'INVALID_DOCUMENT')
+    def test_design_records_without_an_attempt_and_class_inheritance(self):
+        x = Input(); rules = Rules(x.profile)
+        body = {'grant': 'AU-RP-1', 'attempt': None, 'question': 'q', 'result': {'expectation': {}}, 'failure': None, 'closure': {'E': len(x.e), 'N': x.n, 'refs': [event_ref(x.e[0])]},
+                'claims': [{'kind': 'QUESTION', 'text': 'q'}], 'kind': 'EXPERIMENT DESIGN', 'snapshot': {'identity': 'x', 'sha256': x.e[0]['sha256']}, 'source_cutoff': '2026-10-29T00:00:00.000Z',
+                'parameters': {}, 'tool': {'id': 'SYN-A-1', 'planned': True}, 'reproducibility': {'input_refs': [], 'invocation_hash': None, 'result_hash': digest({'expectation': {}})}, 'synthetic': True, 'class': 'synthetic'}
+        self.assertEqual(rules.execute(x.view(), 'AD-R1.0', 'research-commit', body, x.now)[0]['kind'], 'RESEARCH_RECORD')
+        with self.assertRaises(Refusal) as ctx: rules.execute(x.view(), 'AD-R1.0', 'research-commit', dict(body, kind='plain'), x.now)
+        self.assertEqual(ctx.exception.code, 'UNAUTHORIZED')
+        with self.assertRaises(Refusal) as ctx: rules.execute(x.view(), 'AD-R1.0', 'research-commit', dict(body, synthetic=False), x.now)
+        self.assertEqual(ctx.exception.code, 'INVALID_CLASS')
+        # A record citing a historical document cannot call itself synthetic.
+        hist = x.add('E', 'OBSERVATION', {'form': 'DOCUMENT', 'source': 'SRC-SYN', 'document': self.doc(), 'class': 'historical', 'synthetic': False}, 'Observation function')
+        cites = dict(body, closure={'E': len(x.e), 'N': x.n, 'refs': [event_ref(hist)]})
+        with self.assertRaises(Refusal) as ctx: rules.execute(x.view(), 'AD-R1.0', 'research-commit', cites, x.now)
+        self.assertEqual(ctx.exception.code, 'INVALID_CLASS')
+        self.assertEqual(rules.execute(x.view(), 'AD-R1.0', 'research-commit', dict(cites, synthetic=False, **{'class': 'historical'}), x.now)[0]['body']['class'], 'historical')
+        # A revision must name an earlier record of the same actor.
+        prior = x.add('E', 'RESEARCH_RECORD', {'kind': 'EXPERIMENT DESIGN'}, 'AD-R1.0'); other = x.add('E', 'RESEARCH_RECORD', {'kind': 'EXPERIMENT DESIGN'}, 'AD-R2.0')
+        self.assertEqual(rules.execute(x.view(), 'AD-R1.0', 'research-commit', dict(body, closure={'E': len(x.e), 'N': x.n, 'refs': [event_ref(x.e[0])]}, revises=event_ref(prior)), x.now)[0]['kind'], 'RESEARCH_RECORD')
+        with self.assertRaises(Refusal) as ctx: rules.execute(x.view(), 'AD-R1.0', 'research-commit', dict(body, closure={'E': len(x.e), 'N': x.n, 'refs': [event_ref(x.e[0])]}, revises=event_ref(other)), x.now)
+        self.assertEqual(ctx.exception.code, 'INVALID_REVISION')
+    def test_attempts_match_declared_input_shapes_and_measures(self):
+        x = Input(); rules = Rules(x.profile)
+        local = deepcopy(SYNTHETIC)
+        local['steps'][0]['inputs'] = [{'kind': 'OBSERVATION', 'form': 'DOCUMENT', 'min': 1, 'max': 3}, {'kind': 'RESEARCH_RECORD', 'record_kind': 'EXPERIMENT DESIGN', 'min': 1, 'max': 1}]
+        local['steps'][0]['tariff'] = {'measure': 'documents', 'limit': 3, 'per_unit': '0.10'}
+        x.profile.experiment = Experiment(local)
+        design = x.add('E', 'RESEARCH_RECORD', {'kind': 'EXPERIMENT DESIGN', 'analysis': {}}, 'AD-R1.0'); other = x.add('E', 'RESEARCH_RECORD', {'kind': 'EXPERIMENT DESIGN'}, 'AD-R2.0')
+        doc2 = x.add('E', 'OBSERVATION', {'form': 'DOCUMENT', 'document': x.profile.artifacts['formation_cohort']['content']}, 'Observation function')
+        r = x.reservation()
+        def payload(refs, maximum):
+            inp = invocation(x.profile_dict(), 'SYN-A-1', 'research-counts', refs, {'threshold': 2})
+            return {'reservation': r['seq'], 'step': 'research-counts', 'input': inp, 'dispatch_index': 0, 'maximum': maximum, 'tier': 1}
+        self.assertEqual(rules.execute(x.view(), 'AD-R1.0', 'attempt', payload([event_ref(x.e[0]), event_ref(doc2), event_ref(design)], '0.20'), x.now)[0]['kind'], 'ATTEMPT')
+        for name, refs, maximum, code in [
+            ('no design record', [event_ref(x.e[0])], '0.10', 'INVALID_INPUT'),
+            ("another actor's design", [event_ref(x.e[0]), event_ref(other)], '0.10', 'INVALID_INPUT'),
+            ('two designs', [event_ref(x.e[0]), event_ref(design), event_ref(design)], '0.10', 'INVALID_INPUT'),
+            ('estimate off the per-document tariff', [event_ref(x.e[0]), event_ref(design)], '0.20', 'INVALID_ESTIMATE'),
+        ]:
+            with self.subTest(name), self.assertRaises(Refusal) as ctx: rules.execute(x.view(), 'AD-R1.0', 'attempt', payload(refs, maximum), x.now)
+            self.assertEqual(ctx.exception.code, code, name)

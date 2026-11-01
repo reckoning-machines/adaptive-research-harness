@@ -1,0 +1,166 @@
+{
+ "designs": [
+  {
+   "content": {
+    "AgentDesignLineageId": "AD-L1",
+    "AgentDesignVersionId": "AD-L1.0",
+    "entrypoint": "experiments.local_documents.researcher:LocalResearcher",
+    "evaluation_inputs": [
+     "own Research Records",
+     "active grant and population",
+     "declared source observations"
+    ],
+    "evidence_outputs": [
+     "EXPERIMENT DESIGN",
+     "plain Research Record",
+     "SELECTION"
+    ],
+    "initial_method": {
+     "id": "MC-RESEARCH-L1",
+     "sha256": "48fa6176f4a7215da6069633d8d2324c26529ec48924a6ec7f304e8a84cef3ea"
+    },
+    "instructions": "Act only on the Principal's stated question, expectation and analysis. Commit the design before any attempt. Reserve, record the attempt citing the documents and the design, let the host run the calculator, record the result with the conclusion against the expectation, settle. Derive next-step candidates from the conclusion by the declared rule and record the Principal's selection with its rejections. Propose the next investigation as a Theme. Never check, decide, apply, fence or change a profile. Preserve revisions and rejected conclusions.",
+    "method_class": "RESEARCH",
+    "ordinary_cycle_enabled": true,
+    "predecessor": null,
+    "program": "researcher.py",
+    "proposable_outputs": [
+     "Theme registration",
+     "Agent Design successor registration without grant request"
+    ],
+    "provenance": {
+     "execution_kind": "deterministic synthetic program",
+     "model": null,
+     "model_version": null,
+     "not_applicable_reason": "Deterministic programs over local documents; no trained model or model provider is invoked; no diversity claim.",
+     "provider": null,
+     "spec_version": "local-design-v1",
+     "training_cutoff": null
+    },
+    "research_question": {
+     "difference_basis": "Each design states its own question and expectation.",
+     "predicate": "declared per design record",
+     "scope": "TH-L0",
+     "target": "the Principal's current question"
+    },
+    "scope_profile": "TH-L0",
+    "tool_specs": {
+     "LOCAL-CALC-1": "8af2841be94deafa736c10d1d5680ccc21a5ad0fb7ae90e7c0bdef48350fac8c"
+    }
+   },
+   "content_sha256": "e1350b60a60f7af5ea4bf4b7058f0333f820ee0568371ef1f6a122d256b31d1e"
+  },
+  {
+   "content": {
+    "AgentDesignLineageId": "AD-CK-L1",
+    "AgentDesignVersionId": "AD-CK-L1.0",
+    "entrypoint": "experiments.local_documents.evaluator:evaluate",
+    "evaluation_inputs": [
+     "exact proposal",
+     "Transition lifecycle and Applied History",
+     "Evidence closure",
+     "pinned CV1 and ES-1.0",
+     "own grant",
+     "referenced artifacts"
+    ],
+    "evidence_outputs": [
+     "verification Research Record",
+     "own reservation/attempt/settlement/close"
+    ],
+    "initial_method": {
+     "id": "MC-CHECKER-L1",
+     "sha256": "96f73a4522d3bee6691fa5413247c0029dffeb7ce05e1fd8d1c3f8e9ea88bf1f"
+    },
+    "instructions": "Execute every common and class criterion on a committed closure through the client checking toolkit. For a Theme, recompute the cited analysis independently and verify the conclusion, the ordering of design before attempt, the settlement and the selection. Fund verification from own Checker grant. Never propose, decide or waive a criterion. Missing capability never becomes PASS.",
+    "method_class": "CHECKER",
+    "predecessor": null,
+    "program": "evaluator.py",
+    "proposable_outputs": [
+     "own Agent Design successor"
+    ],
+    "provenance": {
+     "execution_kind": "deterministic synthetic program",
+     "model": null,
+     "model_version": null,
+     "not_applicable_reason": "Deterministic programs over local documents; no trained model or model provider is invoked; no diversity claim.",
+     "provider": null,
+     "spec_version": "local-design-v1",
+     "training_cutoff": null
+    },
+    "tool_specs": {
+     "CHECK-L-1": "8bf6ba8a1b83a51e42331d581c3116910caf8e79f082d56304f65e1642da19d1"
+    }
+   },
+   "content_sha256": "436dec0b52a25942afb8deb37a603cd6dd961b6ef2cb9833701f31dfb1a37b5a"
+  }
+ ],
+ "formation_cohort": {
+  "content": {
+   "claimed_publication_time": "2026-10-29T00:00:00.000Z",
+   "class": "historical",
+   "file": {
+    "bytes": 0,
+    "media_type": "text/markdown",
+    "name": "charter.md",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+   },
+   "item_id": "doc-2026-10-28-0000000000000000",
+   "period_end": "2026-10-29T00:00:00.000Z",
+   "period_start": "2026-10-28T00:00:00.000Z",
+   "provenance": {
+    "note": "placeholder; the run supplies the real charter",
+    "origin": "the Principal",
+    "received_at": "2026-10-29T00:00:00.000Z"
+   },
+   "synthetic": false,
+   "text": "Research charter placeholder."
+  },
+  "content_sha256": "ef35014171a56e60a6b89afe71553346566d1cf731162723dfef269b8aca05f3",
+  "meaning": "The charter the Principal writes when a run starts replaces this placeholder.",
+  "source": "SRC-LOCAL-DOC"
+ },
+ "methods": {
+  "MC-CHECKER-L1": {
+   "content": {
+    "limits": "Absence of a later defect finding is not proof of correctness.",
+    "meaning": "Verification contribution, not permission.",
+    "measure": "Defects later established in passed subjects and refusals later shown unwarranted, with exact references, divided by settled Checker units.",
+    "version": 1
+   },
+   "content_sha256": "96f73a4522d3bee6691fa5413247c0029dffeb7ce05e1fd8d1c3f8e9ea88bf1f"
+  },
+  "MC-RESEARCH-L1": {
+   "content": {
+    "forward_contribution": "Count admitted investigations that later produced a finalized forward Outcome; historical analyses count zero. Divide by settled research units; zero denominator NOT_ESTIMABLE.",
+    "limits": "No profitability credit; historical reconstruction carries no forward standing.",
+    "meaning": "Contribution report only; no standing or grant.",
+    "version": 1
+   },
+   "content_sha256": "48fa6176f4a7215da6069633d8d2324c26529ec48924a6ec7f304e8a84cef3ea"
+  }
+ },
+ "status": "BUILT_PRIVATE_NOT_INITIALIZED",
+ "tools": {
+  "CHECK-L-1": {
+   "content": {
+    "algorithm": "Common and class criteria through the client checking toolkit. For a THEME, the motivation criterion additionally recomputes the cited analysis from the cited documents and design with independent code, verifies the conclusion against the recorded expectation, verifies the design preceded the attempt and the attempt settled, and verifies the selection chose among the candidates the evidence produced.",
+    "cost": "0.25 units per full Check attempt including a failing or incomplete Check; zero external billing.",
+    "input_limit_bytes": 33554432,
+    "kind": "deterministic Checker",
+    "version": 1
+   },
+   "content_sha256": "8bf6ba8a1b83a51e42331d581c3116910caf8e79f082d56304f65e1642da19d1"
+  },
+  "LOCAL-CALC-1": {
+   "content": {
+    "algorithm": "Read the committed EXPERIMENT DESIGN record among the inputs and run its declared analysis over the committed documents. term-count: case-insensitive occurrences of declared terms per text document. table-stat: count, sum, ratio or mean of a numeric column over rows passing declared filters, as exact integers or integer ratios. Return per-document detail, a summary and the metric the design names.",
+    "cost": "0.10 units per document, charged on the number of admitted documents; 50 documents maximum.",
+    "failure": "An unsupported analysis or malformed document returns failure with diagnostic and the same charge.",
+    "inputs": "One to fifty committed DOCUMENT observations and exactly one EXPERIMENT DESIGN record by the same researcher.",
+    "kind": "deterministic local calculator run by the host",
+    "version": 1
+   },
+   "content_sha256": "8af2841be94deafa736c10d1d5680ccc21a5ad0fb7ae90e7c0bdef48350fac8c"
+  }
+ }
+}

@@ -27,8 +27,12 @@ CLASS_CRITERIA = {
 SELECTION_FIELDS = ('uncertainty', 'decision_it_could_change', 'experiment', 'value_estimate', 'value_basis', 'cost_estimate_units', 'time_estimate_ms', 'horizon', 'stopping_rule', 'origin')
 
 
-def evaluate(snapshot, transition_id, actor, checker_grant, attempt, profile, recompute=None):
-    """Criterion findings for one proposal. recompute(context) -> bool verifies the research arithmetic a HYPOTHESIS rests on."""
+def evaluate(snapshot, transition_id, actor, checker_grant, attempt, profile, recompute=None, validate_motivation=None):
+    """Criterion findings for one proposal.
+
+    recompute(context) -> bool verifies the research arithmetic a HYPOTHESIS rests on.
+    validate_motivation(context) -> bool verifies that the records a THEME cites as motivation recompute and were made in order.
+    """
     events = snapshot['transitions']; evidence = snapshot['evidence']
     proposals = {}; designs = {}; grants = {}; active = set(); themes = {}; registered = []
     for event in events:
@@ -147,7 +151,11 @@ def evaluate(snapshot, transition_id, actor, checker_grant, attempt, profile, re
         elif typ == 'THEME':
             closure = c.get('motivation_closure'); valid = isinstance(closure, dict) and bool(closure.get('refs'))
             if valid: valid = closure.get('N', snapshot['N']) <= snapshot['N'] and all(r['ledger'] == 'E' and r['sequence'] in ev and ev[r['sequence']]['sha256'] == r['sha256'] for r in closure['refs'])
-            record('motivation', valid, 'Formation closure exists before Theme proposal and is within direct Principal scope')
+            if valid and validate_motivation is not None:
+                cited = [ev[r['sequence']] for r in closure['refs']]
+                try: valid = bool(validate_motivation({'documents': [e for e in cited if e['kind'] == 'OBSERVATION'], 'records': [e for e in cited if e['kind'] == 'RESEARCH_RECORD'], 'content': c, 'proposer': proposer, 'profile': profile, 'evidence': ev, 'now': now}))
+                except (Refusal, KeyError, TypeError, ValueError, IndexError): valid = False
+            record('motivation', valid, 'Motivation closure exists before the Theme proposal; cited analysis recomputes from committed inputs' if validate_motivation else 'Formation closure exists before Theme proposal and is within direct Principal scope')
             record('typed_claims', bool(c.get('typed_claims')) and all(x.get('kind') in ('QUESTION', 'ASSUMPTION', 'REPORTED', 'INTERPRETATION') for x in c.get('typed_claims', [])), 'Typed claims disclose synthetic assumptions and questions')
             record('selection', selection(c), 'Every selection-basis field present, including time and origin')
         elif typ == 'SUSPEND_POLICY':
@@ -264,9 +272,9 @@ def run_check(connection, transition_id, evaluate_fn, hook=lambda point: None) -
 
 class Checker:
     """An evaluator process under a Checker identity. check() runs one independent Check."""
-    def __init__(self, connection, evaluate_fn=None, recompute=None):
+    def __init__(self, connection, evaluate_fn=None, recompute=None, validate_motivation=None):
         self.c = connection
-        self.evaluate_fn = evaluate_fn or (lambda snapshot, tr, actor, grant, attempt, profile: evaluate(snapshot, tr, actor, grant, attempt, profile, recompute=recompute))
+        self.evaluate_fn = evaluate_fn or (lambda snapshot, tr, actor, grant, attempt, profile: evaluate(snapshot, tr, actor, grant, attempt, profile, recompute=recompute, validate_motivation=validate_motivation))
     def check(self, transition_id: str) -> CheckResult:
         """Fund, compute and commit one Check of a proposed Transition under this Checker's own grant."""
         return run_check(self.c, transition_id, self.evaluate_fn)

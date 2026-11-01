@@ -4,6 +4,7 @@ Offline component tests may supply fabricated views; that is not initialization.
 Checker programs do not import this module.
 """
 from __future__ import annotations
+import re
 from .encoding import require, Refusal, units, amount, digest, fields, instant, canonical
 from .contracts import COMMON, CLASS_CRITERIA
 
@@ -173,13 +174,16 @@ class Rules:
             require(maximum == units(step['maximum']), 'INVALID_ESTIMATE')
         else:
             require(tool['id'] in step['tools'], 'INVALID_STEP')
-            docs = [v.exact(ref) for ref in b['input']['input_refs']]
-            shape = step['inputs']
-            require(len(docs) == shape['count'] and all(d['kind'] == shape['kind'] and d['body']['form'] == shape['form'] for d in docs), 'INVALID_INPUT')
-            require(len(canonical(docs[0]['body']['document'])) <= step['input_limit_bytes'], 'INPUT_TOO_LARGE')
+            inputs = [v.exact(ref) for ref in b['input']['input_refs']]
+            matched = 0
+            for shape in step['inputs']:
+                if shape['kind'] == 'OBSERVATION': hits = [e for e in inputs if e['kind'] == 'OBSERVATION' and e['body'].get('form') == shape['form']]
+                else: hits = [e for e in inputs if e['kind'] == 'RESEARCH_RECORD' and e['body'].get('kind') == shape['record_kind'] and e['actor'] == actor]
+                require(shape['min'] <= len(hits) <= shape['max'], 'INVALID_INPUT', shape['kind']); matched += len(hits)
+            require(matched == len(inputs), 'INVALID_INPUT', 'input outside the declared shapes')
+            require(sum(len(canonical(e['body'].get('document', e['body']))) for e in inputs) <= step['input_limit_bytes'], 'INPUT_TOO_LARGE')
             require(b['input']['parameters'] == step['parameters'], 'CAPABILITY_UNSUPPORTED')
-            rows = docs[0]['body']['document'].get('rows', [])
-            require(isinstance(rows, list) and maximum == exp.expected_maximum(step, len(rows)), 'INVALID_ESTIMATE')
+            require(maximum == exp.expected_maximum(step, exp.measure(step, inputs)), 'INVALID_ESTIMATE')
         ih = digest(b['input']); index = b['dispatch_index']
         require(type(index) is int and index >= 0, 'INVALID_DISPATCH_INDEX')
         previous = [e for e in v.attempts.values() if e['body']['reservation'] == b['reservation'] and
@@ -348,12 +352,24 @@ class Rules:
         g=v.grant(b['grant'],actor,now,('Research','Checker'))
         right='Research Record for verification' if g['class']=='Checker' else ('plain Research Record' if b['kind']=='plain' else b['kind'])
         require(right in g['may_commit_evidence'],'UNAUTHORIZED')
-        a = v.attempts.get(b['attempt']); require(a is not None and a['actor'] == actor and a['body']['grant'] == b['grant'], 'UNAUTHORIZED')
-        require(b['synthetic'] is True and b['kind'] in ('plain','SCREEN','EXPERIMENT DESIGN','SELECTION'), 'CAPABILITY_UNSUPPORTED')
+        require(b['kind'] in ('plain','SCREEN','EXPERIMENT DESIGN','SELECTION'), 'CAPABILITY_UNSUPPORTED')
+        if b['attempt'] is None:
+            # A design or selection records intent or choice; it meters no work and needs no attempt.
+            require(b['kind'] in ('EXPERIMENT DESIGN','SELECTION') and g['class'] == 'Research', 'UNAUTHORIZED')
+        else:
+            a = v.attempts.get(b['attempt']); require(a is not None and a['actor'] == actor and a['body']['grant'] == b['grant'], 'UNAUTHORIZED')
+        cls = b.get('class', 'synthetic'); require(cls in ('synthetic','historical') and b['synthetic'] == (cls == 'synthetic'), 'INVALID_CLASS')
         require(b['closure']['N'] <= v.n and b['closure']['E'] <= v.E, 'INVALID_CLOSURE')
+        cited_historical = False
         for ref in b['closure']['refs']:
             e = v.exact(ref)
             if ref['ledger'] == 'E': require(e['seq'] <= b['closure']['E'], 'OUTSIDE_CLOSURE')
+            if e['kind'] == 'OBSERVATION' and e['body'].get('class') == 'historical': cited_historical = True
+            if e['kind'] == 'RESEARCH_RECORD' and e['body'].get('class') == 'historical': cited_historical = True
+        # Provenance is inherited: a record resting on real material is historical, never synthetic.
+        require(cls == 'historical' or not cited_historical, 'INVALID_CLASS', 'cites historical inputs')
+        if b.get('revises') is not None:
+            prior = v.exact(b['revises']); require(prior['kind'] == 'RESEARCH_RECORD' and prior['actor'] == actor, 'INVALID_REVISION')
         require(b['snapshot'] and b['source_cutoff'] and b['tool'] and b['reproducibility'], 'INCOMPLETE_RESEARCH_RECORD')
         return [effect('E','RESEARCH_RECORD',actor,b,now)]
 
@@ -370,12 +386,25 @@ class Rules:
         start,end=instant(b['period']['start']),instant(b['period']['end'])
         require(end-start==rule['period_ms'] and start%rule['period_ms']==0 and
                 instant(rule['window']['start'])<=start<instant(rule['window']['end']),'INVALID_PERIOD')
-        require(b['item_id']==rule['item_id']['prefix']+b['period']['start'][:10],'INVALID_ITEM')
+        many=rule['item_id'].get('per_period','one')=='many';base=rule['item_id']['prefix']+b['period']['start'][:10]
+        if many:require(isinstance(b['item_id'],str) and b['item_id'].startswith(base+'-') and re.fullmatch(r'[0-9a-f]{16}',b['item_id'][len(base)+1:]) is not None,'INVALID_ITEM')
+        else:require(b['item_id']==base,'INVALID_ITEM')
         require(b['form'] in ('DOCUMENT','VALUE','NOT_EXTRACTABLE','RETRIEVAL_FAILED','COMPLETE','PARTIAL'),'CAPABILITY_UNSUPPORTED')
+        cls=rule['document']['class']
         if b['form']=='DOCUMENT':
             d=b['document']
-            require(d.get('synthetic') is True and b['item_id']==d['item_id'] and
+            require(isinstance(d,dict) and b['item_id']==d['item_id'] and
                     d['period_start']==b['period']['start'] and d['period_end']==b['period']['end'],'INVALID_DOCUMENT')
+            declared=d.get('class','synthetic' if d.get('synthetic') is True else None)
+            require(declared==cls and d.get('synthetic',cls=='synthetic')==(cls=='synthetic'),'INVALID_DOCUMENT','document class')
+            if cls=='historical':
+                # Real material keeps its identity and declared provenance; the ledger stamps the class, never a synthetic label.
+                f=d.get('file');p=d.get('provenance')
+                require(isinstance(f,dict) and isinstance(f.get('name'),str) and isinstance(f.get('sha256'),str) and re.fullmatch(r'[0-9a-f]{64}',f['sha256']) is not None
+                        and type(f.get('bytes')) is int and f['bytes']>=0 and isinstance(f.get('media_type'),str),'INVALID_DOCUMENT','file identity')
+                require(isinstance(p,dict) and isinstance(p.get('origin'),str) and p['origin'] and isinstance(p.get('received_at'),str) and p['received_at'],'INVALID_DOCUMENT','provenance')
+                require(isinstance(d.get('text'),str) or isinstance(d.get('rows'),list),'INVALID_DOCUMENT','content')
+                if many:require(b['item_id']==base+'-'+f['sha256'][:16],'INVALID_ITEM')
             require(end<=now,'SOURCE_NOT_YET_AVAILABLE')
             require(len(canonical(d))<=rule['document']['max_bytes'],'INPUT_TOO_LARGE')
         elif b['form'] in ('VALUE','NOT_EXTRACTABLE'):
@@ -387,6 +416,7 @@ class Rules:
             if b['form']=='VALUE':require(extractable and b.get('value')==value,'INVALID_EXTRACTION')
             else:require(not extractable and bool(b.get('error')),'INVALID_EXTRACTION')
         elif b['form']=='COMPLETE':
+            require(not many,'CAPABILITY_UNSUPPORTED','no listing for a many-per-period source')
             require(b.get('window')==b['period'] and b.get('items')==([b['item_id']] if end<=now else []),'INCOMPLETE_LISTING')
         else:require(bool(b.get('error')),'MISSING_RETRIEVAL_FAILURE')
-        return [effect('E','OBSERVATION',actor,dict(b,synthetic=True),now)]
+        return [effect('E','OBSERVATION',actor,dict(b,synthetic=(cls=='synthetic'),**{'class':cls}),now)]

@@ -5,6 +5,39 @@ from datetime import datetime, timedelta
 from .protocol import digest, instant, HarnessError, require
 from .results import Outcome, Ref
 from .research import event_ref
+import hashlib
+import csv
+import io
+import json as _json
+import time as _time
+from pathlib import Path as _Path
+
+MEDIA_TYPES = {'.txt': 'text/plain', '.md': 'text/markdown', '.csv': 'text/csv', '.json': 'application/json', '.tsv': 'text/tab-separated-values'}
+
+
+def _rows_from(text, media_type):
+    """Rows for tabular files; integers are kept exact, everything else stays text."""
+    def cell(v):
+        if isinstance(v, str) and re_int.fullmatch(v.strip()): return int(v.strip())
+        return v
+    import re as _re; re_int = _re.compile(r'-?(?:0|[1-9][0-9]*)')
+    if media_type == 'application/json':
+        value = _json.loads(text)
+        return [dict((k, cell(v)) for k, v in r.items()) for r in value] if isinstance(value, list) and all(isinstance(r, dict) for r in value) else None
+    dialect = csv.excel_tab if media_type == 'text/tab-separated-values' else csv.excel
+    return [dict((k, cell(v)) for k, v in r.items()) for r in csv.DictReader(io.StringIO(text), dialect=dialect)]
+
+
+def historical_document(raw: bytes, name: str, origin: str, received_at: str | None = None, note: str | None = None, media_type: str | None = None) -> dict:
+    """A historical document body from file bytes: identity by content hash, declared provenance, text or rows."""
+    media_type = media_type or MEDIA_TYPES.get(_Path(name).suffix.lower(), 'text/plain')
+    text = raw.decode('utf-8')
+    doc = {'class': 'historical', 'synthetic': False, 'file': {'name': name, 'sha256': hashlib.sha256(raw).hexdigest(), 'bytes': len(raw), 'media_type': media_type},
+           'provenance': {'origin': origin, 'received_at': received_at or _time.strftime('%Y-%m-%dT%H:%M:%S.000Z', _time.gmtime()), 'note': note or ''}}
+    rows = _rows_from(text, media_type) if media_type in ('text/csv', 'text/tab-separated-values', 'application/json') else None
+    if rows is not None: doc['rows'] = rows
+    else: doc['text'] = text
+    return doc
 
 Refusal = HarnessError
 
@@ -85,8 +118,12 @@ class Observer:
         """Commit the COMPLETE listing, the DOCUMENT and its extraction for one source item on one date, as the core's rules require."""
         grant, decl = self.grant_for(source); rule = self.c.experiment()['sources'][source]
         doc = deepcopy(content); start = datetime.strptime(date, '%Y-%m-%d'); end = start + timedelta(milliseconds=rule['period_ms'])
-        doc.update(item_id=rule['item_id']['prefix'] + date, period_start=start.strftime('%Y-%m-%dT%H:%M:%S.000Z'), period_end=end.strftime('%Y-%m-%dT%H:%M:%S.000Z'),
-                   claimed_publication_time=end.strftime('%Y-%m-%dT%H:%M:%S.000Z'))
+        many = rule['item_id'].get('per_period', 'one') == 'many'
+        item_id = rule['item_id']['prefix'] + date + ('-' + doc['file']['sha256'][:16] if many else '')
+        doc.update(item_id=item_id, period_start=start.strftime('%Y-%m-%dT%H:%M:%S.000Z'), period_end=end.strftime('%Y-%m-%dT%H:%M:%S.000Z'))
+        doc.setdefault('claimed_publication_time', end.strftime('%Y-%m-%dT%H:%M:%S.000Z'))
+        if rule['document'].get('class', 'synthetic') == 'synthetic': doc['claimed_publication_time'] = end.strftime('%Y-%m-%dT%H:%M:%S.000Z')
+        if rule['extraction'].get('validator') == 'none': extract = False
         clock = self.c.clock()
         payload = {'grant': grant, 'source': source, 'revision': decl['SourceRevision'], 'form': form, 'period': {'start': doc['period_start'], 'end': doc['period_end']},
                    'item_id': doc['item_id'], 'document': doc if form == 'DOCUMENT' else None, 'slot': clock['t']}
@@ -94,7 +131,7 @@ class Observer:
             if form in ('ABSENT', 'COMPLETE'): payload.update(form='COMPLETE', items=[doc['item_id']] if clock['t'] >= instant(doc['period_end']) else [], window=payload['period'])
             else: payload['error'] = 'Explicit synthetic retrieval fault'
             return self.c.call_or_raise('observation-commit', payload)
-        self.c.call_or_raise('observation-commit', dict(payload, form='COMPLETE', document=None, items=[doc['item_id']], window=payload['period']))
+        if not many: self.c.call_or_raise('observation-commit', dict(payload, form='COMPLETE', document=None, items=[doc['item_id']], window=payload['period']))
         result = self.c.call_or_raise('observation-commit', payload)
         if extract:
             extractable, value = row_ratio(rule['extraction'], doc)
@@ -103,9 +140,14 @@ class Observer:
             else: extraction['error'] = 'No rows pass the declared extraction'
             self.c.call_or_raise('observation-commit', extraction)
         result.raw['document'] = doc; return result
+    def import_file(self, source: str, path, date: str, origin: str, received_at: str | None = None, note: str | None = None, name: str | None = None):
+        """Commit a local file as a historical document of a source. Text, markdown, CSV, TSV and JSON rows are supported."""
+        raw = _Path(path).read_bytes(); return self.observe(source, historical_document(raw, name or _Path(path).name, origin, received_at, note), date)
+    def import_bytes(self, source: str, raw: bytes, name: str, date: str, origin: str, received_at: str | None = None, note: str | None = None):
+        return self.observe(source, historical_document(raw, name, origin, received_at, note), date)
 
 
-def startup(principal, observer, checker, tick=None, formation_date=None, ordinary_designs_first=True):
+def startup(principal, observer, checker, tick=None, formation_date=None, ordinary_designs_first=True, formation_content=None):
     """Genesis and the control transitions a setup declares, in the order the admitted synthetic startup used.
 
     checker(transition_id) runs an independent Check under a Checker identity and returns the PASS Check's sequence.
@@ -128,8 +170,8 @@ def startup(principal, observer, checker, tick=None, formation_date=None, ordina
     for g in observation_grants: control('AUTHORIZATION', g['content']['AuthorizationId'], {'action': 'GRANT', 'predecessor': None, 'grant': g['content']})
     if tick: tick(1000)
     formation = {}
-    formation_content = artifacts['formation_cohort']['content']
-    date = formation_date or formation_content['period_start'][:10]
+    formation_content = formation_content or artifacts['formation_cohort']['content']
+    date = formation_date or formation_content.get('period_start', '2026-10-28T')[:10]
     for source in exp['sources']:
         if source not in {d['content']['SourceId'] for g in observation_grants for d in g['content']['source_declarations']}: continue
         if source == artifacts['formation_cohort'].get('source', next(iter(exp['sources']))):

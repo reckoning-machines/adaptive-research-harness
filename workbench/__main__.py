@@ -17,7 +17,7 @@ def main():
         return run_demo()
     from .api import serve
     bench,server=serve(args.port)
-    print(f'Adaptive Research Harness workbench: http://127.0.0.1:{args.port}/  (loopback only; Ctrl-C closes live runs)',flush=True)
+    print(f'Adaptive Research Harness workbench: http://127.0.0.1:{args.port}/  synthetic cycle, http://127.0.0.1:{args.port}/local  your own documents  (loopback only; Ctrl-C closes live runs)',flush=True)
     import threading
     def stop(*_):
         # shutdown() must run off the serving thread, or it waits on itself.

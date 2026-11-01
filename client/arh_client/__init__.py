@@ -18,10 +18,10 @@ from .results import Outcome, Ref, RefusedError
 from .connection import Connection, connect
 from .research import Researcher, Execution, ReceiptStore, event_ref, invocation
 from .checking import Checker, CheckResult, evaluate, run_check
-from .principal import Principal, Observer, startup
+from .principal import Principal, Observer, startup, historical_document
 from .host import HostControl
 
 __all__ = ['connect', 'Connection', 'Outcome', 'Ref', 'HarnessError', 'RefusedError', 'Researcher', 'Execution', 'ReceiptStore',
-           'Checker', 'CheckResult', 'Principal', 'Observer', 'startup', 'HostControl',
+           'Checker', 'CheckResult', 'Principal', 'Observer', 'startup', 'historical_document', 'HostControl',
            'canonical', 'decode', 'digest', 'units', 'amount', 'event_ref', 'invocation', 'evaluate', 'run_check']
 __version__ = '0.1.0'

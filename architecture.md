@@ -107,7 +107,7 @@ rows is an independent calculation and not independent evidence.
 | --- | --- | --- |
 | The core and its rules | `adaptive_research_harness/` | Nobody edits it to add an experiment |
 | The synthetic experiment's profile | `experiments/synthetic_flow/experiment.json` | The core, after it is frozen into a bundle |
-| An external experiment | A directory such as `examples/langgraph_headlines/` holding the three JSON files and the modules the profile names | The host freezes it into a bundle and pins every module's bytes |
+| An external experiment | A directory such as `examples/langgraph_headlines/` or `experiments/local_documents/` holding the three JSON files and the modules the profile names | The host freezes it into a bundle and pins every module's bytes |
 | Evaluation methods | Declared in `designs_and_methods.json` and implemented in the evaluator the team registers as a Checker design | The evaluator process. The core checks the method hash, not the method |
 | Tool implementations | Modules named in the profile, installed or relative to the experiment directory | A worker the host starts, or the researcher process. Never the core process |
 | The client | `client/`, import name `arh_client` | Any process the team runs |
@@ -176,7 +176,8 @@ from the ledgers. Nothing is kept in memory that the ledgers do not hold.
 | Recovery | Fresh-process reconstruction, lost replies, uncertain attempts, replacement rule | Linux generation and cgroup evidence on the intended host |
 | Integration | Profile, client, host, LangGraph example, evaluator under a Checker identity | A general independent reader for arbitrary experiments |
 | Capital and execution | Zero-capital limits as a registered control | Strategy versions, paper execution, qualification, allocation, reduction, retirement |
-| Provenance | Synthetic sources and deterministic programs | Real documents, real providers, provider caps and identity rules |
+| Provenance | Synthetic sources, and historical documents the Principal imports with declared origin and content hash | Real providers, provider caps and identity rules |
+| Own research | Expectation recorded as a design before the analysis, host-run calculations, conclusions, evidence-derived candidates, recorded selections, Themes as next investigations, revisions and rejections, stop and resume in the workbench | Forward predictions and outcomes on those documents, an LLM researcher |
 
 The broader design is explained in the Constitution and in the decision
 records under `docs/decisions/`. The governing records for the

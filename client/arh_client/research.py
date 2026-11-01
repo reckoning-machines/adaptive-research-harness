@@ -107,23 +107,38 @@ class Researcher:
     def research_commit(self, record: dict, key: str) -> Outcome:
         """Commit a research record built with record_body(). Refusals: UNAUTHORIZED, INVALID_CLOSURE, INCOMPLETE_RESEARCH_RECORD."""
         return self.c.call('research-commit', record, key)
-    def record_body(self, attempt_seq: int, question: str, result: dict | None, failure: str | None, input_refs: list, kind: str = 'plain',
-                    parameters: dict | None = None, claims: list | None = None, snapshot: dict | None = None, source_cutoff: str | None = None) -> dict:
-        """A research record body in the shape the core admits, citing the attempt and its exact inputs."""
-        input_refs = [_ref(r) for r in input_refs]
-        a = self.attempt_record(attempt_seq); inp = a['body']['input']; closure = self.c.closure()
-        doc = self.c.get(input_refs[0]); body = doc['body']
-        return {'grant': a['body']['grant'], 'attempt': attempt_seq, 'question': question, 'result': result if result is not None else {'failure': failure},
-                'failure': failure, 'closure': {'E': closure['E'], 'N': closure['N'], 'refs': list(input_refs)},
-                'claims': claims or [{'kind': 'REPORTED', 'document': input_refs[0], 'location': '/rows', 'text': 'Declared synthetic document rows'},
-                                     {'kind': 'INTERPRETATION', 'reported': [0], 'text': 'Calculated synthetic result; no economic or forward standing'}],
-                'kind': kind, 'snapshot': snapshot or {'identity': body.get('item_id', str(input_refs[0]['sequence'])), 'sha256': input_refs[0]['raw_sha256']},
-                'source_cutoff': source_cutoff or body.get('document', {}).get('period_end') or time_text(closure['time_ms']),
-                'parameters': parameters if parameters is not None else inp['parameters'],
-                'tool': {'id': inp['tool_id'], 'spec_sha256': inp['tool_spec_hash'], 'executable_hash': inp['executable_hash']},
-                'reproducibility': {'input_refs': list(input_refs), 'invocation_hash': a['body']['input_hash'],
-                                    'result_hash': digest(result) if result is not None else None, 'classification': 'Historical Reconstruction'},
-                'synthetic': True}
+    def record_body(self, attempt_seq: int | None, question: str, result: dict | None, failure: str | None, input_refs: list, kind: str = 'plain',
+                    parameters: dict | None = None, claims: list | None = None, snapshot: dict | None = None, source_cutoff: str | None = None,
+                    record_class: str | None = None, revises=None, tool: dict | None = None, extra: dict | None = None) -> dict:
+        """A research record body in the shape the core admits, citing its exact inputs.
+
+        attempt_seq is None for an EXPERIMENT DESIGN or SELECTION, which meters no work; then tool names the planned tool.
+        record_class is 'synthetic' or 'historical'; when omitted it follows the cited documents. revises names an earlier
+        record of yours that this one supersedes; both stay on the ledger. extra adds declared fields such as expectation,
+        analysis, design or conclusion.
+        """
+        input_refs = [_ref(r) for r in input_refs]; closure = self.c.closure()
+        cited = [self.c.get(r) for r in input_refs]; first = cited[0]['body'] if cited else {}
+        classes = {e['body'].get('class', 'synthetic') for e in cited if e['kind'] in ('OBSERVATION', 'RESEARCH_RECORD')}
+        cls = record_class or ('historical' if 'historical' in classes else 'synthetic')
+        if attempt_seq is None:
+            require(tool is not None, 'TOOL_REQUIRED', 'a record without an attempt names the planned tool')
+            grant = self.grant()['AuthorizationId']; invocation_hash = None; params = parameters or {}
+        else:
+            a = self.attempt_record(attempt_seq); inp = a['body']['input']; grant = a['body']['grant']; invocation_hash = a['body']['input_hash']
+            tool = tool or {'id': inp['tool_id'], 'spec_sha256': inp['tool_spec_hash'], 'executable_hash': inp['executable_hash']}
+            params = parameters if parameters is not None else inp['parameters']
+        default_claims = [{'kind': 'REPORTED', 'document': input_refs[0], 'location': '/rows' if first.get('document', {}).get('rows') is not None else '/', 'text': 'Cited committed input'},
+                          {'kind': 'INTERPRETATION', 'reported': [0], 'text': 'Calculated result; historical reconstruction with no forward standing'}] if input_refs else []
+        body = {'grant': grant, 'attempt': attempt_seq, 'question': question, 'result': result if result is not None else {'failure': failure},
+                'failure': failure, 'closure': {'E': closure['E'], 'N': closure['N'], 'refs': list(input_refs)}, 'claims': claims or default_claims,
+                'kind': kind, 'snapshot': snapshot or ({'identity': first.get('item_id', str(input_refs[0]['sequence'])), 'sha256': input_refs[0]['raw_sha256']} if input_refs else {'identity': question, 'sha256': digest(result or {})}),
+                'source_cutoff': source_cutoff or first.get('document', {}).get('period_end') or time_text(closure['time_ms']),
+                'parameters': params, 'tool': tool,
+                'reproducibility': {'input_refs': list(input_refs), 'invocation_hash': invocation_hash, 'result_hash': digest(result) if result is not None else None, 'classification': 'Historical Reconstruction'},
+                'synthetic': cls == 'synthetic', 'class': cls}
+        if revises is not None: body['revises'] = _ref(revises)
+        body.update(extra or {}); return body
     def propose(self, cls: str, subject: str, content: dict, budget: str, funding_ref: int, key: str, transition_id: str | None = None, predecessor: str | None = None) -> Outcome:
         """Propose a Transition under the Research grant; funding_ref is the Evidence sequence fund() will take next. Refusals: STALE_BASE, UNAUTHORIZED, SCOPE_VIOLATION, DUPLICATE_TRANSITION."""
         tr = transition_id or 'TR-' + key
@@ -135,6 +150,13 @@ class Researcher:
     def fund(self, transition_id: str, budget: str, expected_sequence: int, key: str) -> Outcome:
         """Reserve the proposal's budget at the exact sequence it named. Refusals: WRONG_RESERVATION, FUNDING_REFERENCE_TAKEN, BUDGET_EXCEEDED."""
         return self.reserve(budget, {'kind': 'Transition', 'id': transition_id}, key, expected_sequence=expected_sequence)
+    def propose_theme(self, content: dict, budget: str, propose_key: str, fund_key: str, predecessor: str | None = None) -> Outcome:
+        """Propose a THEME, the next investigation, and fund it. Admission needs a check and a Principal decision; P-1 does not cover Themes."""
+        future = self.next_evidence_sequence()
+        r = self.propose('THEME', content['ThemeId'], content, budget, future, propose_key, predecessor=predecessor)
+        if r.ok:
+            f = self.fund(r.transition_id, budget, future, fund_key); r.raw['funding'] = f.raw; r.raw['funding_ref'] = future; r.raw['funded'] = f.ok
+        return r
     def propose_hypothesis(self, content: dict, budget: str, propose_key: str, fund_key: str) -> Outcome:
         """Propose a HYPOTHESIS and fund it. The returned Outcome is the proposal's; raw['funding'] holds the funding Outcome."""
         future = self.next_evidence_sequence()
@@ -167,7 +189,7 @@ class Execution:
         """Settle at the admitted maximum when the outcome is unknown. Accounting only: it cancels nothing at the provider."""
         return self.r.c.call('settle', {'attempt': self.attempt, 'actual': self.maximum, 'unit': 'simulated_research_units', 'provenance': {'kind': 'UNKNOWN'}}, key)
 
-    def run(self, call, store, lookup=None, hook=lambda point: None):
+    def run(self, call=None, store=None, lookup=None, hook=lambda point: None):
         """Claim, execute, register. Idempotent against the core and the caller's durable store.
 
         call(claim) runs the provider for a fresh permission and returns (result, actual_text).
@@ -178,12 +200,15 @@ class Execution:
         """
         reply = self.claim(); status = reply.get('status')
         if status == 'PERMISSION_CONSUMED':
+            require(call is not None and store is not None, 'CLAIM_UNSUPPORTED', 'a caller-executed tool needs call and store')
             result, actual = call(reply['claim'])
             receipt = self.receipt(result, actual); store.save(self.attempt, receipt); hook('after_receipt')
             self.finish(receipt); return {'status': 'executed', 'receipt': receipt}
         if status == 'RECEIPT': return {'status': 'registered', 'receipt': reply['receipt']}
-        if status == 'IN_PROGRESS_OR_UNCERTAIN':
-            local = store.load(self.attempt)
+        if status in ('IN_PROGRESS_OR_UNCERTAIN', 'UNKNOWN'):
+            held = self.registered()   # a host-run tool may hold the receipt the reply lost
+            if held is not None: return {'status': 'recovered', 'receipt': held}
+            local = store.load(self.attempt) if store is not None else None
             if local is not None: self.finish(local); return {'status': 'resumed', 'receipt': local}
             found = lookup(self.attempt, self.input_hash) if lookup else None
             if found is not None:

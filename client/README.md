@@ -125,10 +125,11 @@ refused `REQUEST_KEY_CONFLICT`.
 | `formation(source, item_id=None)` | The earliest committed document of a source | record dict | `FORMATION_MISSING` (HarnessError) |
 | `reserve(amount, purpose, key)` | Hold budget for a purpose in scope | `Outcome` | `BUDGET_EXCEEDED`, `CAP_EXCEEDED`, `FENCED`, `PURPOSE_OUT_OF_SCOPE` |
 | `attempt(reservation, step, tool, input_refs, parameters, maximum, key)` | Record an attempt before any work; `maximum` must equal the tariff | `Outcome` with `input_hash` | `ALLOWANCE_EXCEEDED`, `GRANT_EXHAUSTED`, `INVALID_ESTIMATE`, `TOOL_NOT_PERMITTED`, `INVALID_STEP`, `CAPABILITY_UNSUPPORTED` (parameters) |
-| `record_body(attempt, question, result, failure, input_refs, ...)` | Build a research record in the admitted shape | dict | |
+| `record_body(attempt, question, result, failure, input_refs, ...)` | Build a research record in the admitted shape. `attempt=None` with `tool=` for an `EXPERIMENT DESIGN` or `SELECTION` that meters no work; `revises=` names an earlier record of yours; the class follows the cited documents | dict | |
 | `research_commit(body, key)` | Commit the record | `Outcome` | `UNAUTHORIZED`, `INVALID_CLOSURE` |
 | `close(reservation, key)` | Release unused allowance; liabilities stay | `Outcome` | `RESERVATION_BOUND` |
 | `propose_hypothesis(content, budget, propose_key, fund_key)` | Propose and fund a hypothesis from the template | `Outcome` with `transition_id`; `raw['funded']` | `SCOPE_VIOLATION`, `STALE_BASE`, `WRONG_RESERVATION` |
+| `propose_theme(content, budget, propose_key, fund_key)` | Propose and fund a Theme, the next investigation. Admission needs a check and a Principal decision | `Outcome` with `transition_id` | `SCOPE_VIOLATION`, `UNAUTHORIZED` |
 | `retry(previous_attempt, key)` | A new attempt for the same work | `Outcome` | `PENDING_PREDECESSOR`, `WORKER_NOT_QUIESCENT` |
 
 ### `Execution(researcher, attempt, input_hash, tool, maximum)`
@@ -146,6 +147,11 @@ returns `{'status': ..., 'receipt': ...}`:
 | `recovered` | your provider's own record for this attempt was found by `lookup(attempt, input_hash)` | receipt rebuilt, nothing ran |
 | `uncertain` | permission was consumed and no receipt exists anywhere | nothing ran; settle with `settle_unknown(key)` at the maximum |
 
+For a tool the host runs (`execution: core`) call `run()` with no
+arguments: the core dispatches to its worker and the status is
+`registered`, or `recovered` when the reply was lost and the worker still
+held the receipt.
+
 `settle(receipt, key)` settles at the actual charge; `settle_unknown(key)`
 at the maximum. Settling at the maximum is accounting. It does not cancel
 work at your provider. A `retry` of an uncertain attempt is admitted only
@@ -154,7 +160,7 @@ declared `may_outlive_caller`, that the provider completed or cancelled
 the earlier operation. `ReceiptStore(directory)` is the durable receipt
 file per attempt the sequence relies on.
 
-### `Checker(connection, recompute=None)`
+### `Checker(connection, recompute=None, validate_motivation=None)`
 
 `check(transition_id) -> CheckResult` funds, computes, registers and
 commits one independent Check under the Checker's own grant. `result` is
@@ -164,6 +170,9 @@ decision cites. `recompute(context)` is your experiment's validator for a
 hypothesis: it receives the committed documents, research records and
 proposal content and returns true when the arithmetic recomputes. Without
 it a hypothesis fails `recomputation`; missing capability never passes.
+`validate_motivation(context)` does the same for a Theme: it receives the
+documents and research records the Theme cites and returns true when the
+analysis they describe recomputes; otherwise `motivation` is not met.
 
 ### `Principal(connection)`
 
@@ -176,7 +185,11 @@ it a hypothesis fails `recomputation`; missing capability never passes.
 ### `Observer(connection)` and `startup(...)`
 
 `observe(source, content, date)` commits a source document with its listing
-and extraction. `startup(principal, observer, check, tick)` runs genesis and
+and extraction. `import_file(source, path, date, origin, note=...)` and
+`import_bytes(...)` commit a local file as a historical document: name,
+content hash, size, media type, your declared origin and receipt time, and
+its text or rows. The source must be declared historical in the profile.
+`historical_document(raw, name, origin)` builds that body for you. `startup(principal, observer, check, tick)` runs genesis and
 the control transitions a setup declares, each checked by your `check`
 callable, and returns the applied head.
 

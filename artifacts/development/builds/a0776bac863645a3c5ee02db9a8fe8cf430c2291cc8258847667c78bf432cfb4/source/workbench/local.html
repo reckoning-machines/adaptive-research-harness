@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Research on your documents</title>
+<style>
+:root{--ink:#1c1c1c;--muted:#666;--line:#d8d8d8;--bg:#fafafa;--ok:#2a6b2a;--bad:#9b2c2c;--warn:#8a6d00}
+@media(prefers-color-scheme:dark){:root{--ink:#eee;--muted:#aaa;--line:#444;--bg:#1b1b1b}}
+body{margin:0;font:14px/1.45 system-ui,sans-serif;color:var(--ink);background:var(--bg)}
+header{display:flex;gap:16px;align-items:baseline;padding:12px 16px;border-bottom:1px solid var(--line)}
+header h1{font-size:16px;margin:0}.badge{font-size:11px;padding:2px 6px;border:1px solid var(--line);border-radius:3px;color:var(--muted)}
+main{display:grid;grid-template-columns:300px 1fr;gap:16px;padding:16px}@media(max-width:900px){main{grid-template-columns:1fr}}
+section{border:1px solid var(--line);border-radius:4px;padding:12px;margin-bottom:12px;background:transparent}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:0 0 8px}
+textarea,input,select{width:100%;box-sizing:border-box;font:inherit;padding:6px;border:1px solid var(--line);border-radius:3px;background:transparent;color:var(--ink)}
+textarea{min-height:70px}label{display:block;font-size:12px;color:var(--muted);margin-top:8px}
+button{font:inherit;padding:6px 10px;border:1px solid var(--line);border-radius:3px;background:transparent;color:var(--ink);cursor:pointer}button.primary{border-color:var(--ink)}
+.small{font-size:12px}.muted{color:var(--muted)}.mono{font-family:ui-monospace,monospace;font-size:12px}
+.card{border:1px solid var(--line);border-radius:4px;padding:10px;margin:8px 0}.ok{color:var(--ok)}.bad{color:var(--bad)}.warn{color:var(--warn)}
+ul.runs{list-style:none;padding:0;margin:0}ul.runs li{padding:4px 0;border-bottom:1px solid var(--line);cursor:pointer}
+table{border-collapse:collapse;width:100%}td,th{text-align:left;padding:3px 6px;border-bottom:1px solid var(--line);font-size:12px;vertical-align:top}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+details{margin-top:8px}pre{white-space:pre-wrap;font-size:11px}
+</style></head><body>
+<header><h1>Research on your documents</h1><span class="badge">historical documents, no forward standing</span><span class="badge">deterministic programs, nothing billed</span><span class="badge">one process holds every token, no OS isolation</span><a class="small" href="/">synthetic cycle</a><span id="msg" style="margin-left:auto" class="small"></span></header>
+<main>
+<div>
+  <section><h2>Start a run</h2>
+    <label>Charter: the question you are investigating, in your words</label><textarea id="charter"></textarea>
+    <button class="primary" id="start" style="margin-top:8px">Start run</button>
+    <p class="small muted">Starting freezes a bundle, starts the core and the calculator as processes, and runs startup with your charter as the first document.</p>
+    <h2 style="margin-top:14px">Runs</h2><ul class="runs" id="runs"></ul></section>
+</div>
+<div id="content">
+  <section id="empty"><p class="muted">Start a run or open a retained one.</p></section>
+  <div id="run" style="display:none">
+    <section><div class="row"><strong id="runName"></strong><span id="runMode" class="badge"></span><span id="runState" class="small muted"></span><span style="margin-left:auto"><button id="closeRun">Close run</button></span></div>
+      <p class="small" id="charterText"></p><div class="small" id="budget"></div></section>
+    <section><h2>Documents</h2>
+      <div class="row"><input type="file" id="file" multiple><input id="origin" placeholder="origin, for example: company filings folder" style="max-width:260px"><input id="note" placeholder="note" style="max-width:200px"><button id="importBtn">Import</button></div>
+      <p class="small muted">Text, markdown, CSV, TSV or JSON rows. Each file is committed with its hash, size, origin and receipt time. Provenance is what you declare; the ledger stamps the class.</p>
+      <table id="docs"></table></section>
+    <section><h2>New investigation: record the expectation before the analysis</h2>
+      <label>Question</label><input id="q">
+      <div class="grid2"><div><label>Expectation statement</label><input id="estmt" placeholder="at least two in three memos mention a buyback"></div>
+        <div><label>Comparator and value</label><div class="row"><select id="ecmp"><option>&gt;=</option><option>&gt;</option><option>&lt;=</option><option>&lt;</option><option>==</option></select><input id="eval" placeholder="2/3 or 100" style="max-width:120px"><input id="emin" type="number" value="1" title="minimum n" style="max-width:80px"><span class="small muted">min n</span></div></div></div>
+      <div class="grid2"><div><label>Analysis</label><select id="akind"><option value="term-count">term-count: fraction of text documents containing any of the terms</option><option value="table-stat">table-stat: count, ratio, sum or mean over rows</option></select></div>
+        <div id="aterms"><label>Terms, comma separated</label><input id="terms" placeholder="buyback, raised, beat"></div>
+        <div id="atable" style="display:none"><label>stat, column, filter JSON, numerator JSON</label><div class="row"><select id="stat"><option>count</option><option>ratio</option><option>sum</option><option>mean</option></select><input id="col" placeholder="column" style="max-width:120px"></div><input id="filter" placeholder='[{"field":"guidance","equals":"raised"}]'><input id="numer" placeholder='[{"field":"return_bp","at_least":100}]' style="margin-top:4px"></div></div>
+      <label>Documents to analyse</label><div id="docPick" class="small"></div>
+      <div class="grid2"><div><label>Revises an earlier design (optional)</label><select id="revises"><option value="">none</option></select></div><div><label>Under direction</label><select id="theme"></select></div></div>
+      <button class="primary" id="designBtn" style="margin-top:8px">Commit the design</button>
+      <p class="small muted">The researcher program commits what you propose. The core refuses anything outside the grant, the profile or the budget.</p></section>
+    <section><h2>Investigations</h2><div id="inv"></div></section>
+    <details><summary>Refused actions and pending attempts</summary><div id="refusals" class="small"></div></details>
+    <details><summary>Raw records</summary><div style="margin:8px 0"><button data-l="E">Evidence ledger</button> <button data-l="T">Transitions ledger</button></div><pre id="raw"></pre></details>
+  </div>
+</div>
+</main>
+<script>
+const $=s=>document.querySelector(s);const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+async function api(path,opts){const r=await fetch('/api'+path,Object.assign({headers:{'Content-Type':'application/json'}},opts||{}));const j=await r.json();if(!r.ok){throw Object.assign(new Error(j.error||r.status),{detail:j.detail});}return j;}
+const say=(t,bad)=>{const m=$('#msg');m.textContent=t;m.className='small '+(bad?'bad':'ok');};
+let current=null,view=null;
+const fmt=m=>m==null?'':(typeof m==='object'?`${m.numerator}/${m.denominator}`:String(m));
+async function refreshRuns(){const j=await api('/runs');const ul=$('#runs');ul.innerHTML='';for(const r of j.runs.filter(x=>x.kind==='local')){const li=document.createElement('li');li.innerHTML=`<span class="mono">${esc(r.run)}</span> <span class="small muted">${esc(r.status)} ${esc(r.progress||'')} ${r.live_eligible===false?'read-only':''}</span>`;li.onclick=()=>openRun(r.run);ul.appendChild(li);}}
+async function openRun(name){try{const v=await api(`/runs/${name}/open`,{method:'POST'});current=name;render(v);}catch(e){say(e.message+(e.detail?': '+e.detail:''),true);}}
+async function reload(){if(!current)return;render(await api(`/runs/${current}`));}
+function render(v){view=v;$('#empty').style.display='none';$('#run').style.display='';$('#runName').textContent=v.run;$('#runMode').textContent=v.mode+(v.read_only_reason?' ('+v.read_only_reason+')':'');
+ $('#runState').textContent=`N=${v.state.N} directions ${v.state.themes.join(', ')} E=${v.counts.E} T=${v.counts.T}`;
+ $('#charterText').innerHTML=v.charter?`Charter <span class="mono">E${v.charter.seq}</span> ${esc(v.charter.name)} received ${esc(v.charter.received_at)}`:'';
+ $('#budget').innerHTML=Object.entries(v.budgets||{}).map(([g,b])=>`<span class="mono">${esc(g)}</span> committed ${esc(b.committed)} spendable ${esc(b.spendable)}`).join(' &middot; ');
+ $('#docs').innerHTML='<tr><th>seq</th><th>file</th><th>type</th><th>bytes</th><th>origin</th><th>received</th><th>note</th></tr>'+v.documents.map(d=>`<tr><td class="mono">E${d.seq}</td><td>${esc(d.name)}</td><td>${esc(d.media_type)}${d.rows!=null?' ('+d.rows+' rows)':''}</td><td>${d.bytes}</td><td>${esc(d.origin)}</td><td>${esc(d.received_at)}</td><td>${esc(d.note)}</td></tr>`).join('');
+ $('#docPick').innerHTML=v.documents.map(d=>`<label style="display:inline-block;margin-right:12px"><input type="checkbox" value="${d.seq}"> E${d.seq} ${esc(d.name)}</label>`).join('')||'<span class="muted">import documents first</span>';
+ $('#revises').innerHTML='<option value="">none</option>'+v.investigations.map(i=>`<option value="${i.design.seq}">E${i.design.seq} ${esc(i.question)}</option>`).join('');
+ $('#theme').innerHTML=v.state.themes.map(t=>`<option>${esc(t)}</option>`).join('');
+ const nextFor=seq=>v.next.filter(n=>n.design===seq);
+ $('#inv').innerHTML=v.investigations.length?v.investigations.map(i=>{const r=i.result,s=i.selection,p=i.proposal;let h=`<div class="card"><div><strong>${esc(i.question)}</strong> <span class="mono muted">design E${i.design.seq}${i.revises?' revises E'+i.revises:''} under ${esc(i.theme)}</span></div>`;
+  h+=`<div class="small">Expectation: ${esc(i.expectation.statement)} (${esc(i.expectation.comparator)} ${fmt(i.expectation.value)}, min n ${i.expectation.minimum_n||1}) &middot; analysis ${esc(i.analysis.kind)} ${esc(i.analysis.terms?i.analysis.terms.join(', '):i.analysis.stat+' '+(i.analysis.column||''))} on ${i.documents.length} documents</div>`;
+  if(r){const c=r.conclusion;h+=`<div class="small">Result <span class="mono">E${r.seq}</span>: metric ${fmt(r.metric)} over n=${r.n} ${r.failure?'<span class="bad">failed: '+esc(r.failure)+'</span>':''} `;if(c)h+=`&rarr; <strong class="${c.state==='MET'?'ok':c.state==='NOT_MET'?'bad':'warn'}">${c.state}</strong>`;h+=` ${r.settled?'settled':'<span class="warn">unsettled</span>'}</div>`;
+   if(r.per_document)h+=`<details class="small"><summary>per document</summary><pre>${esc(JSON.stringify(r.per_document,null,1))}</pre></details>`;}
+  if(s)h+=`<div class="small">Selection <span class="mono">E${s.seq}</span>: chose <strong>${esc(s.chosen)}</strong>, ${esc(s.reason)}. Next: ${esc(s.next_question)}. Rejected ${s.rejections.map(x=>x.id).join(', ')}.</div>`;
+  if(p){h+=`<div class="small">Direction <span class="mono">${esc(p.theme)}</span> proposed as <span class="mono">${esc(p.transition_id)}</span>: ${esc(p.statement)}<br>`;h+=p.checks.map(c=>`check <span class="mono">T${c.seq}</span> <strong class="${c.result==='PASS'?'ok':'bad'}">${c.result}</strong>${c.not_met.length?' (not met: '+c.not_met.join(', ')+')':''}`).join('; ')||'not yet checked';
+   if(p.decision)h+=` &middot; decision <strong class="${p.decision.decision==='ADMITTED'?'ok':'bad'}">${p.decision.decision}</strong> (${esc(p.decision.reason)})`;if(p.applied)h+=` &middot; applied, N=${p.applied.n}`;h+='</div>';}
+  for(const n of nextFor(i.design.seq)){h+=`<div class="row" style="margin-top:6px">`;
+   if(n.op==='select'){const cands=r.conclusion?candidateRule(r.conclusion.state):[];h+=`<div style="width:100%"><div class="small">Candidates the conclusion produced (the researcher's declared rule). Pick one and say why; the others are recorded as rejected.</div>`+cands.map((c,k)=>`<label class="small"><input type="radio" name="cand${i.design.seq}" value="${c.id}" ${k===0?'checked':''}> <b>${c.id}</b>: ${esc(c.question)} <span class="muted">${esc(c.why)}</span></label>`).join('')+`<input id="reason${i.design.seq}" placeholder="why this one"><input id="nextq${i.design.seq}" placeholder="the next question, in your words" style="margin-top:4px"><button class="primary" data-op="select" data-analysis="${r.seq}" data-design="${i.design.seq}" style="margin-top:4px">Record the selection</button></div>`;}
+   else if(n.op==='decide')h+=`<input id="dreason${i.design.seq}" placeholder="reason" style="max-width:300px"><button class="primary" data-op="decide" data-decision="ADMITTED" data-transition="${esc(n.transition)}">Admit</button><button data-op="decide" data-decision="REJECTED" data-transition="${esc(n.transition)}">Reject</button><span class="small muted">Principal decision after a passing check</span>`;
+   else h+=`<button class="primary" data-op="${n.op}" data-design="${i.design.seq}" data-selection="${n.selection||''}" data-transition="${esc(n.transition||'')}">${esc(n.label)}</button><span class="small muted">performed by ${esc(n.actor)}; the core checks permission and state when it runs</span>`;
+   h+='</div>';}
+  return h+'</div>';}).join(''):'<p class="muted">No investigations yet. Commit a design above.</p>';
+ $('#refusals').innerHTML=(v.pending_attempts.length?`<p class="warn">pending attempts: ${v.pending_attempts.join(', ')}</p>`:'')+(v.refusals.length?'<table><tr><th>seq</th><th>actor</th><th>op</th><th>reason</th><th>detail</th></tr>'+v.refusals.map(r=>`<tr><td class="mono">${r.ledger}${r.seq}</td><td>${esc(r.actor)}</td><td>${esc(r.op)}</td><td>${esc(r.reason)}</td><td>${esc(r.detail)}</td></tr>`).join('')+'</table>':'<p class="muted">none</p>');
+ document.querySelectorAll('#inv button[data-op]').forEach(b=>b.onclick=()=>act(b));}
+function candidateRule(state){return {MET:[{id:'extend',question:'Does the result hold on documents not yet examined?',why:'A met expectation on this set says nothing about the next set.'},{id:'sharpen',question:'Does a stricter expectation still hold on the same documents?',why:'A loose expectation is easy to meet.'},{id:'alternative',question:'What else would produce the same pattern?',why:'The pattern may have a cause the analysis did not measure.'}],NOT_MET:[{id:'revise-expectation',question:'Was the expectation wrong rather than the idea?',why:'The documents may support a weaker or different claim.'},{id:'change-analysis',question:'Would a different measurement of the same question decide it?',why:'The analysis may not capture what the question asks.'},{id:'reject',question:'Record the conclusion as rejected and ask a different question.',why:'The evidence went against the expectation.'}],INCONCLUSIVE:[{id:'add-documents',question:'Does the result change with more documents?',why:'Fewer documents than the design required.'},{id:'relax-minimum',question:'Is a smaller minimum defensible for this question?',why:'The minimum was set before seeing how many documents exist.'}]}[state]||[];}
+async function act(b){const op=b.dataset.op,d=b.dataset.design;let body={};try{
+ if(op==='run')body={design:+d};else if(op==='propose')body={selection:+b.dataset.selection};else if(op==='check')body={transition:b.dataset.transition};else if(op==='apply')body={transition:b.dataset.transition};
+ else if(op==='decide')body={transition:b.dataset.transition,decision:b.dataset.decision,reason:$('#dreason'+d)?.value||''};
+ else if(op==='select'){const ch=document.querySelector(`input[name="cand${d}"]:checked`);body={analysis:+b.dataset.analysis,chosen:ch?ch.value:'',reason:$('#reason'+d).value,next_question:$('#nextq'+d).value};if(!body.reason||!body.next_question)throw new Error('give a reason and the next question');}
+ b.disabled=true;const j=await api(`/runs/${current}/${op}`,{method:'POST',body:JSON.stringify(body)});
+ say(op+': '+(j.status||j.result||'done')+(j.reason?' '+j.reason:'')+(j.detail?' ('+j.detail+')':''),(j.status&&j.status!=='COMMITTED'&&j.status!=='recorded')||j.result==='FAIL');await reload();}catch(e){say(e.message+(e.detail?': '+e.detail:''),true);await reload();}}
+$('#start').onclick=async()=>{try{const j=await api('/local/runs',{method:'POST',body:JSON.stringify({charter:$('#charter').value})});if(j.error)throw new Error(j.error);say('starting '+j.run);const t=setInterval(async()=>{const v=await api(`/runs/${j.run}`);await refreshRuns();if(v.status==='failed'){clearInterval(t);say('failed: '+v.error,true);}else if(v.mode){clearInterval(t);current=j.run;render(v);say('run started');}},700);}catch(e){say(e.message,true);}};
+$('#closeRun').onclick=async()=>{if(!current)return;await api(`/runs/${current}/close`,{method:'POST'});say('closed; reopen from the list');current=null;$('#run').style.display='none';$('#empty').style.display='';refreshRuns();};
+$('#importBtn').onclick=async()=>{const files=$('#file').files;if(!files.length)return say('choose files',true);for(const f of files){const text=await f.text();try{const j=await api(`/runs/${current}/documents`,{method:'POST',body:JSON.stringify({name:f.name,text,origin:$('#origin').value||'the Principal',note:$('#note').value})});say(`${f.name}: ${j.status} ${j.item_id||''}`);}catch(e){say(f.name+': '+e.message+(e.detail?': '+e.detail:''),true);}}await reload();};
+$('#akind').onchange=()=>{const t=$('#akind').value==='term-count';$('#aterms').style.display=t?'':'none';$('#atable').style.display=t?'none':'';};
+$('#designBtn').onclick=async()=>{try{const val=$('#eval').value.trim();const value=val.includes('/')?{numerator:+val.split('/')[0],denominator:+val.split('/')[1]}:+val;if(!val||Number.isNaN(typeof value==='object'?value.numerator+value.denominator:value))throw new Error('value must be an integer or a fraction a/b');
+ const kind=$('#akind').value;const analysis=kind==='term-count'?{kind,terms:$('#terms').value.split(',').map(s=>s.trim()).filter(Boolean),case_sensitive:false}:{kind,stat:$('#stat').value,column:$('#col').value||undefined,filter:$('#filter').value?JSON.parse($('#filter').value):[],numerator:$('#numer').value?JSON.parse($('#numer').value):[]};
+ const documents=[...document.querySelectorAll('#docPick input:checked')].map(x=>+x.value);if(!documents.length)throw new Error('choose documents');
+ const j=await api(`/runs/${current}/design`,{method:'POST',body:JSON.stringify({question:$('#q').value,expectation:{statement:$('#estmt').value,comparator:$('#ecmp').value,value,minimum_n:+$('#emin').value||1},analysis,documents,revises:$('#revises').value||null,theme:$('#theme').value||null})});
+ say('design '+j.status+(j.reason?' '+j.reason:''),j.status!=='COMMITTED');await reload();}catch(e){say(e.message+(e.detail?': '+e.detail:''),true);}};
+document.querySelectorAll('#run button[data-l]').forEach(b=>b.onclick=async()=>{const j=await api(`/runs/${current}/records/${b.dataset.l}`);$('#raw').textContent=JSON.stringify(j.records,null,1);});
+refreshRuns();
+</script></body></html>
