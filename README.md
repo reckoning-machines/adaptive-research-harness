@@ -7,15 +7,16 @@ Coding agents have harnesses. What governs a swarm of research agents?
 Adaptive Research Harness is an operating system for research that learns
 from its own results and changes what it investigates next.
 
-It preserves experiments, failures and the relationships between ideas so
-researchers can use that history to choose their next question, revise a
-hypothesis or propose a different method. Separate controls govern
-spending, checking and which changes enter the accepted record.
+It keeps the experiments, the failures and how one idea led to the next, so
+a researcher choosing the next question, revising a hypothesis or trying a
+different method works from the record and not from memory. Spending,
+checking and what enters the accepted record are governed separately, by
+controls the researcher cannot change.
 
-The prototype demonstrates this within a research cycle, where different
-evidence leads the researcher to choose a different experiment. The broader
-design extends that process to evaluating and replacing hypotheses,
-strategies and researchers over time.
+The prototype shows this inside one research cycle. Give the researcher
+different evidence and it runs a different experiment, and the record says
+why. The full design takes the same loop further, to evaluating and
+replacing hypotheses, strategies and the researchers themselves over time.
 
 A team supplies its own researcher, experiment and evaluation methods
 through a Python client connected to a running harness. The included
