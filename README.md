@@ -17,8 +17,8 @@ and the record are your IP.
 It keeps the experiments, the failures and how one idea led to the next, so
 a researcher choosing the next question, revising a hypothesis or trying a
 different method works from the record and not from memory. Spending,
-checking and what enters the accepted record are governed separately, by
-controls the researcher cannot change.
+checking and what enters the accepted record are handled separately, by
+rules the researcher cannot change.
 
 The prototype shows this inside one research cycle. Give the researcher
 different evidence and it runs a different experiment, and the record says
@@ -31,9 +31,11 @@ LangGraph example demonstrates that integration without modifying the core.
 LangGraph is one way to organize the researchers, and tools such as MLflow
 could provide complementary experiment tracking.
 
-The current examples use synthetic data and deterministic researchers. They
-demonstrate the controls and recovery behavior. The next step is using those
-interfaces for actual research.
+You can also run it on your own documents. Start a run with a charter,
+import text, markdown, CSV or JSON files, write down what you expect before
+the analysis runs, run it, and pick the next question from what the result
+showed. Every step is on the record, including the ones that failed. The
+two shipped examples use synthetic data and deterministic researchers.
 
 I have made the prototype public so other teams can try it with their own
 workflows and help determine which parts are useful.
@@ -50,8 +52,8 @@ PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m examples.langgraph_headlines
 ```
 
 The command starts a local harness against the example's experiment
-directory, runs startup, one research cycle and the control
-demonstrations, and prints each decision. Synthetic headlines are
+directory, runs startup and one research cycle, then walks through a set
+of situations the rules have to handle, and prints each decision. Synthetic headlines are
 classified by a deterministic stand-in for a model provider, next-day
 returns arrive one period later from a second source, the researcher joins
 its recorded labels to those returns, and an evaluator under a separate
@@ -60,6 +62,19 @@ shows an overstated result failing its check, a researcher refused when it
 tries to approve its own proposal, over-budget work refused before the
 provider is called, and three kinds of interruption resumed without a
 second provider call.
+
+To work on your own files, start the workbench and open the local page.
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 -m workbench --port 8765
+```
+
+Then open `http://127.0.0.1:8765/local`. Write the question you are
+investigating, import your documents, state what you expect, run the
+analysis, and choose the next question from the candidates the result
+produced. A separate check recomputes the analysis before you admit the
+direction. Close the run whenever you like and reopen it later from the
+list. The runbook, path F, walks through it step by step.
 
 The original synthetic cycle, with a built-in researcher and two tools the
 harness runs itself, is still one command.
@@ -72,9 +87,9 @@ The [runbook](runbook.md) has the complete paths, including connecting
 your own researcher to a separately started harness, and the
 [client README](client/README.md) documents the Python interface.
 
-## What a team supplies and what the harness enforces
+## What a team supplies and what the harness does
 
-| You supply | The harness enforces |
+| You supply | What the harness does |
 | --- | --- |
 | An experiment directory with the grants, limits, theme, designs, tools, methods, hypothesis template, formation data and a profile naming steps, tariffs and sources | Only declared steps, tools and parameters are admitted, cost estimates must match the tariff, and sources follow their declared period and item rules |
 | A researcher, in LangGraph or any other code, running under the researcher identity | Budget reserved before an attempt, attempt recorded before execution, one fresh permission per attempt, settlement at the actual charge or at the maximum, every refusal kept |
@@ -82,18 +97,19 @@ your own researcher to a separately started harness, and the
 | An evaluator running under the Checker identity | A check must come from a separate lineage with its own funded attempt, its content must equal the registered receipt, and the proposer cannot check, decide or apply |
 | The owner's decisions, or a policy the owner set for routine registrations | A decision needs a passing check at the current base, and applying it needs the decision and bound funding |
 
-The receipt a researcher reports for a provider it calls itself is
-accounting, not enforcement over what that process spends. A tool the
-harness runs under its own credential is the stronger arrangement, and the
-original synthetic tools work that way. One local process holds every
-identity token. There is no operating-system isolation.
+When a researcher calls a provider itself and reports the charge, the
+harness records what it was told. It cannot limit what that process
+spends. A tool the harness runs under its own credential is the stronger
+arrangement, and the original synthetic tools work that way. One local
+process holds every identity token, and there is no operating-system
+isolation.
 
 ## The research loop
 
-The owner, called the Principal, sets authority and policy. Grants say who
-may research what, with which tools and how much budget. Policy `P-1` lets
-qualifying registrations proceed under that authority without a fresh
-decision each time. Everything else stays with the Principal.
+The owner, called the Principal, decides who may do what. A grant says who
+may research what, with which tools and how much budget. A standing rule,
+`P-1`, lets routine registrations go through without a fresh decision each
+time. Everything else stays with the Principal.
 
 ```mermaid
 flowchart LR
@@ -124,12 +140,21 @@ Implemented and exercised, on synthetic data.
   responses and the rule for replacing an uncertain attempt.
 - An experiment profile, an installable client, a local host and a
   LangGraph example supplied from outside the core.
+- Research on your own documents. Files keep their name, content hash and
+  the origin you declare. An expectation is recorded before the analysis.
+  Two analyses, term counts over text and statistics over rows, run in a
+  worker the harness starts. A check recomputes the result before the
+  next direction is admitted. Revisions and rejected conclusions stay.
 
 Described in the [Constitution](docs/doctrines/new_speedway_constitution.md)
 and not built.
 
-- Forward predictions and their outcomes, evaluation against a committed
-  expectation, and decay monitoring.
+- Forward predictions and their outcomes, evaluation of a prediction after
+  the fact, and decay monitoring. The expectation you record today is
+  compared with an analysis of documents you already have, not with what
+  happens next.
+- A researcher that calls a model provider. What that needs is listed in
+  the implementation report for the local documents milestone.
 - Strategy versions, paper execution, capital qualification, allocation and
   reduction.
 - Retirement of strategies and hypotheses as recorded decisions.
@@ -176,7 +201,8 @@ These are the questions I want feedback on.
 
 ## How the documents relate
 
-The Constitution governs. Decision records document what the Principal
-approved. Audits are evidence and authorize nothing. Plans propose work.
-Reference material preserves the original discussion. This README, the
+The Constitution is the rule book. Decision records say what the
+Principal approved. Audits are evidence and approve nothing. Plans say what
+work is proposed and in what order. Reference material preserves the
+original discussion. This README, the
 architecture and the runbook explain the system without changing its rules.

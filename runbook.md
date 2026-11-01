@@ -42,9 +42,9 @@ host is up, `supervisor/`, the quiescence proofs, and the process logs.
 PYTHONDONTWRITEBYTECODE=1 python3 -m acceptance.local --example
 ```
 
-Prints the inventory digest, the run directory, `E01 PASS` and the worked
-example, ending with the retained evidence references and the next
-planned action. About ten seconds. This path uses the built-in researcher
+It prints the inventory digest, the run directory, `E01 PASS` and the
+worked example, ending with the retained evidence references and the next
+planned action, and takes about ten seconds. This path uses the built-in researcher
 and the two tools the harness runs itself. It does not use the client.
 
 ## B. The workbench
@@ -87,7 +87,8 @@ python3 -m venv .venv && .venv/bin/pip install -e './client[langgraph]'
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m examples.langgraph_headlines
 ```
 
-Expected output, about ten seconds. Sequence numbers may differ.
+The run takes about ten seconds and prints the following, with sequence
+numbers that differ from run to run.
 
 ```
 Experiment HEADLINE-SENT-1 on build ... host .../state
@@ -143,8 +144,9 @@ Expected output, then the process stays up until Ctrl-C.
 connection /tmp/arh-run/state/connection.json
 ```
 
-The connection file holds the socket, the control socket and one token per
-identity. Anyone who can read it can act as any identity. Keep it private.
+The connection file holds the socket, the host's control socket and one
+token per identity. Anyone who can read it can act as any identity, so
+treat it as a credential and keep it private.
 
 **2. Install the client** in the environment your researcher uses.
 
@@ -152,7 +154,7 @@ identity. Anyone who can read it can act as any identity. Keep it private.
 pip install '/path/to/speedway/client[langgraph]'
 ```
 
-**3. Run startup once per run directory.** Genesis and the control
+**3. Run startup once per run directory.** Genesis and the startup
 transitions the setup declares, each checked by your evaluator. Run this
 from the directory holding a copy of the example package, or adapt the
 import to your evaluator.
@@ -239,7 +241,7 @@ pending attempt on the ledger, which `obligations()` lists.
 **Reopening, which is only reconnecting.** Start the host again with the
 same `--run` directory. It freezes nothing new, rebuilds its views from the
 ledgers and writes a new `connection.json` with new tokens. Reconnect every
-process with the new file. Nothing has been re-executed.
+process with the new file. Reopening does not run anything again.
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 python3 -m adaptive_research_harness.local_host --setup examples/langgraph_headlines --run /tmp/arh-run
@@ -291,82 +293,77 @@ Then execute the new attempt with `Execution.run` as usual. Verified on
 belongs to the earlier host incarnation, and the proof is accepted on the
 process id being gone.
 
-## F. Research on your own documents through the workbench
+## F. Your own documents
 
-One usable research workflow on real local files. Documents keep their
-provenance and are classed historical. Nothing here is a forward
-prediction and nothing earns forward standing.
+Run the harness on files you have. Documents keep their provenance and are
+classed historical. Nothing in this path predicts anything. It records what
+you expected, what the documents showed, and what you decided to do next.
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 python3 -m workbench --port 8765
 ```
 
-Open `http://127.0.0.1:8765/local`. The synthetic page at `/` is
-unchanged and does not run this workflow.
+Open `http://127.0.0.1:8765/local`. The page at `/` is the synthetic cycle
+and does not run this path.
 
-**1. Start a run with a charter.** Write the question you are
-investigating and press Start. The charter becomes the first committed
-document and the umbrella direction `TH-L0` cites it. Startup takes a few
-seconds and ends at N=5.
+**1. Start.** Write the question you are investigating and press Start.
+That text is committed as the first document and the direction `TH-L0`
+cites it. Startup takes a few seconds and ends at N=5.
 
-**2. Import documents.** Choose files, state their origin and a note, press
-Import. Text, markdown, CSV, TSV and JSON rows are accepted. Each file is
-committed with its name, content hash, size, media type, your declared
-origin and receipt time. The item id carries the content hash, so the same
-bytes imported twice are the same item.
+**2. Import.** Choose files, say where they came from, press Import. Text,
+markdown, CSV, TSV and JSON rows work, and PDF files are not read. Each
+file is recorded
+with its name, content hash, size, type, your stated origin and the time
+of receipt. Importing the same bytes twice gives the same item.
 
-**3. Record the expectation before the analysis.** Fill in the question,
-the expectation statement, a comparator with an integer or fraction value,
-a minimum n, the analysis and the documents, then Commit the design. This
-writes an `EXPERIMENT DESIGN` record that meters no work. Two analyses
-exist. `term-count` gives the fraction of text documents containing any of
-the terms. `table-stat` gives a count, ratio, sum or mean over rows passing
-declared filters.
+**3. Say what you expect, then run.** Fill in the question, the expectation
+as a sentence, a comparator with a number or a fraction, the minimum
+number of documents, the analysis and the documents, then Commit the
+design. This is written down before anything runs and costs nothing.
+Then press Run, and the researcher reserves 0.10 units per document,
+records the attempt, and the calculator the harness runs does the work.
+You get the metric, the count, and MET, NOT_MET or INCONCLUSIVE against
+your expectation.
 
-**4. Run the analysis.** The researcher reserves 0.10 units per document,
-records the attempt citing the documents and the design, and the host-run
-calculator computes. The result is recorded with its conclusion against
-the expectation, MET, NOT_MET or INCONCLUSIVE below the minimum n, and
-settled.
+Two analyses exist. `term-count` is the fraction of text documents that
+contain any of the terms you list. `table-stat` is a count, ratio, sum or
+mean over rows that pass the filters you give.
 
-**5. Choose the next step from the evidence.** The page lists the
-candidates the conclusion produced, a fixed rule of the researcher
-program, not a script of what to do. Pick one, give a reason and write the
-next question. The selection and the rejected candidates are recorded.
+**4. Pick the next question.** The page lists candidates that follow from
+the conclusion. These come from a fixed rule in the researcher program: a
+met expectation offers extend, sharpen or alternative explanation; a
+failed one offers revise the expectation, change the analysis or reject;
+too few documents offers add documents or relax the minimum. Pick one,
+say why, and write the next question. Your choice and the ones you
+rejected are recorded.
 
-**6. Propose, check, decide, apply.** The chosen investigation is proposed
-as a direction, a Theme. The evaluator under the Checker identity
-recomputes the analysis from the committed documents and design with its
-own code and verifies the conclusion, the order of design before attempt,
-the settlement and the selection. After a passing check the Principal
-admits or rejects. A rejected direction stays on the record. An admitted
-one is applied and appears under Directions.
+**5. Propose, check, decide.** The chosen question is proposed as a
+direction. The evaluator, running under its own identity, recomputes the
+analysis from the committed files and design with separate code and
+checks the conclusion, the order of design before attempt, the
+settlement and the selection. After a passing check you admit or reject.
+A rejected direction stays on the record. An admitted one is applied.
 
-**7. Revise.** A new design may name an earlier one it revises and run
-under an admitted direction. Both designs, both results and both
-conclusions stay on the ledger.
+**6. Revise.** A new design can name the design it revises and run under
+an admitted direction. Both designs and both results stay.
 
-**Stop and resume.** Close run keeps everything under
-`artifacts/development/workbench/<run>/`. Opening the run from the list
-starts the host again on the same records when the source still matches
-the run's inventory, and continues from the same next actions. Otherwise
-it opens read-only. Nothing is re-executed on reopen: a design that was
-run stays run, an attempt that was settled stays settled.
+**Stop and reopen.** Close run keeps everything under
+`artifacts/development/workbench/<run>/`. Open it from the list to carry
+on from the same next step, and nothing that already ran will run again.
+If the source has changed since the run was frozen it opens read-only.
 
-Expected shape after the first cycle: N=6, directions `TH-L0, TH-L1`,
-`AU-RL-1` committed 0.30 for three documents, no pending attempts. A
-retained run, `demo-20261101-072344-local-memos`, is listed on the page.
-It holds three memos and a trade table, a met expectation admitted as
-direction `TH-L1`, and a second investigation stopped at its selection
-step, so opening it shows the candidates waiting for a choice.
-Verified on 2026-11-01 through the session and through the HTTP routes,
-including a forged conclusion failing its check on `motivation` and a
-run reopened after close with identical records.
+After the first cycle you should see N=6, directions `TH-L0, TH-L1`,
+`AU-RL-1` committed 0.30 for three documents, no pending attempts. The
+retained run `demo-20261101-072344-local-memos` on the page has three
+memos and a trade table, one admitted direction, and a second
+investigation waiting at step 4.
 
-Limits. The synthetic clock is advanced to the day after each import; your
-declared receipt time is provenance, not a system witness. PDFs are not
-read. The independent reader covers the synthetic experiment only; the
-evaluator is a registered design, not an independent reader.
+Verified on 2026-11-01 through the session and the HTTP routes, including
+a forged conclusion failing its check and a closed run reopened with
+identical records. The page was not driven in a browser.
+
+Not in this path: the receipt time you declare is provenance, not a system
+clock. The independent reader covers the synthetic experiment only.
 
 ## Refusals and errors
 
@@ -403,7 +400,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -t .
 Unit, component, workbench and integration tests. The workbench and
 integration tests start real processes. The integration tests run the
 LangGraph example when `.venv/bin/python` exists and skip it otherwise.
-About ninety seconds. Last result 74 tests, OK.
+The whole suite takes about ninety seconds. Last result 81 tests, OK.
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 python3 -m acceptance.local --jobs 4
