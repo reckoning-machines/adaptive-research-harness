@@ -157,12 +157,11 @@ your own researcher to a separately started harness, and the
 | An evaluator running under the Checker identity | A check must come from a separate lineage with its own funded attempt, its content must equal the registered receipt, and the proposer cannot check, decide or apply |
 | The owner's decisions, or a policy the owner set for routine registrations | A decision needs a passing check at the current base, and applying it needs the decision and bound funding |
 
-When a researcher calls a provider itself and reports the charge, the
-harness records what it was told. It cannot limit what that process
-spends. A tool ARH runs under its own credential is the stronger
-arrangement, and the original synthetic tools work that way. One local
-process holds every identity token, and there is no operating-system
-isolation.
+When a researcher calls a provider itself, ARH records the charge the
+researcher reports. A tool ARH runs under its own credential is the
+stronger arrangement, and the original synthetic tools work that way. One
+local process holds every identity token. The [architecture](architecture.md)
+states the trust model in full.
 
 ## What is implemented and what the design describes
 
