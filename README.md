@@ -13,8 +13,8 @@ written down underneath it, saying what exists, what each thing means and
 who is allowed to change it. This repository asks the same question of
 research agents.
 
-Adaptive Research Harness is an operating system for research that learns
-from its own results and changes what it investigates next.
+"Adaptive Research Harness" is an operating system for research that
+learns from its own results and changes what it investigates next.
 
 It is the layer underneath the swarm, not part of it. Keep whatever agents
 you have, in LangGraph or anything else. Their experiments, results and
