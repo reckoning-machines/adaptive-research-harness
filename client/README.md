@@ -1,7 +1,9 @@
 # Adaptive Research Harness client
 
+ARH is Adaptive Research Harness.
+
 A small Python client for running your own research agents under the
-harness. You supply a researcher and an experiment. The harness holds the
+harness. You supply a researcher and an experiment. ARH holds the
 budget, records every attempt, requires an independent check before
 anything is admitted, and keeps every refusal. Nothing you write needs to
 read the constitution; the core refuses what it does not allow and tells
@@ -12,7 +14,7 @@ Standard library only. LangGraph is an optional extra for the graph adapter.
 ## Install
 
 The client installs anywhere. The host that runs the core is started from a
-checkout of the harness repository.
+checkout of ARH repository.
 
 ```sh
 # client, in any environment

@@ -1,7 +1,7 @@
 # Adaptive Research Harness: Architecture
 
-How the system works and where a team connects its code. The
-[README](README.md) says what the harness is for and how to try it, and
+How Adaptive Research Harness, ARH, works and where a team connects its code. The
+[README](README.md) says what ARH is for and how to try it, and
 the [runbook](runbook.md) gives the verified steps. The
 [client README](client/README.md) documents each Python operation. The
 [Constitution](docs/doctrines/new_speedway_constitution.md) governs where

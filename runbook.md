@@ -1,6 +1,6 @@
 # Runbook
 
-Verified steps for operating the Adaptive Research Harness on one machine.
+Verified steps for operating Adaptive Research Harness, ARH, on one machine.
 The [README](README.md) says what it is for, the
 [architecture](architecture.md) says how it works, and the
 [client README](client/README.md) documents each Python operation. Every
@@ -11,7 +11,7 @@ the current tree. Anything not exercised is marked.
 
 | Need | Detail |
 | --- | --- |
-| Python | 3.12 from a standard distribution. The harness uses only the standard library |
+| Python | 3.12 from a standard distribution. ARH uses only the standard library |
 | Operating system | macOS or Linux. No virtual machine, no container |
 | Working directory | The repository root for every harness command. The client runs from anywhere |
 | Environment | `PYTHONDONTWRITEBYTECODE=1` on each harness command so no bytecode is written next to the covered source. The examples include it |
@@ -46,7 +46,7 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m acceptance.local --example
 It prints the inventory digest, the run directory, `E01 PASS` and the
 worked example, ending with the retained evidence references and the next
 planned action, and takes about ten seconds. This path uses the built-in researcher
-and the two tools the harness runs itself. It does not use the client.
+and the two tools ARH runs itself. It does not use the client.
 
 ## B. The workbench
 
@@ -296,7 +296,7 @@ process id being gone.
 
 ## F. Your own documents
 
-Run the harness on files you have. Documents keep their provenance and are
+Run ARH on files you have. Documents keep their provenance and are
 classed historical. Nothing in this path predicts anything. It records what
 you expected, what the documents showed, and what you decided to do next.
 
@@ -322,7 +322,7 @@ as a sentence, a comparator with a number or a fraction, the minimum
 number of documents, the analysis and the documents, then Commit the
 design. This is written down before anything runs and costs nothing.
 Then press Run, and the researcher reserves 0.10 units per document,
-records the attempt, and the calculator the harness runs does the work.
+records the attempt, and the calculator ARH runs does the work.
 You get the metric, the count, and MET, NOT_MET or INCONCLUSIVE against
 your expectation.
 

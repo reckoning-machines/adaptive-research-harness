@@ -12,7 +12,7 @@ As they test and revise those ideas, it becomes harder to tell whether a
 promising result will hold up or is simply the best-looking outcome of
 many attempts.
 
-Adaptive Research Harness keeps track of what was tried, what it cost,
+Adaptive Research Harness, ARH, keeps track of what was tried, what it cost,
 what failed and why a conclusion was accepted. Researchers can use that
 history to choose what to investigate next, while separate checks govern
 which results become part of the accepted research.
@@ -22,7 +22,7 @@ what it has learned or quietly changing the rules for success.
 
 A backtest result is easier to judge when you can see how it was
 selected. What else was tried? Which assumptions changed after the results
-were seen? What evidence justified taking the idea further? The harness
+were seen? What evidence justified taking the idea further? ARH
 preserves that history for work run through it, alongside the checks and
 decisions. Statistical validation and trading realism remain the job of
 the research methods connected to it.
@@ -66,12 +66,12 @@ It sits around the tools that do the analysis.
 | Adaptive Research Harness | Authorize research, account for its cost, require checks before acceptance, and preserve the history for subsequent research |
 
 For example, a swarm proposes a signal and a backtesting engine tests it.
-The harness records the authorized attempt, retains the failed variants
+ARH records the authorized attempt, retains the failed variants
 submitted through it, requires the designated checks, and controls whether
 the proposal enters the accepted record. The researcher then uses that
 history to propose its next investigation.
 
-An experiment tracker records what happened. The harness also says no. An
+An experiment tracker records what happened. ARH also says no. An
 attempt with no budget reserved for it, a proposal from an identity that
 is not allowed to make it, or a result that has not been checked is
 refused, and the refusal is recorded too.
@@ -81,7 +81,7 @@ workflows and help determine which parts are useful.
 
 ## Try it
 
-Python 3.12, from the repository root. The harness itself has no
+Python 3.12, from the repository root. ARH itself has no
 dependencies. The client installs from `client/` and LangGraph is an
 optional extra.
 
@@ -126,9 +126,9 @@ The [runbook](runbook.md) has the complete paths, including connecting
 your own researcher to a separately started harness, and the
 [client README](client/README.md) documents the Python interface.
 
-## What a team supplies and what the harness does
+## What a team supplies and what ARH does
 
-| You supply | What the harness does |
+| You supply | What ARH does |
 | --- | --- |
 | An experiment directory with the grants, limits, theme, designs, tools, methods, hypothesis template, formation data and a profile naming steps, tariffs and sources | Only declared steps, tools and parameters are admitted, cost estimates must match the tariff, and sources follow their declared period and item rules |
 | A researcher, in LangGraph or any other code, running under the researcher identity | Budget reserved before an attempt, attempt recorded before execution, one fresh permission per attempt, settlement at the actual charge or at the maximum, every refusal kept |
@@ -138,7 +138,7 @@ your own researcher to a separately started harness, and the
 
 When a researcher calls a provider itself and reports the charge, the
 harness records what it was told. It cannot limit what that process
-spends. A tool the harness runs under its own credential is the stronger
+spends. A tool ARH runs under its own credential is the stronger
 arrangement, and the original synthetic tools work that way. One local
 process holds every identity token, and there is no operating-system
 isolation.
@@ -161,7 +161,7 @@ flowchart LR
 
 A proposal is admitted only after a check from a separate lineage, a
 recorded decision and an apply. A proposal that fails its check stays on
-the ledger as evidence. Attempts that run through the harness are recorded
+the ledger as evidence. Attempts that run through ARH are recorded
 before they run, so the count of attempts and of registered hypotheses is a
 fact of the record rather than a recollection. That is a record of executed
 work, not preregistration. The example forms its hypothesis after examining
@@ -186,7 +186,7 @@ historical material.
 - Research on your own documents. Files keep their name, content hash and
   the origin you declare. An expectation is recorded before the analysis.
   Two analyses, term counts over text and statistics over rows, run in a
-  worker the harness starts. A check recomputes the result before the
+  worker ARH starts. A check recomputes the result before the
   next direction is admitted. Revisions and rejected conclusions stay.
 
 The current prototype records research, checks calculations and preserves
@@ -247,7 +247,7 @@ These are the questions I want feedback on.
   unavailable at the time, such as a revised financial statement or later
   index membership. Forming a hypothesis after examining data is
   legitimate exploration; presenting the same data as an untouched test is
-  the problem. How should the harness record data access and revisions so
+  the problem. How should ARH record data access and revisions so
   those problems are visible?
 
 ## Where to read
