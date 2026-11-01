@@ -50,8 +50,7 @@ and who decided it was real.
 
 Each step writes its record before the next can start, so the count of
 attempts and of registered hypotheses is a fact of the record rather than
-a recollection. That is a record of executed work, not preregistration.
-In the prototype the choice at steps 1 and 6 is made by a fixed rule in
+a recollection. In the prototype the choice at steps 1 and 6 is made by a fixed rule in
 the synthetic researcher, or by you in the documents workflow. An LLM
 researcher that makes that choice from the accumulated evidence is future
 work. The owner's rules, who may do what and which routine registrations
