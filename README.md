@@ -4,9 +4,9 @@ An idea I think is right, carried far enough to run.
 
 Coding agents have harnesses. What governs a swarm of research agents?
 
-Adaptive Research Harness is an operating system for governed research:
-experiments, evidence, budgets, lineage, independent checks, and authority
-over what gets funded.
+Adaptive Research Harness is an operating system for governed, evolving
+research: experiments, evidence, budgets, lineage, independent checks, and
+authority over what survives and what gets funded.
 
 This repository is a working prototype of that layer. It records
 authorized research attempts, reserves their budgets, preserves results and
