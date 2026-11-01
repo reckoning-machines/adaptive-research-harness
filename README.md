@@ -4,11 +4,12 @@ An idea I think is right, carried far enough to run.
 
 Alpha decays, and so do the methods that find it. A firm needs a research
 process that keeps probing its own ideas, retires the bad ones and records
-why. Research agents can generate ideas faster than a team can evaluate
-them.
-As they test and revise those ideas, it becomes harder to know whether a
-promising result reflects something learned or simply enough attempts to
-find something that looks good.
+why.
+
+Research agents can generate ideas faster than a team can evaluate them.
+As they test and revise those ideas, it becomes harder to tell whether a
+promising result will hold up or is simply the best-looking outcome of
+many attempts.
 
 Adaptive Research Harness keeps track of what was tried, what it cost,
 what failed and why a conclusion was accepted. Researchers can use that
