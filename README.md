@@ -2,9 +2,9 @@
 
 An idea I think is right, carried far enough to run.
 
-Alpha decays, and so do the methods that find it. An institutional
-investment firm needs a research process that keeps probing its own ideas,
-retires the bad ones and records why.
+Alpha decays, and so do the methods that find it. Investment teams need a
+research process that uses what worked and what failed to decide what to
+test next, which ideas to pursue and which to retire.
 
 Research agents can now generate ideas faster than a team can evaluate
 them.
