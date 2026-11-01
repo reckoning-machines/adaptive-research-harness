@@ -27,30 +27,27 @@ preserves that history for work run through it, alongside the checks and
 decisions. Statistical validation and trading realism remain the job of
 the research methods connected to it.
 
-There are three ways to use it.
+I have made the prototype public so other teams can try it with their own
+workflows and help determine which parts are useful.
 
-- **The shipped example.** One research cycle on synthetic data with a
-  deterministic researcher. Give the researcher different evidence and it
-  runs a different experiment, and the record says why.
-- **Your own researcher.** A team supplies its researcher, experiment and
-  evaluation methods through a Python client connected to a running
-  harness. The LangGraph example does this without changing the core.
-  LangGraph is one way to organize the researchers, and tools such as
-  MLflow could track experiments alongside.
-- **Your own documents.** Start a run with a charter, import text,
-  markdown, CSV or JSON files, write down what you expect before the
-  analysis runs, run it, and pick the next question from what the result
-  showed. Every step is on the record, including the ones that failed.
-  Two analyses are available: how many of your text documents contain
-  any of a list of terms, and a count, ratio, sum or mean over table rows
-  that pass filters you set. Anything else needs a new calculator.
+## How the loop works
 
-The synthetic researcher chooses among predefined branches, and in the
-documents path you choose the next question. That shows a workflow that
-responds to evidence. It does not yet show that accumulated research
-improves which experiment comes next. The full design takes the loop
-further, to evaluating and replacing hypotheses, strategies and the
-researchers themselves over time.
+1. Choose a question using the evidence already collected.
+2. Record the planned work and reserve its budget.
+3. Run the analysis and preserve the result, including failures.
+4. Have a separate evaluator check the proposed conclusion.
+5. Accept or reject the proposal under the owner's rules.
+6. Use what was learned to choose the next investigation.
+
+Each step writes its record before the next can start, so the count of
+attempts and of registered hypotheses is a fact of the record rather than
+a recollection. That is a record of executed work, not preregistration.
+In the prototype the choice at steps 1 and 6 is made by a fixed rule in
+the synthetic researcher, or by you in the documents workflow. An LLM
+researcher that makes that choice from the accumulated evidence is future
+work. The owner's rules, who may do what and which routine registrations
+go through without a fresh decision, are described in the
+[architecture](architecture.md).
 
 ## Where it sits among your tools
 
@@ -76,10 +73,26 @@ attempt with no budget reserved for it, a proposal from an identity that
 is not allowed to make it, or a result that has not been checked is
 refused, and the refusal is recorded too.
 
-I have made the prototype public so other teams can try it with their own
-workflows and help determine which parts are useful.
+## How to try it
 
-## Try it
+There are three ways to use it.
+
+- **The shipped example.** One research cycle on synthetic data with a
+  deterministic researcher. Give the researcher different evidence and it
+  runs a different experiment, and the record says why.
+- **Your own researcher.** A team supplies its researcher, experiment and
+  evaluation methods through a Python client connected to a running
+  harness. The LangGraph example does this without changing the core.
+  LangGraph is one way to organize the researchers, and tools such as
+  MLflow could track experiments alongside.
+- **Your own documents.** Start a run with a charter, import text,
+  markdown, CSV or JSON files, write down what you expect before the
+  analysis runs, run it, and pick the next question from what the result
+  showed. Every step is on the record, including the ones that failed.
+  Two analyses are available: how many of your text documents contain
+  any of a list of terms, and a count, ratio, sum or mean over table rows
+  that pass filters you set. Anything else needs a new calculator.
+
 
 Python 3.12, from the repository root. ARH itself has no
 dependencies. The client installs from `client/` and LangGraph is an
@@ -142,30 +155,6 @@ spends. A tool ARH runs under its own credential is the stronger
 arrangement, and the original synthetic tools work that way. One local
 process holds every identity token, and there is no operating-system
 isolation.
-
-## The research loop
-
-The owner, called the Principal, decides who may do what. A grant says who
-may research what, with which tools and how much budget. A standing rule,
-`P-1`, lets routine registrations go through without a fresh decision each
-time. Everything else stays with the Principal.
-
-```mermaid
-flowchart LR
-  P[Principal sets grants, limits, policy] --> L[(ledgers)]
-  R[Researcher] -->|reserve, attempt, record, propose| L
-  C[Checker, separate lineage and grant] -->|check| L
-  L -->|decision by Principal, or by policy P-1 when it qualifies| A[apply]
-  A --> L
-```
-
-A proposal is admitted only after a check from a separate lineage, a
-recorded decision and an apply. A proposal that fails its check stays on
-the ledger as evidence. Attempts that run through ARH are recorded
-before they run, so the count of attempts and of registered hypotheses is a
-fact of the record rather than a recollection. That is a record of executed
-work, not preregistration. The example forms its hypothesis after examining
-the data and registers it for future testing, and the record says so.
 
 ## What is implemented and what the design describes
 
