@@ -71,10 +71,10 @@ submitted through it, requires the designated checks, and controls whether
 the proposal enters the accepted record. The researcher then uses that
 history to propose its next investigation.
 
-The difference from an experiment tracker is refusal. If the harness only
-recorded what happened, experiment library would be a fair description.
-It also refuses operations that lack the required budget, authority or
-checks.
+An experiment tracker records what happened. The harness also says no. An
+attempt with no budget reserved for it, a proposal from an identity that
+is not allowed to make it, or a result that has not been checked is
+refused, and the refusal is recorded too.
 
 I have made the prototype public so other teams can try it with their own
 workflows and help determine which parts are useful.
