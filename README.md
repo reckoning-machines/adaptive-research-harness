@@ -154,21 +154,26 @@ historical material.
   worker the harness starts. A check recomputes the result before the
   next direction is admitted. Revisions and rejected conclusions stay.
 
-Described in the [Constitution](docs/doctrines/new_speedway_constitution.md)
-and not built.
+The current prototype records research, checks calculations and preserves
+decisions. The broader design adds several capabilities that are not yet
+implemented.
 
-- Forward predictions and their outcomes, evaluation of a prediction after
-  the fact, and decay monitoring. The expectation you record today is
-  compared with an analysis of documents you already have, not with what
-  happens next.
-- A researcher that calls a model provider. What that needs is listed in
-  the implementation report for the local documents milestone.
-- Strategy versions, paper execution, capital qualification, allocation and
-  reduction.
-- Retirement of strategies and hypotheses as recorded decisions.
-- Real providers and operating-system isolation.
+- **Agent-directed research.** An LLM researcher that uses the accumulated
+  evidence to propose the next investigation, with controlled provider
+  access and recorded costs.
+- **Forward evaluation.** Predictions registered before new evidence
+  arrives, outcomes assessed under the original evaluation rule, and
+  monitoring for deterioration. Today's local-document workflow compares
+  an expectation with documents already available.
+- **Strategy management.** Strategy versions, paper execution, capital
+  qualification, allocation and reduction, and recorded retirement
+  decisions for strategies and hypotheses.
+- **Stronger isolation.** Operating-system boundaries separating
+  researchers, checkers, credentials and the core.
 
-The [architecture](architecture.md) keeps the two apart in detail.
+The [Constitution](docs/doctrines/new_speedway_constitution.md) describes
+the broader design. The [architecture](architecture.md) documents the
+implemented boundaries and current limitations.
 
 ## Open questions
 
