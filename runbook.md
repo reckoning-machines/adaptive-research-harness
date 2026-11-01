@@ -17,9 +17,10 @@ the current tree. Anything not exercised is marked.
 | Environment | `PYTHONDONTWRITEBYTECODE=1` on each harness command so no bytecode is written next to the covered source. The examples include it |
 | For the LangGraph paths | A virtual environment with the client and its `langgraph` extra, as in path C |
 
-Every run is disposable synthetic development. Charges are simulated
-units, nothing outside the machine is contacted, and nothing earns forward
-standing.
+Every run is disposable development. The examples in paths A to E use
+synthetic data. Path F uses files you supply, recorded as historical
+material. Charges are simulated units, nothing outside the machine is
+contacted, and nothing earns forward standing.
 
 ## Where run records are stored
 
@@ -367,8 +368,9 @@ clock. The independent reader covers the synthetic experiment only.
 
 ## Refusals and errors
 
-A refusal is an `Outcome` with `ok == False`. It is on the ledger and
-nothing was spent. An operational error raises `HarnessError`.
+A refusal is an `Outcome` with `ok == False`. The requested operation was
+refused and the refusal is on the ledger. Earlier spending and unresolved
+liabilities remain. An operational error raises `HarnessError`.
 
 | You see | What it means | Next action |
 | --- | --- | --- |
@@ -389,7 +391,7 @@ nothing was spent. An operational error raises `HarnessError`.
 | `HarnessError ARTIFACT_CHANGED` at host start | The source changed since the bundle was frozen | Read the old run, or freeze a new run directory |
 | `HarnessError ACTOR_MISMATCH` | The token does not match the identity | Reconnect with the current `connection.json` |
 | `HarnessError` with a socket error | The host is not up or the path moved | Start or reopen the host and use the new connection file |
-| `inspect-request` answers `UNKNOWN` | The core never received the command whose reply you lost | Send it again with the same key |
+| `inspect-request` answers `UNKNOWN` | No committed outcome was found for that key | Send the same payload with the same key again. If the core had received it, the original outcome comes back |
 
 ## Tests
 

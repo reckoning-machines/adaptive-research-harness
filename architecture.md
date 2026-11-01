@@ -43,11 +43,11 @@ flowchart TB
 
 Three boundaries matter.
 
-| Boundary | What crosses it | What cannot cross it |
+| Boundary | What crosses it | What is kept out, and by what |
 | --- | --- | --- |
 | Your code to the client | Requests under one identity's token | Authority. A request is admitted or refused by the core |
 | Client to core | Commands with a request key, reads of the ledgers | Direct writes. The core is the only writer and every write is one of its rules |
-| Researcher to provider | Input the attempt admitted, the claim identity | Anything before the attempt is admitted, a second execution of the same attempt |
+| Researcher to provider | Input the attempt admitted, the claim identity | A call before the attempt is admitted, or a second execution of the same attempt. These are kept out by the client workflow, which asks the core for permission first and reuses receipts. The researcher process can call a provider directly, so this is a cooperative rule, not an isolated boundary. A tool the host runs is isolated from the researcher |
 
 The researcher, the evaluator and the Principal run as separate processes
 under separate tokens. A researcher connection that calls a Checker or
@@ -147,8 +147,14 @@ the provider has reported completion or cancellation of the earlier
 operation. Provider deduplication recovers the earlier operation under its
 own identity and never authorizes a new one.
 
-**Recovery.** A host reopened on the same run directory rebuilds every view
-from the ledgers. Nothing is kept in memory that the ledgers do not hold.
+**Recovery.** A host reopened on the same run directory rebuilds budgets,
+admissions, bindings and obligations from the two ledgers. Three other
+things are retained on disk and read on recovery rather than
+reconstructed: the core's dispatch claims and registered receipts, which
+sit in the same database beside the ledgers; the researcher's receipt
+store and, for the LangGraph researcher, its graph checkpoints; and the
+provider's own records of operations by claim. Nothing is kept only in
+memory.
 
 ## 7. The local trust model
 
@@ -164,7 +170,8 @@ from the ledgers. Nothing is kept in memory that the ledgers do not hold.
   evidence. Provider dispositions are recorded by the host from what the
   provider reported. The core checks their shape and binding to the claim,
   not their truth.
-- Everything shipped is synthetic and earns no forward standing.
+- The shipped examples are synthetic. Documents you import are real
+  material recorded as historical. Neither earns forward standing.
 
 ## 8. Implemented behavior and the broader design
 

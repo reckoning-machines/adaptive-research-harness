@@ -34,6 +34,9 @@ There are three ways to use it.
   markdown, CSV or JSON files, write down what you expect before the
   analysis runs, run it, and pick the next question from what the result
   showed. Every step is on the record, including the ones that failed.
+  Two analyses are available: how many of your text documents contain
+  any of a list of terms, and a count, ratio, sum or mean over table rows
+  that pass filters you set. Anything else needs a new calculator.
 
 The full design takes the same loop further, to evaluating and replacing
 hypotheses, strategies and the researchers themselves over time.
@@ -131,14 +134,18 @@ the data and registers it for future testing, and the record says so.
 
 ## What is implemented and what the design describes
 
-Implemented and exercised, on synthetic data.
+Implemented and exercised. The two shipped examples run on synthetic
+data. The documents path runs on files you supply, which are recorded as
+historical material.
 
 - Reservation, attempt, execution, settlement and closure of research
   budget, with pending liabilities surviving interruption.
 - Research records, proposals, independent checks, decisions under the
   Principal or policy `P-1`, apply, binding and invalidation.
-- Recovery from a fresh process using the ledgers alone, including lost
-  responses and the rule for replacing an uncertain attempt.
+- Recovery from a fresh process. Budgets, admissions and obligations are
+  rebuilt from the ledgers; claims, receipts and the researcher's own
+  checkpoints are kept alongside so lost responses and uncertain attempts
+  are resolved rather than repeated.
 - An experiment profile, an installable client, a local host and a
   LangGraph example supplied from outside the core.
 - Research on your own documents. Files keep their name, content hash and
@@ -159,7 +166,7 @@ and not built.
 - Strategy versions, paper execution, capital qualification, allocation and
   reduction.
 - Retirement of strategies and hypotheses as recorded decisions.
-- Real providers, real documents and operating-system isolation.
+- Real providers and operating-system isolation.
 
 The [architecture](architecture.md) keeps the two apart in detail.
 

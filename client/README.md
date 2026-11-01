@@ -212,10 +212,13 @@ re-run after a crash re-sends the same key. Permission is obtained inside
 
 ## How failures and retries work
 
-- A refusal is an `Outcome` with `ok == False`. It is on the ledger. Read
-  `reason`; nothing was spent.
-- A lost reply: call `connection.outcome(key)`. `COMMITTED` means it
-  happened; re-sending the same key returns the same outcome.
+- A refusal is an `Outcome` with `ok == False`. The requested operation
+  was refused and the refusal is on the ledger. Earlier spending and
+  unresolved liabilities remain.
+- A lost reply: call `connection.outcome(key)`. `COMMITTED` or `REFUSED`
+  is the outcome you missed. `UNKNOWN` means no committed outcome was
+  found for that key; send the same payload with the same key again, and
+  if the core had received it the original outcome comes back.
 - A crash after `attempt` and before `execute` finished: re-run. `claim()`
   answers `IN_PROGRESS_OR_UNCERTAIN`; `Execution.run` resumes from your
   receipt store, then from your provider's lookup, and otherwise reports
