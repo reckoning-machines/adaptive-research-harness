@@ -1,0 +1,68 @@
+{
+ "lines": [
+  "Baseline, the script on its own: spread 55.5 bp over 240 rows, 0.001 s",
+  "  ok   startup through checked controls: N=5 in 0.6 s",
+  "  ok   table imported with its hash: E22 signals.csv 240 rows sha ea54d5cdfa14",
+  "  ok   expectation recorded before the analysis: design E23: top tercile beats bottom tercile by at least 50 bp",
+  "  ok   analysis run by the host and recorded: spread 55.5 bp, same as the direct run; conclusion MET; settled True",
+  "Candidates from the evidence: ['other-horizon', 'finer-groups', 'placebo-signal'] excluded []",
+  "  ok   selection recorded with rejections and their reconsideration conditions: [('other-horizon', 'new_documents'), ('finer-groups', 'new_documents')]",
+  "  ok   direction checked, admitted and applied: TR-53d4c1df-5cda-4646-825a-142694709d9f check PASS, N=6",
+  "Placebo result: spread 5.2 bp, conclusion MET",
+  "Candidates now: ['placebo-signal'] excluded by the earlier rejection: [('other-horizon', 'new_documents'), ('finer-groups', 'new_documents')]",
+  "  ok   history shapes the candidate set: 2 candidates held back until new documents arrive",
+  "  ok   new rows reinstate the held-back candidates: reinstated ['other-horizon', 'finer-groups']",
+  "  ok   second direction checked against the history it cites: TR-097999ae-03c5-42da-a1d6-e442994bda36 check PASS, N=7",
+  "  ok   attempt interrupted after the host ran the tool, before the record: pending attempt [54]",
+  "Host closed. Reopening the run.",
+  "  ok   run reopened live with its records: N=7, next run for design E52",
+  "  ok   interrupted attempt resumed without running again: execution registered, conclusion MET, spread 82.0 bp, attempts 3",
+  "Lines: script 55 | connection 323 | runner 118",
+  "Timings: {'script_direct_s': 0.001, 'startup_s': 0.6, 'first_result_s': 0.8, 'first_admitted_direction_s': 1.3, 'total_s': 3.0}",
+  "Result: PASS | new example on generated data; the calculation is the script's own; no forward standing."
+ ],
+ "checks": {
+  "startup through checked controls": true,
+  "table imported with its hash": true,
+  "expectation recorded before the analysis": true,
+  "analysis run by the host and recorded": true,
+  "selection recorded with rejections and their reconsideration conditions": true,
+  "direction checked, admitted and applied": true,
+  "history shapes the candidate set": true,
+  "new rows reinstate the held-back candidates": true,
+  "second direction checked against the history it cites": true,
+  "attempt interrupted after the host ran the tool, before the record": true,
+  "run reopened live with its records": true,
+  "interrupted attempt resumed without running again": true
+ },
+ "timings": {
+  "script_direct_s": 0.001,
+  "startup_s": 0.6,
+  "first_result_s": 0.8,
+  "first_admitted_direction_s": 1.3,
+  "total_s": 3.0
+ },
+ "state": {
+  "N": 7,
+  "themes": [
+   "TH-S0",
+   "TH-S1",
+   "TH-S2"
+  ],
+  "budget": "0.40"
+ },
+ "line_counts": {
+  "make_setup.py": 27,
+  "job.py": 27,
+  "__init__.py": 6,
+  "make_data.py": 30,
+  "signal_groups.py": 55,
+  "candidates.py": 57,
+  "researcher.py": 111,
+  "tool.py": 28,
+  "evaluator.py": 67,
+  "__main__.py": 118
+ },
+ "name": "demo-20261101-signal-groups",
+ "status": "PASS"
+}

@@ -195,6 +195,17 @@ its text or rows. The source must be declared historical in the profile.
 the control transitions a setup declares, each checked by your `check`
 callable, and returns the applied head.
 
+### `arh_client.setup.write_setup(directory, ...)`
+
+Writes `setup.json`, `designs_and_methods.json` and `experiment.json` for
+an experiment from a short description: the question, a source and its
+class, one tool and its step, the tariff, the researcher and evaluator
+entry points and a formation document. It supplies administrative
+defaults, grants, limits, a theme, methods, provenance, identities, the
+clock and the profile. It does not supply the evaluator or the scientific
+content of a hypothesis. `examples/signal_groups/make_setup.py` shows the
+call.
+
 ### `HostControl.from_file(connection_file)`
 
 `tick(ms)` advances the synthetic clock. `quiesce(generation,

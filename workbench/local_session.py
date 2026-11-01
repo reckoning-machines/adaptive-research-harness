@@ -22,6 +22,20 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'client'))
 SETUP = ROOT / 'experiments' / 'local_documents'
 SOURCE = 'SRC-LOCAL-DOC'; RESEARCHER = 'AD-L1.0'; CHECKER = 'AD-CK-L1.0'
+
+
+def _load(entrypoint):
+    """'package.module:name' from a design's entrypoint."""
+    import importlib
+    module, _, name = entrypoint.partition(':'); return getattr(importlib.import_module(module), name)
+
+
+def identities(bundle):
+    """Researcher, Checker and source of a run, from its frozen bundle."""
+    p = Profile(bundle); setup = p.setup; designs = {d['content']['AgentDesignVersionId']: d['content'] for d in p.artifacts['designs']}
+    researcher = setup.get('ordinary_researcher') or next(k for k, d in designs.items() if d['method_class'] == 'RESEARCH')
+    checker = next(k for k, d in designs.items() if d['method_class'] == 'CHECKER')
+    return {'researcher': researcher, 'checker': checker, 'source': next(iter(p.experiment.sources)), 'researcher_entrypoint': designs[researcher].get('entrypoint'), 'checker_entrypoint': designs[checker].get('entrypoint')}
 LABELS = {'researcher': 'the Principal through AD-L1.0, a fixed program', 'data': 'historical documents the Principal imports', 'store': 'disposable SQLite',
           'isolation': 'OS isolation unverified', 'charges': 'simulated research units; nothing billed', 'standing': 'historical reconstruction; no forward standing'}
 EPOCH_MS = 1793232000000   # 2026-10-29T00:00:00.000Z
@@ -33,21 +47,22 @@ def period_end_tick(date):
     return int((d - epoch).total_seconds() * 1000) + 86400000 + 1000
 
 
-def derive(es, ts):
+def derive(es, ts, actor=RESEARCHER, source=SOURCE, checker=CHECKER):
     """Documents, investigations and the permitted next actions, from ledger records alone."""
+    RESEARCHER_ = actor; SOURCE_ = source; CHECKER_ = checker
     ei = {e['seq']: e for e in es}
-    docs = [e for e in es if e['kind'] == 'OBSERVATION' and e['body'].get('form') == 'DOCUMENT' and e['body'].get('source') == SOURCE]
+    docs = [e for e in es if e['kind'] == 'OBSERVATION' and e['body'].get('form') == 'DOCUMENT' and e['body'].get('source') == SOURCE_]
     def doc_view(e):
         d = e['body']['document']; f = d.get('file', {}); p = d.get('provenance', {})
         return {'seq': e['seq'], 'sha256': e['sha256'], 'item_id': d.get('item_id'), 'name': f.get('name'), 'media_type': f.get('media_type'), 'bytes': f.get('bytes'),
                 'file_sha256': f.get('sha256'), 'origin': p.get('origin'), 'received_at': p.get('received_at'), 'note': p.get('note'), 'class': d.get('class'),
                 'content': 'rows' if 'rows' in d else 'text', 'rows': len(d['rows']) if 'rows' in d else None, 'period': d.get('period_start', '')[:10]}
     charter = doc_view(docs[0]) if docs else None
-    rr = [e for e in es if e['kind'] == 'RESEARCH_RECORD' and e['actor'] == RESEARCHER]
+    rr = [e for e in es if e['kind'] == 'RESEARCH_RECORD' and e['actor'] == RESEARCHER_]
     designs = [e for e in rr if e['body'].get('kind') == 'EXPERIMENT DESIGN']
     analyses = [e for e in rr if e['body'].get('kind') == 'plain']
     selections = [e for e in rr if e['body'].get('kind') == 'SELECTION']
-    proposals = [e for e in ts if e['kind'] == 'PROPOSED' and e['actor'] == RESEARCHER and e['body'].get('class') == 'THEME']
+    proposals = [e for e in ts if e['kind'] == 'PROPOSED' and e['actor'] == RESEARCHER_ and e['body'].get('class') == 'THEME']
     settled = {e['body']['attempt'] for e in es if e['kind'] == 'SETTLEMENT'}
     investigations = []; next_actions = []
     for d in designs:
@@ -74,13 +89,13 @@ def derive(es, ts):
                                         'checks': [{'seq': c['seq'], 'result': c['body']['result'], 'not_met': [k for k, v in c['body']['criteria'].items() if v['status'] != 'MET']} for c in checks],
                                         'decision': {'seq': decision['seq'], 'decision': decision['body']['decision'], 'reason': decision['body'].get('reason')} if decision else None,
                                         'applied': {'seq': applied['seq'], 'n': applied['body']['n']} if applied else None}
-                    if not checks: next_actions.append({'op': 'check', 'transition': tid, 'design': d['seq'], 'label': 'Run the independent check', 'actor': CHECKER})
+                    if not checks: next_actions.append({'op': 'check', 'transition': tid, 'design': d['seq'], 'label': 'Run the independent check', 'actor': CHECKER_})
                     elif checks[-1]['body']['result'] == 'PASS' and not decision: next_actions.append({'op': 'decide', 'transition': tid, 'design': d['seq'], 'check': checks[-1]['seq'], 'label': 'Decide: admit or reject this direction', 'actor': 'Principal'})
                     elif decision and decision['body']['decision'] == 'ADMITTED' and not applied: next_actions.append({'op': 'apply', 'transition': tid, 'design': d['seq'], 'decision': decision['seq'], 'label': 'Apply the admitted direction', 'actor': 'Principal'})
-                else: next_actions.append({'op': 'propose', 'selection': sel['seq'], 'design': d['seq'], 'label': 'Propose the chosen investigation as the next direction', 'actor': RESEARCHER})
+                else: next_actions.append({'op': 'propose', 'selection': sel['seq'], 'design': d['seq'], 'label': 'Propose the chosen investigation as the next direction', 'actor': RESEARCHER_})
             elif item['result'].get('conclusion'):
-                next_actions.append({'op': 'select', 'analysis': an['seq'], 'design': d['seq'], 'label': 'Choose the next step from the evidence', 'actor': RESEARCHER})
-        else: next_actions.append({'op': 'run', 'design': d['seq'], 'label': 'Run the analysis the host calculator performs', 'actor': RESEARCHER})
+                next_actions.append({'op': 'select', 'analysis': an['seq'], 'design': d['seq'], 'label': 'Choose the next step from the evidence', 'actor': RESEARCHER_})
+        else: next_actions.append({'op': 'run', 'design': d['seq'], 'label': 'Run the analysis the host calculator performs', 'actor': RESEARCHER_})
         investigations.append(item)
     pending = [e['seq'] for e in es if e['kind'] == 'ATTEMPT' and e['seq'] not in settled]
     themes = [p['body']['content']['ThemeId'] for p in proposals]
@@ -96,17 +111,20 @@ class LocalRun:
         import threading; self.lock = threading.RLock()
     # ----- construction -----
     @classmethod
-    def create(cls, charter_text, name=None, charter_name='charter.md'):
+    def create(cls, charter_text, name=None, charter_name='charter.md', setup=None):
         from build_support.freeze import freeze
+        setup = Path(setup) if setup else SETUP
         name = name or time.strftime('%Y%m%d-%H%M%S') + '-local-' + uuid.uuid4().hex[:6]
         run_dir = RUNS / name; require(not run_dir.exists(), 'RUN_EXISTS', name); (run_dir / 'state').mkdir(parents=True)
-        inventory = freeze(run_dir / 'bundle', SETUP)
-        durable_write(run_dir / 'workbench.json', {'run': name, 'kind': 'local', 'created_ms': now_ms(), 'inventory_sha256': inventory, 'bundle': str((run_dir / 'bundle').relative_to(ROOT)), 'status': 'starting', 'labels': LABELS, 'charter_name': charter_name})
+        inventory = freeze(run_dir / 'bundle', setup)
+        durable_write(run_dir / 'workbench.json', {'run': name, 'kind': 'local', 'created_ms': now_ms(), 'inventory_sha256': inventory, 'bundle': str((run_dir / 'bundle').relative_to(ROOT)), 'status': 'starting', 'labels': LABELS, 'charter_name': charter_name,
+                                                   'setup': str(setup.resolve().relative_to(ROOT)) if setup.resolve().is_relative_to(ROOT) else str(setup.resolve())})
         s = cls(run_dir)
         try:
             s.start()
             from arh_client import historical_document, startup
             charter = historical_document(charter_text.encode(), charter_name, 'the Principal', note='run charter')
+            if s.host.profile.experiment.document_class(s.ids['source']) == 'synthetic': charter.update({'class': 'synthetic', 'synthetic': True})
             startup(s.principal, s.observer, s.passing_check, tick=s.host.tick, formation_content=charter, formation_date='2026-10-28')
             s.note(status='live', started_ms=now_ms())
         except BaseException:
@@ -121,11 +139,16 @@ class LocalRun:
         return s
     def start(self):
         from arh_client import connect, Principal, Observer, Checker
-        from experiments.local_documents.researcher import LocalResearcher
-        from experiments.local_documents.evaluator import validate_motivation
+        ids = identities(self.bundle); self.ids = ids
         self.host = LocalHost(self.bundle, self.state); self.host.start(); conn = self.host.connection_path
         self.principal = Principal(connect(conn, 'Principal')); self.observer = Observer(connect(conn, 'Observation function'))
-        self.checker = Checker(connect(conn, CHECKER), validate_motivation=validate_motivation); self.researcher = LocalResearcher(connect(conn, RESEARCHER))
+        if ids['researcher_entrypoint'] and ':' in ids['researcher_entrypoint']:
+            self.researcher = _load(ids['researcher_entrypoint'])(connect(conn, ids['researcher']))
+            self.checker = Checker(connect(conn, ids['checker']), evaluate_fn=_load(ids['checker_entrypoint']))
+        else:
+            from experiments.local_documents.researcher import LocalResearcher
+            from experiments.local_documents.evaluator import validate_motivation
+            self.researcher = LocalResearcher(connect(conn, ids['researcher'])); self.checker = Checker(connect(conn, ids['checker']), validate_motivation=validate_motivation)
         self.c = self.principal.c
     def passing_check(self, tr):
         r = self.checker.check(tr); require(r.result == 'PASS', 'STARTUP_CHECK_FAILED', json.dumps(r.criteria)); return r.check_sequence
@@ -142,7 +165,7 @@ class LocalRun:
     def records(self): return self.c.history('E'), self.c.history('T')
     def record(self, ledger, seq): return self.c.record(ledger, seq)
     def view(self):
-        es, ts = self.records(); d = derive(es, ts); st = self.c.state()
+        es, ts = self.records(); d = derive(es, ts, self.ids['researcher'], self.ids['source'], self.ids['checker']); st = self.c.state()
         budgets = {}
         for g in st['active']:
             try: budgets[g] = self.c.budget(g)
@@ -157,7 +180,11 @@ class LocalRun:
     def import_document(self, name, raw, origin, note=None, date=None):
         from arh_client import historical_document
         date = date or time.strftime('%Y-%m-%d', time.gmtime()); self.tick_to(date)
-        return self.observer.observe(SOURCE, historical_document(raw, name, origin, note=note), date)
+        rule = self.c.experiment()['sources'][self.ids['source']]
+        if rule['document'].get('class', 'synthetic') == 'synthetic':
+            doc = historical_document(raw, name, origin, note=note); doc.update({'class': 'synthetic', 'synthetic': True})
+            return self.observer.observe(self.ids['source'], doc, date)
+        return self.observer.observe(self.ids['source'], historical_document(raw, name, origin, note=note), date)
     def design(self, question, expectation, analysis, documents, revises=None, theme=None):
         refs = [{'ledger': 'E', 'sequence': int(s), 'sha256': self.c.record('E', int(s))['sha256']} for s in documents]
         rev = {'ledger': 'E', 'sequence': int(revises), 'sha256': self.c.record('E', int(revises))['sha256']} if revises else None
@@ -167,8 +194,9 @@ class LocalRun:
     def select(self, analysis_seq, chosen, reason, next_question):
         return self.researcher.select({'ledger': 'E', 'sequence': int(analysis_seq), 'sha256': self.c.record('E', int(analysis_seq))['sha256']}, chosen, reason, next_question)
     def propose(self, selection_seq):
-        es, ts = self.records(); n = 1 + sum(1 for e in ts if e['kind'] == 'PROPOSED' and e['actor'] == RESEARCHER)
-        return self.researcher.propose({'ledger': 'E', 'sequence': int(selection_seq), 'sha256': self.c.record('E', int(selection_seq))['sha256']}, f'TH-L{n}')
+        es, ts = self.records(); n = 1 + sum(1 for e in ts if e['kind'] == 'PROPOSED' and e['actor'] == self.ids['researcher'])
+        prefix = self.ids['researcher'].split('-')[1].rstrip('0123456789.') if self.ids['researcher'].startswith('AD-') else 'X'
+        return self.researcher.propose({'ledger': 'E', 'sequence': int(selection_seq), 'sha256': self.c.record('E', int(selection_seq))['sha256']}, f'TH-{prefix}{n}')
     def check(self, transition_id): return self.checker.check(transition_id)
     def decide(self, transition_id, decision, reason):
         require(decision in ('ADMITTED', 'REJECTED'), 'INVALID_DECISION')
@@ -192,8 +220,10 @@ class LocalReadOnly:
     def __init__(self, run_dir, reason):
         self.run_dir = Path(run_dir); self.m = manifest(run_dir); self.reason = reason; self.mode = 'read-only'
         self.es, self.ts, self.claims = records.load_readonly(self.run_dir / 'state' / 'harness.sqlite')
+        try: self.ids = identities(self.run_dir / 'bundle')
+        except Exception: self.ids = {'researcher': RESEARCHER, 'source': SOURCE, 'checker': CHECKER}
     def view(self):
-        d = derive(self.es, self.ts)
+        d = derive(self.es, self.ts, self.ids['researcher'], self.ids['source'], self.ids['checker'])
         return {'run': self.run_dir.name, 'kind': 'local', 'mode': 'read-only', 'read_only_reason': self.reason, 'status': 'complete', 'inventory_sha256': self.m.get('inventory_sha256'), 'labels': LABELS,
                 'state': {'N': max((e['body']['n'] for e in self.ts if e['kind'] == 'APPLIED'), default=None), 'themes': sorted({p['body']['content']['ThemeId'] for p in self.ts if p['kind'] == 'PROPOSED' and p['body'].get('class') == 'THEME'})}, 'clock': None, 'budgets': {}, **d, 'next': []}
     def records(self): return self.es, self.ts

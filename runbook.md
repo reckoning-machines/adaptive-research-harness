@@ -371,6 +371,70 @@ identical records. The page was not driven in a browser.
 Not in this path: the receipt time you declare is provenance, not a system
 clock. The independent reader covers the synthetic experiment only.
 
+## G. A script through ARH: the signal-groups example
+
+A new example, not an adopted workflow. A 55-line script,
+`examples/signal_groups/signal_groups.py`, compares a forward return across
+signal groups in a CSV. It runs on its own and knows nothing about ARH.
+The rest of the directory connects it. The data is generated and labelled
+synthetic.
+
+Run the script directly first.
+
+```sh
+python3 examples/signal_groups/signal_groups.py examples/signal_groups/data/signals.csv --signal mom_20 --outcome fwd_5d_bp --groups 3
+```
+
+Then run the experience through ARH, from the repository root, with the
+client importable.
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m examples.signal_groups
+```
+
+It prints the baseline, then each step: startup, the table imported with
+its hash, the expectation recorded before the analysis, the host-run
+analysis giving the same spread as the direct run, the candidates the
+conclusion produced, the selection with the rejected candidates and the
+condition under which each would be reconsidered, the independent check
+and the decision, a placebo investigation whose candidate set is shaped by
+the first selection, new rows reinstating the held-back candidates, and an
+attempt interrupted after the host ran the tool, then resumed after the
+run is closed and reopened, without running again. The last lines give
+line counts and timings. Expected ending:
+
+```
+  ok   interrupted attempt resumed without running again: execution registered, ...
+Lines: script 55 | connection 323 | runner 118
+Timings: {...}
+Result: PASS | new example on generated data; the calculation is the script's own; no forward standing.
+```
+
+Records land under `artifacts/development/workbench/<stamp>-signal-groups/`
+and the run is listed on the workbench page, where it opens like any
+local run. The retained run `demo-20261101-signal-groups` is there.
+
+To run one design in its own process, with persisted keys so a re-run
+resumes rather than repeats, use the job command the runner uses:
+
+```sh
+.venv/bin/python -m examples.signal_groups.job --connection <run>/state/connection.json --work <run>/work --design <design sequence>
+```
+
+The setup files were written by `arh_client.setup.write_setup` from
+`examples/signal_groups/make_setup.py`, which supplies the grants, limits,
+theme, methods, provenance, identities and profile. The evaluator,
+`evaluator.py`, was written by hand. It re-runs the same script on the
+committed rows and checks the result, the conclusion, the order of design
+before attempt, the settlement and the candidate set against the declared
+rule. That is reproducibility and record integrity, not an independent
+check of the calculation.
+
+Limits. The runner uses the example's generated data; running your own
+CSV needs a setup whose source is declared historical, which the generator
+can write but the runner does not yet take as a flag. Verified on
+2026-11-01 through the runner and its integration test.
+
 ## Refusals and errors
 
 A refusal is an `Outcome` with `ok == False`. The requested operation was

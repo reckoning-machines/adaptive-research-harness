@@ -237,8 +237,8 @@ def list_runs(live=None):
         try:
             es,ts,claims=records.load_readonly(p/'state'/'harness.sqlite')
             if entry['kind']=='local':
-                from .local_session import derive as derive_local
-                entry['progress']='in_progress' if derive_local(es,ts)['next'] else 'complete'
+                from .local_session import derive as derive_local, identities
+                ids=identities(p/'bundle');entry['progress']='in_progress' if derive_local(es,ts,ids['researcher'],ids['source'],ids['checker'])['next'] else 'complete'
             else:
                 d=records.derive(es,ts);entry['progress']='complete' if records.next_step(d,m.get('cohort'),claims) is None else 'in_progress'
             entry['counts']={'E':len(es),'T':len(ts)}

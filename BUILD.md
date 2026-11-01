@@ -234,3 +234,19 @@ analysis with its own code and fails a Theme whose conclusion does not
 recompute. Everything runs in the workbench process under separate tokens.
 No OS isolation. No forward standing.
 
+## A script through ARH
+
+`examples/signal_groups/` is the first experiment built from the plan for
+[one existing script](docs/plans/existing_script_through_arh_20261101.md),
+labelled a new example because no existing script was available: a
+55-line CSV analysis verified on its own, a host-run tool that wraps it
+unchanged, an evaluator that re-runs it and checks records, a researcher
+whose candidate rule reads the history with reconsideration conditions on
+rejected candidates, a job runner with persisted keys, and a runner that
+performs and times the whole experience. `arh_client.setup.write_setup`
+wrote its setup files with administrative defaults; the evaluator was
+written by hand. The workbench session now takes any experiment directory
+and reads the researcher, Checker and source from the bundle. The
+[report](docs/implementation/signal_groups_20261101.md) has the
+measurements.
+

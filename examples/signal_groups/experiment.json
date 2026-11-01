@@ -1,0 +1,87 @@
+{
+ "ExperimentId": "SIGNAL-GROUPS-1",
+ "description": "Does the momentum signal in the table separate forward returns?",
+ "genesis": {
+  "design": "AD-CK-S1.0",
+  "grant": "AU-CK-S"
+ },
+ "sources": {
+  "SRC-SIG-SYN": {
+   "document": {
+    "class": "synthetic",
+    "max_bytes": 4194304,
+    "synthetic": true
+   },
+   "extraction": {
+    "validator": "none"
+   },
+   "item_id": {
+    "per_period": "many",
+    "prefix": "signals-"
+   },
+   "period_ms": 86400000,
+   "window": {
+    "end": "2027-04-30T00:00:00.000Z",
+    "start": "2026-10-28T00:00:00.000Z"
+   }
+  }
+ },
+ "steps": [
+  {
+   "input_limit_bytes": 16777216,
+   "inputs": [
+    {
+     "form": "DOCUMENT",
+     "kind": "OBSERVATION",
+     "max": 50,
+     "min": 1
+    },
+    {
+     "kind": "RESEARCH_RECORD",
+     "max": 1,
+     "min": 1,
+     "record_kind": "EXPERIMENT DESIGN"
+    }
+   ],
+   "kind": "research",
+   "name": "analyze-signal",
+   "parameters": {
+    "analysis_from": "design"
+   },
+   "tariff": {
+    "limit": 50,
+    "measure": "documents",
+    "per_unit": "0.10"
+   },
+   "tools": [
+    "SIGNAL-GROUPS-1"
+   ]
+  },
+  {
+   "kind": "check",
+   "maximum": "0.25",
+   "name": "check-transition",
+   "tools": [
+    "CHECK-S-1"
+   ]
+  }
+ ],
+ "tools": {
+  "CHECK-S-1": {
+   "callable": "evaluate",
+   "execution": "caller",
+   "label": "check-s-1",
+   "module": "evaluator.py",
+   "provider_work": "ends_with_caller"
+  },
+  "SIGNAL-GROUPS-1": {
+   "callable": "calculate",
+   "execution": "core",
+   "interface": "inputs",
+   "label": "signal-groups-1",
+   "module": "tool.py",
+   "provider_work": "ends_with_caller"
+  }
+ },
+ "version": 1
+}

@@ -203,6 +203,11 @@ historical material.
   Two analyses, term counts over text and statistics over rows, run in a
   worker ARH starts. A check recomputes the result before the
   next direction is admitted. Revisions and rejected conclusions stay.
+- A script run through ARH unchanged. `examples/signal_groups/` wraps a
+  55-line CSV analysis, records the expectation first, lets earlier
+  rejections hold candidates back until new rows arrive, and resumes an
+  interrupted attempt after the run is closed and reopened. A new example
+  on generated data, with its integration cost measured in the report.
 
 The current prototype records research, checks calculations and preserves
 decisions. The broader design adds several capabilities that are not yet
