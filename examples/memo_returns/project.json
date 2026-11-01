@@ -1,0 +1,33 @@
+{
+ "project": "memo-returns",
+ "experiment_id": "MEMO-RETURNS-1",
+ "short": "M",
+ "question": "Do positive-tone analyst memos precede positive next-day returns?",
+ "sources": [
+  {"id": "SRC-MEMO-SYN", "prefix": "memo-", "class": "synthetic", "description": "Generated analyst memos, examples/memo_returns/data/memos/*.md"},
+  {"id": "SRC-RET-SYN", "prefix": "returns-", "class": "synthetic", "description": "Generated next-day and prior-day returns per memo, examples/memo_returns/data/returns.csv"}
+ ],
+ "analyses": [
+  {"id": "TONE-CALL-1", "kind": "tone-call", "module": "provider.py", "callable": "score", "execution": "caller", "provider_work": "ends_with_caller",
+   "step": "score-memo", "parameters": {"lexicon": "TONE-1"},
+   "tariff": {"measure": "documents", "limit": 1, "per_unit": "0.05"},
+   "inputs": [{"kind": "OBSERVATION", "form": "DOCUMENT", "min": 1, "max": 1}],
+   "description": "Score one memo's tone from a fixed lexicon: positive terms minus negative terms. A deterministic stand-in for a model call, executed by the researcher process, one attempt per memo.",
+   "cost": "0.05 units per memo, charged per call; one memo per call."},
+  {"id": "TONE-JOIN-1", "kind": "tone-return-join", "module": "tools.py", "callable": "calculate", "execution": "core", "interface": "inputs",
+   "step": "join-returns", "parameters": {"analysis_from": "design"},
+   "tariff": {"measure": "documents", "limit": 10, "per_unit": "0.10"},
+   "inputs": [{"kind": "OBSERVATION", "form": "DOCUMENT", "min": 1, "max": 10}, {"kind": "RESEARCH_RECORD", "record_kind": "plain", "min": 1, "max": 50}, {"kind": "RESEARCH_RECORD", "record_kind": "EXPERIMENT DESIGN", "min": 1, "max": 1}],
+   "description": "Join the recorded tone scores to the returns table on memo id and report, over positive-tone memos, the fraction followed by a positive value of the design's return column, as an exact ratio.",
+   "cost": "0.10 units per returns document, charged on the number of admitted documents; 10 documents maximum."}
+ ],
+ "researcher": {"program": "research.py", "entrypoint": "examples.memo_returns.research:researcher"},
+ "evaluator": {"module": "evaluator.py", "entrypoint": "examples.memo_returns.evaluator:evaluate",
+  "description": "For a Theme, re-run the join on the committed returns rows and the cited tone records and compare the result, verify the conclusion against the recorded expectation, the order of design before attempt, the settlement and the cited inputs, and that the selection names the researcher's own next question. Reproducibility and record integrity only."},
+ "budget": "100.00",
+ "budgets": {"memo-tests": {"purpose": {"kind": "Theme", "id": "TH-M0"}, "proposal_budget": "1.00"}},
+ "theme": "Investigations of memo tone against returns under this run's charter.",
+ "formation": {"class": "synthetic", "synthetic": true, "file": {"name": "charter.md", "sha256": "0000000000000000000000000000000000000000000000000000000000000000", "bytes": 0, "media_type": "text/markdown"},
+  "provenance": {"origin": "the Principal", "received_at": "2026-10-29T00:00:00.000Z", "note": "placeholder; the run supplies the real charter"}, "text": "Charter placeholder.",
+  "item_id": "memo-2026-10-28-0000000000000000", "period_start": "2026-10-28T00:00:00.000Z", "period_end": "2026-10-29T00:00:00.000Z", "claimed_publication_time": "2026-10-29T00:00:00.000Z"}
+}

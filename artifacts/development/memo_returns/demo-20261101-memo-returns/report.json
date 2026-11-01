@@ -1,0 +1,107 @@
+{
+ "lines": [
+  "  ok   project up with one call, startup signed: N=5 in 0.5 s; connection connection.json",
+  "  ok   two sources imported: 7 documents, 7 labelled synthetic",
+  "  ok   killed after two calls: both journaled before the node returned: provider calls 2, journal entries ['score/m01.md', 'score/m02.md']",
+  "  ok   killed inside the fourth call: the first two calls were not repeated: provider calls 4",
+  "  ok   uncertain call settled at the maximum; replacement refused without proof of quiescence: RuntimeError: score/m04.md is uncertain and its replacement was refused: WORKER_NOT_QUIESCENT: No proof that the earlier",
+  "  ok   replacement admitted after quiescence; six memos, seven calls, one authorized repeat: calls 7, attempts 7",
+  "  ok   join killed after its record, before the node returned: the record is on the ledger and in the journal: join stages ['attempt', 'design', 'record', 'reserve'], join attempts 2",
+  "  ok   parallel branches resumed, one attempt each, nothing run twice: join 3/3 MET; placebo 1/3 MET; join attempts 2",
+  "  ok   own next question recorded and proposed; graph paused waiting for review: TR-51022f68-4d7e-4dcc-a72a-6e7ec9688fa0 TH-M1",
+  "  ok   check fails when the result does not recompute, passes when it does: first check FAIL, second PASS",
+  "  ok   resume is not approval; a researcher deciding is refused: resume resumed_after_review_pause paused True; decide UNAUTHORIZED",
+  "  ok   decision recorded; graph pauses again because a decision is not an application: review decided decision ADMITTED",
+  "  ok   applied: the graph completes with the accepted direction: N=6, themes ['TH-M0', 'TH-M1']",
+  "Host closed. Reopening the run with the same call.",
+  "  ok   reopened: the finished graph reports the same state and starts nothing: already_finished",
+  "  ok   history query by analysis field: 1 conclusion(s) for next_day_bp",
+  "Lines: research 136 | configuration 33 | process 54 | demonstration 160 | client api+nodes 407",
+  "Timings: {'up_s': 0.5, 'to_applied_s': 6.0, 'total_s': 6.5}",
+  "Result: PASS | generated data labelled synthetic; no forward standing."
+ ],
+ "checks": {
+  "project up with one call, startup signed": true,
+  "two sources imported": true,
+  "killed after two calls: both journaled before the node returned": true,
+  "killed inside the fourth call: the first two calls were not repeated": true,
+  "uncertain call settled at the maximum; replacement refused without proof of quiescence": true,
+  "replacement admitted after quiescence; six memos, seven calls, one authorized repeat": true,
+  "join killed after its record, before the node returned: the record is on the ledger and in the journal": true,
+  "parallel branches resumed, one attempt each, nothing run twice": true,
+  "own next question recorded and proposed; graph paused waiting for review": true,
+  "check fails when the result does not recompute, passes when it does": true,
+  "resume is not approval; a researcher deciding is refused": true,
+  "decision recorded; graph pauses again because a decision is not an application": true,
+  "applied: the graph completes with the accepted direction": true,
+  "reopened: the finished graph reports the same state and starts nothing": true,
+  "history query by analysis field": true
+ },
+ "timings": {
+  "up_s": 0.5,
+  "to_applied_s": 6.0,
+  "total_s": 6.5
+ },
+ "name": "demo-20261101-memo-returns",
+ "results": {
+  "join": {
+   "state": "MET",
+   "metric": {
+    "denominator": 3,
+    "numerator": 3
+   },
+   "n": 3,
+   "expectation": {
+    "comparator": ">=",
+    "minimum_n": 3,
+    "statement": "at least half of the positive-tone memos are followed by a positive next-day return",
+    "value": {
+     "denominator": 2,
+     "numerator": 1
+    }
+   },
+   "rule": "exact comparison of the metric with the expectation by cross-multiplication; INCONCLUSIVE below minimum_n",
+   "text": "Do positive-tone memos precede positive next-day returns? Expectation at least half of the positive-tone memos are followed by a positive next-day return: MET."
+  },
+  "placebo": {
+   "state": "MET",
+   "metric": {
+    "denominator": 3,
+    "numerator": 1
+   },
+   "n": 3,
+   "expectation": {
+    "comparator": "<=",
+    "minimum_n": 3,
+    "statement": "positive tone shows no such relation to the prior-day return, which it cannot have caused",
+    "value": {
+     "denominator": 2,
+     "numerator": 1
+    }
+   },
+   "rule": "exact comparison of the metric with the expectation by cross-multiplication; INCONCLUSIVE below minimum_n",
+   "text": "Does positive tone relate to the prior-day return, which it cannot have caused? Expectation positive tone shows no such relation to the prior-day return, which it cannot have caused: MET."
+  },
+  "links": {
+   "design": "/runs/demo-20261101-memo-returns/record/E/62",
+   "evidence": "/runs/demo-20261101-memo-returns/record/E/68"
+  }
+ },
+ "state": 6,
+ "line_groups": {
+  "research": 136,
+  "configuration": 33,
+  "process": 54,
+  "demonstration": 160
+ },
+ "client_lines": {
+  "api.py": 304,
+  "langgraph_nodes.py": 103,
+  "analysis.py": 416,
+  "operations.py": 80,
+  "project.py": 60,
+  "dev.py": 92,
+  "refusals.py": 43
+ },
+ "status": "PASS"
+}

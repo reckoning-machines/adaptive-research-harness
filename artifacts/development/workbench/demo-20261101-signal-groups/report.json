@@ -7,17 +7,17 @@
   "  ok   analysis run by the host and recorded: spread 55.5 bp, same as the direct run; conclusion MET; settled True",
   "Candidates from the evidence: ['other-horizon', 'finer-groups', 'placebo-signal'] excluded []",
   "  ok   selection recorded with rejections and their reconsideration conditions: [('other-horizon', 'new_documents'), ('finer-groups', 'new_documents')]",
-  "  ok   direction checked, admitted and applied: TR-f00940cc-30d0-4bff-9ff3-b22278d12961 check PASS, N=6",
+  "  ok   direction checked, admitted and applied: TR-59f28544-1c0e-4d15-bb19-fc524937ddb7 check PASS, N=6",
   "Placebo result: spread 5.2 bp, conclusion MET",
   "Candidates now: ['placebo-signal'] excluded by the earlier rejection: [('other-horizon', 'new_documents'), ('finer-groups', 'new_documents')]",
   "  ok   history shapes the candidate set: 2 candidates held back until new documents arrive",
   "  ok   new rows reinstate the held-back candidates: reinstated ['other-horizon', 'finer-groups']",
-  "  ok   second direction checked against the history it cites: TR-8fd02f34-b91d-4e05-a609-aa68f102e514 check PASS, N=7",
+  "  ok   second direction checked against the history it cites: TR-2f98701b-af47-4f11-b487-9526b0756441 check PASS, N=7",
   "  ok   attempt interrupted after the host ran the tool, before the record: pending attempt [54]",
   "Host closed. Reopening the run.",
   "  ok   run reopened live with its records: N=7, next run for design E52",
   "  ok   interrupted attempt resumed without running again: execution registered, conclusion MET, spread 82.0 bp, attempts 3",
-  "Lines: script 55 | experiment-specific 69 | setup 49 | command line and job 177 | demonstration 157 | client analysis module 275",
+  "Lines: script 55 | experiment-specific 71 | setup 37 | command line and job 177 | demonstration 157 | client analysis module 416",
   "Timings: {'script_direct_s': 0.001, 'startup_s': 0.5, 'first_result_s': 0.7, 'first_admitted_direction_s': 1.2, 'total_s': 2.8}",
   "Result: PASS | new example on generated data; the calculation is the script's own; no forward standing."
  ],
@@ -52,25 +52,25 @@
   "budget": "0.40"
  },
  "line_counts": {
-  "make_setup.py": 49,
+  "make_setup.py": 37,
   "job.py": 28,
   "make_data.py": 30,
   "signal_groups.py": 55,
   "candidates.py": 23,
   "demo.py": 127,
-  "researcher.py": 13,
+  "researcher.py": 15,
   "tool.py": 13,
   "evaluator.py": 20,
   "__main__.py": 149
  },
  "line_groups": {
   "script": 55,
-  "experiment": 69,
-  "setup": 49,
+  "experiment": 71,
+  "setup": 37,
   "command_line": 177,
   "demonstration": 157
  },
- "client_analysis_lines": 275,
+ "client_analysis_lines": 416,
  "name": "demo-20261101-signal-groups",
  "status": "PASS"
 }

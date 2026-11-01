@@ -12,8 +12,8 @@ from examples.signal_groups.signal_groups import analyze
 from examples.signal_groups.candidates import RULE
 
 
-def recompute(rows, spec, result):
-    again = analyze(rows, spec['signal'], spec['outcome'], int(spec.get('groups', 3)))
+def recompute(inputs, spec, result):
+    again = analyze(inputs.rows, spec['signal'], spec['outcome'], int(spec.get('groups', 3)))
     return result['metric'] == again['spread_top_minus_bottom_bp'] and result['n'] == again['rows_used'] and result['groups'] == again['groups']
 
 

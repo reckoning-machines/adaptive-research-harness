@@ -256,3 +256,23 @@ module may use the wrapper; the core process is unchanged. The
 [second report](docs/implementation/analysis_integration_layer_20261101.md)
 has the sorted counts and the own-CSV run.
 
+## The everyday interface
+
+The [first-class interface plan](docs/plans/first_class_interface_20261101.md),
+with its corrections, built `arh_client.api`, `arh_client.langgraph_nodes`,
+`arh_client.project`, `arh_client.operations`, `arh_client.refusals` and
+`arh_client.dev`. A scientist supplies an analysis function, its inputs,
+an expectation, an evaluator and a name for each piece of work; the
+client journals every operation outside the graph checkpoint, resumes
+the same identity, treats a new identity as new work and a replacement
+as explicit after quiescence, merges graph state by operation so
+parallel branches never collide, pauses a graph while a proposal waits
+for review and again while a decision is not yet applied, and explains
+every refusal. `project.json` describes an experiment and one command
+brings it up. `examples/memo_returns/` is the two-source test the plan
+set, a memo-tone score joined to returns in parallel branches with the
+awkward interruption points; the scientist wrote 136 lines of research
+code and a 33-line project file. The
+[report](docs/implementation/first_class_interface_20261101.md) has the
+counts and the demonstration.
+

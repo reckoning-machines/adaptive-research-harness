@@ -1,0 +1,143 @@
+{
+ "ExperimentId": "MEMO-RETURNS-1",
+ "description": "Do positive-tone analyst memos precede positive next-day returns?",
+ "genesis": {
+  "design": "AD-CK-M1.0",
+  "grant": "AU-CK-M"
+ },
+ "sources": {
+  "SRC-MEMO-SYN": {
+   "document": {
+    "class": "synthetic",
+    "max_bytes": 4194304,
+    "synthetic": true
+   },
+   "extraction": {
+    "validator": "none"
+   },
+   "item_id": {
+    "per_period": "many",
+    "prefix": "memo-"
+   },
+   "period_ms": 86400000,
+   "window": {
+    "end": "2027-04-30T00:00:00.000Z",
+    "start": "2026-10-28T00:00:00.000Z"
+   }
+  },
+  "SRC-RET-SYN": {
+   "document": {
+    "class": "synthetic",
+    "max_bytes": 4194304,
+    "synthetic": true
+   },
+   "extraction": {
+    "validator": "none"
+   },
+   "item_id": {
+    "per_period": "many",
+    "prefix": "returns-"
+   },
+   "period_ms": 86400000,
+   "window": {
+    "end": "2027-04-30T00:00:00.000Z",
+    "start": "2026-10-28T00:00:00.000Z"
+   }
+  }
+ },
+ "steps": [
+  {
+   "input_limit_bytes": 16777216,
+   "inputs": [
+    {
+     "form": "DOCUMENT",
+     "kind": "OBSERVATION",
+     "max": 1,
+     "min": 1
+    }
+   ],
+   "kind": "research",
+   "name": "score-memo",
+   "parameters": {
+    "lexicon": "TONE-1"
+   },
+   "tariff": {
+    "limit": 1,
+    "measure": "documents",
+    "per_unit": "0.05"
+   },
+   "tools": [
+    "TONE-CALL-1"
+   ]
+  },
+  {
+   "input_limit_bytes": 16777216,
+   "inputs": [
+    {
+     "form": "DOCUMENT",
+     "kind": "OBSERVATION",
+     "max": 10,
+     "min": 1
+    },
+    {
+     "kind": "RESEARCH_RECORD",
+     "max": 50,
+     "min": 1,
+     "record_kind": "plain"
+    },
+    {
+     "kind": "RESEARCH_RECORD",
+     "max": 1,
+     "min": 1,
+     "record_kind": "EXPERIMENT DESIGN"
+    }
+   ],
+   "kind": "research",
+   "name": "join-returns",
+   "parameters": {
+    "analysis_from": "design"
+   },
+   "tariff": {
+    "limit": 10,
+    "measure": "documents",
+    "per_unit": "0.10"
+   },
+   "tools": [
+    "TONE-JOIN-1"
+   ]
+  },
+  {
+   "kind": "check",
+   "maximum": "0.25",
+   "name": "check-transition",
+   "tools": [
+    "CHECK-M-1"
+   ]
+  }
+ ],
+ "tools": {
+  "CHECK-M-1": {
+   "callable": "evaluate",
+   "execution": "caller",
+   "label": "check-m-1",
+   "module": "evaluator.py",
+   "provider_work": "ends_with_caller"
+  },
+  "TONE-CALL-1": {
+   "callable": "score",
+   "execution": "caller",
+   "label": "tone-call-1",
+   "module": "provider.py",
+   "provider_work": "ends_with_caller"
+  },
+  "TONE-JOIN-1": {
+   "callable": "calculate",
+   "execution": "core",
+   "interface": "inputs",
+   "label": "tone-join-1",
+   "module": "tools.py",
+   "provider_work": "ends_with_caller"
+  }
+ },
+ "version": 1
+}

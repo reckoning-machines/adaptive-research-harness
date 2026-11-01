@@ -88,6 +88,90 @@ so it can key its own records by it.
 | An evaluator under the Checker token | A Check must come from a Checker grant, a different lineage, with its own funded attempt; its content must equal the registered receipt; the proposer cannot check, decide or apply |
 | Principal decisions, or policy `P-1` for routine registrations | Decision requires a passing Check at the current base; Apply requires the decision and, for a researcher's proposal, bound funding |
 
+## The everyday interface
+
+Research concepts in, results with their evidence out. A scientist
+supplies an analysis function, its inputs, an expectation and an
+evaluator, names each piece of work, and gets back the result, its
+evidence reference, its conclusion, its check status and any refusal
+with what to do about it.
+
+```python
+from arh_client import api
+research = api.connect('examples/memo_returns', 'researcher', run='/tmp/arh-memo')
+result = research.analysis(calculate, inputs=['SRC-RET-SYN', *scores], expectation=EXPECT, budget='memo-tests', operation='join')()
+result.state, result.metric, result.evidence, result.links, result.refusal
+proposal = research.select(result, 'own', 'why', 'the next question', operation='next')
+research.review(proposal.transition).status      # waiting_for_review, check_failed, decided, applied
+```
+
+| Call | What it does |
+| --- | --- |
+| `api.connect(project, role, run)` | Opens a project under one role: `Research` for the researcher, `Evaluator` for the checker, `Owner` for the Principal, `Importer` for the observer. `project` is a directory holding `project.json` |
+| `research.analysis(fn, inputs, expectation, budget, operation)` | A callable that runs `fn`'s declared analysis over the inputs as one metered attempt and returns a `Result`. `inputs` are sequences, references, earlier results or a source id meaning every document of that source |
+| `research.call(fn, inputs, operation, budget)` | One metered call of a tool this process runs, `fn(inputs, spec, claim) -> (result, actual)`, with its own attempt, receipt and identity |
+| `research.retry(operation, fn)` | The explicit replacement of an uncertain attempt, after the host has confirmed quiescence |
+| `research.select(result, chosen, reason, question, operation)` | The selection record with its rejections, proposed as a Theme and funded. `chosen` is a candidate id or `'own'` |
+| `research.review(transition)` | Where a proposal stands. A decision is not an application |
+| `research.history.conclusions(where, state)`, `.selections()`, `.rejections()` | What this researcher concluded, chose and rejected |
+| `research.documents(source)` | Committed documents with their names and row counts |
+| `evaluator.check(transition)`, `owner.decide`, `owner.apply`, `owner.admit`, `owner.advance_to(date)`, `importer.import_file(...)` | The other roles |
+| `research.langgraph` | Node factories: `analysis`, `selection`, `review`, `retry`, `call`, `result`, `await_review`; see below |
+
+Every operation has an identity the research code gives it. The same
+identity resumes; a new identity is new work; a replacement is explicit.
+The identity's request keys and every ledger reference are journaled
+with fsync under the run directory before and after each call, outside
+any graph checkpoint, so a process that dies between a call and its
+journal write resolves the key against the core on restart and never
+repeats the work. A `Result` holds `status` (`recorded`, `refused`,
+`uncertain`, `failed`), `design`, `evidence`, `attempt`, `execution`,
+`conclusion`, `outputs` (the function's own dictionary, recorded whole),
+`refusal` (code, detail, meaning, next action) and `links` to the
+records on the workbench. `metric` and `n` are optional in a result;
+with them a conclusion is computed against the expectation, without them
+the record says `RECORDED`.
+
+### LangGraph nodes
+
+```python
+g.add_node('join', research.langgraph.analysis(calculate, inputs=join_inputs, expectation=EXPECT, budget='memo-tests', operation='join'))
+g.add_node('next', research.langgraph.selection(choose_next, operation='next'))
+g.add_node('review', research.langgraph.review('next'))
+```
+
+Each node writes `state['arh'][operation]`, and namespaces merge by
+operation, so two analyses in one graph or one analysis in parallel
+branches never overwrite each other. Nothing relies on a LangGraph
+branch key. A node wrapped as an analysis is one metered attempt. A node
+you write that makes calls through `research.langgraph.call` is an
+uncharged grouping; each call is its own attempt with its own identity,
+and a resumed node repeats none that the journal holds. The review node
+pauses the graph while the proposal is waiting for review, and again
+while it is decided but not applied; resuming re-reads the ledger and
+approves nothing. Calls a node makes outside the wrapper are invisible
+to ARH.
+
+### Project file and one command
+
+`project.json` names the experiment, its sources and their classes, its
+analyses as tools with their steps, tariffs and costs, the researcher and
+evaluator entry points, the budget, the budgets by name, the theme and
+the formation document. `Project.load(dir).write_setup()` writes the
+three setup files from it. Amounts in it are proposals; they become
+authoritative when the Principal signs the grants at startup.
+
+```sh
+python3 -m arh_client.dev up examples/memo_returns --run /tmp/arh-memo
+python3 -m arh_client.dev down /tmp/arh-memo
+```
+
+`up` writes the setup if it is missing, freezes a bundle, starts the
+host, runs the startup sequence and prints the connection file. It needs
+the ARH checkout, found from `ARH_ROOT` or by walking up from the
+project directory. A run directory that already holds a bundle is
+reopened, and reopens only if the execution identity still matches.
+
 ## Public API
 
 Stable, documented here. Everything else in the package is an internal
@@ -195,16 +279,17 @@ its text or rows. The source must be declared historical in the profile.
 the control transitions a setup declares, each checked by your `check`
 callable, and returns the applied head.
 
-### `arh_client.setup.write_setup(directory, ...)`
+### `arh_client.setup.write_setup(directory, project)`
 
 Writes `setup.json`, `designs_and_methods.json` and `experiment.json` for
-an experiment from a short description: the question, a source and its
-class, one tool and its step, the tariff, the researcher and evaluator
-entry points and a formation document. It supplies administrative
-defaults, grants, limits, a theme, methods, provenance, identities, the
-clock and the profile. It does not supply the evaluator or the scientific
-content of a hypothesis. `examples/signal_groups/make_setup.py` shows the
-call.
+an experiment from its project description, the contents of
+`project.json`: the question, the sources and their classes, the
+analyses as tools with their steps and tariffs, the researcher and
+evaluator entry points, the budget, the theme and a formation document.
+It supplies administrative defaults, grants, limits, a theme, methods,
+provenance, identities, the clock and the profile. It does not supply
+the evaluator or the scientific content of a hypothesis.
+`Project.load(directory).write_setup()` is the usual call.
 
 ### `arh_client.analysis`
 
@@ -214,11 +299,11 @@ and the evaluation function. The module supplies the lifecycle.
 
 | Name | What it does |
 | --- | --- |
-| `host_tool(analysis, kind=None)` | Returns the `calculate(inputs)` a host-run tool exports. `analysis(rows, spec)` gets every committed row and the design's analysis and returns a dict with `metric` and `n`. The wrapper adds the cited inputs, the design, the input hash and the document class |
-| `CandidateRule(table)` | What to investigate next by conclusion state, each entry with `reconsider_when` of `new_documents`, `new_direction`, `always` or `never`. `live_set(state, history, current_theme)` returns the live, excluded and reinstated candidates; `gather_history(selections, documents)` reads earlier selections |
-| `AnalysisResearcher(connection, rule)` | `design` records the question, expectation and analysis before any attempt. `run(design_ref, keys, hook)` reserves, attempts, executes through `Execution.run`, records the result with its conclusion, settles and closes; with keys from `persisted_keys` a re-run resumes. `candidates`, `select` with rejections and their conditions, `propose` as a Theme. The step, tool, parameters, source and umbrella Theme come from the frozen profile. Subclass to set `rule` and `analysis_kind` |
-| `evaluator(recompute, rule, kind=None)` | Returns the `evaluate` a Checker design registers. `recompute(rows, spec, result)` says what counts as a valid result. The record checks, design before attempt, settlement, cited inputs, result hash, conclusion against expectation, candidate set against the rule over the cited history, are `check_records` |
-| `compare`, `conclude`, `persisted_keys(path)` | Exact comparison by cross-multiplication; the conclusion for a result; keys written before first use so a killed run sends the same keys again |
+| `host_tool(analysis, kind=None)` | Returns the `calculate(inputs)` a host-run tool exports. `analysis(inputs, spec)` gets an `Inputs` object, the documents, their rows and texts, earlier records and the design, and returns its own dict, recorded whole; `metric` and `n` are optional. The wrapper adds the cited inputs, the design, the input hash and the document class, and the callable carries `.kind` |
+| `CandidateRule(table)` | What to investigate next by conclusion state, each entry with `reconsider_when` of `new_documents`, `new_direction`, `always` or `never`. `live_set(state, history, current_theme)` returns the live, excluded and reinstated candidates; `gather_history(selections, documents)` reads earlier selections. Optional: without a rule a selection names the researcher's own question |
+| `AnalysisResearcher(connection, rule=None, analysis_kind=None)` | `design` records the question, expectation and analysis over the inputs before any attempt. `run(design_ref, keys, hook, journal)` reserves, attempts, executes, records the result with its conclusion, settles and closes; `perform` does the same for any tool over any inputs, host-run or caller-run; with a journal every stage resumes. `candidates`, `select` with `'own'` or a candidate and the rejections, `propose` as a Theme, `conclusions`, `selections`, `rejections`. The steps, tools, sources and umbrella Theme come from the frozen profile; the entry point can be a function |
+| `evaluator(recompute, rule=None, kind=None)` | Returns the `evaluate` a Checker design registers. `recompute(inputs, spec, result)` says what counts as a valid result. The record checks, design before attempt, settlement, cited inputs, result hash, conclusion against expectation, candidate set against the rule or the own question without one, are `check_records` |
+| `compare`, `conclude`, `Inputs`, `persisted_keys(path)` | Exact comparison by cross-multiplication; the conclusion for a result, `RECORDED` without an expectation; the inputs object; keys written before first use so a killed run sends the same keys again |
 
 A tool module the host runs may import this package; the host puts the
 client on the tool worker's import path. `examples/signal_groups/` shows

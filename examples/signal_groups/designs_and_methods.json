@@ -4,7 +4,7 @@
    "content": {
     "AgentDesignLineageId": "AD-S1",
     "AgentDesignVersionId": "AD-S1.0",
-    "entrypoint": "examples.signal_groups.researcher:SignalResearcher",
+    "entrypoint": "examples.signal_groups.researcher:researcher",
     "evaluation_inputs": [
      "own Research Records",
      "active grant and population",
@@ -48,7 +48,7 @@
      "SIGNAL-GROUPS-1": "fb93a2ac53aa9073d1cfbfe50efd6889bad89b9d4e2c7ee17aa211953db774b7"
     }
    },
-   "content_sha256": "c6bcc56e38148e66f699bdbaea16a78fccfdf6879ac7dce64ffa123ed633b486"
+   "content_sha256": "99691de5e1864e22a5d5f0df8dbeb64c0b733eb2b48cba99c73b054566731570"
   },
   {
    "content": {

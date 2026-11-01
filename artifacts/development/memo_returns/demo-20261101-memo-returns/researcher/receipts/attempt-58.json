@@ -1,0 +1,1 @@
+{"actual":"0.05","attempt":58,"error":null,"input_hash":"870e7fa0d3e8b46fd9c57a2fc1c58d640eea48419deec8941ccf3f8d6c9a42c7","result":{"input_sha256":"13c16e03ca322636e429c62139b77a3a0fcc5de2ea1549a8c6079ec208ee7784","lexicon":"TONE-1","memo":"m06.md","memo_id":"m06","n":1,"negative_terms":[],"positive_terms":[],"synthetic":true,"tone":0},"synthetic":true,"tool_id":"TONE-CALL-1"}

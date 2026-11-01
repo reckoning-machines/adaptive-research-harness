@@ -10,3 +10,7 @@ artifacts/development/workbench/*/state/fixture.json
 artifacts/development/workbench/*/state/*.log
 # Local virtual environment for the client and the LangGraph example
 .venv/
+# Example runs on the everyday interface: tokens and logs exist only while a host is live
+artifacts/development/memo_returns/*/state/fixture.json
+artifacts/development/memo_returns/*/state/*.log
+artifacts/development/memo_returns/*/researcher/checkpoints.sqlite*

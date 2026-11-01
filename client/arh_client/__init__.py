@@ -7,7 +7,10 @@ Public, stable:
     Principal, Observer, startup
     HostControl
     langgraph_adapter (ExperimentSpec, build_research_graph, build_proposal_graph)
-    analysis (AnalysisResearcher, CandidateRule, host_tool, evaluator, persisted_keys)
+    analysis (AnalysisResearcher, CandidateRule, Inputs, host_tool, evaluator, persisted_keys)
+    api (connect, Research, Result, Proposal, Review, Refusal, Evaluator, Owner, Importer)
+    langgraph_nodes (Nodes, GraphState), reached as research.langgraph
+    project (Project), operations (OperationStore), refusals (explain), dev (up, down)
 
 Internal helpers (may change): arh_client.protocol, arh_client.checking.evaluate,
 arh_client.research.invocation and event_ref, arh_client.principal.row_ratio.

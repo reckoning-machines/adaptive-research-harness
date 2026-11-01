@@ -194,24 +194,77 @@ report states the lines in each layer, as the signal-groups report did.
   as evaluator is refused `independence` by the check.
 - Every refusal surfaced to research code carries resolution text.
 
-## 7. Decisions for the Principal before building
+## 7. Decisions, resolved
 
-- Whether a graph may pause on `waiting_for_review` through LangGraph's
-  interrupt, or must end and be re-invoked. The plan proposes both are
-  allowed and neither decides anything.
-- Whether per-call attempts inside a node are the only accounted form,
-  or whether a node may declare an attempt count up front and settle each
-  call against it. The plan proposes per-call attempts only.
-- Whether `project.json` may set budget amounts, or only names over
-  amounts the Principal sets in the grants. The plan proposes names and
-  amounts in one file that the Principal signs at startup, as the grants
-  are signed today.
+The three choices listed in the first draft were reviewed the same day
+and found to be ordinary implementation choices within the scope already
+given. Both pause styles are allowed and neither decides anything. One
+attempt per metered call. The configuration proposes budget amounts, which
+become authoritative only through the existing startup, where the
+Principal signs the grants. No further approval round. None of this
+changes the Constitution, an identity rule or a Transition class. If
+building reaches a point where one would, the work stops and the question
+returns to the Principal.
 
-None of these changes the Constitution, an identity rule or a Transition
-class. If building reaches a point where one would, the work stops and
-the question returns to the Principal.
+## 8. Corrections, 2026-11-01
 
-## 8. Limits to state
+Five corrections from the Principal's review of the first draft, folded
+into the build. Each names what it changes above.
+
+1. **Persist the operation identity before any side effect.** A node
+   that designs, reserves and attempts and then dies before returning
+   leaves nothing in a LangGraph checkpoint, and an empty namespace on
+   restart would start the work again. The adapter keeps a durable
+   operation journal of its own, outside the checkpoint: request keys and
+   every ledger reference are written with fsync before the call that
+   uses them and after the reply, for the outer operation and for each
+   nested call. On entry a node reads the journal first. A key with no
+   recorded reply is resolved by asking the core what became of it before
+   it is sent again. Section 3.3 "Execution" reads accordingly, and the
+   tests include a kill before the node's first successful return.
+2. **Give each investigation an explicit identity.** The same inputs and
+   expectation can mean a resume or a deliberate replication, and changed
+   inputs can be an accidental mutation during recovery; an input hash
+   cannot tell intent. Every operation carries a stable identity the
+   research code gives it. The same identity resumes. A new identity is
+   new work. A retry is the existing controlled replacement, after
+   quiescence, under the original identity with the next dispatch index.
+   Parallel branches carry identities the research code gives them, and
+   state updates merge by identity so they cannot overwrite each other.
+   Nothing relies on a LangGraph branch key. Section 3.3 "Retry and new
+   experiment" is replaced by this.
+3. **Separate the decision from its application.** ARH records a decision
+   and, separately, an Apply that changes the accepted record. The review
+   states are `waiting_for_review`, `check_failed`, `decided` with the
+   decision, and `applied`. Work that needs accepted research proceeds
+   only after `applied`. Section 3.3 "Outcome states" reads accordingly.
+4. **Keep results broader than a metric and a count.** Research functions
+   return tables, forecasts, fitted models and documents. The result is
+   the function's own dictionary, recorded whole, with `metric` and `n`
+   optional; a conclusion against an expectation is computed when they
+   are present and the record says `RECORDED` otherwise. History queries
+   filter on the analysis specification and a subject identifier, not on
+   a signal. The scalar interface remains one supported pattern. Sections
+   3.2 and 3.3 read accordingly.
+5. **Define nested accounting.** A node wrapped as an analysis is one
+   metered attempt. A node that makes metered calls through the call
+   wrapper is an uncharged grouping; each call is its own attempt with its
+   own durable identity and its own cost, and resuming the node repeats no
+   call that already has a journal entry. The two forms are distinct and
+   not combined in one node. Section 3.3 "Provider calls inside a node"
+   reads accordingly.
+
+The candidate rule, when absent, must still leave a working path. A
+selection may name the scientist's or the agent's own next question, with
+whatever candidates existed recorded as rejected, and the evaluator's
+record check accepts that form. An empty candidate set with a membership
+requirement is not a path.
+
+The success criterion for the two-source example is the reviewer's: the
+scientist writes the research and the evaluation, and the adapter handles
+the lifecycle reliably, including the awkward interruption points.
+
+## 9. Limits to state
 
 The interface accounts for what research code declares. It does not
 limit spending by a process that can reach a provider. There is still no

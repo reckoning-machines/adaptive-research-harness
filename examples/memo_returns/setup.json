@@ -1,0 +1,306 @@
+{
+ "clock": {
+  "advance": "explicit host advance only",
+  "binding_interval_ms": 300000,
+  "epoch": "2026-10-29T00:00:00.000Z",
+  "initial_tick": 0,
+  "maximum_instant": "2027-05-01T00:00:00.000Z",
+  "maximum_tick": 15897600000,
+  "tick_unit": "millisecond"
+ },
+ "constitution": {
+  "evaluation_standard": "ES-1.0",
+  "sha256": "c56a9cf50a7e9efadad8f2f2be6605e82c758f18d4096ba07eaaf86a8f8b7a64",
+  "version": 1
+ },
+ "generated_by": "arh_client.setup.write_setup",
+ "generated_defaults": "grants, limits, theme, methods, provenance, identities, clock, genesis; the evaluator is not generated",
+ "grants": [
+  {
+   "content": {
+    "AuthorizationId": "AU-CK-M",
+    "binding_interval_ms": null,
+    "capital_permission": false,
+    "class": "Checker",
+    "constitutional_budget": {
+     "delta_A": 0,
+     "delta_O": 0,
+     "delta_S": 0
+    },
+    "default_reservation_duration_ms": 604800000,
+    "expiry": "2027-04-30T00:00:00.000Z",
+    "forbidden_subjects": [
+     "AD-CK-M1 lineage and every successor",
+     "AU-CK-M and its successor chain"
+    ],
+    "grantee": [
+     "AD-CK-M1.0"
+    ],
+    "grantor": "Principal",
+    "may_check": [
+     "every supported Transition class except own subjects"
+    ],
+    "may_commit_evidence": [
+     "Research Record for verification",
+     "RESERVATION",
+     "attempt",
+     "settlement",
+     "CLOSED"
+    ],
+    "may_propose": [
+     "own Agent Design successor",
+     "Constitutional proposal STOPPED until Principal decides"
+    ],
+    "per_lineage_cap_units": "100.00",
+    "provider_calls_permitted": false,
+    "provider_diversity": "No provider diversity claimed: deterministic program under the A1 synthetic-only exception.",
+    "research_budget_units": "100.00",
+    "tools": [
+     {
+      "id": "CHECK-M-1",
+      "spec_sha256": "c8e8801e9482a8b361c093c0185422db37b88091c9fafd2bf0fafc3d6fe46af9",
+      "tier": 1
+     }
+    ],
+    "uncapped_calls_permitted": false
+   }
+  },
+  {
+   "content": {
+    "AuthorizationId": "AU-OBS-M",
+    "capital_permission": false,
+    "class": "Observation",
+    "constitutional_budget": {
+     "delta_A": 0,
+     "delta_O": 0,
+     "delta_S": 0
+    },
+    "expiry": "2027-04-30T00:00:00.000Z",
+    "grantee": [
+     "Observation function"
+    ],
+    "grantor": "Principal",
+    "may_check": [],
+    "may_commit_evidence": [
+     "DOCUMENT Observation",
+     "feed retrieval COMPLETE/PARTIAL/RETRIEVAL_FAILED",
+     "Market Observation VALUE/ABSENT/NOT_EXTRACTABLE/RETRIEVAL_FAILED"
+    ],
+    "may_propose": [],
+    "observation_plan": {
+     "SRC-MEMO-SYN": {
+      "period_dates_inclusive": [
+       "2026-10-28",
+       "2027-04-29"
+      ],
+      "retrieval_slot": "when the Principal imports a file",
+      "stop_rule": "No slot at or after grant expiry."
+     },
+     "SRC-RET-SYN": {
+      "period_dates_inclusive": [
+       "2026-10-28",
+       "2027-04-29"
+      ],
+      "retrieval_slot": "when the Principal imports a file",
+      "stop_rule": "No slot at or after grant expiry."
+     }
+    },
+    "provider_calls_permitted": false,
+    "source_declarations": [
+     {
+      "SourceId": "SRC-MEMO-SYN",
+      "SourceRevision": "a404bdba6913584910e07ee804db0e8c920e3dc678342dd5e11e1f2287fbd557",
+      "content": {
+       "SourceId": "SRC-MEMO-SYN",
+       "access_method": "Read from the local filesystem by the Observation function; no network",
+       "claimed_time_field": "claimed_publication_time",
+       "dataset": "Generated analyst memos, examples/memo_returns/data/memos/*.md",
+       "endpoint": "file://local/{sha256}",
+       "enumeration_contract": {
+        "complete_set": "Every file the generator produced.",
+        "completeness": "Not listed; many items per period.",
+        "item_identity": "memo-YYYY-MM-DD-<content hash>",
+        "window": "Daily periods in the declared window."
+       },
+       "extraction_rule": "None. Documents are inputs to declared analyses.",
+       "field": "document",
+       "field_definition": "One committed file with its rows or text.",
+       "parsing": "UTF-8 text; CSV, TSV and JSON parsed to rows with exact integers.",
+       "print_rule": "FIRST_RELEASE",
+       "provider": "A deterministic generator in the experiment directory",
+       "resolution_grace_ms": 600000,
+       "source_kind": "DOCUMENT_FEED",
+       "structural_availability_bound": "Available from the declared receipt time.",
+       "synthetic": true,
+       "unit": "one file"
+      }
+     },
+     {
+      "SourceId": "SRC-RET-SYN",
+      "SourceRevision": "567c2d037b4b25affa240faa0d4c9ff9a9ced67d7a2dc642aa8d3489ef1a0c65",
+      "content": {
+       "SourceId": "SRC-RET-SYN",
+       "access_method": "Read from the local filesystem by the Observation function; no network",
+       "claimed_time_field": "claimed_publication_time",
+       "dataset": "Generated next-day and prior-day returns per memo, examples/memo_returns/data/returns.csv",
+       "endpoint": "file://local/{sha256}",
+       "enumeration_contract": {
+        "complete_set": "Every file the generator produced.",
+        "completeness": "Not listed; many items per period.",
+        "item_identity": "returns-YYYY-MM-DD-<content hash>",
+        "window": "Daily periods in the declared window."
+       },
+       "extraction_rule": "None. Documents are inputs to declared analyses.",
+       "field": "document",
+       "field_definition": "One committed file with its rows or text.",
+       "parsing": "UTF-8 text; CSV, TSV and JSON parsed to rows with exact integers.",
+       "print_rule": "FIRST_RELEASE",
+       "provider": "A deterministic generator in the experiment directory",
+       "resolution_grace_ms": 600000,
+       "source_kind": "DOCUMENT_FEED",
+       "structural_availability_bound": "Available from the declared receipt time.",
+       "synthetic": true,
+       "unit": "one file"
+      }
+     }
+    ],
+    "tools": [],
+    "uncapped_calls_permitted": false
+   }
+  },
+  {
+   "content": {
+    "AuthorizationId": "AU-RM-1",
+    "binding_interval_ms": 300000,
+    "capital_permission": false,
+    "class": "Research",
+    "constitutional_budget": {
+     "delta_A": 0,
+     "delta_O": 0,
+     "delta_S": 0
+    },
+    "default_reservation_duration_ms": 604800000,
+    "discovery_scope": {
+     "SearchFamily": "SF-M-DISCOVERY",
+     "expected_screening_cadence": "One analysis per design the Principal commits; no cadence is imposed.",
+     "feed_sources": [
+      "SRC-MEMO-SYN",
+      "SRC-RET-SYN"
+     ],
+     "fixed_subgrant_units": "20.00",
+     "followup_count": 0,
+     "included_in_pool": true,
+     "max_hop_depth": 1,
+     "shared_across_grantees": true
+    },
+    "expiry": "2027-04-30T00:00:00.000Z",
+    "grantee": [
+     "AD-M1.0"
+    ],
+    "grantor": "Principal",
+    "may_check": [],
+    "may_commit_evidence": [
+     "plain Research Record",
+     "EXPERIMENT DESIGN",
+     "SELECTION",
+     "RESERVATION",
+     "attempt",
+     "settlement",
+     "CLOSED"
+    ],
+    "may_propose": [
+     "Theme registration",
+     "Agent Design successor registration without grant request",
+     "Constitutional proposal STOPPED until Principal decides"
+    ],
+    "per_lineage_cap_units": "100.00",
+    "provider_calls_permitted": false,
+    "research_budget_units": "100.00",
+    "scope_by_grantee": {
+     "AD-M1.0": {
+      "empirical_search_families": [],
+      "themes": [
+       "TH-M0"
+      ]
+     }
+    },
+    "tools": [
+     {
+      "id": "TONE-CALL-1",
+      "spec_sha256": "1ffcff53c8c83580841b0b9cb02b73183b945c2a07c8c85f99d082fa90be51ee",
+      "tier": 1
+     },
+     {
+      "id": "TONE-JOIN-1",
+      "spec_sha256": "4292e4c864902c16660420bebabc9e68b831a1740d4f4479da9d99bed579040c",
+      "tier": 1
+     }
+    ],
+    "uncapped_calls_permitted": false
+   }
+  }
+ ],
+ "initial_limits": {
+  "exploratory_pool_units": "0.00",
+  "factor_exposure_units": "0.00",
+  "interpretation": "Research-only zero-capital state.",
+  "per_instrument_exposure_units": "0.00",
+  "per_strategy_allocation_cap_units": "0.00",
+  "per_strategy_lifetime_exploratory_cap_units": "0.00",
+  "portfolio_absolute_net_exposure_units": "0.00",
+  "portfolio_capital_units": "0.00",
+  "portfolio_drawdown_loss_units": "0.00",
+  "portfolio_gross_exposure_units": "0.00",
+  "strategy_versions": []
+ },
+ "ordinary_researcher": "AD-M1.0",
+ "profile": "memo-returns-1",
+ "startup": {
+  "apply_0": [
+   "CV1",
+   "AD-CK-M1.0",
+   "AU-CK-M"
+  ],
+  "ordinary_operation_from": 6,
+  "then": [
+   "AU-OBS-M",
+   "charter observation",
+   "initial_limits",
+   "AD-M1.0",
+   "AU-RM-1",
+   "TH-M0"
+  ]
+ },
+ "status": "BUILD_APPROVED_RUNTIME_NOT_INITIALIZED",
+ "theme": {
+  "content": {
+   "ThemeId": "TH-M0",
+   "motivation_closure": "The charter document committed after Apply 1.",
+   "predecessor": null,
+   "selection_basis": {
+    "cost_estimate_units": "20.00",
+    "decision_it_could_change": "Which investigation to design next.",
+    "experiment": "Designs with recorded expectations, analysed by the declared tool and checked independently.",
+    "horizon": "The run.",
+    "origin": "discovery-scope initiative",
+    "stopping_rule": "When the Principal records no further investigation.",
+    "time_estimate_ms": 600000,
+    "uncertainty": "Do positive-tone analyst memos precede positive next-day returns?",
+    "value_basis": "No investment-economic inference from reconstruction alone.",
+    "value_estimate": "UNESTIMATED"
+   },
+   "statement": "Investigations of memo tone against returns under this run's charter.",
+   "typed_claims": [
+    {
+     "kind": "QUESTION",
+     "text": "Do positive-tone analyst memos precede positive next-day returns?"
+    },
+    {
+     "kind": "ASSUMPTION",
+     "text": "Analyses are reconstruction of committed inputs and earn no forward standing."
+    }
+   ]
+  },
+  "content_sha256": "74d0b9c81c6e897ab2e8e4d24cb8335eae0bcfc0c5d3f2d73acd76d13618e558"
+ }
+}

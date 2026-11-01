@@ -180,9 +180,9 @@ your own researcher to a separately started harness, and the
 | You supply | What ARH does |
 | --- | --- |
 | An experiment directory with the grants, limits, theme, designs, tools, methods, hypothesis template, formation data and a profile naming steps, tariffs and sources | Only declared steps, tools and parameters are admitted, cost estimates must match the tariff, and sources follow their declared period and item rules |
-| A researcher, in LangGraph or any other code, running under the researcher identity | Budget reserved before an attempt, attempt recorded before execution, one fresh permission per attempt, settlement at the actual charge or at the maximum, every refusal kept |
+| A researcher, in LangGraph or any other code, running under the researcher identity. On the everyday interface, an analysis function, its inputs, an expectation and a name for each piece of work | Budget reserved before an attempt, attempt recorded before execution, one fresh permission per attempt, settlement at the actual charge or at the maximum, every refusal kept. The client journals each operation so a killed process resumes it and never repeats it |
 | A provider or tool the researcher calls | The receipt is bound to the attempt and counted. A second, different receipt for the same attempt is refused |
-| An evaluator running under the Checker identity | A check must come from a separate lineage with its own funded attempt, its content must equal the registered receipt, and the proposer cannot check, decide or apply |
+| An evaluator running under the Checker identity. On the everyday interface, a recompute function that says what counts as a valid result | A check must come from a separate lineage with its own funded attempt, its content must equal the registered receipt, and the proposer cannot check, decide or apply. A graph that resumes approves nothing |
 | The owner's decisions, or a policy the owner set for routine registrations | A decision needs a passing check at the current base, and applying it needs the decision and bound funding |
 
 When a researcher calls a provider itself, ARH records the charge the
@@ -219,8 +219,16 @@ historical material.
   interrupted attempt after the run is closed and reopened. The same
   command line takes your own CSV, recorded as a historical document
   with the origin you give. You write the analysis function, the
-  candidate table, the evaluation function and a setup description.
+  candidate table, the evaluation function and a project file.
   `arh_client.analysis` supplies the rest.
+- Research code and LangGraph on the everyday interface.
+  `examples/memo_returns/` scores six memos for tone, one metered call
+  each, joins the scores to a returns table in two parallel branches,
+  proposes the scientist's own next question and waits for the check and
+  the decision. Killed between permission and receipt, the call is
+  settled and replaced only after the host confirms the dead process is
+  gone. The scientist wrote the research and a project file;
+  `arh_client.api` and its LangGraph nodes did the rest.
 
 The current prototype records research, checks calculations and preserves
 decisions. The broader design adds several capabilities that are not yet

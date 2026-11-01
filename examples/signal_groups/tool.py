@@ -4,9 +4,9 @@ from arh_client.analysis import host_tool
 from examples.signal_groups.signal_groups import analyze
 
 
-def analysis(rows, spec):
+def analysis(inputs, spec):
     """The script's calculation, unchanged. The spread between the top and bottom groups is the metric the expectation compares."""
-    r = analyze(rows, spec['signal'], spec['outcome'], int(spec.get('groups', 3)))
+    r = analyze(inputs.rows, spec['signal'], spec['outcome'], int(spec.get('groups', 3)))
     return dict(r, metric=r['spread_top_minus_bottom_bp'], n=r['rows_used'])
 
 

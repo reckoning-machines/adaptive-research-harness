@@ -492,14 +492,118 @@ a re-run resumes rather than repeats, use the job the demonstration uses:
 The experiment's decisions are `tool.py` (the analysis function),
 `candidates.py` (the table), `researcher.py` (the rule and the analysis
 kind) and `evaluator.py` (the recompute function), 69 lines together.
-`make_setup.py` is the setup description the generator writes the JSON
-from. `arh_client.analysis` holds the lifecycle, the candidate machinery,
+`project.json` is the setup description the generator writes the JSON
+from, and `make_setup.py` is the call. `arh_client.analysis` holds the lifecycle, the candidate machinery,
 the host-tool wrapper and the evaluator's record checks. The evaluator
 checks reproducibility and record integrity, not the research method.
 
 Verified on 2026-11-01 through the demonstration, the command line on a
 hand-typed table and the integration test. A person following this path
 by hand was not timed.
+
+## H. Research code and LangGraph on the everyday interface: the memo-returns example
+
+A two-source analysis through LangGraph where the scientist wrote the
+research and the client handled the lifecycle. Six analyst memos are
+scored for tone, one metered call each; the scores are joined to a
+returns table in two parallel branches, the real next-day column and a
+placebo prior-day column; the scientist's own next question is proposed;
+the graph waits for an independent check and the Principal's decision.
+Generated data, labelled synthetic. `examples/memo_returns/README.md`
+lists what was written and what the client did.
+
+### One command up
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m arh_client.dev up examples/memo_returns --run /tmp/arh-memo
+```
+
+It writes the setup files from `project.json` if they are missing,
+freezes a bundle into the run directory, starts the host, runs the
+startup sequence under the Principal, Observation and Checker
+identities and prints the connection file, then stays up until Ctrl-C
+or `python3 -m arh_client.dev down /tmp/arh-memo`. Expected output:
+
+```
+<inventory digest>
+project memo-returns | run started | connection /tmp/arh-memo/state/connection.json
+```
+
+Run it again on the same directory and it reopens the run instead,
+which only works while the execution identity still matches.
+
+### The graph
+
+Import the documents first, through the observer role, after advancing
+the clock through the principal role. The demonstration does both; by
+hand, in a Python shell with the client importable:
+
+```python
+from arh_client import api
+owner = api.connect('examples/memo_returns', 'principal', '/tmp/arh-memo'); owner.advance_to('2026-10-31')
+importer = api.connect('examples/memo_returns', 'observer', '/tmp/arh-memo')
+for name in ('m01', 'm02', 'm03', 'm04', 'm05', 'm06'): importer.import_file('SRC-MEMO-SYN', f'examples/memo_returns/data/memos/{name}.md', '2026-10-30', 'examples/memo_returns/data/memos')
+importer.import_file('SRC-RET-SYN', 'examples/memo_returns/data/returns.csv', '2026-10-31', 'examples/memo_returns/data')
+```
+
+Then the job, which runs the graph in its own process to the review
+pause.
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m examples.memo_returns.job --run /tmp/arh-memo
+```
+
+It prints the graph state: six tone calls recorded, the join at 3/3
+MET, the placebo at 1/3 MET, the selection proposed as `TH-M1`, and
+`paused` with the review status `waiting_for_review`. Kill it at any
+point and run it again: every node reads the researcher's operation
+journal under `/tmp/arh-memo/researcher/operations/` first and repeats
+nothing it already did. A call whose outcome was lost is settled at its
+maximum and replaced only after the host confirms the dead process is
+gone, which the demonstration does with the host control's `quiesce`.
+
+The check and the decision come from the other identities.
+
+```python
+from examples.memo_returns.evaluator import recompute
+api.connect('examples/memo_returns', 'checker', '/tmp/arh-memo', recompute=recompute, kind='tone-return-join').check('TR-...')
+owner.decide('TR-...', 'ADMITTED', 'placebo clean')
+```
+
+Run the job again and it resumes the paused graph, reads `decided`, and
+pauses again, because a decision is not an application. After
+`owner.apply('TR-...')` the next run reads `applied` and the graph
+finishes. Resuming never approves anything; the researcher identity
+cannot decide, and the demonstration shows the refusal.
+
+### The demonstration
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m examples.memo_returns
+```
+
+One command runs the whole sequence with the awkward interruption
+points: killed after two calls, killed inside the fourth call between
+permission and receipt, blocked until quiescence is proven, replaced,
+killed after the join's record before the node returned, resumed in
+parallel, paused for review, a wrong evaluator failing and the right
+one passing, a resume before any decision, the researcher refused when
+it tries to decide, the decision, the application, and the host closed
+and reopened. Expected ending:
+
+```
+  ok   history query by analysis field: 1 conclusion(s) for next_day_bp
+Lines: research 136 | configuration 33 | process 54 | demonstration 160 | client api+nodes 407
+Timings: {...}
+Result: PASS | generated data labelled synthetic; no forward standing.
+```
+
+Records land under `artifacts/development/memo_returns/<stamp>-memo-returns/`.
+The retained run `demo-20261101-memo-returns` is there. Verified on
+2026-11-01 through the demonstration and its integration test. The
+provider is a deterministic stand-in; its calls are counted by the
+example, not by ARH, and calls a node makes outside the client's call
+wrapper are invisible to ARH.
 
 ## Refusals and errors
 

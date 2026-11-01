@@ -15,10 +15,10 @@ Four things. Everything else is the client's.
 | The analysis function | `tool.py` | 13 | `analysis(rows, spec)` returns a dict with `metric`, the value the expectation compares, and `n`, the rows used. One call, `host_tool(analysis, kind=...)`, makes it the `calculate` the host runs |
 | The candidate table | `candidates.py` | 23 | What to investigate next, by conclusion state, each with the condition under which a rejected candidate comes back |
 | The evaluation function | `evaluator.py` | 20 | `recompute(rows, spec, result)` says whether the recorded result is what the analysis gives on the committed rows. One call, `evaluator(recompute, RULE, kind=...)`, makes the Checker's `evaluate` |
-| The setup description | `make_setup.py` | 49 | Identities, the source and its class, the tool and its cost, the tariff, the budget, the entry points. The client's generator writes the three JSON files from it |
+| The setup description | `project.json` | 26 | Identities, the source and its class, the tool and its cost, the tariff, the budget, the entry points. The client's generator writes the three JSON files from it; `make_setup.py` is the call |
 
-The researcher, `researcher.py`, is a subclass naming the rule and the
-analysis kind. The inputs are the files you import and the design that
+The researcher, `researcher.py`, is a function returning the client's
+researcher with the rule and the analysis kind. No subclass. The inputs are the files you import and the design that
 names the columns and the expectation. The budget is in the setup
 description.
 
@@ -80,7 +80,7 @@ generates the data. None of these is needed to run your own table.
 | --- | --- | --- |
 | The script | `signal_groups.py` | 55 |
 | Your decisions | `tool.py`, `candidates.py`, `researcher.py`, `evaluator.py` | 69 |
-| Setup description | `make_setup.py` | 49 |
+| Setup description | `project.json`, `make_setup.py` | 26 and 37 |
 | Command line and job | `__main__.py`, `job.py` | 177 |
 | Demonstration | `demo.py`, `make_data.py` | 157 |
 | Generated | `setup.json`, `designs_and_methods.json`, `experiment.json` | |
