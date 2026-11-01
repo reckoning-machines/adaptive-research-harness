@@ -15,17 +15,19 @@ many attempts.
 Adaptive Research Harness keeps track of what was tried, what it cost,
 what failed and why a conclusion was accepted. Researchers can use that
 history to choose what to investigate next, while separate checks govern
-which results become part of the accepted research.
+which results become part of the accepted research. The current checkers
+verify specified calculations and record consistency. They do not
+establish that a hypothesis predicts returns.
 
 The aim is to let a team change its agents and methods without losing
 what it has learned or quietly changing the rules for success.
 
-This is not a substitute for backtesting. A backtest says how a rule would
-have done on past data. It says nothing about how many rules were tried
-before this one, which were dropped, whether the rule changed after the
-results were seen, or who decided it was good enough. Those are what
-decide whether the number means anything. The harness records them, so a
-backtest run through it comes with its history attached.
+A backtest result is easier to judge when you can see how it was
+selected. What else was tried? Which assumptions changed after the results
+were seen? What evidence justified taking the idea further? The harness
+preserves that history for work run through it, alongside the checks and
+decisions. Statistical validation and trading realism remain the job of
+the research methods connected to it.
 
 There are three ways to use it.
 
@@ -45,8 +47,36 @@ There are three ways to use it.
   any of a list of terms, and a count, ratio, sum or mean over table rows
   that pass filters you set. Anything else needs a new calculator.
 
-The full design takes the same loop further, to evaluating and replacing
-hypotheses, strategies and the researchers themselves over time.
+The synthetic researcher chooses among predefined branches, and in the
+documents path you choose the next question. That shows a workflow that
+responds to evidence. It does not yet show that accumulated research
+improves which experiment comes next. The full design takes the loop
+further, to evaluating and replacing hypotheses, strategies and the
+researchers themselves over time.
+
+## Where it sits among your tools
+
+A research harness that lets teams change their agents and methods while
+preserving the evidence, spending controls and review process around them.
+It sits around the tools that do the analysis.
+
+| Kind of tool | Main job |
+| --- | --- |
+| Backtesting library | Calculate how a strategy would have performed |
+| Experiment tracker | Record inputs, outputs, metrics and artifacts |
+| Agent framework | Coordinate agents and their work |
+| Adaptive Research Harness | Authorize research, account for its cost, require checks before acceptance, and preserve the history for subsequent research |
+
+For example, a swarm proposes a signal and a backtesting engine tests it.
+The harness records the authorized attempt, retains the failed variants
+submitted through it, requires the designated checks, and controls whether
+the proposal enters the accepted record. The researcher then uses that
+history to propose its next investigation.
+
+The difference from an experiment tracker is refusal. If the harness only
+recorded what happened, experiment library would be a fair description.
+It also refuses operations that lack the required budget, authority or
+checks.
 
 I have made the prototype public so other teams can try it with their own
 workflows and help determine which parts are useful.
@@ -201,11 +231,12 @@ These are the questions I want feedback on.
 
 - **Coverage.** The ledger counts the attempts that run through the
   harness. Work done outside it, in a notebook or a spreadsheet, is never
-  counted. If that outside work decides which ideas get registered, the
-  ledger understates how many were tried, and any multiple-testing
-  correction built on it is too small. How much of a team's research has to
-  run through the harness before the count means anything, and how would
-  the team know?
+  counted, and one recorded attempt can search thousands of parameter
+  combinations while several attempts can repeat the same calculation. A
+  correction based only on the recorded attempts could understate the
+  extent of the search. What would the record have to capture, including
+  changes to the universe, the features, the sample period and the
+  selection rule, before the count said something about selection bias?
 - **Judgment versus arithmetic.** The checker replays computation. Most of
   what makes research good or bad happens before the computation, in the
   choice of universe, window and definition of an event. A checker can
@@ -213,10 +244,13 @@ These are the questions I want feedback on.
   one. It cannot decide whether grouping events by shock was the right
   economic call. What catches a bad definition, and is that a job for a
   checker, a second researcher or the Principal?
-- **Lookahead.** The dominant practical failure in quantitative research is
-  a hypothesis formed after seeing the test window. Timestamped records
-  help only if data vintage is part of the record. Is that enough, and what
-  else is needed?
+- **Data reuse and timing.** Researchers can repeatedly adapt an idea to
+  the same historical sample, or inadvertently use information that was
+  unavailable at the time, such as a revised financial statement or later
+  index membership. Forming a hypothesis after examining data is
+  legitimate exploration; presenting the same data as an untouched test is
+  the problem. How should the harness record data access and revisions so
+  those problems are visible?
 
 ## Where to read
 
