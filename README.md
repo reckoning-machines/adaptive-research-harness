@@ -81,7 +81,7 @@ refused, and the refusal is recorded too.
 
 ## How to try it
 
-There are three ways to use it.
+There are three ways to use ARH.
 
 - **The shipped example.** One research cycle on synthetic data with a
   deterministic researcher. Give the researcher different evidence and it
