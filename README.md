@@ -272,6 +272,7 @@ These are the questions I want feedback on.
 | How the system works and where your code connects | [Architecture](architecture.md) |
 | Verified steps to operate it | [Runbook](runbook.md) |
 | The Python client, operation by operation | [Client README](client/README.md) |
+| What it would take for another team to adopt it | [Adoption review](docs/audits/adoption_review_20261101.md) |
 | What was built, with its tests and limits | [BUILD.md](BUILD.md) and the [integration report](docs/implementation/langgraph_integration_20261101.md) |
 | The rules themselves | [The Constitution](docs/doctrines/new_speedway_constitution.md), admitted by the [admission record](docs/decisions/cv1_admission_20261019.md) |
 | How it was made and reviewed | The design was written and reviewed as documents before code. [Document-first design plan](docs/plans/document_first_design.md), the [revision 10 audit](docs/audits/independent_preimplementation_design_audit_20261019.md), [PD-010](docs/decisions/principal_decision_010_codex_audit_repairs.md), the [closure review](docs/audits/cv1_revision12_closure_20261019.md) and the [build audit](docs/audits/adversarial_first_cycle_build_audit_20261029.md) |
