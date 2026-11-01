@@ -2,32 +2,18 @@
 
 An idea I think is right, carried far enough to run.
 
-Coding agents have harnesses. What governs a swarm of research agents?
+Research agents can generate ideas faster than a team can evaluate them.
+As they test and revise those ideas, it becomes harder to know whether a
+promising result reflects something learned or simply enough attempts to
+find something that looks good.
 
-I made the case for coding agents in
-[An Agentic Coding Proposal: Constitutional Coherence](https://reckoningmachines.substack.com/p/an-agentic-coding-proposal-constitutional).
-Tests tell you whether the code works. They do not tell you whether the
-agent quietly added a second copy of the data or gave itself a permission
-it should not have. The article argued that a harness needs something
-written down underneath it, saying what exists, what each thing means and
-who is allowed to change it. This repository asks the same question of
-research agents.
+Adaptive Research Harness keeps track of what was tried, what it cost,
+what failed and why a conclusion was accepted. Researchers can use that
+history to choose what to investigate next, while separate checks govern
+which results become part of the accepted research.
 
-"Adaptive Research Harness" is an operating system for research that
-learns from its own results and changes what it investigates next.
-
-It is the layer underneath the swarm, not part of it. Keep whatever agents
-you have, in LangGraph or anything else. Their experiments, results and
-proposals pass through the harness on the way to data, tools and the
-accepted record, and the harness holds the budgets, the checks and the
-history. The agents can be swapped, retrained or multiplied. Your agents
-and the record are your IP.
-
-It keeps the experiments, the failures and how one idea led to the next, so
-a researcher choosing the next question, revising a hypothesis or trying a
-different method works from the record and not from memory. Spending,
-checking and what enters the accepted record are handled separately, by
-rules the researcher cannot change.
+The aim is to let a team change its agents and methods without losing
+what it has learned or quietly changing the rules for success.
 
 There are three ways to use it.
 
@@ -183,6 +169,19 @@ implemented.
 The [Constitution](docs/doctrines/new_speedway_constitution.md) describes
 the broader design. The [architecture](architecture.md) documents the
 implemented boundaries and current limitations.
+
+## Where the idea came from
+
+Coding agents have harnesses. What governs a swarm of research agents?
+
+I made the case for coding agents in
+[An Agentic Coding Proposal: Constitutional Coherence](https://reckoningmachines.substack.com/p/an-agentic-coding-proposal-constitutional).
+Tests tell you whether the code works. They do not tell you whether the
+agent quietly added a second copy of the data or gave itself a permission
+it should not have. The article argued that a harness needs something
+written down underneath it, saying what exists, what each thing means and
+who is allowed to change it. This repository asks the same question of
+research agents.
 
 ## Open questions
 
