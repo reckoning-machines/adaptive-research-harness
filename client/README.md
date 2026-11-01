@@ -206,6 +206,24 @@ clock and the profile. It does not supply the evaluator or the scientific
 content of a hypothesis. `examples/signal_groups/make_setup.py` shows the
 call.
 
+### `arh_client.analysis`
+
+Connects one analysis function to ARH. You supply the analysis function,
+the inputs as imported documents and a design, the budget in the setup
+and the evaluation function. The module supplies the lifecycle.
+
+| Name | What it does |
+| --- | --- |
+| `host_tool(analysis, kind=None)` | Returns the `calculate(inputs)` a host-run tool exports. `analysis(rows, spec)` gets every committed row and the design's analysis and returns a dict with `metric` and `n`. The wrapper adds the cited inputs, the design, the input hash and the document class |
+| `CandidateRule(table)` | What to investigate next by conclusion state, each entry with `reconsider_when` of `new_documents`, `new_direction`, `always` or `never`. `live_set(state, history, current_theme)` returns the live, excluded and reinstated candidates; `gather_history(selections, documents)` reads earlier selections |
+| `AnalysisResearcher(connection, rule)` | `design` records the question, expectation and analysis before any attempt. `run(design_ref, keys, hook)` reserves, attempts, executes through `Execution.run`, records the result with its conclusion, settles and closes; with keys from `persisted_keys` a re-run resumes. `candidates`, `select` with rejections and their conditions, `propose` as a Theme. The step, tool, parameters, source and umbrella Theme come from the frozen profile. Subclass to set `rule` and `analysis_kind` |
+| `evaluator(recompute, rule, kind=None)` | Returns the `evaluate` a Checker design registers. `recompute(rows, spec, result)` says what counts as a valid result. The record checks, design before attempt, settlement, cited inputs, result hash, conclusion against expectation, candidate set against the rule over the cited history, are `check_records` |
+| `compare`, `conclude`, `persisted_keys(path)` | Exact comparison by cross-multiplication; the conclusion for a result; keys written before first use so a killed run sends the same keys again |
+
+A tool module the host runs may import this package; the host puts the
+client on the tool worker's import path. `examples/signal_groups/` shows
+each piece, and its README says what a second analysis must supply.
+
 ### `HostControl.from_file(connection_file)`
 
 `tick(ms)` advances the synthetic clock. `quiesce(generation,

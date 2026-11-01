@@ -239,14 +239,20 @@ No OS isolation. No forward standing.
 `examples/signal_groups/` is the first experiment built from the plan for
 [one existing script](docs/plans/existing_script_through_arh_20261101.md),
 labelled a new example because no existing script was available: a
-55-line CSV analysis verified on its own, a host-run tool that wraps it
-unchanged, an evaluator that re-runs it and checks records, a researcher
-whose candidate rule reads the history with reconsideration conditions on
-rejected candidates, a job runner with persisted keys, and a runner that
-performs and times the whole experience. `arh_client.setup.write_setup`
-wrote its setup files with administrative defaults; the evaluator was
-written by hand. The workbench session now takes any experiment directory
-and reads the researcher, Checker and source from the bundle. The
-[report](docs/implementation/signal_groups_20261101.md) has the
-measurements.
+55-line CSV analysis verified on its own and connected without changing
+its calculation. The
+[first report](docs/implementation/signal_groups_20261101.md) measured
+295 hand-written lines to connect it. The
+[integration-layer plan](docs/plans/analysis_integration_layer_20261101.md)
+sorted those lines by responsibility. `arh_client.analysis` now holds the
+lifecycle, the candidate machinery, the host-tool wrapper and the
+evaluator's record checks, written once. The example keeps its decisions,
+the analysis function, the candidate table, the recompute function and
+the setup description, 69 lines plus the description. Its command line
+takes a user's own CSV, recorded as a historical document with the origin
+given, and carries the selection, proposal, check and decision on the same
+run. The host puts the client on the tool worker's import path so a tool
+module may use the wrapper; the core process is unchanged. The
+[second report](docs/implementation/analysis_integration_layer_20261101.md)
+has the sorted counts and the own-CSV run.
 

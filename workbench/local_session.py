@@ -115,7 +115,8 @@ class LocalRun:
         from build_support.freeze import freeze
         setup = Path(setup) if setup else SETUP
         name = name or time.strftime('%Y%m%d-%H%M%S') + '-local-' + uuid.uuid4().hex[:6]
-        run_dir = RUNS / name; require(not run_dir.exists(), 'RUN_EXISTS', name); (run_dir / 'state').mkdir(parents=True)
+        # The directory may already hold a setup/ written for this run; a bundle or state there means the run exists.
+        run_dir = RUNS / name; require(not (run_dir / 'bundle').exists() and not (run_dir / 'state').exists(), 'RUN_EXISTS', name); (run_dir / 'state').mkdir(parents=True)
         inventory = freeze(run_dir / 'bundle', setup)
         durable_write(run_dir / 'workbench.json', {'run': name, 'kind': 'local', 'created_ms': now_ms(), 'inventory_sha256': inventory, 'bundle': str((run_dir / 'bundle').relative_to(ROOT)), 'status': 'starting', 'labels': LABELS, 'charter_name': charter_name,
                                                    'setup': str(setup.resolve().relative_to(ROOT)) if setup.resolve().is_relative_to(ROOT) else str(setup.resolve())})

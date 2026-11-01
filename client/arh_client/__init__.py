@@ -7,6 +7,7 @@ Public, stable:
     Principal, Observer, startup
     HostControl
     langgraph_adapter (ExperimentSpec, build_research_graph, build_proposal_graph)
+    analysis (AnalysisResearcher, CandidateRule, host_tool, evaluator, persisted_keys)
 
 Internal helpers (may change): arh_client.protocol, arh_client.checking.evaluate,
 arh_client.research.invocation and event_ref, arh_client.principal.row_ratio.

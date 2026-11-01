@@ -122,7 +122,10 @@ class LocalHost:
         args=[sys.executable,'-m','adaptive_research_harness.local_host','--worker',mode,'--config',str(self.config_path)]
         if label:args+=['--label',label]
         log=open(self.state/(mode+'-'+str(label)+'.log'),'ab');self.logfiles.append(log)
-        proc=subprocess.Popen(args,cwd=self.root,env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1'),stdout=log,stderr=log)
+        env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1')
+        # A tool module the host runs may import the client (arh_client.analysis); the core process never does.
+        if mode=='tool':env['PYTHONPATH']=os.pathsep.join([str(self.root/'client')]+([os.environ['PYTHONPATH']] if os.environ.get('PYTHONPATH') else []))
+        proc=subprocess.Popen(args,cwd=self.root,env=env,stdout=log,stderr=log)
         with self.mutex:self.processes.append((mode,label,proc))
         return proc
     def start(self):

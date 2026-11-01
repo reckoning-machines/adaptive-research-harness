@@ -206,8 +206,11 @@ historical material.
 - A script run through ARH unchanged. `examples/signal_groups/` wraps a
   55-line CSV analysis, records the expectation first, lets earlier
   rejections hold candidates back until new rows arrive, and resumes an
-  interrupted attempt after the run is closed and reopened. A new example
-  on generated data, with its integration cost measured in the report.
+  interrupted attempt after the run is closed and reopened. The same
+  command line takes your own CSV, recorded as a historical document
+  with the origin you give. You write the analysis function, the
+  candidate table, the evaluation function and a setup description.
+  `arh_client.analysis` supplies the rest.
 
 The current prototype records research, checks calculations and preserves
 decisions. The broader design adds several capabilities that are not yet

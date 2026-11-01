@@ -1,6 +1,8 @@
-"""Run one design in its own process, with persisted keys and an optional crash point, so an interruption can be resumed.
+"""Run one design in its own process with persisted keys, so a killed run resumes rather than repeats.
 
 python3 -m examples.signal_groups.job --connection PATH --work DIR --design SEQ [--crash after_attempt|after_execution]
+
+--crash is a demonstration hook used by demo.py and the tests. Ordinary use never passes it.
 """
 from __future__ import annotations
 import argparse
@@ -8,15 +10,14 @@ import json
 import os
 import sys
 from pathlib import Path
-from arh_client import connect, Connection
+from arh_client import connect
+from arh_client.analysis import persisted_keys
 from examples.signal_groups.researcher import SignalResearcher
 
 
 def main(argv=None):
     p = argparse.ArgumentParser(); p.add_argument('--connection', required=True); p.add_argument('--work', required=True); p.add_argument('--design', type=int, required=True); p.add_argument('--crash', default=None); p.add_argument('--actor', default='AD-S1.0')
-    a = p.parse_args(argv); work = Path(a.work); work.mkdir(parents=True, exist_ok=True); keyfile = work / f'design-{a.design}.keys.json'
-    keys = json.loads(keyfile.read_text()) if keyfile.exists() else {k: Connection.new_key() for k in ('reserve', 'attempt', 'record', 'settle', 'close')}
-    if not keyfile.exists(): keyfile.write_text(json.dumps(keys))   # persisted before use: a re-run sends the same keys
+    a = p.parse_args(argv); keys = persisted_keys(Path(a.work) / f'design-{a.design}.keys.json')
     r = SignalResearcher(connect(a.connection, a.actor)); design = r.c.record('E', a.design)
     def hook(point):
         if a.crash == point: os._exit(137)

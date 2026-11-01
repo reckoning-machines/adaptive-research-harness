@@ -371,13 +371,14 @@ identical records. The page was not driven in a browser.
 Not in this path: the receipt time you declare is provenance, not a system
 clock. The independent reader covers the synthetic experiment only.
 
-## G. A script through ARH: the signal-groups example
+## G. A script through ARH, and your own CSV: the signal-groups example
 
 A new example, not an adopted workflow. A 55-line script,
 `examples/signal_groups/signal_groups.py`, compares a forward return across
 signal groups in a CSV. It runs on its own and knows nothing about ARH.
-The rest of the directory connects it. The data is generated and labelled
-synthetic.
+Four short files connect it, and the same files take your own table.
+`examples/signal_groups/README.md` lists exactly what a second analysis
+must supply.
 
 Run the script directly first.
 
@@ -385,11 +386,79 @@ Run the script directly first.
 python3 examples/signal_groups/signal_groups.py examples/signal_groups/data/signals.csv --signal mom_20 --outcome fwd_5d_bp --groups 3
 ```
 
-Then run the experience through ARH, from the repository root, with the
-client importable.
+### Your own CSV
+
+From the repository root, with the client importable. The columns must
+hold integers, basis points for the outcome.
 
 ```sh
-PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m examples.signal_groups
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m examples.signal_groups --csv my_table.csv --signal sig --outcome out_bp --expect ">= 30" --minimum-n 10 --origin "exported from my notebook on 2026-10-31"
+```
+
+The first line printed is the build identity of the bundle frozen for
+the run. Then, on a twelve-row table typed by hand:
+
+```
+Created run 20261101-120000-signal-own in 0.6 s; source declared historical; budget 100.00 units
+Imported my_table.csv as E22: 12 rows, class historical, sha256 f560f905d4607619, origin exported from my notebook on 2026-10-31
+Recorded design E23 under TH-S0 before any attempt: Does sig separate out_bp across 3 groups? Expectation: sig top group minus bottom group of out_bp >= 30 bp, min n 10
+Host ran the analysis, execution registered, settled True, record E26
+group  rows  signal range      mean bp   hit rate
+    1     4     -30 .. -15        -18.8    0.25
+    2     4     -10 .. 5            2.5    0.50
+    3     4      10 .. 25          32.5    1.00
+spread top minus bottom: 51.2 bp over 12 rows (0 skipped) | conclusion MET
+Candidates for the next investigation, by the declared rule:
+  other-horizon: Does the spread hold for a different outcome horizon? (One horizon is one view of the same signal.)
+  finer-groups: Is the spread carried by the extremes or spread across the ranking? (Terciles hide where the relation lives.)
+  placebo-signal: Does a signal that should carry nothing show a spread of the same size? (A spread the placebo also shows is not evidence for the signal.)
+Choose one: python3 -m examples.signal_groups --run 20261101-120000-signal-own --choose ID --reason "why" --next "the next question"
+```
+
+The run's source is declared historical, its setup is written into the
+run directory, and the file is recorded with its content hash and the
+origin you gave. The expectation is on the record as a design before
+any attempt. The host runs the analysis, the charge is settled, and the
+candidates come from the researcher's declared rule. Continue on the
+same run.
+
+```sh
+.venv/bin/python -m examples.signal_groups --run RUN --choose placebo-signal --reason "a spread the placebo shows too would mean nothing" --next "Does a column that should carry nothing show the same spread?"
+```
+
+```
+Recorded selection E29: placebo-signal; rejected other-horizon (until new_documents), finer-groups (until new_documents)
+Proposed TR-... as the next direction; independent check PASS
+Decide: python3 -m examples.signal_groups --run RUN --admit TR-...   or   --reject TR-... --reason "why"
+```
+
+```sh
+.venv/bin/python -m examples.signal_groups --run RUN --admit TR-... --reason "placebo first"
+```
+
+```
+TR-... admitted and applied: True; N = 6; direction now TH-S1
+```
+
+Then another design under the new direction, over every document in
+the run, with `--csv` to import more rows first and `--revises SEQ` to
+mark a revision, and `--run RUN` alone to show the run.
+
+```sh
+.venv/bin/python -m examples.signal_groups --run RUN --signal vol --outcome out_bp --expect "< 10"
+.venv/bin/python -m examples.signal_groups --run RUN
+```
+
+Each command opens the run, makes its records and closes it. A run that
+no longer reopens live, because the execution files or the environment
+changed, is reported read-only with the reason. The run is listed on the
+workbench page and opens on its local page like any local run. Records
+are under `artifacts/development/workbench/RUN/`.
+
+### The demonstration on generated data
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m examples.signal_groups.demo
 ```
 
 It prints the baseline, then each step: startup, the table imported with
@@ -405,35 +474,32 @@ line counts and timings. Expected ending:
 
 ```
   ok   interrupted attempt resumed without running again: execution registered, ...
-Lines: script 55 | connection 323 | runner 118
+Lines: script 55 | experiment-specific 69 | setup 49 | command line and job 177 | demonstration 157 | client analysis module 275
 Timings: {...}
 Result: PASS | new example on generated data; the calculation is the script's own; no forward standing.
 ```
 
-Records land under `artifacts/development/workbench/<stamp>-signal-groups/`
-and the run is listed on the workbench page, where it opens like any
-local run. The retained run `demo-20261101-signal-groups` is there.
-
-To run one design in its own process, with persisted keys so a re-run
-resumes rather than repeats, use the job command the runner uses:
+The retained run `demo-20261101-signal-groups` is under the workbench
+directory. To run one design in its own process with persisted keys, so
+a re-run resumes rather than repeats, use the job the demonstration uses:
 
 ```sh
 .venv/bin/python -m examples.signal_groups.job --connection <run>/state/connection.json --work <run>/work --design <design sequence>
 ```
 
-The setup files were written by `arh_client.setup.write_setup` from
-`examples/signal_groups/make_setup.py`, which supplies the grants, limits,
-theme, methods, provenance, identities and profile. The evaluator,
-`evaluator.py`, was written by hand. It re-runs the same script on the
-committed rows and checks the result, the conclusion, the order of design
-before attempt, the settlement and the candidate set against the declared
-rule. That is reproducibility and record integrity, not an independent
-check of the calculation.
+### What is whose
 
-Limits. The runner uses the example's generated data; running your own
-CSV needs a setup whose source is declared historical, which the generator
-can write but the runner does not yet take as a flag. Verified on
-2026-11-01 through the runner and its integration test.
+The experiment's decisions are `tool.py` (the analysis function),
+`candidates.py` (the table), `researcher.py` (the rule and the analysis
+kind) and `evaluator.py` (the recompute function), 69 lines together.
+`make_setup.py` is the setup description the generator writes the JSON
+from. `arh_client.analysis` holds the lifecycle, the candidate machinery,
+the host-tool wrapper and the evaluator's record checks. The evaluator
+checks reproducibility and record integrity, not the research method.
+
+Verified on 2026-11-01 through the demonstration, the command line on a
+hand-typed table and the integration test. A person following this path
+by hand was not timed.
 
 ## Refusals and errors
 
