@@ -1,6 +1,6 @@
 # Adaptive Research Harness
 
-An idea I think is right, carried far enough to run.
+An idea I think is right, carried far enough to run and test.
 
 Alpha decays, and so do the methods that find it. Investment teams need a
 research process that uses what worked and what failed to decide what to
@@ -15,7 +15,7 @@ As they test and revise those ideas, it becomes harder to tell whether a
 promising result will hold up or is simply the best-looking outcome of
 many attempts.
 
-Adaptive Research Harness, ARH, keeps track of what was tried, what it cost,
+Adaptive Research Harness (ARH) keeps track of what was tried, what it cost,
 what failed and why a conclusion was accepted. Researchers can use that
 history to choose what to investigate next, while separate checks govern
 which results become part of the accepted research.
@@ -26,7 +26,7 @@ what it has learned or quietly changing the rules for success.
 A backtest result is easier to judge when you can see how it was
 selected. What else was tried? Which assumptions changed after the results
 were seen? What evidence justified taking the idea further? ARH
-preserves that history for work run through it, alongside the checks and
+preserves that history alongside the checks and
 decisions.
 
 I have made the prototype public so other teams can try it with their own
