@@ -1,0 +1,15 @@
+test_declared_quarter_and_half_steps_complete (tests.integration.test_checker_steps.DeclaredCheckerSteps.test_declared_quarter_and_half_steps_complete) ... 
+  test_declared_quarter_and_half_steps_complete (tests.integration.test_checker_steps.DeclaredCheckerSteps.test_declared_quarter_and_half_steps_complete) (step='check-half') ... FAIL
+
+======================================================================
+FAIL: test_declared_quarter_and_half_steps_complete (tests.integration.test_checker_steps.DeclaredCheckerSteps.test_declared_quarter_and_half_steps_complete) (step='check-half')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/jedgore/dev/speedway/tests/integration/test_checker_steps.py", line 214, in test_declared_quarter_and_half_steps_complete
+    self.assertTrue(result.ok, result.raw)
+AssertionError: False is not true : {'detail': '', 'reason': 'UNFUNDED_CHECK', 'refs': [{'ledger': 'T', 'sequence': 11, 'sha256': 'de52480d08d03ba17ba1d1183d588f36273b955bfb67ce01a65a4f2c40757d55'}], 'status': 'REFUSED'}
+
+----------------------------------------------------------------------
+Ran 1 test in 0.715s
+
+FAILED (failures=1)

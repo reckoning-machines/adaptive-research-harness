@@ -1,0 +1,699 @@
+[
+  {
+    "independent_checker_worker": {
+      "actor": "AD-CK-RV31.0",
+      "amount": "0.25",
+      "attempt": {
+        "ledger": "E",
+        "sequence": 2,
+        "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+      },
+      "body": {
+        "attempt": 2,
+        "base": 0,
+        "closure": {
+          "E": 2,
+          "F": "N/A \u2014 no Paper Book",
+          "N": 0,
+          "time_ms": 1793232000000
+        },
+        "constitution": 1,
+        "context": {
+          "checker": {
+            "design": "AD-CK-RV31.0",
+            "grant": "AU-CK-RV3",
+            "identity": "AD-CK-RV31.0",
+            "provenance": {
+              "execution_kind": "deterministic synthetic program",
+              "model": null,
+              "model_version": null,
+              "not_applicable_reason": "Deterministic program; no trained model or model provider is invoked; no diversity claim.",
+              "provider": null,
+              "spec_version": "generated-design-v1",
+              "training_cutoff": null
+            }
+          },
+          "class": "AUTHORIZATION",
+          "classification": "Synthetic Historical Reconstruction; authored knowing the period",
+          "funding": {
+            "checker_attempt": 2,
+            "proposer": "N/A",
+            "separate": true
+          },
+          "proposal": {
+            "ledger": "T",
+            "sequence": 4,
+            "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+          },
+          "proposer": {
+            "authority": "Principal",
+            "identity": "Principal",
+            "provenance": null
+          },
+          "provider_exception": "A1 synthetic-only; no provider provenance claimed",
+          "subject": "AU-OBS-RV3"
+        },
+        "criteria": {
+          "authority": {
+            "reason": "Direct Principal control or active exact proposer grant at closure",
+            "refs": [
+              {
+                "ledger": "T",
+                "sequence": 4,
+                "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+              },
+              {
+                "ledger": "T",
+                "sequence": 3,
+                "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+              },
+              {
+                "ledger": "E",
+                "sequence": 1,
+                "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+              },
+              {
+                "ledger": "E",
+                "sequence": 2,
+                "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+              }
+            ],
+            "status": "MET"
+          },
+          "closure": {
+            "reason": "Exact committed closure; authored knowing the period; synthetic history earns no forward standing",
+            "refs": [
+              {
+                "ledger": "T",
+                "sequence": 4,
+                "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+              },
+              {
+                "ledger": "T",
+                "sequence": 3,
+                "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+              },
+              {
+                "ledger": "E",
+                "sequence": 1,
+                "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+              },
+              {
+                "ledger": "E",
+                "sequence": 2,
+                "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+              }
+            ],
+            "status": "MET"
+          },
+          "current_base": {
+            "reason": "Checked base is the authoritative head",
+            "refs": [
+              {
+                "ledger": "T",
+                "sequence": 4,
+                "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+              },
+              {
+                "ledger": "T",
+                "sequence": 3,
+                "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+              },
+              {
+                "ledger": "E",
+                "sequence": 1,
+                "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+              },
+              {
+                "ledger": "E",
+                "sequence": 2,
+                "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+              }
+            ],
+            "status": "MET"
+          },
+          "funding": {
+            "reason": "N/A for Principal; otherwise literal named open/unfenced reservation, amount and purpose; Checker cost separate",
+            "refs": [
+              {
+                "ledger": "T",
+                "sequence": 4,
+                "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+              },
+              {
+                "ledger": "T",
+                "sequence": 3,
+                "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+              },
+              {
+                "ledger": "E",
+                "sequence": 1,
+                "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+              },
+              {
+                "ledger": "E",
+                "sequence": 2,
+                "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+              }
+            ],
+            "status": "MET"
+          },
+          "grant_content": {
+            "reason": "All grant fields, registered grantees, synthetic scope and applicable funding fields evaluated",
+            "refs": [
+              {
+                "ledger": "T",
+                "sequence": 4,
+                "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+              },
+              {
+                "ledger": "T",
+                "sequence": 3,
+                "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+              },
+              {
+                "ledger": "E",
+                "sequence": 1,
+                "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+              },
+              {
+                "ledger": "E",
+                "sequence": 2,
+                "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+              }
+            ],
+            "status": "MET"
+          },
+          "independence": {
+            "reason": "Separate eligible CHECKER lineage/grant; protected CV1; A1 no-model provenance; own-subject restrictions",
+            "refs": [
+              {
+                "ledger": "T",
+                "sequence": 4,
+                "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+              },
+              {
+                "ledger": "T",
+                "sequence": 3,
+                "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+              },
+              {
+                "ledger": "E",
+                "sequence": 1,
+                "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+              },
+              {
+                "ledger": "E",
+                "sequence": 2,
+                "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+              }
+            ],
+            "status": "MET"
+          },
+          "prior_fence": {
+            "reason": "Exact predecessor and prior Principal fence for Research/Checker supersession/revocation",
+            "refs": [
+              {
+                "ledger": "T",
+                "sequence": 4,
+                "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+              },
+              {
+                "ledger": "T",
+                "sequence": 3,
+                "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+              },
+              {
+                "ledger": "E",
+                "sequence": 1,
+                "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+              },
+              {
+                "ledger": "E",
+                "sequence": 2,
+                "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+              }
+            ],
+            "status": "MET"
+          },
+          "registration_difference": {
+            "reason": "Concrete instruction/question/tool difference; IDs alone do not supply a difference",
+            "refs": [
+              {
+                "ledger": "T",
+                "sequence": 4,
+                "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+              },
+              {
+                "ledger": "T",
+                "sequence": 3,
+                "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+              },
+              {
+                "ledger": "E",
+                "sequence": 1,
+                "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+              },
+              {
+                "ledger": "E",
+                "sequence": 2,
+                "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+              }
+            ],
+            "status": "MET"
+          },
+          "source_declarations": {
+            "reason": "Source meanings, revisions, grace, extraction and feed completeness; synthetic sources declare enumeration",
+            "refs": [
+              {
+                "ledger": "T",
+                "sequence": 4,
+                "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+              },
+              {
+                "ledger": "T",
+                "sequence": 3,
+                "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+              },
+              {
+                "ledger": "E",
+                "sequence": 1,
+                "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+              },
+              {
+                "ledger": "E",
+                "sequence": 2,
+                "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+              }
+            ],
+            "status": "MET"
+          },
+          "tool_permissions": {
+            "reason": "Own declared capped synthetic tools only, no foreign-grant tool consumption",
+            "refs": [
+              {
+                "ledger": "T",
+                "sequence": 4,
+                "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+              },
+              {
+                "ledger": "T",
+                "sequence": 3,
+                "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+              },
+              {
+                "ledger": "E",
+                "sequence": 1,
+                "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+              },
+              {
+                "ledger": "E",
+                "sequence": 2,
+                "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+              }
+            ],
+            "status": "MET"
+          }
+        },
+        "es": "ES-1.0",
+        "grant": "AU-CK-RV3",
+        "provenance": {
+          "execution_kind": "deterministic synthetic program",
+          "model": null,
+          "model_version": null,
+          "not_applicable_reason": "Deterministic program; no trained model or model provider is invoked; no diversity claim.",
+          "provider": null,
+          "spec_version": "generated-design-v1",
+          "training_cutoff": null
+        },
+        "result": "PASS",
+        "transition_id": "BOOT-OBSERVATION"
+      },
+      "pid": 22963,
+      "receipt": {
+        "actual": "0.25",
+        "attempt": 2,
+        "error": null,
+        "input_hash": "301d8145f88f172ac6d86df7d15fef2ed8390a0dd0bfe734ffb0b197c4bda29b",
+        "result": {
+          "attempt": 2,
+          "base": 0,
+          "closure": {
+            "E": 2,
+            "F": "N/A \u2014 no Paper Book",
+            "N": 0,
+            "time_ms": 1793232000000
+          },
+          "constitution": 1,
+          "context": {
+            "checker": {
+              "design": "AD-CK-RV31.0",
+              "grant": "AU-CK-RV3",
+              "identity": "AD-CK-RV31.0",
+              "provenance": {
+                "execution_kind": "deterministic synthetic program",
+                "model": null,
+                "model_version": null,
+                "not_applicable_reason": "Deterministic program; no trained model or model provider is invoked; no diversity claim.",
+                "provider": null,
+                "spec_version": "generated-design-v1",
+                "training_cutoff": null
+              }
+            },
+            "class": "AUTHORIZATION",
+            "classification": "Synthetic Historical Reconstruction; authored knowing the period",
+            "funding": {
+              "checker_attempt": 2,
+              "proposer": "N/A",
+              "separate": true
+            },
+            "proposal": {
+              "ledger": "T",
+              "sequence": 4,
+              "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+            },
+            "proposer": {
+              "authority": "Principal",
+              "identity": "Principal",
+              "provenance": null
+            },
+            "provider_exception": "A1 synthetic-only; no provider provenance claimed",
+            "subject": "AU-OBS-RV3"
+          },
+          "criteria": {
+            "authority": {
+              "reason": "Direct Principal control or active exact proposer grant at closure",
+              "refs": [
+                {
+                  "ledger": "T",
+                  "sequence": 4,
+                  "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+                },
+                {
+                  "ledger": "T",
+                  "sequence": 3,
+                  "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 1,
+                  "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 2,
+                  "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+                }
+              ],
+              "status": "MET"
+            },
+            "closure": {
+              "reason": "Exact committed closure; authored knowing the period; synthetic history earns no forward standing",
+              "refs": [
+                {
+                  "ledger": "T",
+                  "sequence": 4,
+                  "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+                },
+                {
+                  "ledger": "T",
+                  "sequence": 3,
+                  "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 1,
+                  "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 2,
+                  "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+                }
+              ],
+              "status": "MET"
+            },
+            "current_base": {
+              "reason": "Checked base is the authoritative head",
+              "refs": [
+                {
+                  "ledger": "T",
+                  "sequence": 4,
+                  "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+                },
+                {
+                  "ledger": "T",
+                  "sequence": 3,
+                  "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 1,
+                  "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 2,
+                  "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+                }
+              ],
+              "status": "MET"
+            },
+            "funding": {
+              "reason": "N/A for Principal; otherwise literal named open/unfenced reservation, amount and purpose; Checker cost separate",
+              "refs": [
+                {
+                  "ledger": "T",
+                  "sequence": 4,
+                  "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+                },
+                {
+                  "ledger": "T",
+                  "sequence": 3,
+                  "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 1,
+                  "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 2,
+                  "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+                }
+              ],
+              "status": "MET"
+            },
+            "grant_content": {
+              "reason": "All grant fields, registered grantees, synthetic scope and applicable funding fields evaluated",
+              "refs": [
+                {
+                  "ledger": "T",
+                  "sequence": 4,
+                  "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+                },
+                {
+                  "ledger": "T",
+                  "sequence": 3,
+                  "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 1,
+                  "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 2,
+                  "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+                }
+              ],
+              "status": "MET"
+            },
+            "independence": {
+              "reason": "Separate eligible CHECKER lineage/grant; protected CV1; A1 no-model provenance; own-subject restrictions",
+              "refs": [
+                {
+                  "ledger": "T",
+                  "sequence": 4,
+                  "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+                },
+                {
+                  "ledger": "T",
+                  "sequence": 3,
+                  "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 1,
+                  "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 2,
+                  "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+                }
+              ],
+              "status": "MET"
+            },
+            "prior_fence": {
+              "reason": "Exact predecessor and prior Principal fence for Research/Checker supersession/revocation",
+              "refs": [
+                {
+                  "ledger": "T",
+                  "sequence": 4,
+                  "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+                },
+                {
+                  "ledger": "T",
+                  "sequence": 3,
+                  "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 1,
+                  "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 2,
+                  "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+                }
+              ],
+              "status": "MET"
+            },
+            "registration_difference": {
+              "reason": "Concrete instruction/question/tool difference; IDs alone do not supply a difference",
+              "refs": [
+                {
+                  "ledger": "T",
+                  "sequence": 4,
+                  "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+                },
+                {
+                  "ledger": "T",
+                  "sequence": 3,
+                  "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 1,
+                  "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 2,
+                  "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+                }
+              ],
+              "status": "MET"
+            },
+            "source_declarations": {
+              "reason": "Source meanings, revisions, grace, extraction and feed completeness; synthetic sources declare enumeration",
+              "refs": [
+                {
+                  "ledger": "T",
+                  "sequence": 4,
+                  "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+                },
+                {
+                  "ledger": "T",
+                  "sequence": 3,
+                  "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 1,
+                  "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 2,
+                  "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+                }
+              ],
+              "status": "MET"
+            },
+            "tool_permissions": {
+              "reason": "Own declared capped synthetic tools only, no foreign-grant tool consumption",
+              "refs": [
+                {
+                  "ledger": "T",
+                  "sequence": 4,
+                  "sha256": "6406780dc69bf19415ff59ccc7ed14b4d30a9e4dea7636efc48323d6517b197b"
+                },
+                {
+                  "ledger": "T",
+                  "sequence": 3,
+                  "sha256": "940771c7d56b9ef7ec882229d882a200318e50b4d88518a853a615d2f00cf819"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 1,
+                  "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+                },
+                {
+                  "ledger": "E",
+                  "sequence": 2,
+                  "sha256": "aafebce2df9f6696a30e954145d77f8a351bcf6200ed986e5f8c0823df33704f"
+                }
+              ],
+              "status": "MET"
+            }
+          },
+          "es": "ES-1.0",
+          "grant": "AU-CK-RV3",
+          "provenance": {
+            "execution_kind": "deterministic synthetic program",
+            "model": null,
+            "model_version": null,
+            "not_applicable_reason": "Deterministic program; no trained model or model provider is invoked; no diversity claim.",
+            "provider": null,
+            "spec_version": "generated-design-v1",
+            "training_cutoff": null
+          },
+          "result": "PASS",
+          "transition_id": "BOOT-OBSERVATION"
+        },
+        "synthetic": true,
+        "tool_id": "CHECK-RV3-1"
+      },
+      "reservation": {
+        "ledger": "E",
+        "sequence": 1,
+        "sha256": "c3860a8c7be2638a1102ca2520364b22f35257923494eccc24f273aa2bfa1568"
+      }
+    }
+  },
+  {
+    "actor": "AD-CK-RV31.0",
+    "command": "check-commit",
+    "response": {
+      "refs": [
+        {
+          "ledger": "T",
+          "sequence": 5,
+          "sha256": "2961be6e4fea8559caab5db3a57ba30fc1becfd822486434f5e46c62f8535678"
+        }
+      ],
+      "status": "COMMITTED"
+    }
+  },
+  {
+    "actor": "AD-CK-RV31.0",
+    "command": "check-commit",
+    "response": {
+      "detail": "",
+      "reason": "UNFUNDED_CHECK",
+      "refs": [
+        {
+          "ledger": "T",
+          "sequence": 9,
+          "sha256": "02d621768121609f9d20faa877a348b449a8f189caac55c49f01f689d4e18d83"
+        }
+      ],
+      "status": "REFUSED"
+    }
+  }
+]

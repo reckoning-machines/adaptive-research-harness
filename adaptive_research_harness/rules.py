@@ -249,7 +249,13 @@ class Rules:
                 type(closure['E']) is int and closure['E'] <= (v.E or 0), 'INVALID_CLOSURE')
         require(type(closure['time_ms']) is int and closure['time_ms'] <= now, 'INVALID_CLOSURE')
         a = v.attempts.get(b['attempt']); require(a is not None and a['actor'] == actor and
-             a['body']['grant'] == b['grant'] and a['body']['step'] == 'check-transition', 'UNFUNDED_CHECK')
+             a['body']['grant'] == b['grant'], 'UNFUNDED_CHECK')
+        # A Check must use an admitted, declared check step, not a reserved name.
+        step = self.profile.experiment.step(a['body']['step'])
+        require(step is not None and step['kind'] == 'check' and
+                a['body']['input']['step'] == step['name'] and
+                a['body']['input']['tool_id'] in step['tools'] and
+                units(a['body']['maximum']) == units(step['maximum']), 'UNFUNDED_CHECK')
         r = v.reservations[a['body']['reservation']]
         require(r['body']['purpose'] == {'kind':'Check','id':b['transition_id']}, 'UNFUNDED_CHECK')
         require(a['seq'] <= closure['E'], 'INVALID_CLOSURE')

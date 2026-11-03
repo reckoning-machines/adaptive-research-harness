@@ -1,0 +1,40 @@
+{
+  "ExperimentId": "SYN-FLOW-1",
+  "version": 1,
+  "description": "The admitted first synthetic cycle: spike and selling counts on a daily synthetic cohort. Every value here was a literal in enforcement code before 2026-11-01; moving it here changes no behaviour.",
+  "genesis": {"design": "AD-CK-1.0", "grant": "AU-CK-A"},
+  "steps": [
+    {"name": "research-counts", "kind": "research", "tools": ["SYN-A-1"],
+     "inputs": {"count": 1, "kind": "OBSERVATION", "form": "DOCUMENT"},
+     "parameters": {"threshold": 2}, "input_limit_bytes": 16777216,
+     "tariff": {"measure": "rows", "limit": 4096, "bands": [{"up_to": 1024, "maximum": "1.00"}, {"up_to": 4096, "maximum": "2.00"}]}},
+    {"name": "replacement-counts", "kind": "research", "tools": ["SYN-B-1"],
+     "inputs": {"count": 1, "kind": "OBSERVATION", "form": "DOCUMENT"},
+     "parameters": {"threshold": 2}, "input_limit_bytes": 16777216,
+     "tariff": {"measure": "rows", "limit": 4096, "bands": [{"up_to": 1024, "maximum": "1.00"}, {"up_to": 4096, "maximum": "2.00"}]}},
+    {"name": "verification-candidate", "kind": "research", "tools": [],
+     "inputs": {"count": 1, "kind": "OBSERVATION", "form": "DOCUMENT"},
+     "parameters": {"threshold": 2}, "input_limit_bytes": 16777216,
+     "tariff": {"measure": "rows", "limit": 4096, "bands": [{"up_to": 1024, "maximum": "1.00"}, {"up_to": 4096, "maximum": "2.00"}]}},
+    {"name": "check-transition", "kind": "check", "tools": ["CHECK-A-1", "CHECK-B-1"], "maximum": "0.25"}
+  ],
+  "tools": {
+    "SYN-A-1": {"execution": "core", "module": "adaptive_research_harness.tools_a", "callable": "calculate", "label": "tool-a", "uid": 20101, "provider_work": "ends_with_caller"},
+    "SYN-B-1": {"execution": "core", "module": "adaptive_research_harness.tools_b", "callable": "calculate", "label": "tool-b", "uid": 20102, "provider_work": "ends_with_caller"},
+    "CHECK-A-1": {"execution": "caller", "module": "adaptive_research_harness.checkers.a", "callable": "evaluate", "label": "check-a", "provider_work": "ends_with_caller"},
+    "CHECK-B-1": {"execution": "caller", "module": "adaptive_research_harness.checkers.b", "callable": "evaluate", "label": "check-b", "provider_work": "ends_with_caller"}
+  },
+  "sources": {
+    "SRC-SYN": {
+      "period_ms": 86400000,
+      "item_id": {"prefix": "cohort-"},
+      "window": {"start": "2026-10-28T00:00:00.000Z", "end": "2027-04-30T00:00:00.000Z"},
+      "document": {"synthetic": true, "max_bytes": 16777216},
+      "extraction": {"validator": "row-ratio",
+                     "row_fields": {"event_id": "str", "size_units": "int", "spike": "bool", "selling": "bool"},
+                     "unique": "event_id",
+                     "denominator": [{"field": "spike", "equals": true}, {"field": "size_units", "at_least": 2}],
+                     "numerator": [{"field": "selling", "equals": true}]}
+    }
+  }
+}

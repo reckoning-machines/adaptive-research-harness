@@ -1,0 +1,368 @@
+{
+ "cohorts": {
+  "control-survives": {
+   "content": {
+    "claimed_publication_time": "2026-10-29T00:00:00.000Z",
+    "item_id": "cohort-2026-10-28",
+    "period_end": "2026-10-29T00:00:00.000Z",
+    "period_start": "2026-10-28T00:00:00.000Z",
+    "rows": [
+     {
+      "event_id": "e01",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s01",
+      "size_units": 2,
+      "spike": true
+     },
+     {
+      "event_id": "e02",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s01",
+      "size_units": 2,
+      "spike": true
+     },
+     {
+      "event_id": "e03",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s02",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e04",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s02",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e05",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s03",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e06",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s03",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e07",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s04",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e08",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s04",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e09",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s05",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e10",
+      "exposure_id": "SYN-EQUITY",
+      "selling": false,
+      "shock_id": "s05",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e11",
+      "exposure_id": "SYN-EQUITY",
+      "selling": false,
+      "shock_id": "s06",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e12",
+      "exposure_id": "SYN-EQUITY",
+      "selling": false,
+      "shock_id": "s06",
+      "size_units": 1,
+      "spike": true
+     }
+    ],
+    "source": "SRC-SYN",
+    "synthetic": true,
+    "variant": {
+     "edits": {
+      "e09": {
+       "selling": true
+      }
+     },
+     "name": "control-survives",
+     "of_content_sha256": "8a8f2de6b90e4334374561c92bee496d5c5156c664ce234f604bc99be9855729",
+     "of_item": "cohort-2026-10-28",
+     "standing": "Declared synthetic variant of the formation cohort: the same SRC-SYN item with different bytes. It is a separate Observation, not independent corroboration of the formation cohort and not a replacement of it. The formation Observation remains on the ledger unchanged."
+    }
+   },
+   "description": "Original shock structure, with selling true on e09 as well. Seven of ten non-large rows show selling, so the broad claim survives its within-cohort diagnostic.",
+   "differs_from_formation": {
+    "e09": {
+     "selling": true
+    }
+   },
+   "expected_path": "complement-control"
+  },
+  "independent-shocks": {
+   "content": {
+    "claimed_publication_time": "2026-10-29T00:00:00.000Z",
+    "item_id": "cohort-2026-10-28",
+    "period_end": "2026-10-29T00:00:00.000Z",
+    "period_start": "2026-10-28T00:00:00.000Z",
+    "rows": [
+     {
+      "event_id": "e01",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s01",
+      "size_units": 2,
+      "spike": true
+     },
+     {
+      "event_id": "e02",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s07",
+      "size_units": 2,
+      "spike": true
+     },
+     {
+      "event_id": "e03",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s02",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e04",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s02",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e05",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s03",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e06",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s03",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e07",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s04",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e08",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s04",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e09",
+      "exposure_id": "SYN-EQUITY",
+      "selling": false,
+      "shock_id": "s05",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e10",
+      "exposure_id": "SYN-EQUITY",
+      "selling": false,
+      "shock_id": "s05",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e11",
+      "exposure_id": "SYN-EQUITY",
+      "selling": false,
+      "shock_id": "s06",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e12",
+      "exposure_id": "SYN-EQUITY",
+      "selling": false,
+      "shock_id": "s06",
+      "size_units": 1,
+      "spike": true
+     }
+    ],
+    "source": "SRC-SYN",
+    "synthetic": true,
+    "variant": {
+     "edits": {
+      "e02": {
+       "shock_id": "s07"
+      }
+     },
+     "name": "independent-shocks",
+     "of_content_sha256": "8a8f2de6b90e4334374561c92bee496d5c5156c664ce234f604bc99be9855729",
+     "of_item": "cohort-2026-10-28",
+     "standing": "Declared synthetic variant of the formation cohort: the same SRC-SYN item with different bytes. It is a separate Observation, not independent corroboration of the formation cohort and not a replacement of it. The formation Observation remains on the ledger unchanged."
+    }
+   },
+   "description": "Same rows, except the second large event e02 carries its own shock s07. The large events are now independent repetitions.",
+   "differs_from_formation": {
+    "e02": {
+     "shock_id": "s07"
+    }
+   },
+   "expected_path": "independent-reproduction"
+  },
+  "original": {
+   "content": {
+    "claimed_publication_time": "2026-10-29T00:00:00.000Z",
+    "item_id": "cohort-2026-10-28",
+    "period_end": "2026-10-29T00:00:00.000Z",
+    "period_start": "2026-10-28T00:00:00.000Z",
+    "rows": [
+     {
+      "event_id": "e01",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s01",
+      "size_units": 2,
+      "spike": true
+     },
+     {
+      "event_id": "e02",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s01",
+      "size_units": 2,
+      "spike": true
+     },
+     {
+      "event_id": "e03",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s02",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e04",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s02",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e05",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s03",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e06",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s03",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e07",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s04",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e08",
+      "exposure_id": "SYN-EQUITY",
+      "selling": true,
+      "shock_id": "s04",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e09",
+      "exposure_id": "SYN-EQUITY",
+      "selling": false,
+      "shock_id": "s05",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e10",
+      "exposure_id": "SYN-EQUITY",
+      "selling": false,
+      "shock_id": "s05",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e11",
+      "exposure_id": "SYN-EQUITY",
+      "selling": false,
+      "shock_id": "s06",
+      "size_units": 1,
+      "spike": true
+     },
+     {
+      "event_id": "e12",
+      "exposure_id": "SYN-EQUITY",
+      "selling": false,
+      "shock_id": "s06",
+      "size_units": 1,
+      "spike": true
+     }
+    ],
+    "source": "SRC-SYN",
+    "synthetic": true
+   },
+   "description": "The admitted 12-row synthetic cohort. Both large events (e01, e02) come from one shock, s01.",
+   "differs_from_formation": null,
+   "expected_path": "complement-control"
+  }
+ },
+ "status": "SYNTHETIC COHORT CATALOG. original equals the admitted formation cohort byte for byte. Each variant is a declared synthetic Observation of the same SRC-SYN item cohort-2026-10-28 with different bytes, carries its own name, edits and the formation content hash inside the document, and is neither independent corroboration nor a replacement of the formation Observation. Nothing here is market data."
+}

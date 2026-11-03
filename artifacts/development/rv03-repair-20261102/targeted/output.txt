@@ -1,0 +1,11 @@
+test_declared_quarter_and_half_steps_complete (tests.integration.test_checker_steps.DeclaredCheckerSteps.test_declared_quarter_and_half_steps_complete) ... ok
+test_invalid_funding_and_transition_scope_refuse (tests.integration.test_checker_steps.DeclaredCheckerSteps.test_invalid_funding_and_transition_scope_refuse) ... ok
+test_lost_check_and_settlement_responses_reopen_and_replay_once (tests.integration.test_checker_steps.DeclaredCheckerSteps.test_lost_check_and_settlement_responses_reopen_and_replay_once) ... ok
+test_non_checker_step_cannot_be_committed_as_check (tests.integration.test_checker_steps.DeclaredCheckerSteps.test_non_checker_step_cannot_be_committed_as_check) ... ok
+test_unauthorized_actors_and_receipt_reuse_refuse (tests.integration.test_checker_steps.DeclaredCheckerSteps.test_unauthorized_actors_and_receipt_reuse_refuse) ... ok
+test_undeclared_steps_and_mismatched_maxima_refuse (tests.integration.test_checker_steps.DeclaredCheckerSteps.test_undeclared_steps_and_mismatched_maxima_refuse) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 4.094s
+
+OK

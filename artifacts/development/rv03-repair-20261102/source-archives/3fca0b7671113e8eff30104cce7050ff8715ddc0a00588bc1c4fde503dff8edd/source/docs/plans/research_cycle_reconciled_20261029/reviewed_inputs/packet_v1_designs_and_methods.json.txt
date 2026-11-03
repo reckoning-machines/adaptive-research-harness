@@ -1,0 +1,888 @@
+{
+  "status": "PROPOSED_SETUP_CONTENT_NOT_IMPLEMENTATION",
+  "methods": {
+    "MC-RESEARCH-1": {
+      "content": {
+        "version": 1,
+        "meaning": "Contribution report only; no standing or grant changes.",
+        "forward_contribution": "Count distinct registrations with their own finalized forward Outcomes; synthetic count is zero. Divide count by settled actual research units; zero denominator reports NOT_ESTIMABLE.",
+        "negative_contribution": "Count distinct declared questions closed by an explicit negative Research Record, deduplicated by the question text and immutable closure; report separately, not added to forward contribution.",
+        "screening": "Report completed and missing screens against declared SRC-SYN cadence, per lineage and day.",
+        "selection": "For each SELECTION record report actual settled cost minus estimated cost; UNESTIMATED remains neutral. Count unresolved selections separately.",
+        "limits": "No profitability credit; no strategy fitness transfer; no statistical claim from the synthetic counts."
+      },
+      "content_sha256": "025d2e3e48afabbca8d6d5d9fad85cfd7b27d06f3a2f0a3f9541727ae02fca1f"
+    },
+    "MC-CHECKER-1": {
+      "content": {
+        "version": 1,
+        "meaning": "Verification contribution, not permission.",
+        "measure": "For Checks in the lineage report counts of defects later established in passed subjects and refusals later shown unwarranted, with exact later record references; count unknown outcomes separately. Divide each count by settled actual Checker units; zero denominator NOT_ESTIMABLE.",
+        "limits": "Absence of a later defect finding is not proof of correctness; no automatic revocation or promotion."
+      },
+      "content_sha256": "728609d6c534ffd5bae0dc52e05144ce5b36c7ebb79ef004d2477f35e70a9797"
+    },
+    "MC-HYPOTHESIS-1": {
+      "content": {
+        "version": 1,
+        "scoring": "Binary target; hit = 1 when prediction equals resolved binary target, otherwise 0; tolerance 0. Report hits/raw finalized Outcomes.",
+        "effective_observations": "Construct undirected edges for shared shock_id, shared exposure_id or overlapping scoring intervals; N_eff is the number of connected components, never greater than N_raw. Missing dependence fields => NOT_ESTIMABLE.",
+        "predictive_check": "Before each future scoring window, commit independent Bernoulli(p=2/3) as a working predictive model for a positive target. Predictive support for k successes in n effective clusters is exact Binomial(n,2/3). Use equal-tail central 0.95 interval: smallest k with cumulative mass >=0.025 and smallest k with cumulative mass >=0.975. Declare dependence not captured by clustering unresolved.",
+        "stopping_rule": "Review after 12 effective finalized forward Outcomes; no standing conclusion before CV1 floor or from synthetic/historical records. At 24 effective forward Outcomes end this experiment and request a checked review; no automatic standing transition.",
+        "falsifier": "Registered directional success probability p>=2/3 is contradicted only if the exact one-sided Binomial(n,2/3) lower-tail probability of observed successes is <=0.05 after the stopping floor and family adjustment. Support requires an independently justified evaluation; positive synthetic examples never supply it.",
+        "multiplicity": "For the family, compare the nominal one-sided p-value to 0.05/T_total; T_total counts every recorded trial, not just forward ones. Missing family reconciliation => no standing recommendation.",
+        "limits": "Methods are declared illustrative scientific choices, not constitutional constants; evaluator execution and standing decisions are outside this milestone."
+      },
+      "content_sha256": "904bd26e133553fb52f106228aec5e5a9a5ce62ae52e2710cb6fa6ab99343c0e"
+    }
+  },
+  "tools": {
+    "SYN-A-1": {
+      "content": {
+        "kind": "deterministic synthetic research calculator",
+        "version": 1,
+        "inputs": "Exact canonical cohort DOCUMENT bytes from committed closure; row limit 4096; byte limit 16777216.",
+        "algorithm": "Read rows in stored order; require unique event_id, boolean spike/selling, size_units integer 0..10. Count spike rows n, spike-and-selling rows k, spike rows with size_units>=2 as n_large, and their selling rows k_large. Return those four integers, input SHA-256 and synthetic=true. Do not emit approval or standing.",
+        "failure": "Invalid shape or configured AFTER_START_FAILURE returns failure with diagnostic and fixed simulated charge; no result counts.",
+        "cost": "1.00 unit for at most 1024 rows; 2.00 units for 1025..4096 rows; same charge on an after-start failure; unsupported size refused before attempt/dispatch."
+      },
+      "content_sha256": "0ff927f76d0efcf762793e8760840c38c034ccebf5ba388adf3c55a089103ca1"
+    },
+    "SYN-B-1": {
+      "content": {
+        "kind": "deterministic synthetic research calculator",
+        "version": 1,
+        "inputs": "Same cohort contract as SYN-A-1.",
+        "algorithm": "Independently build sets of event_id satisfying each predicate and count set cardinalities. Produce the same four count fields and input SHA-256 as SYN-A-1. Do not call SYN-A-1 or use its result.",
+        "failure": "Same input/failure contract as SYN-A-1.",
+        "cost": "Same cost rule as SYN-A-1."
+      },
+      "content_sha256": "d858082f29a609ba0ed7b734ea5a65fbc4815e59f6d71ba5a7102db3341eb791"
+    },
+    "CHECK-A-1": {
+      "content": {
+        "kind": "deterministic Checker",
+        "version": 1,
+        "algorithm": "Implement checker_contract.md using direct replay and criterion-by-criterion evaluation from committed closures. Recompute research counts directly from input rows without importing researcher tool or admission predicate functions.",
+        "cost": "0.25 units per full Check attempt including a failing or operationally incomplete Check; zero external billing.",
+        "input_limit_bytes": 33554432
+      },
+      "content_sha256": "b1bfc6149a390ad73d935d1971408427f55a02f706a253655dfeba4eaaa15ae3"
+    },
+    "CHECK-B-1": {
+      "content": {
+        "kind": "deterministic Checker",
+        "version": 1,
+        "algorithm": "Implement checker_contract.md independently using set-based membership and grant reconstruction and independent sum-based accounting. Read committed records; do not import CHECK-A-1, researcher tool or core admission predicate implementations.",
+        "cost": "0.25 units per full Check attempt including a failing or operationally incomplete Check; zero external billing.",
+        "input_limit_bytes": 33554432
+      },
+      "content_sha256": "a9fb3c07f449dd58645ad17a94a72528cc5955210fef8569ba90dbb4bd710bc4"
+    }
+  },
+  "designs": [
+    {
+      "content": {
+        "AgentDesignVersionId": "AD-R1.0",
+        "AgentDesignLineageId": "AD-R1",
+        "predecessor": null,
+        "method_class": "RESEARCH",
+        "provenance": {
+          "execution_kind": "deterministic synthetic program",
+          "provider": null,
+          "model": null,
+          "model_version": null,
+          "training_cutoff": null,
+          "not_applicable_reason": "No trained model or model provider is invoked; no diversity claim.",
+          "spec_version": "synthetic-design-v1"
+        },
+        "instructions": "Read only committed closure. Ask the declared question, request a lawful reservation, pre-record each attempt, invoke a permitted synthetic tool, preserve result or failure and settle explicit simulated cost. Propose an immutable hypothesis with complete selection and method content when research motivates it. Never check/admit a proposal, change a standard, grant permission, commit a Market Observation, or claim synthetic forward standing. Preserve all failures and predecessor history.",
+        "tool_specs": {
+          "SYN-A-1": "0ff927f76d0efcf762793e8760840c38c034ccebf5ba388adf3c55a089103ca1",
+          "SYN-B-1": "d858082f29a609ba0ed7b734ea5a65fbc4815e59f6d71ba5a7102db3341eb791"
+        },
+        "evaluation_inputs": [
+          "own Research Records",
+          "own committed Outcomes if any",
+          "lineage records",
+          "active grant and population",
+          "declared source observations"
+        ],
+        "proposable_outputs": [
+          "Hypothesis registration",
+          "Agent Design successor registration without grant request",
+          "Theme registration within scope"
+        ],
+        "evidence_outputs": [
+          "plain Research Record",
+          "SCREEN",
+          "EXPERIMENT DESIGN",
+          "SELECTION"
+        ],
+        "initial_method": {
+          "id": "MC-RESEARCH-1",
+          "sha256": "025d2e3e48afabbca8d6d5d9fad85cfd7b27d06f3a2f0a3f9541727ae02fca1f"
+        },
+        "scope_profile": "TH-G1",
+        "ordinary_cycle_enabled": true,
+        "research_question": {
+          "scope": "TH-G1",
+          "predicate": "spike=true and size_units>=2",
+          "target": "selling frequency",
+          "difference_basis": "Different prespecified size threshold; shared family, no claim of independent trial or inherited standing."
+        }
+      },
+      "content_sha256": "931f62250cc2d64d088b6e1107c2c036523ef48178fb757fff52d400d51f99bb"
+    },
+    {
+      "content": {
+        "AgentDesignVersionId": "AD-R2.0",
+        "AgentDesignLineageId": "AD-R2",
+        "predecessor": null,
+        "method_class": "RESEARCH",
+        "provenance": {
+          "execution_kind": "deterministic synthetic program",
+          "provider": null,
+          "model": null,
+          "model_version": null,
+          "training_cutoff": null,
+          "not_applicable_reason": "No trained model or model provider is invoked; no diversity claim.",
+          "spec_version": "synthetic-design-v1"
+        },
+        "instructions": "Read only committed closure. Ask the declared question, request a lawful reservation, pre-record each attempt, invoke a permitted synthetic tool, preserve result or failure and settle explicit simulated cost. Propose an immutable hypothesis with complete selection and method content when research motivates it. Never check/admit a proposal, change a standard, grant permission, commit a Market Observation, or claim synthetic forward standing. Preserve all failures and predecessor history.",
+        "tool_specs": {
+          "SYN-A-1": "0ff927f76d0efcf762793e8760840c38c034ccebf5ba388adf3c55a089103ca1",
+          "SYN-B-1": "d858082f29a609ba0ed7b734ea5a65fbc4815e59f6d71ba5a7102db3341eb791"
+        },
+        "evaluation_inputs": [
+          "own Research Records",
+          "own committed Outcomes if any",
+          "lineage records",
+          "active grant and population",
+          "declared source observations"
+        ],
+        "proposable_outputs": [
+          "Hypothesis registration",
+          "Agent Design successor registration without grant request",
+          "Theme registration within scope"
+        ],
+        "evidence_outputs": [
+          "plain Research Record",
+          "SCREEN",
+          "EXPERIMENT DESIGN",
+          "SELECTION"
+        ],
+        "initial_method": {
+          "id": "MC-RESEARCH-1",
+          "sha256": "025d2e3e48afabbca8d6d5d9fad85cfd7b27d06f3a2f0a3f9541727ae02fca1f"
+        },
+        "scope_profile": "TH-G1",
+        "ordinary_cycle_enabled": false,
+        "research_question": {
+          "scope": "TH-G1",
+          "predicate": "spike=true and size_units>=1",
+          "target": "selling frequency",
+          "difference_basis": "Different prespecified size threshold; shared family, no claim of independent trial or inherited standing."
+        }
+      },
+      "content_sha256": "9637c7a283d4d3080ff2627cc598c5fbab463d43c1cc0781691c7384e8099fa3"
+    },
+    {
+      "content": {
+        "AgentDesignVersionId": "AD-R3.0",
+        "AgentDesignLineageId": "AD-R3",
+        "predecessor": null,
+        "method_class": "RESEARCH",
+        "provenance": {
+          "execution_kind": "deterministic synthetic program",
+          "provider": null,
+          "model": null,
+          "model_version": null,
+          "training_cutoff": null,
+          "not_applicable_reason": "No trained model or model provider is invoked; no diversity claim.",
+          "spec_version": "synthetic-design-v1"
+        },
+        "instructions": "Read only committed closure. Ask the declared question, request a lawful reservation, pre-record each attempt, invoke a permitted synthetic tool, preserve result or failure and settle explicit simulated cost. Propose an immutable hypothesis with complete selection and method content when research motivates it. Never check/admit a proposal, change a standard, grant permission, commit a Market Observation, or claim synthetic forward standing. Preserve all failures and predecessor history.",
+        "tool_specs": {
+          "SYN-A-1": "0ff927f76d0efcf762793e8760840c38c034ccebf5ba388adf3c55a089103ca1",
+          "SYN-B-1": "d858082f29a609ba0ed7b734ea5a65fbc4815e59f6d71ba5a7102db3341eb791"
+        },
+        "evaluation_inputs": [
+          "own Research Records",
+          "own committed Outcomes if any",
+          "lineage records",
+          "active grant and population",
+          "declared source observations"
+        ],
+        "proposable_outputs": [
+          "Hypothesis registration",
+          "Agent Design successor registration without grant request",
+          "Theme registration within scope"
+        ],
+        "evidence_outputs": [
+          "plain Research Record",
+          "SCREEN",
+          "EXPERIMENT DESIGN",
+          "SELECTION"
+        ],
+        "initial_method": {
+          "id": "MC-RESEARCH-1",
+          "sha256": "025d2e3e48afabbca8d6d5d9fad85cfd7b27d06f3a2f0a3f9541727ae02fca1f"
+        },
+        "scope_profile": "TH-G1",
+        "ordinary_cycle_enabled": false,
+        "research_question": {
+          "scope": "TH-G1",
+          "predicate": "spike=true and size_units>=3",
+          "target": "selling frequency",
+          "difference_basis": "Different prespecified size threshold; shared family, no claim of independent trial or inherited standing."
+        }
+      },
+      "content_sha256": "fb85c63308f3ff3626046785f8533654c41ab75375e8c688e5941023a32e40b2"
+    },
+    {
+      "content": {
+        "AgentDesignVersionId": "AD-R4.0",
+        "AgentDesignLineageId": "AD-R4",
+        "predecessor": null,
+        "method_class": "RESEARCH",
+        "provenance": {
+          "execution_kind": "deterministic synthetic program",
+          "provider": null,
+          "model": null,
+          "model_version": null,
+          "training_cutoff": null,
+          "not_applicable_reason": "No trained model or model provider is invoked; no diversity claim.",
+          "spec_version": "synthetic-design-v1"
+        },
+        "instructions": "Read only committed closure. Ask the declared question, request a lawful reservation, pre-record each attempt, invoke a permitted synthetic tool, preserve result or failure and settle explicit simulated cost. Propose an immutable hypothesis with complete selection and method content when research motivates it. Never check/admit a proposal, change a standard, grant permission, commit a Market Observation, or claim synthetic forward standing. Preserve all failures and predecessor history.",
+        "tool_specs": {
+          "SYN-A-1": "0ff927f76d0efcf762793e8760840c38c034ccebf5ba388adf3c55a089103ca1",
+          "SYN-B-1": "d858082f29a609ba0ed7b734ea5a65fbc4815e59f6d71ba5a7102db3341eb791"
+        },
+        "evaluation_inputs": [
+          "own Research Records",
+          "own committed Outcomes if any",
+          "lineage records",
+          "active grant and population",
+          "declared source observations"
+        ],
+        "proposable_outputs": [
+          "Hypothesis registration",
+          "Agent Design successor registration without grant request",
+          "Theme registration within scope"
+        ],
+        "evidence_outputs": [
+          "plain Research Record",
+          "SCREEN",
+          "EXPERIMENT DESIGN",
+          "SELECTION"
+        ],
+        "initial_method": {
+          "id": "MC-RESEARCH-1",
+          "sha256": "025d2e3e48afabbca8d6d5d9fad85cfd7b27d06f3a2f0a3f9541727ae02fca1f"
+        },
+        "scope_profile": "TH-G1",
+        "ordinary_cycle_enabled": false,
+        "research_question": {
+          "scope": "TH-G1",
+          "predicate": "spike=true and size_units>=4",
+          "target": "selling frequency",
+          "difference_basis": "Different prespecified size threshold; shared family, no claim of independent trial or inherited standing."
+        }
+      },
+      "content_sha256": "066d89c1debc482e2f8cca0657516c69c240d732b119542e455a0cc9c510ddb2"
+    },
+    {
+      "content": {
+        "AgentDesignVersionId": "AD-R5.0",
+        "AgentDesignLineageId": "AD-R5",
+        "predecessor": null,
+        "method_class": "RESEARCH",
+        "provenance": {
+          "execution_kind": "deterministic synthetic program",
+          "provider": null,
+          "model": null,
+          "model_version": null,
+          "training_cutoff": null,
+          "not_applicable_reason": "No trained model or model provider is invoked; no diversity claim.",
+          "spec_version": "synthetic-design-v1"
+        },
+        "instructions": "Read only committed closure. Ask the declared question, request a lawful reservation, pre-record each attempt, invoke a permitted synthetic tool, preserve result or failure and settle explicit simulated cost. Propose an immutable hypothesis with complete selection and method content when research motivates it. Never check/admit a proposal, change a standard, grant permission, commit a Market Observation, or claim synthetic forward standing. Preserve all failures and predecessor history.",
+        "tool_specs": {
+          "SYN-A-1": "0ff927f76d0efcf762793e8760840c38c034ccebf5ba388adf3c55a089103ca1",
+          "SYN-B-1": "d858082f29a609ba0ed7b734ea5a65fbc4815e59f6d71ba5a7102db3341eb791"
+        },
+        "evaluation_inputs": [
+          "own Research Records",
+          "own committed Outcomes if any",
+          "lineage records",
+          "active grant and population",
+          "declared source observations"
+        ],
+        "proposable_outputs": [
+          "Hypothesis registration",
+          "Agent Design successor registration without grant request",
+          "Theme registration within scope"
+        ],
+        "evidence_outputs": [
+          "plain Research Record",
+          "SCREEN",
+          "EXPERIMENT DESIGN",
+          "SELECTION"
+        ],
+        "initial_method": {
+          "id": "MC-RESEARCH-1",
+          "sha256": "025d2e3e48afabbca8d6d5d9fad85cfd7b27d06f3a2f0a3f9541727ae02fca1f"
+        },
+        "scope_profile": "TH-G1",
+        "ordinary_cycle_enabled": false,
+        "research_question": {
+          "scope": "TH-G1",
+          "predicate": "spike=true and size_units>=5",
+          "target": "selling frequency",
+          "difference_basis": "Different prespecified size threshold; shared family, no claim of independent trial or inherited standing."
+        }
+      },
+      "content_sha256": "14ff5b9dc03694984e33eebc36d32b855067136c125f5c6079e4617b406bc2a0"
+    },
+    {
+      "content": {
+        "AgentDesignVersionId": "AD-R6.0",
+        "AgentDesignLineageId": "AD-R6",
+        "predecessor": null,
+        "method_class": "RESEARCH",
+        "provenance": {
+          "execution_kind": "deterministic synthetic program",
+          "provider": null,
+          "model": null,
+          "model_version": null,
+          "training_cutoff": null,
+          "not_applicable_reason": "No trained model or model provider is invoked; no diversity claim.",
+          "spec_version": "synthetic-design-v1"
+        },
+        "instructions": "Read only committed closure. Ask the declared question, request a lawful reservation, pre-record each attempt, invoke a permitted synthetic tool, preserve result or failure and settle explicit simulated cost. Propose an immutable hypothesis with complete selection and method content when research motivates it. Never check/admit a proposal, change a standard, grant permission, commit a Market Observation, or claim synthetic forward standing. Preserve all failures and predecessor history.",
+        "tool_specs": {
+          "SYN-A-1": "0ff927f76d0efcf762793e8760840c38c034ccebf5ba388adf3c55a089103ca1",
+          "SYN-B-1": "d858082f29a609ba0ed7b734ea5a65fbc4815e59f6d71ba5a7102db3341eb791"
+        },
+        "evaluation_inputs": [
+          "own Research Records",
+          "own committed Outcomes if any",
+          "lineage records",
+          "active grant and population",
+          "declared source observations"
+        ],
+        "proposable_outputs": [
+          "Hypothesis registration",
+          "Agent Design successor registration without grant request",
+          "Theme registration within scope"
+        ],
+        "evidence_outputs": [
+          "plain Research Record",
+          "SCREEN",
+          "EXPERIMENT DESIGN",
+          "SELECTION"
+        ],
+        "initial_method": {
+          "id": "MC-RESEARCH-1",
+          "sha256": "025d2e3e48afabbca8d6d5d9fad85cfd7b27d06f3a2f0a3f9541727ae02fca1f"
+        },
+        "scope_profile": "SF-G1",
+        "ordinary_cycle_enabled": false,
+        "research_question": {
+          "scope": "SF-G1",
+          "source": "SRC-E",
+          "lookback_sessions": 2,
+          "target": "sign of unadjusted close-to-close change over declared window",
+          "difference_basis": "Different prespecified lookback in the same empirical family; dormant, no tool for this computation is enabled in the first milestone."
+        }
+      },
+      "content_sha256": "b3b3153db4432da2440479f4f13654eec042cf41c63d7849df171047fdd39943"
+    },
+    {
+      "content": {
+        "AgentDesignVersionId": "AD-R7.0",
+        "AgentDesignLineageId": "AD-R7",
+        "predecessor": null,
+        "method_class": "RESEARCH",
+        "provenance": {
+          "execution_kind": "deterministic synthetic program",
+          "provider": null,
+          "model": null,
+          "model_version": null,
+          "training_cutoff": null,
+          "not_applicable_reason": "No trained model or model provider is invoked; no diversity claim.",
+          "spec_version": "synthetic-design-v1"
+        },
+        "instructions": "Read only committed closure. Ask the declared question, request a lawful reservation, pre-record each attempt, invoke a permitted synthetic tool, preserve result or failure and settle explicit simulated cost. Propose an immutable hypothesis with complete selection and method content when research motivates it. Never check/admit a proposal, change a standard, grant permission, commit a Market Observation, or claim synthetic forward standing. Preserve all failures and predecessor history.",
+        "tool_specs": {
+          "SYN-A-1": "0ff927f76d0efcf762793e8760840c38c034ccebf5ba388adf3c55a089103ca1",
+          "SYN-B-1": "d858082f29a609ba0ed7b734ea5a65fbc4815e59f6d71ba5a7102db3341eb791"
+        },
+        "evaluation_inputs": [
+          "own Research Records",
+          "own committed Outcomes if any",
+          "lineage records",
+          "active grant and population",
+          "declared source observations"
+        ],
+        "proposable_outputs": [
+          "Hypothesis registration",
+          "Agent Design successor registration without grant request",
+          "Theme registration within scope"
+        ],
+        "evidence_outputs": [
+          "plain Research Record",
+          "SCREEN",
+          "EXPERIMENT DESIGN",
+          "SELECTION"
+        ],
+        "initial_method": {
+          "id": "MC-RESEARCH-1",
+          "sha256": "025d2e3e48afabbca8d6d5d9fad85cfd7b27d06f3a2f0a3f9541727ae02fca1f"
+        },
+        "scope_profile": "SF-G1",
+        "ordinary_cycle_enabled": false,
+        "research_question": {
+          "scope": "SF-G1",
+          "source": "SRC-E",
+          "lookback_sessions": 3,
+          "target": "sign of unadjusted close-to-close change over declared window",
+          "difference_basis": "Different prespecified lookback in the same empirical family; dormant, no tool for this computation is enabled in the first milestone."
+        }
+      },
+      "content_sha256": "e78cd61e15cbe56692ab9067dc4d1c29dd174829ec8092116b2b28b146b87e60"
+    },
+    {
+      "content": {
+        "AgentDesignVersionId": "AD-R8.0",
+        "AgentDesignLineageId": "AD-R8",
+        "predecessor": null,
+        "method_class": "RESEARCH",
+        "provenance": {
+          "execution_kind": "deterministic synthetic program",
+          "provider": null,
+          "model": null,
+          "model_version": null,
+          "training_cutoff": null,
+          "not_applicable_reason": "No trained model or model provider is invoked; no diversity claim.",
+          "spec_version": "synthetic-design-v1"
+        },
+        "instructions": "Read only committed closure. Ask the declared question, request a lawful reservation, pre-record each attempt, invoke a permitted synthetic tool, preserve result or failure and settle explicit simulated cost. Propose an immutable hypothesis with complete selection and method content when research motivates it. Never check/admit a proposal, change a standard, grant permission, commit a Market Observation, or claim synthetic forward standing. Preserve all failures and predecessor history.",
+        "tool_specs": {
+          "SYN-A-1": "0ff927f76d0efcf762793e8760840c38c034ccebf5ba388adf3c55a089103ca1",
+          "SYN-B-1": "d858082f29a609ba0ed7b734ea5a65fbc4815e59f6d71ba5a7102db3341eb791"
+        },
+        "evaluation_inputs": [
+          "own Research Records",
+          "own committed Outcomes if any",
+          "lineage records",
+          "active grant and population",
+          "declared source observations"
+        ],
+        "proposable_outputs": [
+          "Hypothesis registration",
+          "Agent Design successor registration without grant request",
+          "Theme registration within scope"
+        ],
+        "evidence_outputs": [
+          "plain Research Record",
+          "SCREEN",
+          "EXPERIMENT DESIGN",
+          "SELECTION"
+        ],
+        "initial_method": {
+          "id": "MC-RESEARCH-1",
+          "sha256": "025d2e3e48afabbca8d6d5d9fad85cfd7b27d06f3a2f0a3f9541727ae02fca1f"
+        },
+        "scope_profile": "SF-G1",
+        "ordinary_cycle_enabled": false,
+        "research_question": {
+          "scope": "SF-G1",
+          "source": "SRC-E",
+          "lookback_sessions": 5,
+          "target": "sign of unadjusted close-to-close change over declared window",
+          "difference_basis": "Different prespecified lookback in the same empirical family; dormant, no tool for this computation is enabled in the first milestone."
+        }
+      },
+      "content_sha256": "b9656ba6b629cdb641f4ecc396d5f6deeefb9beae66e18beed1a743ebee297e4"
+    },
+    {
+      "content": {
+        "AgentDesignVersionId": "AD-R9.0",
+        "AgentDesignLineageId": "AD-R9",
+        "predecessor": null,
+        "method_class": "RESEARCH",
+        "provenance": {
+          "execution_kind": "deterministic synthetic program",
+          "provider": null,
+          "model": null,
+          "model_version": null,
+          "training_cutoff": null,
+          "not_applicable_reason": "No trained model or model provider is invoked; no diversity claim.",
+          "spec_version": "synthetic-design-v1"
+        },
+        "instructions": "Read only committed closure. Ask the declared question, request a lawful reservation, pre-record each attempt, invoke a permitted synthetic tool, preserve result or failure and settle explicit simulated cost. Propose an immutable hypothesis with complete selection and method content when research motivates it. Never check/admit a proposal, change a standard, grant permission, commit a Market Observation, or claim synthetic forward standing. Preserve all failures and predecessor history.",
+        "tool_specs": {
+          "SYN-A-1": "0ff927f76d0efcf762793e8760840c38c034ccebf5ba388adf3c55a089103ca1",
+          "SYN-B-1": "d858082f29a609ba0ed7b734ea5a65fbc4815e59f6d71ba5a7102db3341eb791"
+        },
+        "evaluation_inputs": [
+          "own Research Records",
+          "own committed Outcomes if any",
+          "lineage records",
+          "active grant and population",
+          "declared source observations"
+        ],
+        "proposable_outputs": [
+          "Hypothesis registration",
+          "Agent Design successor registration without grant request",
+          "Theme registration within scope"
+        ],
+        "evidence_outputs": [
+          "plain Research Record",
+          "SCREEN",
+          "EXPERIMENT DESIGN",
+          "SELECTION"
+        ],
+        "initial_method": {
+          "id": "MC-RESEARCH-1",
+          "sha256": "025d2e3e48afabbca8d6d5d9fad85cfd7b27d06f3a2f0a3f9541727ae02fca1f"
+        },
+        "scope_profile": "SF-G1",
+        "ordinary_cycle_enabled": false,
+        "research_question": {
+          "scope": "SF-G1",
+          "source": "SRC-E",
+          "lookback_sessions": 10,
+          "target": "sign of unadjusted close-to-close change over declared window",
+          "difference_basis": "Different prespecified lookback in the same empirical family; dormant, no tool for this computation is enabled in the first milestone."
+        }
+      },
+      "content_sha256": "b1994b531ee7a6dbe07d7a990d2ac792015c5a83945b517a5c3ed15cf79718fb"
+    },
+    {
+      "content": {
+        "AgentDesignVersionId": "AD-R10.0",
+        "AgentDesignLineageId": "AD-R10",
+        "predecessor": null,
+        "method_class": "RESEARCH",
+        "provenance": {
+          "execution_kind": "deterministic synthetic program",
+          "provider": null,
+          "model": null,
+          "model_version": null,
+          "training_cutoff": null,
+          "not_applicable_reason": "No trained model or model provider is invoked; no diversity claim.",
+          "spec_version": "synthetic-design-v1"
+        },
+        "instructions": "Read only committed closure. Ask the declared question, request a lawful reservation, pre-record each attempt, invoke a permitted synthetic tool, preserve result or failure and settle explicit simulated cost. Propose an immutable hypothesis with complete selection and method content when research motivates it. Never check/admit a proposal, change a standard, grant permission, commit a Market Observation, or claim synthetic forward standing. Preserve all failures and predecessor history.",
+        "tool_specs": {
+          "SYN-A-1": "0ff927f76d0efcf762793e8760840c38c034ccebf5ba388adf3c55a089103ca1",
+          "SYN-B-1": "d858082f29a609ba0ed7b734ea5a65fbc4815e59f6d71ba5a7102db3341eb791"
+        },
+        "evaluation_inputs": [
+          "own Research Records",
+          "own committed Outcomes if any",
+          "lineage records",
+          "active grant and population",
+          "declared source observations"
+        ],
+        "proposable_outputs": [
+          "Hypothesis registration",
+          "Agent Design successor registration without grant request",
+          "Theme registration within scope"
+        ],
+        "evidence_outputs": [
+          "plain Research Record",
+          "SCREEN",
+          "EXPERIMENT DESIGN",
+          "SELECTION"
+        ],
+        "initial_method": {
+          "id": "MC-RESEARCH-1",
+          "sha256": "025d2e3e48afabbca8d6d5d9fad85cfd7b27d06f3a2f0a3f9541727ae02fca1f"
+        },
+        "scope_profile": "SF-G1",
+        "ordinary_cycle_enabled": false,
+        "research_question": {
+          "scope": "SF-G1",
+          "source": "SRC-E",
+          "lookback_sessions": 20,
+          "target": "sign of unadjusted close-to-close change over declared window",
+          "difference_basis": "Different prespecified lookback in the same empirical family; dormant, no tool for this computation is enabled in the first milestone."
+        }
+      },
+      "content_sha256": "395b303e8c9c9020711af580ebe132bffe373f14a32aa3e89a3dd5080f190d89"
+    },
+    {
+      "content": {
+        "AgentDesignVersionId": "AD-CK-1.0",
+        "AgentDesignLineageId": "AD-CK-1",
+        "predecessor": null,
+        "method_class": "CHECKER",
+        "provenance": {
+          "execution_kind": "deterministic synthetic program",
+          "provider": null,
+          "model": null,
+          "model_version": null,
+          "training_cutoff": null,
+          "not_applicable_reason": "No trained model or model provider is invoked; no diversity claim.",
+          "spec_version": "synthetic-design-v1"
+        },
+        "instructions": "Execute every common and class-specific criterion in checker_contract.md on a committed closure under the base-pinned CV1 and ES-1.0. Compute findings independently. Fund verification from own Checker grant. Preserve own-subject and lineage exclusions. Never propose research, grant authority, decide a proposal or waive a criterion. Missing capability never becomes PASS.",
+        "tool_specs": {
+          "CHECK-A-1": "b1bfc6149a390ad73d935d1971408427f55a02f706a253655dfeba4eaaa15ae3"
+        },
+        "evaluation_inputs": [
+          "exact proposal",
+          "Transition lifecycle and Applied History",
+          "Evidence closure",
+          "pinned CV1 and ES-1.0",
+          "own grant",
+          "referenced source/design/method artifacts"
+        ],
+        "proposable_outputs": [
+          "own Agent Design successor",
+          "Constitutional proposal STOPPED pending Principal"
+        ],
+        "evidence_outputs": [
+          "verification Research Record",
+          "own reservation/attempt/settlement/close",
+          "reproduction/Outcome completion only when capability later exists"
+        ],
+        "initial_method": {
+          "id": "MC-CHECKER-1",
+          "sha256": "728609d6c534ffd5bae0dc52e05144ce5b36c7ebb79ef004d2477f35e70a9797"
+        }
+      },
+      "content_sha256": "12d4743182221936d9c833d914d0f76d2e621b53c6fe5f429384a68302d584d3"
+    },
+    {
+      "content": {
+        "AgentDesignVersionId": "AD-CK-2.0",
+        "AgentDesignLineageId": "AD-CK-2",
+        "predecessor": null,
+        "method_class": "CHECKER",
+        "provenance": {
+          "execution_kind": "deterministic synthetic program",
+          "provider": null,
+          "model": null,
+          "model_version": null,
+          "training_cutoff": null,
+          "not_applicable_reason": "No trained model or model provider is invoked; no diversity claim.",
+          "spec_version": "synthetic-design-v1"
+        },
+        "instructions": "Execute every common and class-specific criterion in checker_contract.md on a committed closure under the base-pinned CV1 and ES-1.0. Compute findings independently. Fund verification from own Checker grant. Preserve own-subject and lineage exclusions. Never propose research, grant authority, decide a proposal or waive a criterion. Missing capability never becomes PASS.",
+        "tool_specs": {
+          "CHECK-B-1": "a9fb3c07f449dd58645ad17a94a72528cc5955210fef8569ba90dbb4bd710bc4"
+        },
+        "evaluation_inputs": [
+          "exact proposal",
+          "Transition lifecycle and Applied History",
+          "Evidence closure",
+          "pinned CV1 and ES-1.0",
+          "own grant",
+          "referenced source/design/method artifacts"
+        ],
+        "proposable_outputs": [
+          "own Agent Design successor",
+          "Constitutional proposal STOPPED pending Principal"
+        ],
+        "evidence_outputs": [
+          "verification Research Record",
+          "own reservation/attempt/settlement/close",
+          "reproduction/Outcome completion only when capability later exists"
+        ],
+        "initial_method": {
+          "id": "MC-CHECKER-1",
+          "sha256": "728609d6c534ffd5bae0dc52e05144ce5b36c7ebb79ef004d2477f35e70a9797"
+        }
+      },
+      "content_sha256": "a53ecdcc5b5c622642fd0e8aca663115caefe5089fa60c8f4fd951f27ff3a552"
+    }
+  ],
+  "formation_cohort": {
+    "content": {
+      "source": "SRC-SYN",
+      "item_id": "cohort-2026-10-28",
+      "period_start": "2026-10-28T00:00:00.000Z",
+      "period_end": "2026-10-29T00:00:00.000Z",
+      "claimed_publication_time": "2026-10-29T00:00:00.000Z",
+      "synthetic": true,
+      "rows": [
+        {
+          "event_id": "e01",
+          "shock_id": "s01",
+          "exposure_id": "SYN-EQUITY",
+          "spike": true,
+          "size_units": 2,
+          "selling": true
+        },
+        {
+          "event_id": "e02",
+          "shock_id": "s01",
+          "exposure_id": "SYN-EQUITY",
+          "spike": true,
+          "size_units": 2,
+          "selling": true
+        },
+        {
+          "event_id": "e03",
+          "shock_id": "s02",
+          "exposure_id": "SYN-EQUITY",
+          "spike": true,
+          "size_units": 1,
+          "selling": true
+        },
+        {
+          "event_id": "e04",
+          "shock_id": "s02",
+          "exposure_id": "SYN-EQUITY",
+          "spike": true,
+          "size_units": 1,
+          "selling": true
+        },
+        {
+          "event_id": "e05",
+          "shock_id": "s03",
+          "exposure_id": "SYN-EQUITY",
+          "spike": true,
+          "size_units": 1,
+          "selling": true
+        },
+        {
+          "event_id": "e06",
+          "shock_id": "s03",
+          "exposure_id": "SYN-EQUITY",
+          "spike": true,
+          "size_units": 1,
+          "selling": true
+        },
+        {
+          "event_id": "e07",
+          "shock_id": "s04",
+          "exposure_id": "SYN-EQUITY",
+          "spike": true,
+          "size_units": 1,
+          "selling": true
+        },
+        {
+          "event_id": "e08",
+          "shock_id": "s04",
+          "exposure_id": "SYN-EQUITY",
+          "spike": true,
+          "size_units": 1,
+          "selling": true
+        },
+        {
+          "event_id": "e09",
+          "shock_id": "s05",
+          "exposure_id": "SYN-EQUITY",
+          "spike": true,
+          "size_units": 1,
+          "selling": false
+        },
+        {
+          "event_id": "e10",
+          "shock_id": "s05",
+          "exposure_id": "SYN-EQUITY",
+          "spike": true,
+          "size_units": 1,
+          "selling": false
+        },
+        {
+          "event_id": "e11",
+          "shock_id": "s06",
+          "exposure_id": "SYN-EQUITY",
+          "spike": true,
+          "size_units": 1,
+          "selling": false
+        },
+        {
+          "event_id": "e12",
+          "shock_id": "s06",
+          "exposure_id": "SYN-EQUITY",
+          "spike": true,
+          "size_units": 1,
+          "selling": false
+        }
+      ]
+    },
+    "content_sha256": "8a8f2de6b90e4334374561c92bee496d5c5156c664ce234f604bc99be9855729"
+  },
+  "future_cohort_rule": {
+    "content": {
+      "version": 1,
+      "meaning": "A deterministic synthetic daily cohort, not an observed market.",
+      "algorithm": "For period date d generate the twelve rows specified by formation_cohort, retaining event fields; substitute item_id=cohort-d and period_start=d at 00:00 UTC, period_end=next day at 00:00 UTC and claimed_publication_time=period_end. The source releases the document only when its declared synthetic clock is at or past period_end. Never backdate witnessed receipt.",
+      "not_available": "Before release the document is absent from the complete daily listing. A listing failure is RETRIEVAL_FAILED, never COMPLETE.",
+      "classification": "All derived research is synthetic Historical Reconstruction; chronology never creates forward credit."
+    },
+    "content_sha256": "4316073248ec85f4b65c79578e1c62fd4663cc43b46c00f00896908cd69efe52"
+  },
+  "hypothesis_template": {
+    "content": {
+      "template_id": "SYN-FLOW-H1",
+      "HypothesisId": "HY-SYN-FLOW-1.0",
+      "HypothesisLineageId": "HY-SYN-FLOW-1",
+      "statement": "In the declared next synthetic daily cohort, at least two thirds of volatility-spike events with size_units >= 2 are followed by selling.",
+      "observable": "Binary predicate over the daily large-event selling fraction",
+      "resolution_source": "SRC-SYN",
+      "resolution_period": {
+        "start": "2026-10-29T00:00:00.000Z",
+        "end": "2026-10-30T00:00:00.000Z"
+      },
+      "print": "FIRST_RELEASE",
+      "tolerance": "0",
+      "initial_method": {
+        "id": "MC-HYPOTHESIS-1",
+        "sha256": "904bd26e133553fb52f106228aec5e5a9a5ce62ae52e2710cb6fa6ab99343c0e"
+      },
+      "SearchFamily": "SF-SYN-FLOW",
+      "motivated_by": [
+        "TH-G1",
+        "the exact committed Research Record from the first tool attempt"
+      ],
+      "motivation_closure": "Exact formation DOCUMENT and first Research Record sequences supplied from completed commits; none can be a future resolution member.",
+      "selection_basis": {
+        "uncertainty": "Whether larger simulated selling events merit a narrower prospective question.",
+        "decision_it_could_change": "Which synthetic experiment receives the next authorized research attempt.",
+        "experiment": "Recompute large-event counts, register a future disjoint resolution set; no prediction execution in this milestone.",
+        "value_estimate": "UNESTIMATED",
+        "value_basis": "No investment-economic inference from synthetic data.",
+        "cost_estimate_units": "2.00",
+        "horizon": "One synthetic day for the declared resolution member; later standing study requires the registered method and is outside this milestone.",
+        "stopping_rule": "The method commitment specifies future review floors; abandon this candidate as research if its source/method requirements cannot be satisfied.",
+        "time_estimate_ms": 600000,
+        "origin": "discovery-scope initiative"
+      },
+      "horizon": "One UTC day per target; first resolution member is fixed below. No predictions are executed in this milestone.",
+      "falsifier": "Registered directional success probability p>=2/3 is contradicted only if the exact one-sided Binomial(n,2/3) lower-tail probability of observed successes is <=0.05 after the stopping floor and family adjustment. Support requires an independently justified evaluation; positive synthetic examples never supply it.",
+      "stopping_rule": "Review after 12 effective finalized forward Outcomes; no standing conclusion before CV1 floor or from synthetic/historical records. At 24 effective forward Outcomes end this experiment and request a checked review; no automatic standing transition.",
+      "predecessor": null,
+      "resolution_rule": {
+        "version": 1,
+        "algorithm": "Extract n_large and k_large from the exact declared cohort; require n_large>0; target is 1 iff 3*k_large >= 2*n_large, otherwise 0. A missing or nonextractable member cannot be silently replaced.",
+        "input_fields": [
+          "n_large",
+          "k_large"
+        ],
+        "missing_member": "Unresolved/nonextractable; no alternative print, imputation or substitution."
+      },
+      "resolution_rule_sha256": "336984d90c20f9fa61bcbc9e0130208762034f2f4d780da7a5d52586e3b87d74",
+      "resolution_set": [
+        {
+          "SourceId": "SRC-SYN",
+          "period": {
+            "start": "2026-10-29T00:00:00.000Z",
+            "end": "2026-10-30T00:00:00.000Z"
+          },
+          "print": "FIRST_RELEASE"
+        }
+      ]
+    },
+    "content_sha256": "8d611c534a598900e39e23c5f6848de9b2dc09578fb2d86d719738a505768d9d"
+  }
+}

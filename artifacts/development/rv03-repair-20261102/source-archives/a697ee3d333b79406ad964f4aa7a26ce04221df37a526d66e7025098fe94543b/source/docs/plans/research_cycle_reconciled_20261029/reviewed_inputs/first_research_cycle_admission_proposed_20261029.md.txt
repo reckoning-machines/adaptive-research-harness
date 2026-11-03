@@ -1,0 +1,125 @@
+# Proposed Consolidated Admission — First Research Cycle
+
+Status: **PROPOSED FOR PRINCIPAL APPROVAL. NOT ADMITTED. NO CODE AUTHORIZED.**
+
+Date: 2026-10-29. Prepared by Codex in response to the Principal's direction
+to complete the setup packet. Project: **Adaptive Research Harness** — a
+constitutional harness for evolving investment hypotheses, strategies and
+research agents. No approval is inferred from preparing this record.
+
+## 1. Exact subject of the proposed approval
+
+The [manifest](../plans/research_cycle_admission_20261029/manifest.json)
+binds the original implementation plan and acceptance specification, seven
+setup documents/data files, and six governing baseline inputs by exact
+file-byte SHA-256. Its own file digest is:
+
+`2995edb11da5bbbe05689add0c674a7f059dfca500f4abc7d54994cdc4a31026`
+
+The manifest excludes itself, this approval carrier and the later verification
+report to avoid recursive hashes. The Principal approves this record's terms
+as written together with that exact manifest. Any change to a covered byte
+before approval requires a regenerated manifest and updated digest here.
+The current checkout includes earlier uncommitted documentation/presentation
+work; that work is preserved and is not silently included as executable scope.
+
+CV1 remains the admitted revision-12 bytes, SHA-256
+`c56a9cf50a7e9efadad8f2f2be6605e82c758f18d4096ba07eaaf86a8f8b7a64`.
+Historical names, IDs, admission records and audits remain exact. This record
+proposes no successor Constitution and does not itself execute genesis.
+
+## 2. Decisions packaged for one approval
+
+| Decision | Exact proposed disposition |
+| --- | --- |
+| Implementation scope | Admit cuts 1–5 of the [first-cycle plan](../plans/first_research_cycle_implementation_20261029.md) and its [acceptance cases](../plans/first_research_cycle_acceptance_20261029.md), completed by this packet; authorize Codex to implement and verify that bounded private core |
+| Startup content | Approve `setup.json` and `designs_and_methods.json`, materialized only by the specified measurement/reference rules; exact genesis and checked sequences 1–16, ten Research registrations, one ordinarily active researcher and two Checker lineages |
+| Numerical grants | Shared research 600.00, lineage cap 100.00, discovery 60.00 within the pool, Checkers 60.00/30.00, seven-day reservations, research binding interval 300,000 ms, expiry 2027-04-30 00:00 UTC exclusive; all capital limits zero |
+| Independent Checker coverage | Approve the [criterion matrix](../plans/research_cycle_admission_20261029/checker_contract.md) for grants, initial limits, Agent Designs, Theme and narrow Hypothesis registrations; computed results and funded rejection/interruption paths, not predetermined approvals |
+| A1: changed grant supplement | Approve the exact [synthetic-only exception](../plans/research_cycle_admission_20261029/amendments.md) to PD-009's additional provider-diversity condition, including Principal startup/control acts; preserve every CV1 independence condition and honest no-provider provenance |
+| A2: completed/narrowed initial grants | Approve exact source/method/limit/cost content and enable only the declared tier-1 local tools; defer the previously described bounded tier-2 provider without claiming its demonstration complete |
+| Engineering choices | Python 3.12/standard-library SQLite, one protected writer, thin CLI/client and the [specified disposable Linux isolation arrangement](../plans/research_cycle_admission_20261029/host_and_protocol.md), canonical bytes and durable synthetic clock |
+| Runtime Principal instructions | Authorize the operator-controlled Principal fixture to submit exact startup acts and only the listed bounded positive test variations; each remains subject to actual Check/Decide/Apply, with no extra waiver |
+| Completion evidence | All original R/B/T and process-death cases plus S01–S08, executed through real boundaries, independent record inspection, retained failures, exact build/configuration/provenance and OS-isolation evidence |
+
+A1 broadens eligibility compared with the previously specified provider
+supplement; A2 narrows the enabled initial tools. They are real proposed
+changes to **future grant content**, openly admitted here rather than silently
+editing PD-009/PD-010. They lie within CV1's existing Principal grant authority.
+The exact-source declarations, numerical limits and scientific methods are
+Principal-approved content within existing classes, not constitutional defaults.
+Python, SQLite, encoding and OS mechanisms change no authoritative owner.
+
+Constitutional delta relative to CV1: **ΔO=0, ΔS=0, ΔA=0**. No new identity
+rule, evidence class, Transition class, writer or decider. This delta does
+not deny the explicitly stated grant-eligibility change. Any actual need to
+alter CV1 semantics or authority remains a stop requiring a separate decision.
+
+## 3. Bounded coding authorization that approval would grant
+
+Codex may add private core modules, a thin command client/CLI, synthetic A/B
+and two independently recomputing Checker programs, SQLite schemas and exact
+readers, deterministic fixture tooling, Linux isolation/service templates,
+and the acceptance witnesses/reports required by the admitted plan. It may
+run local tests and deliver a reproducible disposable-VM verification procedure.
+No third-party Python dependency installation is needed or authorized by this
+packet. Privileged VM provisioning is restricted to an operator-owned disposable
+local VM; ordinary execution-environment privilege approvals are separate
+from this constitutional authorization. Existing production hosts are excluded.
+
+Implementation must begin at empty ledgers and execute lawful setup; no SQL
+seeding of memberships, balances, decisions or Check outcomes. The one existing
+genesis waiver covers only its admitted three items. Direct Principal controls
+remain direct; Checker costs are separately funded. Any command retry, crash,
+lost reply or tool replacement obeys the same runtime boundaries.
+
+The developer supplies measured build hashes, versions, sequence references
+and receipts by the exact materialization rules, not new discretionary genesis
+values. Code review and executed witnesses still determine whether the
+implementation satisfies the specification; this approval supplies no test
+result or certification. A changed assumption requiring new authority stops
+implementation at that conflict without discarding completed lawful work.
+
+Excluded: Paper Book, Strategy Runner, live trading, real model/provider access
+or billing guarantees, LangGraph/MiroFish adapters, extensive UI, arbitrary
+generated-code execution, a general constitution interpreter, constitutional
+upgrades, public repository/package release, remote changes and any license.
+The project remains private and licensing undecided. Adapters/paper simulation
+require their own admitted expansion after this cycle's evidence is reviewed.
+
+## 4. Proposed single approval text
+
+The following is a proposed text for the Principal, **not an admission made
+by its inclusion in this document**:
+
+```text
+I approve the First Research Cycle consolidated admission record dated
+2026-10-29 as written, including the exact files in manifest SHA-256
+2995edb11da5bbbe05689add0c674a7f059dfca500f4abc7d54994cdc4a31026.
+
+I approve the complete setup values, grants, sources, designs, methods,
+Checker coverage, host/protocol/clock contracts and bounded test acts in
+that packet. I explicitly approve A1's synthetic-only provider-diversity
+supplement exception and A2's narrowed initial tool permissions. CV1 stays
+unchanged; the constitutional budget is ΔO=0, ΔS=0, ΔA=0.
+
+I authorize Codex to implement and locally verify cuts 1–5 of this bounded
+private research-cycle plan, including its actual startup, rejection,
+interruption, recovery and replacement-tool witnesses. Runtime Principal
+fixture acts are limited to the exact setup and listed test variations;
+all required Checks, decisions and commit boundaries still apply.
+
+No public release, license, real provider, live trading, Paper Book or
+framework adapters are authorized. Completion requires the specified
+executed evidence; this approval claims no certification or investment
+performance.
+```
+
+On explicit approval, append an admission addendum recording the Principal's
+actual wording/date and manifest digest; preserve this proposal and all prior
+records. Until then this is a reviewable proposal only. After that approval,
+the next coding assignment is concrete: implement the protected core and
+commands, execute startup through 16, run the worked synthetic registration
+cycle, kill/recover real processes, replace A with B, and deliver the complete
+acceptance matrix with durable references. No further setup-planning round is
+required unless implementation exposes an actual constitutional conflict.

@@ -1,0 +1,60 @@
+[
+  {
+    "new": {
+      "inventory_sha256": "3fca0b7671113e8eff30104cce7050ff8715ddc0a00588bc1c4fde503dff8edd",
+      "processes": [
+        {
+          "alive": true,
+          "label": null,
+          "mode": "core",
+          "pid": 22938
+        }
+      ],
+      "run_id": "4bb55db0eca640509922360486b46025",
+      "state": "/private/tmp/arh-rv03-test-4tfyeaab/state"
+    },
+    "old": {
+      "inventory_sha256": "3fca0b7671113e8eff30104cce7050ff8715ddc0a00588bc1c4fde503dff8edd",
+      "processes": [
+        {
+          "alive": true,
+          "label": null,
+          "mode": "core",
+          "pid": 22919
+        }
+      ],
+      "run_id": "3243ec415d3f4df59687ae0c6d871780",
+      "state": "/private/tmp/arh-rv03-test-4tfyeaab/state"
+    },
+    "old_host_waited": true
+  },
+  {
+    "new": {
+      "inventory_sha256": "3fca0b7671113e8eff30104cce7050ff8715ddc0a00588bc1c4fde503dff8edd",
+      "processes": [
+        {
+          "alive": true,
+          "label": null,
+          "mode": "core",
+          "pid": 22945
+        }
+      ],
+      "run_id": "f0d9be9389a844a6a86c05aae6b2d5c6",
+      "state": "/private/tmp/arh-rv03-test-4tfyeaab/state"
+    },
+    "old": {
+      "inventory_sha256": "3fca0b7671113e8eff30104cce7050ff8715ddc0a00588bc1c4fde503dff8edd",
+      "processes": [
+        {
+          "alive": true,
+          "label": null,
+          "mode": "core",
+          "pid": 22938
+        }
+      ],
+      "run_id": "4bb55db0eca640509922360486b46025",
+      "state": "/private/tmp/arh-rv03-test-4tfyeaab/state"
+    },
+    "old_host_waited": true
+  }
+]

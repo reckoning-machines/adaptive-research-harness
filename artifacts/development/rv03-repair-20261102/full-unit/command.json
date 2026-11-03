@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/private/tmp/murmur-v01.1dUJI5/venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-t",
+    ".",
+    "-v"
+  ],
+  "cwd": "/Users/jedgore/dev/speedway",
+  "environment_overrides": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "ARH_LANGGRAPH_PYTHON": "/private/tmp/murmur-v01.1dUJI5/venv/bin/python",
+    "ARH_RV03_EVIDENCE": "/private/tmp/arh-rv03-repair.n3066vlp/evidence/full-unit/public-host-regressions"
+  },
+  "returncode": 0,
+  "elapsed_seconds": 112.307,
+  "process_pid": 22743,
+  "core_rules_sha256": "d5c92289c3ac53ab30b76f0c12ed6556ca5e08723c55c2806e81dad474cb8c01"
+}

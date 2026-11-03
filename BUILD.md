@@ -167,6 +167,13 @@ modules named in a profile are imported only by a worker the host starts
 (`execution: core`) or by the caller that holds the attempt
 (`execution: caller`); their bytes are pinned in the inventory.
 
+Check commit accepts an admitted step declared as `kind: check`, with its
+matching tool and exact maximum, including multiple differently priced check
+steps. The default `check-transition` remains supported. The convenience
+Checker helper still selects its default step (RV-02); differently named
+steps use the exported lower-level client calls. See the bounded
+[RV-03 repair and verification](docs/implementation/rv03_repair_20261102.md).
+
 A caller-executed tool consumes a durable claim through `tool-run`, which
 answers `PERMISSION_CONSUMED` exactly once, registers its receipt through
 `tool-finish`, which refuses a second different receipt for the same claim,

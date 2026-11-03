@@ -1,0 +1,257 @@
+{
+ "clock": {
+  "advance": "explicit host advance only",
+  "binding_interval_ms": 300000,
+  "epoch": "2026-10-29T00:00:00.000Z",
+  "initial_tick": 0,
+  "maximum_instant": "2027-05-01T00:00:00.000Z",
+  "maximum_tick": 15897600000,
+  "tick_unit": "millisecond"
+ },
+ "constitution": {
+  "evaluation_standard": "ES-1.0",
+  "sha256": "c56a9cf50a7e9efadad8f2f2be6605e82c758f18d4096ba07eaaf86a8f8b7a64",
+  "version": 1
+ },
+ "grants": [
+  {
+   "content": {
+    "AuthorizationId": "AU-CK-L",
+    "binding_interval_ms": null,
+    "capital_permission": false,
+    "class": "Checker",
+    "constitutional_budget": {
+     "delta_A": 0,
+     "delta_O": 0,
+     "delta_S": 0
+    },
+    "default_reservation_duration_ms": 604800000,
+    "expiry": "2027-04-30T00:00:00.000Z",
+    "forbidden_subjects": [
+     "AD-CK-L1 lineage and every successor",
+     "AU-CK-L and its successor chain"
+    ],
+    "grantee": [
+     "AD-CK-L1.0"
+    ],
+    "grantor": "Principal",
+    "may_check": [
+     "every supported Transition class except own subjects"
+    ],
+    "may_commit_evidence": [
+     "Research Record for verification",
+     "RESERVATION",
+     "attempt",
+     "settlement",
+     "CLOSED"
+    ],
+    "may_propose": [
+     "own Agent Design successor",
+     "Constitutional proposal STOPPED until Principal decides"
+    ],
+    "per_lineage_cap_units": "100.00",
+    "provider_calls_permitted": false,
+    "provider_diversity": "No provider diversity claimed: deterministic program under the A1 synthetic-only exception.",
+    "research_budget_units": "100.00",
+    "tools": [
+     {
+      "id": "CHECK-L-1",
+      "spec_sha256": "8bf6ba8a1b83a51e42331d581c3116910caf8e79f082d56304f65e1642da19d1",
+      "tier": 1
+     }
+    ],
+    "uncapped_calls_permitted": false
+   }
+  },
+  {
+   "content": {
+    "AuthorizationId": "AU-OBS-L",
+    "capital_permission": false,
+    "class": "Observation",
+    "constitutional_budget": {
+     "delta_A": 0,
+     "delta_O": 0,
+     "delta_S": 0
+    },
+    "expiry": "2027-04-30T00:00:00.000Z",
+    "grantee": [
+     "Observation function"
+    ],
+    "grantor": "Principal",
+    "may_check": [],
+    "may_commit_evidence": [
+     "DOCUMENT Observation",
+     "feed retrieval COMPLETE/PARTIAL/RETRIEVAL_FAILED",
+     "Market Observation VALUE/ABSENT/NOT_EXTRACTABLE/RETRIEVAL_FAILED"
+    ],
+    "may_propose": [],
+    "observation_plan": {
+     "SRC-LOCAL-DOC": {
+      "period_dates_inclusive": [
+       "2026-10-28",
+       "2027-04-29"
+      ],
+      "retrieval_slot": "when the Principal imports a file",
+      "stop_rule": "No slot at or after grant expiry."
+     }
+    },
+    "provider_calls_permitted": false,
+    "source_declarations": [
+     {
+      "SourceId": "SRC-LOCAL-DOC",
+      "SourceRevision": "2655614343b95d1109a2246da29707a2425b7c1d949f4e1b4e6e0d202f5b6a64",
+      "content": {
+       "SourceId": "SRC-LOCAL-DOC",
+       "access_method": "Read from the local filesystem by the Observation function at the Principal's request; no network",
+       "claimed_time_field": "claimed_publication_time",
+       "dataset": "Documents the Principal brings for investigation: text, markdown, CSV, TSV or JSON rows",
+       "endpoint": "file://local/{sha256}",
+       "enumeration_contract": null,
+       "extraction_rule": "None. Documents are inputs to declared analyses; no value is extracted at observation.",
+       "field": "document",
+       "field_definition": "One committed file: name, content hash, size, media type, declared origin and receipt time, and its text or rows.",
+       "parsing": "UTF-8 text; CSV, TSV and JSON parsed to rows with exact integers; everything else kept as text.",
+       "print_rule": "FIRST_RELEASE",
+       "provider": "The Principal, supplying files from local storage",
+       "resolution_grace_ms": 600000,
+       "source_kind": "DOCUMENT_FEED",
+       "structural_availability_bound": "Available from the receipt time the Principal declares. Historical material: read after the fact, never prospective evidence.",
+       "synthetic": false,
+       "unit": "one file"
+      }
+     }
+    ],
+    "tools": [],
+    "uncapped_calls_permitted": false
+   }
+  },
+  {
+   "content": {
+    "AuthorizationId": "AU-RL-1",
+    "binding_interval_ms": 300000,
+    "capital_permission": false,
+    "class": "Research",
+    "constitutional_budget": {
+     "delta_A": 0,
+     "delta_O": 0,
+     "delta_S": 0
+    },
+    "default_reservation_duration_ms": 604800000,
+    "discovery_scope": {
+     "SearchFamily": "SF-LOCAL-DISCOVERY",
+     "expected_screening_cadence": "One analysis per design the Principal commits; no cadence is imposed.",
+     "feed_sources": [
+      "SRC-LOCAL-DOC"
+     ],
+     "fixed_subgrant_units": "20.00",
+     "followup_count": 0,
+     "included_in_pool": true,
+     "max_hop_depth": 1,
+     "shared_across_grantees": true
+    },
+    "expiry": "2027-04-30T00:00:00.000Z",
+    "grantee": [
+     "AD-L1.0"
+    ],
+    "grantor": "Principal",
+    "may_check": [],
+    "may_commit_evidence": [
+     "plain Research Record",
+     "EXPERIMENT DESIGN",
+     "SELECTION",
+     "RESERVATION",
+     "attempt",
+     "settlement",
+     "CLOSED"
+    ],
+    "may_propose": [
+     "Theme registration",
+     "Agent Design successor registration without grant request",
+     "Constitutional proposal STOPPED until Principal decides"
+    ],
+    "per_lineage_cap_units": "100.00",
+    "provider_calls_permitted": false,
+    "research_budget_units": "100.00",
+    "scope_by_grantee": {
+     "AD-L1.0": {
+      "empirical_search_families": [],
+      "themes": [
+       "TH-L0"
+      ]
+     }
+    },
+    "tools": [
+     {
+      "id": "LOCAL-CALC-1",
+      "spec_sha256": "8af2841be94deafa736c10d1d5680ccc21a5ad0fb7ae90e7c0bdef48350fac8c",
+      "tier": 1
+     }
+    ],
+    "uncapped_calls_permitted": false
+   }
+  }
+ ],
+ "initial_limits": {
+  "exploratory_pool_units": "0.00",
+  "factor_exposure_units": "0.00",
+  "interpretation": "Research-only zero-capital state.",
+  "per_instrument_exposure_units": "0.00",
+  "per_strategy_allocation_cap_units": "0.00",
+  "per_strategy_lifetime_exploratory_cap_units": "0.00",
+  "portfolio_absolute_net_exposure_units": "0.00",
+  "portfolio_capital_units": "0.00",
+  "portfolio_drawdown_loss_units": "0.00",
+  "portfolio_gross_exposure_units": "0.00",
+  "strategy_versions": []
+ },
+ "ordinary_researcher": "AD-L1.0",
+ "profile": "local-documents-1",
+ "startup": {
+  "apply_0": [
+   "CV1",
+   "AD-CK-L1.0",
+   "AU-CK-L"
+  ],
+  "ordinary_operation_from": 6,
+  "then": [
+   "AU-OBS-L",
+   "charter observation",
+   "initial_limits",
+   "AD-L1.0",
+   "AU-RL-1",
+   "TH-L0"
+  ]
+ },
+ "status": "BUILD_APPROVED_RUNTIME_NOT_INITIALIZED",
+ "theme": {
+  "content": {
+   "ThemeId": "TH-L0",
+   "motivation_closure": "The charter document committed after Apply 1; its sequence is resolved from that commit.",
+   "predecessor": null,
+   "selection_basis": {
+    "cost_estimate_units": "20.00",
+    "decision_it_could_change": "Which investigation to design next.",
+    "experiment": "Designs with recorded expectations, analysed by the host-run calculator and checked independently.",
+    "horizon": "The run.",
+    "origin": "discovery-scope initiative",
+    "stopping_rule": "When the Principal records no further investigation.",
+    "time_estimate_ms": 600000,
+    "uncertainty": "Stated in the charter.",
+    "value_basis": "No investment-economic inference from historical reconstruction alone.",
+    "value_estimate": "UNESTIMATED"
+   },
+   "statement": "Investigations the Principal conducts on local documents under this run's charter.",
+   "typed_claims": [
+    {
+     "kind": "QUESTION",
+     "text": "What do the Principal's documents show about the question stated in the charter?"
+    },
+    {
+     "kind": "ASSUMPTION",
+     "text": "Documents are real material read after the fact; analyses are historical reconstruction and earn no forward standing."
+    }
+   ]
+  },
+  "content_sha256": "c7c65fadc66d94f2cbfbd6f254537c6b355b2f6668af2ff1f579b88ef3570791"
+ }
+}

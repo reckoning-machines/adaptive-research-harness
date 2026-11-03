@@ -1,0 +1,359 @@
+{
+  "accounts": [
+    {
+      "name": "harness-core",
+      "uid": 20000,
+      "gid": 20050
+    },
+    {
+      "name": "harness-principal",
+      "uid": 20001,
+      "gid": 20054
+    },
+    {
+      "name": "harness-observe",
+      "uid": 20002,
+      "gid": 20054
+    },
+    {
+      "name": "harness-clock",
+      "uid": 20003,
+      "gid": 20053
+    },
+    {
+      "name": "harness-ck1",
+      "uid": 20011,
+      "gid": 20054
+    },
+    {
+      "name": "harness-ck2",
+      "uid": 20012,
+      "gid": 20054
+    },
+    {
+      "name": "harness-r01",
+      "uid": 20021,
+      "gid": 20054
+    },
+    {
+      "name": "harness-r02",
+      "uid": 20022,
+      "gid": 20054
+    },
+    {
+      "name": "harness-r03",
+      "uid": 20023,
+      "gid": 20054
+    },
+    {
+      "name": "harness-r04",
+      "uid": 20024,
+      "gid": 20054
+    },
+    {
+      "name": "harness-r05",
+      "uid": 20025,
+      "gid": 20054
+    },
+    {
+      "name": "harness-r06",
+      "uid": 20026,
+      "gid": 20054
+    },
+    {
+      "name": "harness-r07",
+      "uid": 20027,
+      "gid": 20054
+    },
+    {
+      "name": "harness-r08",
+      "uid": 20028,
+      "gid": 20054
+    },
+    {
+      "name": "harness-r09",
+      "uid": 20029,
+      "gid": 20054
+    },
+    {
+      "name": "harness-r10",
+      "uid": 20030,
+      "gid": 20054
+    },
+    {
+      "name": "harness-tool-a",
+      "uid": 20101,
+      "gid": 20101
+    },
+    {
+      "name": "harness-tool-b",
+      "uid": 20102,
+      "gid": 20102
+    }
+  ],
+  "groups": {
+    "harness-clients": 20050,
+    "harness-clock-channel": 20053,
+    "harness-control": 20054,
+    "harness-tool-a": 20101,
+    "harness-tool-b": 20102
+  },
+  "supplementary": {
+    "harness-principal": [
+      "harness-clients",
+      "harness-clock-channel"
+    ],
+    "harness-core": [
+      "harness-clock-channel",
+      "harness-tool-a",
+      "harness-tool-b"
+    ],
+    "harness-observe": [
+      "harness-clients"
+    ],
+    "harness-ck1": [
+      "harness-clients"
+    ],
+    "harness-ck2": [
+      "harness-clients"
+    ],
+    "harness-r01": [
+      "harness-clients"
+    ],
+    "harness-r02": [
+      "harness-clients"
+    ],
+    "harness-r03": [
+      "harness-clients"
+    ],
+    "harness-r04": [
+      "harness-clients"
+    ],
+    "harness-r05": [
+      "harness-clients"
+    ],
+    "harness-r06": [
+      "harness-clients"
+    ],
+    "harness-r07": [
+      "harness-clients"
+    ],
+    "harness-r08": [
+      "harness-clients"
+    ],
+    "harness-r09": [
+      "harness-clients"
+    ],
+    "harness-r10": [
+      "harness-clients"
+    ]
+  },
+  "services": {
+    "core": {
+      "user": "harness-core",
+      "gid": 20050,
+      "state": "core",
+      "socket": "core/commands.sock",
+      "command": "serve --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --socket /run/adaptive-research-harness/core/commands.sock --state /var/lib/adaptive-research-harness/core --clock-socket /run/adaptive-research-harness/clock/clock.sock --tool-a-socket /run/adaptive-research-harness/tool-a/tool.sock --tool-b-socket /run/adaptive-research-harness/tool-b/tool.sock --supervisor-receipts /var/lib/adaptive-research-harness/supervisor",
+      "groups": "harness-clock-channel harness-tool-a harness-tool-b",
+      "paths": [
+        "/var/lib/adaptive-research-harness/core"
+      ]
+    },
+    "clock": {
+      "user": "harness-clock",
+      "gid": 20053,
+      "state": "clock",
+      "socket": "clock/clock.sock",
+      "command": "clock-service --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --socket /run/adaptive-research-harness/clock/clock.sock --state /var/lib/adaptive-research-harness/clock",
+      "groups": "",
+      "paths": [
+        "/var/lib/adaptive-research-harness/clock"
+      ]
+    },
+    "tool-a": {
+      "user": "harness-tool-a",
+      "gid": 20101,
+      "state": "tool-a",
+      "socket": "tool-a/tool.sock",
+      "command": "tool-service --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --tool SYN-A-1 --socket /run/adaptive-research-harness/tool-a/tool.sock --state /var/lib/adaptive-research-harness/tool-a",
+      "groups": "",
+      "paths": [
+        "/var/lib/adaptive-research-harness/tool-a"
+      ]
+    },
+    "tool-b": {
+      "user": "harness-tool-b",
+      "gid": 20102,
+      "state": "tool-b",
+      "socket": "tool-b/tool.sock",
+      "command": "tool-service --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --tool SYN-B-1 --socket /run/adaptive-research-harness/tool-b/tool.sock --state /var/lib/adaptive-research-harness/tool-b",
+      "groups": "",
+      "paths": [
+        "/var/lib/adaptive-research-harness/tool-b"
+      ]
+    },
+    "observe": {
+      "user": "harness-observe",
+      "gid": 20054,
+      "state": "observe",
+      "socket": "observe/control.sock",
+      "command": "actor-service --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --actor \"Observation function\" --socket /run/adaptive-research-harness/observe/control.sock --state /var/lib/adaptive-research-harness/observe --core-socket /run/adaptive-research-harness/core/commands.sock",
+      "groups": "harness-clients",
+      "paths": [
+        "/var/lib/adaptive-research-harness/observe"
+      ]
+    },
+    "ck1": {
+      "user": "harness-ck1",
+      "gid": 20054,
+      "state": "ck1",
+      "socket": "ck1/control.sock",
+      "command": "actor-service --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --actor \"AD-CK-1.0\" --socket /run/adaptive-research-harness/ck1/control.sock --state /var/lib/adaptive-research-harness/ck1 --core-socket /run/adaptive-research-harness/core/commands.sock",
+      "groups": "harness-clients",
+      "paths": [
+        "/var/lib/adaptive-research-harness/ck1"
+      ]
+    },
+    "ck2": {
+      "user": "harness-ck2",
+      "gid": 20054,
+      "state": "ck2",
+      "socket": "ck2/control.sock",
+      "command": "actor-service --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --actor \"AD-CK-2.0\" --socket /run/adaptive-research-harness/ck2/control.sock --state /var/lib/adaptive-research-harness/ck2 --core-socket /run/adaptive-research-harness/core/commands.sock",
+      "groups": "harness-clients",
+      "paths": [
+        "/var/lib/adaptive-research-harness/ck2"
+      ]
+    },
+    "r01": {
+      "user": "harness-r01",
+      "gid": 20054,
+      "state": "r01",
+      "socket": "r01/control.sock",
+      "command": "actor-service --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --actor \"AD-R1.0\" --socket /run/adaptive-research-harness/r01/control.sock --state /var/lib/adaptive-research-harness/r01 --core-socket /run/adaptive-research-harness/core/commands.sock",
+      "groups": "harness-clients",
+      "paths": [
+        "/var/lib/adaptive-research-harness/r01"
+      ]
+    },
+    "r02": {
+      "user": "harness-r02",
+      "gid": 20054,
+      "state": "r02",
+      "socket": "r02/control.sock",
+      "command": "actor-service --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --actor \"AD-R2.0\" --socket /run/adaptive-research-harness/r02/control.sock --state /var/lib/adaptive-research-harness/r02 --core-socket /run/adaptive-research-harness/core/commands.sock",
+      "groups": "harness-clients",
+      "paths": [
+        "/var/lib/adaptive-research-harness/r02"
+      ]
+    },
+    "r03": {
+      "user": "harness-r03",
+      "gid": 20054,
+      "state": "r03",
+      "socket": "r03/control.sock",
+      "command": "actor-service --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --actor \"AD-R3.0\" --socket /run/adaptive-research-harness/r03/control.sock --state /var/lib/adaptive-research-harness/r03 --core-socket /run/adaptive-research-harness/core/commands.sock",
+      "groups": "harness-clients",
+      "paths": [
+        "/var/lib/adaptive-research-harness/r03"
+      ]
+    },
+    "r04": {
+      "user": "harness-r04",
+      "gid": 20054,
+      "state": "r04",
+      "socket": "r04/control.sock",
+      "command": "actor-service --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --actor \"AD-R4.0\" --socket /run/adaptive-research-harness/r04/control.sock --state /var/lib/adaptive-research-harness/r04 --core-socket /run/adaptive-research-harness/core/commands.sock",
+      "groups": "harness-clients",
+      "paths": [
+        "/var/lib/adaptive-research-harness/r04"
+      ]
+    },
+    "r05": {
+      "user": "harness-r05",
+      "gid": 20054,
+      "state": "r05",
+      "socket": "r05/control.sock",
+      "command": "actor-service --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --actor \"AD-R5.0\" --socket /run/adaptive-research-harness/r05/control.sock --state /var/lib/adaptive-research-harness/r05 --core-socket /run/adaptive-research-harness/core/commands.sock",
+      "groups": "harness-clients",
+      "paths": [
+        "/var/lib/adaptive-research-harness/r05"
+      ]
+    },
+    "r06": {
+      "user": "harness-r06",
+      "gid": 20054,
+      "state": "r06",
+      "socket": "r06/control.sock",
+      "command": "actor-service --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --actor \"AD-R6.0\" --socket /run/adaptive-research-harness/r06/control.sock --state /var/lib/adaptive-research-harness/r06 --core-socket /run/adaptive-research-harness/core/commands.sock",
+      "groups": "harness-clients",
+      "paths": [
+        "/var/lib/adaptive-research-harness/r06"
+      ]
+    },
+    "r07": {
+      "user": "harness-r07",
+      "gid": 20054,
+      "state": "r07",
+      "socket": "r07/control.sock",
+      "command": "actor-service --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --actor \"AD-R7.0\" --socket /run/adaptive-research-harness/r07/control.sock --state /var/lib/adaptive-research-harness/r07 --core-socket /run/adaptive-research-harness/core/commands.sock",
+      "groups": "harness-clients",
+      "paths": [
+        "/var/lib/adaptive-research-harness/r07"
+      ]
+    },
+    "r08": {
+      "user": "harness-r08",
+      "gid": 20054,
+      "state": "r08",
+      "socket": "r08/control.sock",
+      "command": "actor-service --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --actor \"AD-R8.0\" --socket /run/adaptive-research-harness/r08/control.sock --state /var/lib/adaptive-research-harness/r08 --core-socket /run/adaptive-research-harness/core/commands.sock",
+      "groups": "harness-clients",
+      "paths": [
+        "/var/lib/adaptive-research-harness/r08"
+      ]
+    },
+    "r09": {
+      "user": "harness-r09",
+      "gid": 20054,
+      "state": "r09",
+      "socket": "r09/control.sock",
+      "command": "actor-service --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --actor \"AD-R9.0\" --socket /run/adaptive-research-harness/r09/control.sock --state /var/lib/adaptive-research-harness/r09 --core-socket /run/adaptive-research-harness/core/commands.sock",
+      "groups": "harness-clients",
+      "paths": [
+        "/var/lib/adaptive-research-harness/r09"
+      ]
+    },
+    "r10": {
+      "user": "harness-r10",
+      "gid": 20054,
+      "state": "r10",
+      "socket": "r10/control.sock",
+      "command": "actor-service --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --actor \"AD-R10.0\" --socket /run/adaptive-research-harness/r10/control.sock --state /var/lib/adaptive-research-harness/r10 --core-socket /run/adaptive-research-harness/core/commands.sock",
+      "groups": "harness-clients",
+      "paths": [
+        "/var/lib/adaptive-research-harness/r10"
+      ]
+    }
+  },
+  "units": [
+    "harness-core.service",
+    "harness-clock.service",
+    "harness-tool-a.service",
+    "harness-tool-b.service",
+    "harness-observe.service",
+    "harness-ck1.service",
+    "harness-ck2.service",
+    "harness-r01.service",
+    "harness-r02.service",
+    "harness-r03.service",
+    "harness-r04.service",
+    "harness-r05.service",
+    "harness-r06.service",
+    "harness-r07.service",
+    "harness-r08.service",
+    "harness-r09.service",
+    "harness-r10.service"
+  ]
+}

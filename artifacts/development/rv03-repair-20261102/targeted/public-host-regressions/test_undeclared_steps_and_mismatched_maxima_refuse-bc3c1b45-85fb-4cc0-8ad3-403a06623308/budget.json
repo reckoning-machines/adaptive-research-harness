@@ -1,0 +1,11 @@
+{
+  "E": 11,
+  "N": 1,
+  "committed": "0.25",
+  "grant": "AU-CK-RV3",
+  "headroom": "11.75",
+  "overspent": false,
+  "reserved": "0.25",
+  "spendable": "11.75",
+  "time_ms": 1793232000000
+}

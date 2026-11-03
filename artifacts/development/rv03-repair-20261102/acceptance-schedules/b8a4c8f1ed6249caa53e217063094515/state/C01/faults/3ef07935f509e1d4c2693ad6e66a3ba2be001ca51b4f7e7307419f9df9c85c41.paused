@@ -1,0 +1,1 @@
+{"fault":{"case":"C01","kind":"PAUSE_AT_BOUNDARY","point":"before_reserve_commit","target":"f41728eb-d1ab-4767-b937-af94182ce41b"},"generation":{"pid":23916,"run":"c86a78c09fe3464999eb6ad8a5d88f7f"},"point":"before_reserve_commit"}

@@ -1,0 +1,34 @@
+[Unit]
+Description=Adaptive Research Harness fixed tool-b process
+After=local-fs.target
+
+[Service]
+Type=simple
+User=harness-tool-b
+Group=20102
+SupplementaryGroups=
+WorkingDirectory=/opt/adaptive-research-harness
+Environment=PYTHONPATH=/opt/adaptive-research-harness PYTHONDONTWRITEBYTECODE=1 PYTHONNOUSERSITE=1
+ExecStart=/usr/bin/python3 -s -m adaptive_research_harness tool-service --bundle /opt/adaptive-research-harness/docs/builds/first_cycle_20261029/run_bundle --root /opt/adaptive-research-harness --run-approval /etc/adaptive-research-harness/run-approval.json --tool SYN-B-1 --socket /run/adaptive-research-harness/tool-b/tool.sock --state /var/lib/adaptive-research-harness/tool-b
+Restart=no
+KillMode=control-group
+SendSIGKILL=yes
+TimeoutStopSec=5
+UMask=0027
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateNetwork=yes
+RestrictAddressFamilies=AF_UNIX
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+CapabilityBoundingSet=
+ReadWritePaths=/run/adaptive-research-harness/tool-b /var/lib/adaptive-research-harness/tool-b
+
+[Install]
+WantedBy=multi-user.target
